@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" role="img" aria-labelledby="title desc">
+  <title id="title">고이동성 채널의 변환영역 표현</title>
+  <desc id="desc">OFDM FFT 영역에서는 Doppler 에너지가 대각선 주변에 확산되고, AFDM DAFT 영역에서는 delay-Doppler 경로가 분리된 shifted diagonal로 나타나는 개념 비교도다.</desc>
+  <defs>
+    <style>
+      .t{font-family:Arial,'Noto Sans KR',sans-serif;fill:#111827}.title{font-size:58px;font-weight:700}.head{font-size:38px;font-weight:700}.body{font-size:28px}.small{font-size:22px}.frame{fill:#fff;stroke:#374151;stroke-width:4}.cell{stroke:#e5e7eb;stroke-width:1}.blue1{fill:#dbeafe}.blue2{fill:#93c5fd}.blue3{fill:#2563eb}.red1{fill:#fee2e2}.red2{fill:#fca5a5}.red3{fill:#dc2626}.green1{fill:#dcfce7}.green3{fill:#16a34a}.purple1{fill:#f3e8ff}.purple3{fill:#9333ea}.note{fill:#f9fafb;stroke:#d1d5db;stroke-width:3;rx:20}
+    </style>
+  </defs>
+  <rect width="1920" height="1080" fill="#ffffff"/>
+  <text x="1815" y="62" text-anchor="end" class="t small" fill="#6b7280">개념도</text>
+  <text x="960" y="88" text-anchor="middle" class="t title">같은 고이동성 채널, 다른 변환영역 표현</text>
+
+  <text x="500" y="165" text-anchor="middle" class="t head">OFDM: FFT 영역</text>
+  <text x="1420" y="165" text-anchor="middle" class="t head">AFDM: DAFT 영역</text>
+
+  <g transform="translate(190 220)">
+    <rect width="620" height="620" class="frame"/>
+    <g class="cell" fill="#ffffff">
+      <path d="M62 0V620M124 0V620M186 0V620M248 0V620M310 0V620M372 0V620M434 0V620M496 0V620M558 0V620"/>
+      <path d="M0 62H620M0 124H620M0 186H620M0 248H620M0 310H620M0 372H620M0 434H620M0 496H620M0 558H620"/>
+    </g>
+    <g>
+      <rect x="0" y="0" width="62" height="62" class="red3"/><rect x="62" y="0" width="62" height="62" class="red2"/><rect x="0" y="62" width="62" height="62" class="red2"/>
+      <rect x="62" y="62" width="62" height="62" class="red3"/><rect x="124" y="62" width="62" height="62" class="red2"/><rect x="62" y="124" width="62" height="62" class="red2"/>
+      <rect x="124" y="124" width="62" height="62" class="red3"/><rect x="186" y="124" width="62" height="62" class="red2"/><rect x="124" y="186" width="62" height="62" class="red2"/>
+      <rect x="186" y="186" width="62" height="62" class="red3"/><rect x="248" y="186" width="62" height="62" class="red2"/><rect x="186" y="248" width="62" height="62" class="red2"/>
+      <rect x="248" y="248" width="62" height="62" class="red3"/><rect x="310" y="248" width="62" height="62" class="red2"/><rect x="248" y="310" width="62" height="62" class="red2"/>
+      <rect x="310" y="310" width="62" height="62" class="red3"/><rect x="372" y="310" width="62" height="62" class="red2"/><rect x="310" y="372" width="62" height="62" class="red2"/>
+      <rect x="372" y="372" width="62" height="62" class="red3"/><rect x="434" y="372" width="62" height="62" class="red2"/><rect x="372" y="434" width="62" height="62" class="red2"/>
+      <rect x="434" y="434" width="62" height="62" class="red3"/><rect x="496" y="434" width="62" height="62" class="red2"/><rect x="434" y="496" width="62" height="62" class="red2"/>
+      <rect x="496" y="496" width="62" height="62" class="red3"/><rect x="558" y="496" width="62" height="62" class="red2"/><rect x="496" y="558" width="62" height="62" class="red2"/>
+      <rect x="558" y="558" width="62" height="62" class="red3"/><rect x="558" y="0" width="62" height="62" class="red1"/><rect x="0" y="558" width="62" height="62" class="red1"/>
+    </g>
+    <text x="310" y="675" text-anchor="middle" class="t body">Doppler가 대각선 주변으로 확산</text>
+    <text x="310" y="715" text-anchor="middle" class="t body">→ 여러 부반송파가 서로 간섭</text>
+  </g>
+
+  <g transform="translate(1110 220)">
+    <rect width="620" height="620" class="frame"/>
+    <g class="cell" fill="#ffffff">
+      <path d="M62 0V620M124 0V620M186 0V620M248 0V620M310 0V620M372 0V620M434 0V620M496 0V620M558 0V620"/>
+      <path d="M0 62H620M0 124H620M0 186H620M0 248H620M0 310H620M0 372H620M0 434H620M0 496H620M0 558H620"/>
+    </g>
+    <g>
+      <rect x="0" y="124" width="62" height="62" class="blue3"/><rect x="62" y="186" width="62" height="62" class="blue3"/><rect x="124" y="248" width="62" height="62" class="blue3"/><rect x="186" y="310" width="62" height="62" class="blue3"/><rect x="248" y="372" width="62" height="62" class="blue3"/><rect x="310" y="434" width="62" height="62" class="blue3"/><rect x="372" y="496" width="62" height="62" class="blue3"/><rect x="434" y="558" width="62" height="62" class="blue3"/><rect x="496" y="0" width="62" height="62" class="blue3"/><rect x="558" y="62" width="62" height="62" class="blue3"/>
+      <rect x="0" y="372" width="62" height="62" class="green3"/><rect x="62" y="434" width="62" height="62" class="green3"/><rect x="124" y="496" width="62" height="62" class="green3"/><rect x="186" y="558" width="62" height="62" class="green3"/><rect x="248" y="0" width="62" height="62" class="green3"/><rect x="310" y="62" width="62" height="62" class="green3"/><rect x="372" y="124" width="62" height="62" class="green3"/><rect x="434" y="186" width="62" height="62" class="green3"/><rect x="496" y="248" width="62" height="62" class="green3"/><rect x="558" y="310" width="62" height="62" class="green3"/>
+      <rect x="0" y="558" width="62" height="62" class="purple3"/><rect x="62" y="0" width="62" height="62" class="purple3"/><rect x="124" y="62" width="62" height="62" class="purple3"/><rect x="186" y="124" width="62" height="62" class="purple3"/><rect x="248" y="186" width="62" height="62" class="purple3"/><rect x="310" y="248" width="62" height="62" class="purple3"/><rect x="372" y="310" width="62" height="62" class="purple3"/><rect x="434" y="372" width="62" height="62" class="purple3"/><rect x="496" y="434" width="62" height="62" class="purple3"/><rect x="558" y="496" width="62" height="62" class="purple3"/>
+    </g>
+    <text x="310" y="675" text-anchor="middle" class="t body">각 delay-Doppler 경로가 다른 위치로 이동</text>
+    <text x="310" y="715" text-anchor="middle" class="t body">→ 희소하고 구조적인 경로 표현</text>
+  </g>
+
+  <rect x="265" y="955" width="1390" height="82" class="note"/>
+  <text x="960" y="1007" text-anchor="middle" class="t body">AFDM의 목표는 Doppler 제거가 아니라, 경로를 DAFT 영역에서 분리하고 diversity를 활용하는 것이다.</text>
+</svg>
+
