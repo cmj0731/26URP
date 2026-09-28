@@ -1,0 +1,40 @@
+{
+  "name": "starlink_5285_skku_downlink_pass_v1",
+  "status": "draft",
+  "direction": "satellite_to_ground_downlink",
+  "orbit_source": {
+    "repository": "https://github.com/cmj0731/starlink-downlink-simulation",
+    "commit": "955f0818f66104cb8d264bbcccf39c117319b26c",
+    "fixture_path": "data/fixtures/starlink_5285_norad_55296_epoch_20260727T115354Z_omm.json",
+    "local_copy": "data/starlink_5285_omm.json",
+    "propagator": "SGP4"
+  },
+  "satellite": {
+    "name": "STARLINK-5285",
+    "norad_catalog_id": 55296
+  },
+  "ground_station": {
+    "name": "Sungkyunkwan University Natural Sciences Campus",
+    "latitude_deg": 37.2934,
+    "longitude_deg": 126.9747,
+    "altitude_m": 0.0
+  },
+  "pass_search": {
+    "start_utc": "2026-07-29T00:00:00Z",
+    "end_utc": "2026-07-30T00:00:00Z",
+    "minimum_elevation_deg": 10.0,
+    "coarse_step_s": 30.0,
+    "selection": "highest_peak_elevation"
+  },
+  "selected_pass": {
+    "visible_start_utc": "2026-07-29T07:42:36.760Z",
+    "peak_utc": "2026-07-29T07:46:50.803Z",
+    "closest_approach_utc": "2026-07-29T07:46:50.954Z",
+    "visible_end_utc": "2026-07-29T07:51:02.674Z",
+    "duration_s": 505.914,
+    "peak_elevation_deg": 85.164878,
+    "slant_range_at_peak_km": 579.706,
+    "minimum_slant_range_km": 579.705,
+    "visible_passes_in_search": 2
+  }
+}
