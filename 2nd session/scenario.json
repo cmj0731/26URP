@@ -23,7 +23,8 @@
   },
   "radio": {
     "downlink_band": "Ku",
-    "carrier_frequency_hz": null,
+    "carrier_frequency_hz": 11700000000.0,
+    "carrier_frequency_basis": "Representative Ku-band frequency for the four-scheme BER comparison; not a measured channel assignment for STARLINK-5285.",
     "signal_bandwidth_hz": null
   },
   "pass_search": {
