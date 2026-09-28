@@ -30,9 +30,10 @@
     "nominal_grid_bandwidth_hz": 60000000.0,
     "edge_guard_bins_left": 0,
     "edge_guard_bins_right": 0,
-    "dc_null_bins": null,
+    "dc_null_bins": 0,
+    "available_frequency_bins": 256,
     "occupied_bandwidth_hz": null,
-    "bandwidth_basis": "One-quarter of the observed 240 MHz Starlink Ku channel width for computational tractability, retaining the observed subcarrier spacing; this is a simulation choice, not the measured bandwidth of STARLINK-5285. The initial BER comparison uses no edge guard bins; DC null allocation and measured spectral occupancy remain undecided."
+    "bandwidth_basis": "One-quarter of the observed 240 MHz Starlink Ku channel width for computational tractability, retaining the observed subcarrier spacing; this is a simulation choice, not the measured bandwidth of STARLINK-5285. The initial BER comparison uses all 256 bins without edge guard or DC null bins; guard/DC sensitivity studies and measured spectral occupancy remain for later."
   },
   "pass_search": {
     "start_utc": "2026-07-29T00:00:00Z",
