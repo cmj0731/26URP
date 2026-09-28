@@ -36,5 +36,9 @@
     "slant_range_at_peak_km": 579.706,
     "minimum_slant_range_km": 579.705,
     "visible_passes_in_search": 2
+  },
+  "evaluation": {
+    "primary_metric": "BER",
+    "definition": "incorrect_received_information_bits / transmitted_information_bits"
   }
 }

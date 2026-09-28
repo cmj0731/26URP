@@ -1,8 +1,8 @@
 # 2nd session: Starlink downlink 방식 비교
 
 OFDM, AFDM, OTFS, DD-a-OFDM 비교를 위한 공통 시나리오를 관리한다.
-현재 `scenario.json`에는 위성과 지상국의 기하 조건만 정의했다.
-무선 주파수·대역폭, 전파 채널, 수신기 가정, 성능 지표는 아직 결정하지 않았다.
+현재 `scenario.json`에는 위성과 지상국의 기하 조건 및 1차 평가 지표 BER을 정의했다.
+무선 주파수·대역폭, 전파 채널, 수신기 가정은 아직 결정하지 않았다.
 
 ## 시나리오 초안
 
@@ -18,6 +18,11 @@ OFDM, AFDM, OTFS, DD-a-OFDM 비교를 위한 공통 시나리오를 관리한다
 자료 출처는 [`cmj0731/starlink-downlink-simulation`의 `955f0818` 커밋](https://github.com/cmj0731/starlink-downlink-simulation/tree/955f0818f66104cb8d264bbcccf39c117319b26c)이다.
 지상국 좌표와 궤도 자료만 고정 입력으로 가져왔으며, 원본의 파형·주파수·채널
 설정은 이번 비교에 채택하지 않았다.
+
+## 평가 지표
+
+1차 지표는 BER(잘못 수신한 정보 비트 수 / 전송한 정보 비트 수)로 확정했다.
+비교 축, 부호화 여부, 반복 횟수와 보조 지표는 이후 결정한다.
 
 ## 통과 구간 다시 계산하기
 
