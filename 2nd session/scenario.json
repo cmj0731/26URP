@@ -18,7 +18,13 @@
     "name": "Sungkyunkwan University Natural Sciences Campus",
     "latitude_deg": 37.2934,
     "longitude_deg": 126.9747,
-    "altitude_m": 0.0
+    "altitude_m": 0.0,
+    "receive_only": true
+  },
+  "radio": {
+    "downlink_band": "Ku",
+    "carrier_frequency_hz": null,
+    "signal_bandwidth_hz": null
   },
   "pass_search": {
     "start_utc": "2026-07-29T00:00:00Z",
