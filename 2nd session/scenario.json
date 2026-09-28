@@ -2,6 +2,7 @@
   "name": "starlink_5285_skku_downlink_pass_v1",
   "status": "draft",
   "direction": "satellite_to_ground_downlink",
+  "objective": "Compare the BER of OFDM, AFDM, OTFS, and DD-a-OFDM under the same SKKU–STARLINK-5285 downlink conditions and the same received Eb/N0.",
   "orbit_source": {
     "repository": "https://github.com/cmj0731/starlink-downlink-simulation",
     "commit": "955f0818f66104cb8d264bbcccf39c117319b26c",
@@ -39,6 +40,7 @@
   },
   "evaluation": {
     "primary_metric": "BER",
-    "definition": "incorrect_received_information_bits / transmitted_information_bits"
+    "definition": "incorrect_received_information_bits / transmitted_information_bits",
+    "comparison_axis": "received_Eb_N0_dB"
   }
 }
