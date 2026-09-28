@@ -53,4 +53,3 @@
   <rect x="265" y="955" width="1390" height="82" class="note"/>
   <text x="960" y="1007" text-anchor="middle" class="t body">AFDM의 목표는 Doppler 제거가 아니라, 경로를 DAFT 영역에서 분리하고 diversity를 활용하는 것이다.</text>
 </svg>
-

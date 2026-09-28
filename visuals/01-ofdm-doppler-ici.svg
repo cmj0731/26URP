@@ -44,4 +44,3 @@
   <text x="960" y="950" text-anchor="middle" class="t body">수신 부반송파가 FFT 기저와 어긋나면, 다른 부반송파 출력에도 성분이 나타난다.</text>
   <text x="960" y="992" text-anchor="middle" class="t head" fill="#dc2626">→ Inter-Carrier Interference (ICI)</text>
 </svg>
-

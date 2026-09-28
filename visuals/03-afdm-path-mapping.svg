@@ -45,4 +45,3 @@
   <rect x="280" y="945" width="1360" height="90" rx="18" fill="#eff6ff" stroke="#93c5fd" stroke-width="3"/>
   <text x="960" y="1002" text-anchor="middle" class="t body">경로 분리 → 구조적인 채널 추정 및 검출 → 여러 경로의 diversity 활용</text>
 </svg>
-
