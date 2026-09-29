@@ -67,7 +67,8 @@
     "low_doppler_hz": null,
     "high_doppler_hz": null,
     "receiver_doppler_compensation": null,
-    "basis": "Compare all four waveforms under both low- and high-Doppler snapshots at the same received Eb/N0; select the exact times and orbit-derived Doppler values later. Other channel assumptions must be controlled to attribute changes to Doppler."
+    "doppler_value_source": "Computed, not chosen: orbit-derived slant-range rate at each selected snapshot multiplied by -carrier_frequency_hz / speed_of_light.",
+    "basis": "Compare all four waveforms under both low- and high-Doppler snapshots at the same received Eb/N0. Select the snapshot times later; their Doppler values are then determined by the pinned orbit, station coordinates, and carrier frequency. Other channel assumptions must be controlled to attribute changes to Doppler."
   },
   "evaluation": {
     "primary_metric": "BER",
