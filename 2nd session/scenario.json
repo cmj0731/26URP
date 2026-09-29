@@ -71,7 +71,35 @@
       "includes_los": true,
       "total_path_count_including_los": 3,
       "reflected_path_count": 2,
-      "path_delay_power_doppler_profile": null
+      "profile_basis": "Agreed synthetic, LOS-dominant three-path comparison condition; not a measurement of the SKKU–STARLINK-5285 channel or a standardized NTN profile.",
+      "same_profile_at_low_and_high_doppler_snapshots": true,
+      "doppler_model": "Apply the orbit-derived LOS Doppler at each snapshot to all three paths, with zero additional per-path Doppler as a first approximation for a fixed ground station and stationary local reflectors. This does not model differential Doppler spread.",
+      "path_delay_power_doppler_profile": [
+        {
+          "path": "los",
+          "excess_delay_ns": 0.0,
+          "excess_delay_samples_at_60mhz": 0,
+          "relative_power_db_to_los": 0.0,
+          "additional_doppler_hz_to_los": 0.0
+        },
+        {
+          "path": "reflection_1",
+          "excess_delay_ns": 33.333333,
+          "excess_delay_samples_at_60mhz": 2,
+          "relative_power_db_to_los": -10.0,
+          "additional_doppler_hz_to_los": 0.0
+        },
+        {
+          "path": "reflection_2",
+          "excess_delay_ns": 83.333333,
+          "excess_delay_samples_at_60mhz": 5,
+          "relative_power_db_to_los": -15.0,
+          "additional_doppler_hz_to_los": 0.0
+        }
+      ],
+      "path_phase_and_gain_realization": null,
+      "power_normalization": null,
+      "waveform_prefix_or_guard_duration": null
     }
   },
   "doppler_comparison": {
