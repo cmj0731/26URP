@@ -42,6 +42,17 @@
     "bit_mapping": null,
     "constellation_normalization": null
   },
+  "frame_design": {
+    "status": "provisional_candidate_not_final",
+    "time_symbol_count_candidate": 64,
+    "useful_symbol_duration_s_without_prefix": 0.000004266666666667,
+    "useful_frame_duration_s_without_prefix": 0.000273066666666667,
+    "nominal_doppler_bin_spacing_hz_without_prefix": 3662.109375,
+    "prefix_or_guard_duration_s": null,
+    "total_frame_duration_s": null,
+    "data_and_pilot_allocation": null,
+    "basis": "A manageable first BER frame candidate using the agreed 256-bin, 234.375 kHz grid. The DD-a-OFDM reference uses 64 time symbols but a different subcarrier spacing; 64 here is not orbit-derived or physically optimal. Confirm after receiver handling of the large common Doppler and guard/pilot design are discussed."
+  },
   "pass_search": {
     "start_utc": "2026-07-29T00:00:00Z",
     "end_utc": "2026-07-30T00:00:00Z",
