@@ -53,6 +53,21 @@
     "data_and_pilot_allocation": null,
     "basis": "A manageable first BER frame candidate using the agreed 256-bin, 234.375 kHz grid. The DD-a-OFDM reference uses 64 time symbols but a different subcarrier spacing; 64 here is not orbit-derived or physically optimal. Confirm after receiver handling of the large common Doppler and guard/pilot design are discussed."
   },
+  "pilot_comparison_policy": {
+    "status": "fairness_principle_agreed_details_pending",
+    "pilot_plus_pilot_guard_resource_fraction_rule": "Use the same fraction of the frame's resources for pilots and pilot-specific guard or reserved cells across all four schemes.",
+    "pilot_plus_pilot_guard_resource_fraction": null,
+    "total_pilot_energy_rule": "Match the total energy allocated to pilot signals across all four schemes; do not treat a higher-power pilot as free.",
+    "total_pilot_energy": null,
+    "placement": {
+      "OFDM": "time_frequency_grid",
+      "DD-a-OFDM": "same_time_frequency_pilot_positions_as_OFDM; DD-domain channel estimation at receiver",
+      "AFDM": "waveform_native_DAFT_domain",
+      "OTFS": "waveform_native_delay_doppler_domain"
+    },
+    "pilot_locations_and_counts": null,
+    "note": "Pilot-specific guards are distinct from the already-agreed zero spectral edge guard bins. Large common-Doppler acquisition and each scheme's channel estimator are still undecided."
+  },
   "pass_search": {
     "start_utc": "2026-07-29T00:00:00Z",
     "end_utc": "2026-07-30T00:00:00Z",
