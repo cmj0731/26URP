@@ -100,12 +100,21 @@
       "path_phase_and_gain_realization": {
         "path_magnitudes": "Fixed at the agreed relative powers throughout each frame; no within-frame amplitude fading in the first comparison.",
         "relative_phases": "Draw a new random reflection-path phase combination for each independent BER trial and keep it fixed within that trial's frame.",
-        "phase_distribution": null,
+        "phase_distribution": {
+          "los_phase_reference_rad": 0.0,
+          "reflection_phases_rad": "Independent continuous uniform draws on [0, 2*pi) for each BER trial."
+        },
         "paired_comparison": "Reuse the same initial relative-phase realization for OFDM, AFDM, OTFS, and DD-a-OFDM and for the low- and high-Doppler snapshots within a trial.",
         "within_frame_time_variation": "Retain only the orbit-derived common Doppler phase rotation; do not add random amplitude evolution or differential phase/Doppler evolution between paths.",
         "time_varying_fading_followup": "deferred"
       },
-      "power_normalization": null,
+      "power_normalization": {
+        "method": "unit_total_average_path_power",
+        "unnormalized_linear_path_power_from_relative_db": "P_p = 10^(relative_power_db_to_los/10)",
+        "common_complex_gain_scale": "1/sqrt(sum_p(P_p)); apply once to all path gains so sum_p(|h_p|^2) = 1 while preserving the agreed relative powers.",
+        "scope": "Channel-profile level, not a per-frame or per-frequency-bin received-power adjustment.",
+        "receiver_noise": "Not yet specified or added; define it later from the agreed received Eb/N0 convention."
+      },
       "waveform_prefix_or_guard_duration": null
     }
   },
