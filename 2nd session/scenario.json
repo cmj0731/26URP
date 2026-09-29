@@ -97,7 +97,14 @@
           "additional_doppler_hz_to_los": 0.0
         }
       ],
-      "path_phase_and_gain_realization": null,
+      "path_phase_and_gain_realization": {
+        "path_magnitudes": "Fixed at the agreed relative powers throughout each frame; no within-frame amplitude fading in the first comparison.",
+        "relative_phases": "Draw a new random reflection-path phase combination for each independent BER trial and keep it fixed within that trial's frame.",
+        "phase_distribution": null,
+        "paired_comparison": "Reuse the same initial relative-phase realization for OFDM, AFDM, OTFS, and DD-a-OFDM and for the low- and high-Doppler snapshots within a trial.",
+        "within_frame_time_variation": "Retain only the orbit-derived common Doppler phase rotation; do not add random amplitude evolution or differential phase/Doppler evolution between paths.",
+        "time_varying_fading_followup": "deferred"
+      },
       "power_normalization": null,
       "waveform_prefix_or_guard_duration": null
     }
