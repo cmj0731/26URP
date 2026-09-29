@@ -35,6 +35,13 @@
     "occupied_bandwidth_hz": null,
     "bandwidth_basis": "One-quarter of the observed 240 MHz Starlink Ku channel width for computational tractability, retaining the observed subcarrier spacing; this is a simulation choice, not the measured bandwidth of STARLINK-5285. The initial BER comparison uses all 256 bins without edge guard or DC null bins; guard/DC sensitivity studies and measured spectral occupancy remain for later."
   },
+  "common_symbol_modulation": {
+    "constellation": "16-QAM",
+    "modulation_order": 16,
+    "bits_per_symbol": 4,
+    "bit_mapping": null,
+    "constellation_normalization": null
+  },
   "pass_search": {
     "start_utc": "2026-07-29T00:00:00Z",
     "end_utc": "2026-07-30T00:00:00Z",
