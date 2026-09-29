@@ -113,10 +113,21 @@
         "unnormalized_linear_path_power_from_relative_db": "P_p = 10^(relative_power_db_to_los/10)",
         "common_complex_gain_scale": "1/sqrt(sum_p(P_p)); apply once to all path gains so sum_p(|h_p|^2) = 1 while preserving the agreed relative powers.",
         "scope": "Channel-profile level, not a per-frame or per-frequency-bin received-power adjustment.",
-        "receiver_noise": "Not yet specified or added; define it later from the agreed received Eb/N0 convention."
+        "receiver_noise": "The noise model is selected separately; its variance is not yet specified or implemented."
       },
       "waveform_prefix_or_guard_duration": null
     }
+  },
+  "noise_model": {
+    "status": "model_selected_not_implemented",
+    "type": "complex_awgn",
+    "injection_point": "Once at the receiver, after the LOS and any reflected signal paths are combined.",
+    "per_path_noise": false,
+    "mean": 0.0,
+    "sample_independence": "independent_across_samples",
+    "noise_variance": null,
+    "received_eb_n0_to_noise_variance_rule": null,
+    "basis": "A controlled first BER comparison; interference, phase noise, and other real-link impairments are not included in this noise model."
   },
   "doppler_comparison": {
     "conditions": ["low", "high"],
