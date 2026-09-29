@@ -60,6 +60,19 @@
     "minimum_slant_range_km": 579.705,
     "visible_passes_in_search": 2
   },
+  "channel_model": {
+    "baseline": {
+      "type": "single_path_los",
+      "path_count_including_los": 1,
+      "purpose": "Initial controlled BER comparison with orbit-derived LOS Doppler."
+    },
+    "multipath_followup": {
+      "status": "planned",
+      "includes_los": true,
+      "total_path_count_including_los": null,
+      "path_delay_power_doppler_profile": null
+    }
+  },
   "doppler_comparison": {
     "conditions": ["low", "high"],
     "low_snapshot_selection": "selected_pass.peak_utc",
