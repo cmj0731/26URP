@@ -69,7 +69,8 @@
     "multipath_followup": {
       "status": "planned",
       "includes_los": true,
-      "total_path_count_including_los": null,
+      "total_path_count_including_los": 3,
+      "reflected_path_count": 2,
       "path_delay_power_doppler_profile": null
     }
   },
