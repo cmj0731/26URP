@@ -64,6 +64,14 @@
     "primary_metric": "BER",
     "definition": "incorrect_received_information_bits / transmitted_information_bits",
     "comparison_axis": "received_Eb_N0_dB",
+    "eb_n0_exploratory_sweep_db": [0, 5, 10, 15, 20, 25, 30],
+    "eb_n0_refinement": {
+      "region_db": null,
+      "step_db": null,
+      "candidate_step_db": [1, 2],
+      "selection_basis": "Select the region where BER changes or the four waveforms differ after the exploratory sweep; extend the bounds if needed."
+    },
+    "eb_n0_sweep_basis": "A computationally economical initial scan, not a measured STARLINK-5285 receive SNR range.",
     "channel_coding_initial_comparison": "none",
     "channel_coding_followup": "deferred; apply the same code to all four waveforms if studied later"
   }
