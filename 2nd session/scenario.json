@@ -63,6 +63,8 @@
   "evaluation": {
     "primary_metric": "BER",
     "definition": "incorrect_received_information_bits / transmitted_information_bits",
-    "comparison_axis": "received_Eb_N0_dB"
+    "comparison_axis": "received_Eb_N0_dB",
+    "channel_coding_initial_comparison": "none",
+    "channel_coding_followup": "deferred; apply the same code to all four waveforms if studied later"
   }
 }
