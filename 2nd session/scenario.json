@@ -62,13 +62,15 @@
   },
   "doppler_comparison": {
     "conditions": ["low", "high"],
-    "low_snapshot_utc": null,
-    "high_snapshot_utc": null,
-    "low_doppler_hz": null,
-    "high_doppler_hz": null,
+    "low_snapshot_selection": "selected_pass.peak_utc",
+    "high_snapshot_selection": "selected_pass.visible_end_utc",
+    "low_snapshot_utc": "2026-07-29T07:46:50.803Z",
+    "high_snapshot_utc": "2026-07-29T07:51:02.674Z",
+    "low_doppler_hz": 509.2,
+    "high_doppler_hz": -261029.1,
     "receiver_doppler_compensation": null,
-    "doppler_value_source": "Computed, not chosen: orbit-derived slant-range rate at each selected snapshot multiplied by -carrier_frequency_hz / speed_of_light.",
-    "basis": "Compare all four waveforms under both low- and high-Doppler snapshots at the same received Eb/N0. Select the snapshot times later; their Doppler values are then determined by the pinned orbit, station coordinates, and carrier frequency. Other channel assumptions must be controlled to attribute changes to Doppler."
+    "doppler_value_source": "Computed, not chosen: -carrier_frequency_hz * slant_range_rate / speed_of_light, with slant-range rate estimated by a 1-second centered difference; Doppler values rounded to 0.1 Hz.",
+    "basis": "Use peak elevation for low Doppler and the visible-pass exit at 10 degrees elevation for high Doppler in the current draft pass. Compare all four waveforms at the same received Eb/N0. Recompute times and shifts if the draft pass changes. Other channel assumptions must be controlled to attribute changes to Doppler."
   },
   "evaluation": {
     "primary_metric": "BER",
