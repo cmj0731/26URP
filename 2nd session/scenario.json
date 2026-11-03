@@ -81,20 +81,24 @@
     "daft_rule": "Use a unitary Fourier block and unit-magnitude chirp factors for the DAFT/IDAFT pair; this does not choose AFDM chirp parameters.",
     "frame_scaling": "Use fixed analytic transform factors; do not rescale each random frame to a forced empirical signal power or energy.",
     "prefix_and_pilot_energy": "Preserve pilot energy through the useful-signal transforms when present. Count energy introduced by prefixes or other added samples separately; do not hide overhead by renormalizing the complete transmitted frame.",
-    "note": "The initial sample grid is fixed separately in sampling_model. OTFS useful-signal transforms use the agreed rectangular transmit/receive windows in waveform_design.OTFS. Physical RF filtering, prefix lengths, pilot allocations, and waveform-specific channel estimation/equalization remain to be designed."
+    "note": "The initial sample grid is fixed separately in sampling_model. OTFS uses the agreed rectangular transmit/receive windows. The first three-path stage uses the common five-sample slot CP in prefix_policy. Physical RF filtering, actual pilot masks, and remaining channel estimation/equalization details are pending."
   },
   "frame_design": {
-    "status": "64_time_symbols_agreed_for_initial_baseline_not_implemented",
+    "status": "common_64_symbol_grid_and_three_path_slot_cp_agreed_full_ber_frame_pending",
     "time_symbol_count": 64,
     "useful_symbol_duration_s_without_prefix": 0.000004266666666667,
     "useful_frame_duration_s_without_prefix": 0.000273066666666667,
     "useful_sample_count_without_prefix": 16384,
     "nominal_doppler_bin_spacing_hz_without_prefix": 3662.109375,
-    "prefix_or_guard_duration_s": null,
-    "total_frame_duration_s": null,
+    "prefix_or_guard_duration_s": 0.00000008333333333333334,
+    "total_frame_duration_s": 0.0002784,
+    "total_frame_sample_count_with_prefix": 16704,
+    "nominal_doppler_bin_spacing_hz_with_prefix": 3591.9540229885056,
+    "prefixed_timing_scope": "First pilot-based three-path comparison only. The without_prefix values remain the useful-grid and initial baseline references; no prefix is added to the initial single-path baseline by this decision.",
+    "prefix_policy_ref": "prefix_policy",
     "data_and_pilot_allocation": null,
     "pilot_stage_budget_ref": "pilot_comparison_policy.initial_budget",
-    "basis": "Adopt 64 nominal time symbols on the agreed 256-bin, 234.375 kHz grid as the first BER baseline's initial working frame. This is a computational starting choice, not an orbit-derived or validated optimal length. The DD-a-OFDM reference also uses 64 time symbols but with a different subcarrier spacing and frame duration. Runtime and frame-length sensitivity have not been measured. Prefix/guard duration, pilot allocation, and waveform-specific receiver design remain undecided.",
+    "basis": "Adopt 64 nominal time symbols on the agreed 256-bin, 234.375 kHz grid as the initial working frame. This is a computational starting choice, not an orbit-derived or validated optimal length. The DD-a-OFDM reference uses a different subcarrier spacing and frame duration. The first three-path stage has a five-sample CP per 256-sample block; actual pilot masks, remaining receiver design, runtime, and frame-length sensitivity are pending.",
     "frame_length_review": {
       "status": "planned_not_run",
       "baseline_check": "Compare BER estimates and execution time at alternative frame lengths while keeping the same uncoded Gray 16-QAM, energy/noise normalization, and ideal single-path AWGN conditions. Accumulate sufficient bits and errors; matched ideal implementations should agree within Monte Carlo uncertainty.",
@@ -182,11 +186,12 @@
       },
       "comparison_basis": "Align each 256-sample AFDM useful block with one 256-point OFDM IFFT symbol, and use 64 consecutive blocks in the common frame at 60 MHz. The N used for AFDM chirp-parameter selection is the per-block DAFT length 256, not the full-frame sample count 16384.",
       "receiver_information_policy_ref": "receiver_information_policy",
-      "prefix_pilot_and_receiver_details": "Prefix or chirp-periodic-prefix lengths, pilot allocations, channel estimation, and equalization remain undecided. This decision only fixes the useful-signal block layout and basis transforms.",
+      "prefix_policy_ref": "prefix_policy",
+      "prefix_pilot_and_receiver_details": "The first three-path stage uses five prefix samples per 256-sample block. With the current even N=256 and integer 2*N*c1=5, AFDM's CPP equals the common ordinary CP. Pilot masks, channel estimation and equalization remain pending.",
       "note": "A single 16384-point frame-wide DAFT is not selected for the initial baseline; its different spreading interval would be a separate waveform design. Matching useful block timing alone does not settle every fairness condition."
     },
     "OTFS": {
-      "status": "ofdm_based_rectangular_pulse_structure_agreed_useful_transforms_implemented_ber_pending",
+      "status": "ofdm_based_rectangular_pulse_and_optional_slot_cp_implemented_ber_pending",
       "architecture": "ISFFT_precoded_OFDM",
       "delay_bin_count": 256,
       "doppler_bin_count": 64,
@@ -194,9 +199,9 @@
       "tf_time_slot_count": 64,
       "array_convention": "DD grid X_dd[l,k]: axis 0 is delay l, axis 1 is Doppler k. TF grid X_tf[m,n]: axis 0 is subcarrier m, axis 1 is time slot n. Both arrays have shape (256,64).",
       "normalization_ref": "waveform_transform_normalization",
-      "transmit_basis_steps": ["unitary IFFT along the 64-bin Doppler axis", "unitary FFT along the 256-bin delay axis, completing the ISFFT", "unitary 256-point IFFT along the frequency axis for each of 64 time slots", "serialize each complete time slot in order"],
-      "receive_basis_steps": ["reshape aligned useful samples into 64 consecutive 256-sample time slots", "unitary 256-point FFT along the within-slot sample axis", "unitary IFFT along the frequency axis and FFT along the time axis, completing the SFFT", "return DD observations for later channel equalization and symbol detection"],
-      "serialization": "Time slot n contains samples q=0,...,255 contiguously: serial index q + 256*n. A (256,64) time-by-slot array is flattened with order='F'. No fftshift is applied inside the transforms.",
+      "transmit_basis_steps": ["unitary IFFT along the 64-bin Doppler axis", "unitary FFT along the 256-bin delay axis, completing the ISFFT", "unitary 256-point IFFT along the frequency axis for each of 64 time slots", "in the first three-path stage, copy the last five useful samples to the start of each slot", "serialize each complete time slot in order"],
+      "receive_basis_steps": ["remove the per-slot CP from aligned samples when present, then reshape into 64 consecutive 256-sample useful slots", "unitary 256-point FFT along the within-slot sample axis", "unitary IFFT along the frequency axis and FFT along the time axis, completing the SFFT", "return DD observations for later channel equalization and symbol detection"],
+      "serialization": "Useful-only slot n contains q=0,...,255 contiguously at index q+256*n, equivalent to order='F' on a (256,64) array. With CP, useful samples occur at q+L_CP+(256+L_CP)*n in the transmitted stream. No fftshift is applied inside the transforms.",
       "pulse_shape": {
         "transmit": "rectangular_useful_slot_window",
         "receive": "matched_rectangular_useful_slot_window",
@@ -208,7 +213,8 @@
       "useful_frame_duration_s_without_prefix": 0.000273066666666667,
       "implementation": {
         "module": "otfs.py",
-        "scope": "Reusable ISFFT, SFFT, useful-signal modulation, and basis demodulation only; callers handle alignment and any prefix removal before demodulation. This is not the full BER transceiver.",
+        "scope": "Reusable ISFFT, SFFT, modulation and basis demodulation. Optional cp_length adds/removes a per-slot CP internally; the default cp_length=0 preserves useful-only transforms. Callers provide aligned samples. This is not the full BER transceiver.",
+        "prefix_validation_ref": "prefix_policy.validation",
         "validation_command": "python check_otfs_transform.py",
         "validation_status": "direct_sum_and_useful_frame_checks_passed",
         "validation": {
@@ -225,7 +231,8 @@
         }
       },
       "receiver_information_policy_ref": "receiver_information_policy",
-      "pending_design": ["prefix or guard placement and length", "pilot and pilot-guard placement, counts, and per-pilot energy allocation", "channel estimation and remaining receiver knowledge", "DD equalization and symbol detection", "complete four-waveform BER implementation"],
+      "prefix_policy_ref": "prefix_policy",
+      "pending_design": ["pilot and pilot-guard placement, counts, and per-pilot energy allocation", "channel estimation and remaining receiver knowledge", "DD equalization and symbol detection", "complete four-waveform BER implementation"],
       "reference_url": "https://www.mathworks.com/help/comm/ug/otfs-modulation.html",
       "reference_note": "Use the documented ISFFT-plus-OFDM architecture with our agreed unitary normalization; do not copy the example's numerical scaling, channel, padding, or pilot parameters."
     },
@@ -260,10 +267,57 @@
         "exact_complex_path_gains_available": false,
         "note": "Use the shared receiver_information_policy. Future multipath common-Doppler compensation remains a separate decision; the initial single-path baseline's perfect common-Doppler knowledge is preserved."
       },
-      "pending_design": ["pilot spacing, positions, counts, per-pilot energy allocation, and guards", "prefix and pulse details shared with OFDM", "delay/Doppler search support and fractional refinement", "initialization, iteration count and convergence criterion", "noise-variance knowledge", "comparable OFDM, AFDM and OTFS receiver processing"],
+      "prefix_policy_ref": "prefix_policy",
+      "pending_design": ["pilot spacing, positions, counts, per-pilot energy allocation, and guards", "OFDM pulse/filter details beyond the shared cyclic-prefix rule", "delay/Doppler search support and fractional refinement", "initialization, iteration count and convergence criterion", "noise-variance knowledge", "comparable OFDM, AFDM and OTFS receiver processing"],
       "comparison_interpretation": "OFDM and DD-a-OFDM use the same transmitted waveform when given the same TF symbols, pilots, and prefix/pulse configuration. BER differences then evaluate channel estimation and receiver processing as part of the transceiver comparison.",
       "channel_scope": "The shared P=3 receiver-information assumption applies to the first future three-path comparison. Keep the current single-path baseline, common-Doppler compensation policy, three-path generator profile, and zero additional path Dopplers unchanged; no additional Doppler experiment is introduced.",
       "implementation_status": "not_implemented"
+    }
+  },
+  "prefix_policy": {
+    "status": "common_slot_cp_agreed_helpers_and_otfs_integration_verified_ber_pending",
+    "scope": "first_pilot_based_three_path_comparison",
+    "applies_to": ["OFDM", "AFDM", "OTFS", "DD-a-OFDM"],
+    "kind": "cyclic_prefix_per_256_sample_useful_block",
+    "useful_samples_per_block": 256,
+    "prefix_samples_per_block": 5,
+    "basis_maximum_excess_delay_samples": 5,
+    "basis": "Use the maximum excess delay relative to LOS in the agreed 0/2/5-sample profile, not the absolute satellite-to-ground propagation delay.",
+    "prefix_duration_s": 0.00000008333333333333334,
+    "transmitted_samples_per_block": 261,
+    "transmitted_block_duration_s": 0.00000435,
+    "prefix_samples_per_frame": 320,
+    "transmitted_samples_per_frame": 16704,
+    "frame_duration_s": 0.0002784,
+    "nominal_doppler_bin_spacing_hz": 3591.9540229885056,
+    "sample_time_rule": "The full serial clock includes CP samples. Useful sample q in slot n occurs at ((256+5)*n+5+q)/F_s relative to the first transmitted CP sample; use this clock in channel Doppler phases and reconstruction.",
+    "timing_assumption": "Aligned block windows and the current integer-sample excess-delay model. Five is the minimum for that model; added timing uncertainty, fractional-delay/filter tails or a larger delay range require explicit review.",
+    "afdm_cpp_equivalence": {
+      "current_N": 256,
+      "current_2_N_c1": 5,
+      "ordinary_cp_valid": true,
+      "condition": "N is even and 2*N*c1 is an integer. Recheck this condition if the AFDM design changes; the generic helper does not implement an arbitrary chirp-periodic prefix.",
+      "reference_url": "https://arxiv.org/pdf/2204.12798#page=9"
+    },
+    "otfs_placement": "CP on every 256-sample time slot; this is not a single reduced prefix on the entire OTFS frame.",
+    "energy_accounting": "Copy the tail samples without amplitude rescaling. Measure each frame's CP energy separately as the sum of squared copied-sample magnitudes; do not assume equal CP energy merely from equal CP lengths. Preserve data Es=1, the pilot energy budget, and the data-only Eb/N0 noise rule.",
+    "baseline_scope": "The initial single-path LOS AWGN stage and its common-Doppler compensation are unchanged. The new per-slot CP is selected for the followup three-path comparison; no multipath Doppler-compensation policy is selected here.",
+    "implementation_module": "cyclic_prefix.py",
+    "otfs_interface": "otfs.modulate(X_dd, cp_length=5); otfs.demodulate(samples, 256, 64, cp_length=5)",
+    "validation": {
+      "command": "python check_cyclic_prefix.py",
+      "status": "roundtrip_energy_linear_channel_and_otfs_checks_passed",
+      "seed": 20261103,
+      "relative_tolerance": 1e-12,
+      "cp_roundtrip_relative_error": 0.0,
+      "cp_energy_accounting_relative_error": 3.362356570018499e-17,
+      "linear_vs_cyclic_channel_relative_error": 1.0645898549942082e-16,
+      "short_cp_samples": 4,
+      "short_cp_negative_control_relative_error": 0.012954346560714487,
+      "afdm_cpp_equivalence_error": 0.0,
+      "otfs_prefixed_roundtrip_relative_error": 5.086703307363754e-16,
+      "useful_only_otfs_regression": "python check_otfs_transform.py passed with its existing 1e-12 tolerance",
+      "scope": "Aligned integer-delay static three-path diagnostic without noise. The short-CP value is waveform mismatch, not BER. No receiver channel knowledge, multipath Doppler-compensation policy, estimator, equalizer or BER run is introduced."
     }
   },
   "receiver_information_policy": {
@@ -330,7 +384,7 @@
         "note": "A conditional resource count, not a universal minimum or a leakage-free guarantee. It uses the current AFDM design bounds and margin; full fractional-Doppler leakage and receiver performance still require validation. Different pilot layouts or Doppler support can change the budget."
       },
       "selection_basis": "The agreed initial 25-percent budget is a convenient rounding above the conditional 59/256 AFDM count. It is not an optimized ratio or a demonstrated minimum for all four schemes; uniform per-block allocation is not imposed by this frame-level budget.",
-      "remaining_checks": ["decide first-multipath common-Doppler compensation and supported residual Doppler before finalizing masks", "check pilot-data leakage, identifiability and estimation accuracy for all four native layouts", "finalize CP/CPP and account for their resource and energy costs", "preserve the agreed information-bit quota when framing data and padding"]
+      "remaining_checks": ["decide first-multipath common-Doppler compensation and supported residual Doppler before finalizing masks", "check pilot-data leakage, identifiability and estimation accuracy for all four native layouts", "measure CP energy under the agreed prefix_policy and account for full-frame energy costs", "preserve the agreed information-bit quota when framing data and padding"]
     },
     "placement": {
       "OFDM": "time_frequency_grid",
@@ -423,7 +477,9 @@
         "scope": "Channel-profile level, not a per-frame or per-frequency-bin received-power adjustment.",
         "receiver_noise": "The data-symbol-reference AWGN variance, conditional unitary-transform sample rule, and initial 60 MHz sample grid are defined separately. Any later resampling or filter effects require revised sample-domain accounting; implementation is still pending."
       },
-      "waveform_prefix_or_guard_duration": null
+      "waveform_prefix_or_guard_duration": 0.00000008333333333333334,
+      "waveform_prefix_or_guard_duration_unit": "seconds_per_useful_block",
+      "prefix_policy_ref": "prefix_policy"
     }
   },
   "noise_model": {
