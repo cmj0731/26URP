@@ -225,6 +225,45 @@
       "pending_design": ["prefix or guard placement and length", "pilot and pilot-guard placement and energy", "channel knowledge and estimation", "DD equalization and symbol detection", "complete four-waveform BER implementation"],
       "reference_url": "https://www.mathworks.com/help/comm/ug/otfs-modulation.html",
       "reference_note": "Use the documented ISFFT-plus-OFDM architecture with our agreed unitary normalization; do not copy the example's numerical scaling, channel, padding, or pilot parameters."
+    },
+    "DD-a-OFDM": {
+      "status": "reference_architecture_documented_receiver_proposal_pending_not_implemented",
+      "transmit_grid_domain": "time_frequency",
+      "transmitter_basis": "Conventional OFDM with the common unitary 256-point IFFT and 64 time symbols; data stay in the TF grid.",
+      "pilot_policy_ref": "pilot_comparison_policy",
+      "reference": {
+        "arxiv_version": "2508.04253v2",
+        "revision_date": "2026-05-10",
+        "url": "https://arxiv.org/pdf/2508.04253v2",
+        "sections": ["II-B and Figure 1: transmission framework", "IV-A and Algorithm 1: DD-domain ML channel estimation", "IV-B, equations (43)-(44): TF-domain MMSE equalization"]
+      },
+      "reference_receiver_flow": ["OFDM FFT produces the received TF grid", "known TF pilot observations form the sampled channel response", "DD processing of the pilot observations estimates path delay, Doppler, and complex gain", "reconstruct each OFDM symbol's TF channel matrix, including ICI terms", "equalize TF data and perform QAM detection"],
+      "receiver_proposal": {
+        "status": "proposed_not_agreed",
+        "channel_estimator": "DD-domain ML using alternating projection with path-wise delay/Doppler searches and joint LS gain refinement, following Algorithm 1",
+        "equalizer": "TF-domain ICI-aware full-matrix MMSE, following equations (43)-(44)",
+        "tf_channel_matrix_shape_per_symbol": [256, 256],
+        "symbol_matrices_per_frame": 64,
+        "scope": "An algorithm proposal only; pilot spacing, prefix, noise-variance knowledge, search bounds, iterations, and corresponding receiver choices for other schemes are not selected here."
+      },
+      "path_count_information_proposal": {
+        "status": "proposed_not_agreed",
+        "scope": "future_three_path_comparison_only",
+        "known_path_count": 3,
+        "rule": "For the first three-path estimator comparison, make the count P=3 available equally to all four receivers; estimate actual path delays, Dopplers, and complex gains from pilots rather than copying them from the channel generator.",
+        "rationale": "Separate parameter estimation from model-order detection in the first controlled multipath comparison. This is a proposal, not current receiver-side information."
+      },
+      "selected_receiver_information": {
+        "status": "pending",
+        "known_path_count": null,
+        "exact_path_delays_available": null,
+        "exact_path_dopplers_available": null,
+        "exact_complex_path_gains_available": null
+      },
+      "pending_design": ["accept or revise the receiver algorithm proposal", "decide receiver path-count knowledge fairly across schemes", "pilot spacing, positions, energy, and guards", "prefix and pulse details shared with OFDM", "delay/Doppler search support and fractional refinement", "initialization, iteration count and convergence criterion", "noise-variance knowledge", "comparable OFDM, AFDM and OTFS receiver processing"],
+      "comparison_interpretation": "OFDM and DD-a-OFDM use the same transmitted waveform when given the same TF symbols, pilots, and prefix/pulse configuration. BER differences then evaluate channel estimation and receiver processing as part of the transceiver comparison.",
+      "channel_scope": "Keep the current single-path baseline, common-Doppler compensation policy, three-path generator profile, and zero additional path Dopplers unchanged. Documenting this proposal grants no new channel knowledge and introduces no new Doppler experiment.",
+      "implementation_status": "not_implemented"
     }
   },
   "pilot_comparison_policy": {
