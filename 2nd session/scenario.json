@@ -296,6 +296,40 @@
     "pilot_plus_pilot_guard_resource_fraction": null,
     "total_pilot_energy_rule": "Match the total energy allocated to pilot signals across all four schemes; do not treat a higher-power pilot as free.",
     "total_pilot_energy": null,
+    "initial_budget_proposal": {
+      "status": "proposed_not_agreed_layout_and_performance_validation_pending",
+      "scope": "first_pilot_based_three_path_comparison",
+      "budget_unit": "One common 256-by-64 useful grid, with 16384 native complex-symbol degrees of freedom. Count the union of pilot and pilot-specific guard/reserved cells; count CP/CPP samples and energy separately.",
+      "pilot_plus_guard_fraction": 0.25,
+      "pilot_plus_guard_cells_per_frame": 4096,
+      "data_cells_per_frame": 12288,
+      "energy_proposal": {
+        "data_symbol_energy_Es": 1.0,
+        "total_pilot_energy_in_Es_units": 4096.0,
+        "expected_total_data_energy_in_Es_units": 12288.0,
+        "expected_useful_frame_energy_in_Es_units": 16384.0,
+        "allocation_rule": "Match total pilot energy across schemes. If energy is shared equally among N_p nonzero pilots, each has energy E_p/N_p; different pilot counts need not have the same individual pilot energy.",
+        "note": "Normalized simulation energy, not watts. Data retain the agreed constellation scaling; do not renormalize individual frames. Actual pilot counts, values, energy distribution, and any peak-power constraints remain to be discussed."
+      },
+      "ofdm_and_dd_a_rule": "Use identical TF pilot positions, known pilot values, and pilot energy distribution for the OFDM/DD-a-OFDM pair.",
+      "native_layout_rule": "AFDM uses DAFT-domain pilot/guard placement and OTFS uses DD-domain placement. Design each actual mask within the common non-data budget; do not force identical coordinates across different bases.",
+      "reporting_rule": "Record each scheme's nonzero pilot count, pilot-specific guard/reserved count, data count, and total pilot energy separately, in addition to the common combined overhead fraction.",
+      "conditional_afdm_budget_screen": {
+        "layout_assumption": "The cited paper's embedded pilot and guards in every 256-point AFDM block; this layout assumption itself is not yet selected.",
+        "maximum_excess_delay_samples": 5,
+        "alpha_max": 1,
+        "xi_nu": 1,
+        "paper_pilot_plus_guard_formula": "2*(l_max+1)*(2*(alpha_max+xi_nu)+1)-1",
+        "paper_pilot_plus_guard_cells_per_block": 59,
+        "fraction_per_block": 0.23046875,
+        "paper_cells_for_64_blocks": 3776,
+        "proposed_budget_per_block": 64,
+        "reference_url": "https://arxiv.org/pdf/2204.12798#page=24",
+        "note": "A conditional resource count, not a universal minimum or a leakage-free guarantee. It uses the current AFDM design bounds and margin; full fractional-Doppler leakage and receiver performance still require validation. Different pilot layouts or Doppler support can change the budget."
+      },
+      "selection_basis": "25 percent is a convenient initial candidate above the conditional 59/256 AFDM count. It is not an optimized ratio or a demonstrated minimum for all four schemes.",
+      "remaining_checks": ["agree the resource and energy budgets", "decide first-multipath common-Doppler compensation and supported residual Doppler before finalizing masks", "check pilot-data leakage, identifiability and estimation accuracy for all four native layouts", "finalize CP/CPP and account for their resource and energy costs", "preserve the agreed information-bit quota when framing data and padding"]
+    },
     "placement": {
       "OFDM": "time_frequency_grid",
       "DD-a-OFDM": "same_time_frequency_pilot_positions_as_OFDM; DD-domain channel estimation at receiver",
