@@ -335,7 +335,7 @@
     "parameter_estimation_rule": "Obtain the channel response or path parameters from the agreed pilot observations. Do not copy the actual 0/2/5-sample delays, per-path Dopplers, or complex gains from the channel generator into the receivers.",
     "purpose": "First compare channel-parameter estimation and BER without adding path-count detection errors. State this known-count assumption in reported results; equal path-count information alone does not settle other fairness conditions.",
     "baseline_scope": "This policy does not change the initial single-path LOS AWGN baseline or its perfect common-Doppler knowledge and compensation. Future multipath compensation details remain to be discussed.",
-    "remaining_receiver_design": "DD-a-OFDM's initial DD-ML estimator and TF linear-MMSE equalizer, and the shared pilot resource/energy budgets, are agreed. Actual pilot masks and per-pilot energy allocation, noise-variance knowledge, delay/Doppler search support, iteration settings, and the channel estimators/equalizers of OFDM, AFDM and OTFS remain pending.",
+    "remaining_receiver_design": "DD-a-OFDM's initial DD-ML estimator and TF linear-MMSE equalizer, the shared pilot resource/energy budgets, and the identical 2-by-2 TF pilot positions for OFDM/DD-a-OFDM are agreed. AFDM/OTFS masks, known pilot values and per-pilot energy allocation, noise-variance knowledge, delay/Doppler search support, iteration settings, and the channel estimators/equalizers of OFDM, AFDM and OTFS remain pending.",
     "path_count_estimation_followup": {
       "status": "deferred_method_and_parameters_pending_not_implemented",
       "purpose": "Replace the known count with a receiver-estimated count and compare against the known-count reference. Assess missed or spurious paths and their impact on parameter estimation and BER.",
@@ -346,7 +346,7 @@
     }
   },
   "pilot_comparison_policy": {
-    "status": "initial_resource_and_energy_budgets_agreed_masks_and_validation_pending",
+    "status": "budgets_and_shared_OFDM_DD_a_positions_agreed_native_masks_values_and_validation_pending",
     "pilot_plus_pilot_guard_resource_fraction_rule": "Use the same fraction of the frame's resources for pilots and pilot-specific guard or reserved cells across all four schemes.",
     "pilot_plus_pilot_guard_resource_fraction": 0.25,
     "total_pilot_energy_rule": "Match the total energy allocated to pilot signals across all four schemes; do not treat a higher-power pilot as free.",
@@ -365,7 +365,7 @@
         "expected_total_data_energy_in_Es_units": 12288.0,
         "expected_useful_frame_energy_in_Es_units": 16384.0,
         "allocation_rule": "Match total pilot energy across schemes. If energy is shared equally among N_p nonzero pilots, each has energy E_p/N_p; different pilot counts need not have the same individual pilot energy.",
-        "note": "Normalized simulation energy, not watts. Data retain the agreed constellation scaling; do not renormalize individual frames. Actual pilot counts, values, energy distribution, and any peak-power constraints remain to be discussed."
+        "note": "Normalized simulation energy, not watts. Data retain the agreed constellation scaling; do not renormalize individual frames. OFDM and DD-a-OFDM each have 4096 pilot cells; AFDM/OTFS counts, known pilot values, energy distribution, and any peak-power constraints remain to be discussed."
       },
       "ofdm_and_dd_a_rule": "Use identical TF pilot positions, known pilot values, and pilot energy distribution for the OFDM/DD-a-OFDM pair.",
       "native_layout_rule": "AFDM uses DAFT-domain pilot/guard placement and OTFS uses DD-domain placement. Design each actual mask within the common non-data budget; do not force identical coordinates across different bases.",
@@ -384,7 +384,7 @@
         "note": "A conditional resource count, not a universal minimum or a leakage-free guarantee. It uses the current AFDM design bounds and margin; full fractional-Doppler leakage and receiver performance still require validation. Different pilot layouts or Doppler support can change the budget."
       },
       "selection_basis": "The agreed initial 25-percent budget is a convenient rounding above the conditional 59/256 AFDM count. It is not an optimized ratio or a demonstrated minimum for all four schemes; uniform per-block allocation is not imposed by this frame-level budget.",
-      "remaining_checks": ["decide first-multipath common-Doppler compensation and supported residual Doppler before finalizing masks", "check pilot-data leakage, identifiability and estimation accuracy for all four native layouts", "measure CP energy under the agreed prefix_policy and account for full-frame energy costs", "preserve the agreed information-bit quota when framing data and padding"]
+      "remaining_checks": ["design AFDM/OTFS masks for the agreed perfect common-LOS correction and residual envelope; OFDM/DD-a-OFDM use the agreed 2-by-2 TF lattice", "select known pilot values and energy allocation", "check pilot-data leakage, identifiability and estimation accuracy for all four native layouts", "measure CP energy under the agreed prefix_policy and account for full-frame energy costs", "preserve the agreed information-bit quota when framing data and padding"]
     },
     "placement": {
       "OFDM": "time_frequency_grid",
@@ -392,8 +392,48 @@
       "AFDM": "waveform_native_DAFT_domain",
       "OTFS": "waveform_native_delay_doppler_domain"
     },
-    "pilot_locations_and_counts": null,
-    "note": "The 25-percent resource and 4096-energy budgets are agreed for the first pilot-based three-path comparison; actual masks and per-pilot energy allocation remain pending. Pilot-specific guards are distinct from the already-agreed zero spectral edge guard bins. The initial single-path baseline retains perfect common-Doppler knowledge and correction. DD-a-OFDM's initial estimator/equalizer algorithms are agreed; estimator numerical settings, other schemes' channel estimators, and later practical synchronization remain pending."
+    "shared_ofdm_dd_a_tf_layout": {
+      "status": "positions_and_counts_agreed_values_and_implementation_pending",
+      "scope": "first_pilot_based_three_path_A_B_comparison",
+      "applies_to": ["OFDM", "DD-a-OFDM"],
+      "domain": "time_frequency",
+      "grid_shape_frequency_by_time": [256, 64],
+      "frequency_spacing_in_bins": 2,
+      "time_spacing_in_blocks": 2,
+      "index_origin_convention": "Use zero-based array coordinates and place the first pilot at (frequency=0, time=0); this fixes a reproducible grid origin for the agreed spacing.",
+      "frequency_offset_bins": 0,
+      "time_offset_blocks": 0,
+      "pilot_index_rule": "Pilot at (m,n) iff m % 2 == 0 and n % 2 == 0, for 0 <= m < 256 and 0 <= n < 64. All remaining TF cells carry data.",
+      "pilot_frequency_row_count": 128,
+      "pilot_time_column_count": 32,
+      "active_pilot_count_per_frame": 4096,
+      "pilot_specific_guard_or_reserved_count": 0,
+      "data_cell_count_per_frame": 12288,
+      "combined_non_data_fraction": 0.25,
+      "paired_rule": "Use exactly the same mask, known pilot values and energy allocation for OFDM and DD-a-OFDM. Keep this layout fixed across A and all B levels; AFDM/OTFS native-domain layouts are separate pending decisions.",
+      "known_pilot_values": null,
+      "pilot_energy_distribution": null,
+      "total_pilot_energy_in_Es_units": 4096.0,
+      "implied_mean_energy_per_active_pilot_in_Es_units": 1.0,
+      "energy_note": "Mean energy follows from 4096 total energy and 4096 pilots. Equal energy per pilot and the known complex pilot sequence are not selected by the position decision. CP energy remains separate.",
+      "basic_sampling_screen": {
+        "status": "resource_and_uniform_sampling_arithmetic_checked_estimation_validation_pending",
+        "pilot_frequency_spacing_hz": 468750.0,
+        "pilot_time_spacing_s_including_CP": 0.0000087,
+        "delay_alias_period_s": 0.0000021333333333333334,
+        "symmetric_doppler_nyquist_magnitude_hz": 57471.26436781609,
+        "agreed_maximum_residual_doppler_magnitude_hz": 46875.0,
+        "reference_url": "https://arxiv.org/pdf/2508.04253v2#page=6",
+        "interpretation": "The uniform TF sample model's basic delay period is 1/(d_f*Delta_f), and symmetric Doppler alias bound is 1/(2*d_t*T_block), with CP included in T_block. The agreed delay profile and residual Doppler envelope fit these basic ranges; this is not a proof of fractional-Doppler leakage suppression, path identifiability or BER performance."
+      }
+    },
+    "pilot_locations_and_counts": {
+      "OFDM": {"layout_ref": "pilot_comparison_policy.shared_ofdm_dd_a_tf_layout", "active_pilot_count": 4096, "pilot_specific_guard_or_reserved_count": 0, "data_cell_count": 12288},
+      "DD-a-OFDM": {"layout_ref": "pilot_comparison_policy.shared_ofdm_dd_a_tf_layout", "active_pilot_count": 4096, "pilot_specific_guard_or_reserved_count": 0, "data_cell_count": 12288},
+      "AFDM": null,
+      "OTFS": null
+    },
+    "note": "The 25-percent resource and 4096-energy budgets and the shared 2-by-2 TF pilot positions/counts for OFDM/DD-a-OFDM are agreed. AFDM/OTFS layouts, known pilot values and per-pilot energy allocation remain pending. Pilot-specific guards are distinct from zero spectral edge guard bins and the agreed per-block CP. These are design settings, not a completed four-way pilot/channel-estimation or BER implementation."
   },
   "pass_search": {
     "start_utc": "2026-07-29T00:00:00Z",
