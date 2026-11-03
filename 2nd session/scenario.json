@@ -35,6 +35,28 @@
     "occupied_bandwidth_hz": null,
     "bandwidth_basis": "One-quarter of the observed 240 MHz Starlink Ku channel width for computational tractability, retaining the observed subcarrier spacing; this is a simulation choice, not the measured bandwidth of STARLINK-5285. The initial BER comparison uses all 256 bins without edge guard or DC null bins; guard/DC sensitivity studies and measured spectral occupancy remain for later."
   },
+  "sampling_model": {
+    "status": "agreed_for_initial_baseline_not_implemented",
+    "representation": "complex_baseband",
+    "sample_rate_hz": 60000000.0,
+    "sample_interval_s": 0.000000016666666666666667,
+    "oversampling_factor": 1.0,
+    "additional_resampling": false,
+    "useful_samples_per_nominal_symbol": 256,
+    "sample_rate_basis": "Fs = frequency_bin_count * subcarrier_spacing_hz = 256 * 234375 Hz = 60 MHz, without additional oversampling.",
+    "scope": "Use the same sample rate for all four schemes in the initial controlled LOS plus AWGN, perfectly common-Doppler-compensated baseline. This is a digital baseband simulation choice, not a physical RF ADC specification or a permanent rate for every later experiment.",
+    "note": "Equal sample rate alone does not ensure equal bandwidth, frame duration, data-bit count, energy, channel, receiver knowledge, or overhead. Pulse shaping and physical RF filtering are not selected by this sampling decision.",
+    "higher_rate_validation": {
+      "status": "planned_not_run",
+      "purpose": "Check sampling adequacy as more detailed multipath, Doppler, filtering, or waveform measurements are introduced.",
+      "method": "Repeat all four schemes on finer time grids and check BER convergence within Monte Carlo uncertainty. If waveform metrics such as PAPR or spectra are measured, also check convergence of those metrics before drawing conclusions.",
+      "preserve": ["physical_bandwidth_and_subcarrier_spacing", "physical_frame_duration", "information_bits_per_frame", "physical_path_delays_and_gains", "physical_doppler_values", "bit_energy_reference_and_Eb_N0", "pilot_and_guard_resource_and_energy_policies"],
+      "energy_and_noise_accounting": "When comparing rates, account for the sample interval in physical energy or use an explicitly equivalent normalized coordinate convention. Recalculate waveform-sample scaling and noise variance; do not blindly reuse raw-sample noise settings.",
+      "delay_accounting": "Keep excess delays in seconds fixed and update their discrete representation when sample rate changes. The stored 2- and 5-sample delays are references at 60 MHz only.",
+      "oversampling_factors": null,
+      "acceptance_threshold": null
+    }
+  },
   "common_symbol_modulation": {
     "constellation": "16-QAM",
     "modulation_order": 16,
@@ -46,7 +68,7 @@
       "definition": "E[|s|^2] = 1 over equiprobable 16-QAM constellation symbols.",
       "scope": "Use the same fixed constellation scaling for data symbols in OFDM, AFDM, OTFS, and DD-a-OFDM; do not rescale each random frame to force its empirical average to one.",
       "units": "Relative simulation energy units, not a physical transmit-power assignment of 1 watt.",
-      "note": "All four schemes use the same Gray bit mapping, a data-symbol-only Eb reference, and unitary useful-signal transforms. Sampling, pilot energy, and the final waveform-sample noise mapping remain to be designed."
+      "note": "All four schemes use the same Gray bit mapping, a data-symbol-only Eb reference, unitary useful-signal transforms, and the agreed 60 MHz baseline sample grid. Pilot energy, filtering, and any corresponding changes to the waveform-sample noise mapping remain to be designed."
     }
   },
   "waveform_transform_normalization": {
@@ -59,7 +81,7 @@
     "daft_rule": "Use a unitary Fourier block and unit-magnitude chirp factors for the DAFT/IDAFT pair; this does not choose AFDM chirp parameters.",
     "frame_scaling": "Use fixed analytic transform factors; do not rescale each random frame to a forced empirical signal power or energy.",
     "prefix_and_pilot_energy": "Preserve pilot energy through the useful-signal transforms when present. Count energy introduced by prefixes or other added samples separately; do not hide overhead by renormalizing the complete transmitted frame.",
-    "note": "This fixes transform normalization only. Sampling, pulse shaping, prefix lengths, pilot allocations, and waveform-specific channel estimation/equalization remain to be designed."
+    "note": "The initial sample grid is fixed separately in sampling_model. Pulse shaping, prefix lengths, pilot allocations, and waveform-specific channel estimation/equalization remain to be designed."
   },
   "frame_design": {
     "status": "provisional_candidate_not_final",
@@ -167,13 +189,13 @@
         "unnormalized_linear_path_power_from_relative_db": "P_p = 10^(relative_power_db_to_los/10)",
         "common_complex_gain_scale": "1/sqrt(sum_p(P_p)); apply once to all path gains so sum_p(|h_p|^2) = 1 while preserving the agreed relative powers.",
         "scope": "Channel-profile level, not a per-frame or per-frequency-bin received-power adjustment.",
-        "receiver_noise": "The data-symbol-reference AWGN variance and its conditional unitary-transform sample rule are defined separately; sampling details and implementation are still pending."
+        "receiver_noise": "The data-symbol-reference AWGN variance, conditional unitary-transform sample rule, and initial 60 MHz sample grid are defined separately. Any later resampling or filter effects require revised sample-domain accounting; implementation is still pending."
       },
       "waveform_prefix_or_guard_duration": null
     }
   },
   "noise_model": {
-    "status": "unitary_variance_rule_defined_sampling_pending_not_implemented",
+    "status": "unitary_variance_rule_defined_baseline_sampling_agreed_not_implemented",
     "type": "complex_awgn",
     "injection_point": "Once at the receiver, after the LOS and any reflected signal paths are combined.",
     "per_path_noise": false,
@@ -189,14 +211,15 @@
       "reference_variance_per_quadrature": "sigma_s^2/2",
       "reference_noise_generation": "n_s = sqrt(sigma_s^2/2)*(u + j*v), with independent u,v drawn from N(0,1).",
       "waveform_sample_mapping": {
-        "status": "conditional_on_sampling_design",
+        "status": "baseline_sample_grid_agreed_filter_condition_retained",
         "transform_normalization_ref": "waveform_transform_normalization",
+        "baseline_sampling_ref": "sampling_model",
         "condition": "Use the agreed square unitary transmit/receive basis transforms on the same discrete sample grid, without additional resampling or filtering gain.",
         "complex_variance": "sigma_time^2 = sigma_s^2 = 1/(4*gamma_b)",
         "variance_per_quadrature": "sigma_time^2/2",
-        "note": "Unitary receiver basis transforms preserve white complex AWGN covariance. Re-derive the sample-domain scaling if sampling or filtering introduces additional factors. This rule does not select those sampling/filter settings."
+        "note": "Unitary receiver basis transforms preserve white complex AWGN covariance. The initial sample grid is 60 MHz without additional oversampling or resampling. Re-derive the sample-domain scaling if later sampling or filtering introduces additional factors; this rule does not select physical filter settings."
       },
-      "note": "Use the agreed data-symbol energy and analytic transform factors. Do not infer noise variance from each random frame's instantaneous measured power. The final waveform-sample mapping still requires the sampling/filter design."
+      "note": "Use the agreed data-symbol energy and analytic transform factors on the initial 60 MHz grid. Do not infer noise variance from each random frame's instantaneous measured power. Additional physical filtering remains a separate design decision."
     },
     "basis": "A controlled first BER comparison; interference, phase noise, and other real-link impairments are not included in this noise model."
   },
