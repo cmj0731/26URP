@@ -93,6 +93,7 @@
     "prefix_or_guard_duration_s": null,
     "total_frame_duration_s": null,
     "data_and_pilot_allocation": null,
+    "pilot_stage_budget_ref": "pilot_comparison_policy.initial_budget",
     "basis": "Adopt 64 nominal time symbols on the agreed 256-bin, 234.375 kHz grid as the first BER baseline's initial working frame. This is a computational starting choice, not an orbit-derived or validated optimal length. The DD-a-OFDM reference also uses 64 time symbols but with a different subcarrier spacing and frame duration. Runtime and frame-length sensitivity have not been measured. Prefix/guard duration, pilot allocation, and waveform-specific receiver design remain undecided.",
     "frame_length_review": {
       "status": "planned_not_run",
@@ -224,7 +225,7 @@
         }
       },
       "receiver_information_policy_ref": "receiver_information_policy",
-      "pending_design": ["prefix or guard placement and length", "pilot and pilot-guard placement and energy", "channel estimation and remaining receiver knowledge", "DD equalization and symbol detection", "complete four-waveform BER implementation"],
+      "pending_design": ["prefix or guard placement and length", "pilot and pilot-guard placement, counts, and per-pilot energy allocation", "channel estimation and remaining receiver knowledge", "DD equalization and symbol detection", "complete four-waveform BER implementation"],
       "reference_url": "https://www.mathworks.com/help/comm/ug/otfs-modulation.html",
       "reference_note": "Use the documented ISFFT-plus-OFDM architecture with our agreed unitary normalization; do not copy the example's numerical scaling, channel, padding, or pilot parameters."
     },
@@ -259,7 +260,7 @@
         "exact_complex_path_gains_available": false,
         "note": "Use the shared receiver_information_policy. Future multipath common-Doppler compensation remains a separate decision; the initial single-path baseline's perfect common-Doppler knowledge is preserved."
       },
-      "pending_design": ["pilot spacing, positions, energy, and guards", "prefix and pulse details shared with OFDM", "delay/Doppler search support and fractional refinement", "initialization, iteration count and convergence criterion", "noise-variance knowledge", "comparable OFDM, AFDM and OTFS receiver processing"],
+      "pending_design": ["pilot spacing, positions, counts, per-pilot energy allocation, and guards", "prefix and pulse details shared with OFDM", "delay/Doppler search support and fractional refinement", "initialization, iteration count and convergence criterion", "noise-variance knowledge", "comparable OFDM, AFDM and OTFS receiver processing"],
       "comparison_interpretation": "OFDM and DD-a-OFDM use the same transmitted waveform when given the same TF symbols, pilots, and prefix/pulse configuration. BER differences then evaluate channel estimation and receiver processing as part of the transceiver comparison.",
       "channel_scope": "The shared P=3 receiver-information assumption applies to the first future three-path comparison. Keep the current single-path baseline, common-Doppler compensation policy, three-path generator profile, and zero additional path Dopplers unchanged; no additional Doppler experiment is introduced.",
       "implementation_status": "not_implemented"
@@ -280,7 +281,7 @@
     "parameter_estimation_rule": "Obtain the channel response or path parameters from the agreed pilot observations. Do not copy the actual 0/2/5-sample delays, per-path Dopplers, or complex gains from the channel generator into the receivers.",
     "purpose": "First compare channel-parameter estimation and BER without adding path-count detection errors. State this known-count assumption in reported results; equal path-count information alone does not settle other fairness conditions.",
     "baseline_scope": "This policy does not change the initial single-path LOS AWGN baseline or its perfect common-Doppler knowledge and compensation. Future multipath compensation details remain to be discussed.",
-    "remaining_receiver_design": "DD-a-OFDM's initial DD-ML estimator and TF linear-MMSE equalizer are agreed. Pilot allocation, noise-variance knowledge, delay/Doppler search support, iteration settings, and the channel estimators/equalizers of OFDM, AFDM and OTFS remain pending.",
+    "remaining_receiver_design": "DD-a-OFDM's initial DD-ML estimator and TF linear-MMSE equalizer, and the shared pilot resource/energy budgets, are agreed. Actual pilot masks and per-pilot energy allocation, noise-variance knowledge, delay/Doppler search support, iteration settings, and the channel estimators/equalizers of OFDM, AFDM and OTFS remain pending.",
     "path_count_estimation_followup": {
       "status": "deferred_method_and_parameters_pending_not_implemented",
       "purpose": "Replace the known count with a receiver-estimated count and compare against the known-count reference. Assess missed or spurious paths and their impact on parameter estimation and BER.",
@@ -291,19 +292,20 @@
     }
   },
   "pilot_comparison_policy": {
-    "status": "fairness_principle_agreed_details_pending",
+    "status": "initial_resource_and_energy_budgets_agreed_masks_and_validation_pending",
     "pilot_plus_pilot_guard_resource_fraction_rule": "Use the same fraction of the frame's resources for pilots and pilot-specific guard or reserved cells across all four schemes.",
-    "pilot_plus_pilot_guard_resource_fraction": null,
+    "pilot_plus_pilot_guard_resource_fraction": 0.25,
     "total_pilot_energy_rule": "Match the total energy allocated to pilot signals across all four schemes; do not treat a higher-power pilot as free.",
-    "total_pilot_energy": null,
-    "initial_budget_proposal": {
-      "status": "proposed_not_agreed_layout_and_performance_validation_pending",
+    "total_pilot_energy": 4096.0,
+    "total_pilot_energy_units": "Normalized energy per useful frame, with the existing average data-symbol energy E_s=1; excludes CP/CPP energy and is not power in watts.",
+    "initial_budget": {
+      "status": "agreed_initial_budget_layout_and_performance_validation_pending",
       "scope": "first_pilot_based_three_path_comparison",
       "budget_unit": "One common 256-by-64 useful grid, with 16384 native complex-symbol degrees of freedom. Count the union of pilot and pilot-specific guard/reserved cells; count CP/CPP samples and energy separately.",
       "pilot_plus_guard_fraction": 0.25,
       "pilot_plus_guard_cells_per_frame": 4096,
       "data_cells_per_frame": 12288,
-      "energy_proposal": {
+      "energy_budget": {
         "data_symbol_energy_Es": 1.0,
         "total_pilot_energy_in_Es_units": 4096.0,
         "expected_total_data_energy_in_Es_units": 12288.0,
@@ -323,12 +325,12 @@
         "paper_pilot_plus_guard_cells_per_block": 59,
         "fraction_per_block": 0.23046875,
         "paper_cells_for_64_blocks": 3776,
-        "proposed_budget_per_block": 64,
+        "equivalent_budget_per_block_if_uniform": 64,
         "reference_url": "https://arxiv.org/pdf/2204.12798#page=24",
         "note": "A conditional resource count, not a universal minimum or a leakage-free guarantee. It uses the current AFDM design bounds and margin; full fractional-Doppler leakage and receiver performance still require validation. Different pilot layouts or Doppler support can change the budget."
       },
-      "selection_basis": "25 percent is a convenient initial candidate above the conditional 59/256 AFDM count. It is not an optimized ratio or a demonstrated minimum for all four schemes.",
-      "remaining_checks": ["agree the resource and energy budgets", "decide first-multipath common-Doppler compensation and supported residual Doppler before finalizing masks", "check pilot-data leakage, identifiability and estimation accuracy for all four native layouts", "finalize CP/CPP and account for their resource and energy costs", "preserve the agreed information-bit quota when framing data and padding"]
+      "selection_basis": "The agreed initial 25-percent budget is a convenient rounding above the conditional 59/256 AFDM count. It is not an optimized ratio or a demonstrated minimum for all four schemes; uniform per-block allocation is not imposed by this frame-level budget.",
+      "remaining_checks": ["decide first-multipath common-Doppler compensation and supported residual Doppler before finalizing masks", "check pilot-data leakage, identifiability and estimation accuracy for all four native layouts", "finalize CP/CPP and account for their resource and energy costs", "preserve the agreed information-bit quota when framing data and padding"]
     },
     "placement": {
       "OFDM": "time_frequency_grid",
@@ -337,7 +339,7 @@
       "OTFS": "waveform_native_delay_doppler_domain"
     },
     "pilot_locations_and_counts": null,
-    "note": "Pilot-specific guards are distinct from the already-agreed zero spectral edge guard bins. The initial single-path baseline assumes perfect common-Doppler knowledge and correction, so it does not require a Doppler-acquisition preamble or estimator. DD-a-OFDM's initial estimator/equalizer algorithms are agreed in waveform_design; pilot details, estimator numerical settings, other schemes' channel estimators, and later practical synchronization remain pending."
+    "note": "The 25-percent resource and 4096-energy budgets are agreed for the first pilot-based three-path comparison; actual masks and per-pilot energy allocation remain pending. Pilot-specific guards are distinct from the already-agreed zero spectral edge guard bins. The initial single-path baseline retains perfect common-Doppler knowledge and correction. DD-a-OFDM's initial estimator/equalizer algorithms are agreed; estimator numerical settings, other schemes' channel estimators, and later practical synchronization remain pending."
   },
   "pass_search": {
     "start_utc": "2026-07-29T00:00:00Z",
@@ -480,6 +482,13 @@
     "primary_metric": "BER",
     "definition": "incorrect_received_information_bits / transmitted_information_bits",
     "comparison_axis": "received_Eb_N0_dB",
+    "result_interpretation": {
+      "swept_input": "Common received data-symbol-referenced E_b/N_0 in dB; use the existing exploratory sweep and noise-normalization rules.",
+      "measured_output": "BER, measured as erroneous recovered information bits divided by measured transmitted information bits.",
+      "fixed_eb_n0_comparison": "At the same received E_b/N_0 and matched comparison conditions, lower BER indicates better reliability.",
+      "target_ber_comparison": "The same measured curves may also compare the E_b/N_0 required to reach a target BER, when the simulated range and statistical uncertainty support that comparison. A target BER is not selected here.",
+      "snr_note": "E_b/N_0 is a bit-energy to noise-spectral-density ratio related to waveform SNR, not an interchangeable label for sample-power SNR. BER is the primary measured performance metric; E_b/N_0 is the controlled horizontal axis."
+    },
     "eb_energy_reference": {
       "mode": "data_symbols_only",
       "definition": "Average normalized data-symbol energy per information bit: Eb = Es/bits_per_symbol for the initial uncoded comparison.",
@@ -522,6 +531,15 @@
       "bits_per_frame_if_all_grid_cells_carry_data": 65536,
       "frames_per_measurement_if_all_grid_cells_carry_data": 160,
       "framing_note": "The 160-frame equivalence assumes all 256*64 grid cells carry uncoded 16-QAM data. Recompute framing when pilots or reserved cells are introduced while preserving the common information-bit quota; this decision does not select their allocation.",
+      "pilot_stage_framing_budget": {
+        "status": "derived_from_agreed_budget_masks_and_tail_handling_pending",
+        "budget_ref": "pilot_comparison_policy.initial_budget",
+        "data_bits_per_full_frame": 49152,
+        "complete_frames_before_tail": 213,
+        "remaining_measured_information_bits": 16384,
+        "frames_if_all_full_frames_use_the_budget": 214,
+        "note": "Arithmetic for 12288 data cells with 4 bits per symbol and the unchanged 10485760-bit quota. Actual masks and final-frame padding/measurement handling remain to be designed; do not round the bit quota or count pilots/guards/padding as measured information bits."
+      },
       "budget_basis": "An initial approximately ten-million-bit budget gives about 100 expected errors if the true BER is 1e-5. This is a rough precision planning basis, not an error-count stopping target, a guaranteed error count, or a guarantee of precision at lower BER.",
       "expected_errors_at_ber_1e_minus_5": 104.8576,
       "reporting": {
