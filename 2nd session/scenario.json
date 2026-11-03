@@ -46,7 +46,7 @@
       "definition": "E[|s|^2] = 1 over equiprobable 16-QAM constellation symbols.",
       "scope": "Use the same fixed constellation scaling for data symbols in OFDM, AFDM, OTFS, and DD-a-OFDM; do not rescale each random frame to force its empirical average to one.",
       "units": "Relative simulation energy units, not a physical transmit-power assignment of 1 watt.",
-      "note": "All four schemes use the same Gray bit mapping. The Eb energy reference, waveform-transform scaling, pilot energy, and the Eb/N0-to-noise-variance rule remain undecided."
+      "note": "All four schemes use the same Gray bit mapping and a data-symbol-only Eb reference. Waveform-transform scaling, pilot energy, and the mapping from symbol-reference noise variance to waveform-sample variance remain undecided."
     }
   },
   "frame_design": {
@@ -155,20 +155,30 @@
         "unnormalized_linear_path_power_from_relative_db": "P_p = 10^(relative_power_db_to_los/10)",
         "common_complex_gain_scale": "1/sqrt(sum_p(P_p)); apply once to all path gains so sum_p(|h_p|^2) = 1 while preserving the agreed relative powers.",
         "scope": "Channel-profile level, not a per-frame or per-frequency-bin received-power adjustment.",
-        "receiver_noise": "The noise model is selected separately; its variance is not yet specified or implemented."
+        "receiver_noise": "The data-symbol-reference AWGN variance rule is defined separately; its waveform-sample mapping and implementation are still pending."
       },
       "waveform_prefix_or_guard_duration": null
     }
   },
   "noise_model": {
-    "status": "model_selected_not_implemented",
+    "status": "symbol_reference_variance_defined_not_implemented",
     "type": "complex_awgn",
     "injection_point": "Once at the receiver, after the LOS and any reflected signal paths are combined.",
     "per_path_noise": false,
     "mean": 0.0,
     "sample_independence": "independent_across_samples",
     "noise_variance": null,
-    "received_eb_n0_to_noise_variance_rule": null,
+    "received_eb_n0_to_noise_variance_rule": {
+      "status": "data_symbol_reference_defined_waveform_sample_mapping_pending",
+      "energy_reference_ref": "evaluation.eb_energy_reference",
+      "linear_eb_n0": "gamma_b = 10^(received_Eb_N0_dB/10)",
+      "reference_domain": "normalized_data_qam_symbol_domain",
+      "reference_complex_variance": "sigma_s^2 = E_s/(bits_per_symbol*gamma_b) = 1/(4*gamma_b)",
+      "reference_variance_per_quadrature": "sigma_s^2/2",
+      "reference_noise_generation": "n_s = sqrt(sigma_s^2/2)*(u + j*v), with independent u,v drawn from N(0,1).",
+      "waveform_sample_mapping": null,
+      "note": "This is a normalized data-symbol-reference rule, not yet the receiver waveform-sample variance. Account for the final transmit/receive transform scaling and sampling before adding noise to waveform samples."
+    },
     "basis": "A controlled first BER comparison; interference, phase noise, and other real-link impairments are not included in this noise model."
   },
   "doppler_comparison": {
@@ -198,7 +208,20 @@
     "primary_metric": "BER",
     "definition": "incorrect_received_information_bits / transmitted_information_bits",
     "comparison_axis": "received_Eb_N0_dB",
+    "eb_energy_reference": {
+      "mode": "data_symbols_only",
+      "definition": "Average normalized data-symbol energy per information bit: Eb = Es/bits_per_symbol for the initial uncoded comparison.",
+      "normalized_data_bit_energy": 0.25,
+      "excluded_energy": ["pilots", "cyclic_prefix_or_waveform_guard"],
+      "note": "Exclusion from Eb accounting does not decide whether pilots or guards are present in the transmitted waveform. Keep the agreed pilot resource/energy fairness policy; evaluate a total-frame-energy-per-information-bit reference separately when overhead is designed."
+    },
     "initial_stage": "single_path_los_awgn_perfect_common_doppler_compensation",
+    "extension_order": [
+      "validate_basic_single_path_los_awgn_transceivers_with_perfect_common_doppler_compensation",
+      "design_pilots_and_waveform_specific_prefixes_or_guards",
+      "add_the_agreed_three_path_control_profile",
+      "discuss_and_justify_doppler_effects_in_multipath"
+    ],
     "initial_stage_interpretation": "Check basic transmitter/receiver behavior and energy/noise normalization against the common uncoded Gray-mapped 16-QAM AWGN reference under ideal processing. Similar BER is expected for matched ideal implementations; no Doppler-robustness ranking is inferred at this stage.",
     "eb_n0_exploratory_sweep_db": [0, 5, 10, 15, 20, 25, 30],
     "eb_n0_refinement": {
