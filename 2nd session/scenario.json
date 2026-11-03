@@ -180,6 +180,7 @@
         }
       },
       "comparison_basis": "Align each 256-sample AFDM useful block with one 256-point OFDM IFFT symbol, and use 64 consecutive blocks in the common frame at 60 MHz. The N used for AFDM chirp-parameter selection is the per-block DAFT length 256, not the full-frame sample count 16384.",
+      "receiver_information_policy_ref": "receiver_information_policy",
       "prefix_pilot_and_receiver_details": "Prefix or chirp-periodic-prefix lengths, pilot allocations, channel estimation, and equalization remain undecided. This decision only fixes the useful-signal block layout and basis transforms.",
       "note": "A single 16384-point frame-wide DAFT is not selected for the initial baseline; its different spreading interval would be a separate waveform design. Matching useful block timing alone does not settle every fairness condition."
     },
@@ -222,12 +223,13 @@
           "scope": "Noiseless useful-signal transform checks only; no channel, prefix, pilot, synchronization, equalization, detection, or BER run."
         }
       },
-      "pending_design": ["prefix or guard placement and length", "pilot and pilot-guard placement and energy", "channel knowledge and estimation", "DD equalization and symbol detection", "complete four-waveform BER implementation"],
+      "receiver_information_policy_ref": "receiver_information_policy",
+      "pending_design": ["prefix or guard placement and length", "pilot and pilot-guard placement and energy", "channel estimation and remaining receiver knowledge", "DD equalization and symbol detection", "complete four-waveform BER implementation"],
       "reference_url": "https://www.mathworks.com/help/comm/ug/otfs-modulation.html",
       "reference_note": "Use the documented ISFFT-plus-OFDM architecture with our agreed unitary normalization; do not copy the example's numerical scaling, channel, padding, or pilot parameters."
     },
     "DD-a-OFDM": {
-      "status": "reference_architecture_documented_receiver_proposal_pending_not_implemented",
+      "status": "shared_path_count_agreed_receiver_algorithm_proposal_pending_not_implemented",
       "transmit_grid_domain": "time_frequency",
       "transmitter_basis": "Conventional OFDM with the common unitary 256-point IFFT and 64 time symbols; data stay in the TF grid.",
       "pilot_policy_ref": "pilot_comparison_policy",
@@ -246,24 +248,45 @@
         "symbol_matrices_per_frame": 64,
         "scope": "An algorithm proposal only; pilot spacing, prefix, noise-variance knowledge, search bounds, iterations, and corresponding receiver choices for other schemes are not selected here."
       },
-      "path_count_information_proposal": {
-        "status": "proposed_not_agreed",
-        "scope": "future_three_path_comparison_only",
-        "known_path_count": 3,
-        "rule": "For the first three-path estimator comparison, make the count P=3 available equally to all four receivers; estimate actual path delays, Dopplers, and complex gains from pilots rather than copying them from the channel generator.",
-        "rationale": "Separate parameter estimation from model-order detection in the first controlled multipath comparison. This is a proposal, not current receiver-side information."
-      },
+      "receiver_information_policy_ref": "receiver_information_policy",
       "selected_receiver_information": {
-        "status": "pending",
-        "known_path_count": null,
-        "exact_path_delays_available": null,
-        "exact_path_dopplers_available": null,
-        "exact_complex_path_gains_available": null
+        "status": "path_count_agreed_for_first_three_path_comparison_not_implemented",
+        "scope": "first_three_path_pilot_based_comparison_only",
+        "known_path_count": 3,
+        "exact_path_delays_available": false,
+        "exact_path_dopplers_available": false,
+        "exact_complex_path_gains_available": false,
+        "note": "Use the shared receiver_information_policy. Future multipath common-Doppler compensation remains a separate decision; the initial single-path baseline's perfect common-Doppler knowledge is preserved."
       },
-      "pending_design": ["accept or revise the receiver algorithm proposal", "decide receiver path-count knowledge fairly across schemes", "pilot spacing, positions, energy, and guards", "prefix and pulse details shared with OFDM", "delay/Doppler search support and fractional refinement", "initialization, iteration count and convergence criterion", "noise-variance knowledge", "comparable OFDM, AFDM and OTFS receiver processing"],
+      "pending_design": ["accept or revise the receiver algorithm proposal", "pilot spacing, positions, energy, and guards", "prefix and pulse details shared with OFDM", "delay/Doppler search support and fractional refinement", "initialization, iteration count and convergence criterion", "noise-variance knowledge", "comparable OFDM, AFDM and OTFS receiver processing"],
       "comparison_interpretation": "OFDM and DD-a-OFDM use the same transmitted waveform when given the same TF symbols, pilots, and prefix/pulse configuration. BER differences then evaluate channel estimation and receiver processing as part of the transceiver comparison.",
-      "channel_scope": "Keep the current single-path baseline, common-Doppler compensation policy, three-path generator profile, and zero additional path Dopplers unchanged. Documenting this proposal grants no new channel knowledge and introduces no new Doppler experiment.",
+      "channel_scope": "The shared P=3 receiver-information assumption applies to the first future three-path comparison. Keep the current single-path baseline, common-Doppler compensation policy, three-path generator profile, and zero additional path Dopplers unchanged; no additional Doppler experiment is introduced.",
       "implementation_status": "not_implemented"
+    }
+  },
+  "receiver_information_policy": {
+    "status": "known_path_count_agreed_for_first_three_path_comparison_not_implemented",
+    "scope": "first_three_path_pilot_based_comparison_only",
+    "applies_to": ["OFDM", "AFDM", "OTFS", "DD-a-OFDM"],
+    "known_path_count_including_los": 3,
+    "availability_rule": "Make P=3 available equally to all four receivers. A receiver may use this prior when its algorithm supports it; this does not require every receiver to use a path-parametric estimator.",
+    "generator_truth_available_to_receivers": {
+      "path_count": true,
+      "path_delays": false,
+      "path_dopplers": false,
+      "complex_path_gains": false
+    },
+    "parameter_estimation_rule": "Obtain the channel response or path parameters from the agreed pilot observations. Do not copy the actual 0/2/5-sample delays, per-path Dopplers, or complex gains from the channel generator into the receivers.",
+    "purpose": "First compare channel-parameter estimation and BER without adding path-count detection errors. State this known-count assumption in reported results; equal path-count information alone does not settle other fairness conditions.",
+    "baseline_scope": "This policy does not change the initial single-path LOS AWGN baseline or its perfect common-Doppler knowledge and compensation. Future multipath compensation details remain to be discussed.",
+    "remaining_receiver_design": "Algorithm choices, pilot allocation, noise-variance knowledge, delay/Doppler search support and receiver iteration settings remain pending.",
+    "path_count_estimation_followup": {
+      "status": "deferred_method_and_parameters_pending_not_implemented",
+      "purpose": "Replace the known count with a receiver-estimated count and compare against the known-count reference. Assess missed or spurious paths and their impact on parameter estimation and BER.",
+      "method": null,
+      "detection_threshold": null,
+      "count_error_metric_definition": null,
+      "comparison_rule": "Review the receiver-information and resource conditions for all four schemes before this extension; no scheme receives the true count as hidden assistance in an estimated-count comparison."
     }
   },
   "pilot_comparison_policy": {
@@ -436,6 +459,22 @@
       "add_the_agreed_three_path_control_profile",
       "discuss_and_justify_doppler_effects_in_multipath"
     ],
+    "extension_tracking": {
+      "roadmap_document": "README.md#확장-및-미정-항목-목록",
+      "interpretation": "Index of discussed extensions and reviews, not a new execution order or selection of pending numerical parameters. The main extension_order remains the agreed staging rule; none of these BER extensions has been run.",
+      "items": [
+        {"id": "receiver_estimated_path_count", "status": "deferred_parameters_pending", "settings_ref": "receiver_information_policy.path_count_estimation_followup"},
+        {"id": "multipath_doppler_and_compensation_errors", "status": "model_and_parameters_pending", "settings_ref": "channel_model.multipath_followup.doppler_effect_followup"},
+        {"id": "within_frame_time_varying_fading", "status": "deferred_model_pending", "settings_ref": "channel_model.multipath_followup.path_phase_and_gain_realization"},
+        {"id": "edge_guards_and_dc_null", "status": "deferred_counts_pending", "settings_ref": "radio.bandwidth_basis"},
+        {"id": "channel_coding", "status": "deferred_code_pending", "settings_ref": "evaluation.channel_coding_followup"},
+        {"id": "finer_eb_n0_sweep", "status": "select_after_exploratory_sweep", "settings_ref": "evaluation.eb_n0_refinement"},
+        {"id": "sampling_convergence_and_physical_filters", "status": "validation_planned_parameters_pending", "settings_ref": "sampling_model.higher_rate_validation"},
+        {"id": "frame_length_and_runtime", "status": "validation_planned_parameters_pending", "settings_ref": "frame_design.frame_length_review"},
+        {"id": "afdm_margin_adequacy", "status": "review_with_multipath_and_receiver_design", "settings_ref": "waveform_design.AFDM.chirp_parameters.selection_rule.c1_validation"},
+        {"id": "total_frame_energy_per_information_bit", "status": "review_after_pilot_and_prefix_design", "settings_ref": "evaluation.eb_energy_reference"}
+      ]
+    },
     "initial_stage_interpretation": "Check basic transmitter/receiver behavior and energy/noise normalization against the common uncoded Gray-mapped 16-QAM AWGN reference under ideal processing. Similar BER is expected for matched ideal implementations; no Doppler-robustness ranking is inferred at this stage.",
     "monte_carlo_measurement": {
       "status": "fixed_bit_budget_agreed_not_implemented",
