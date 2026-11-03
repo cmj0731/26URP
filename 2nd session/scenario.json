@@ -51,7 +51,7 @@
     "prefix_or_guard_duration_s": null,
     "total_frame_duration_s": null,
     "data_and_pilot_allocation": null,
-    "basis": "A manageable first BER frame candidate using the agreed 256-bin, 234.375 kHz grid. The DD-a-OFDM reference uses 64 time symbols but a different subcarrier spacing; 64 here is not orbit-derived or physically optimal. Confirm after receiver handling of the large common Doppler and guard/pilot design are discussed."
+    "basis": "A manageable first BER frame candidate using the agreed 256-bin, 234.375 kHz grid. The DD-a-OFDM reference uses 64 time symbols but a different subcarrier spacing; 64 here is not orbit-derived or physically optimal. The initial single-path baseline assumes perfect common-Doppler compensation. Frame length remains provisional pending guard/pilot and waveform-specific receiver design."
   },
   "pilot_comparison_policy": {
     "status": "fairness_principle_agreed_details_pending",
@@ -66,7 +66,7 @@
       "OTFS": "waveform_native_delay_doppler_domain"
     },
     "pilot_locations_and_counts": null,
-    "note": "Pilot-specific guards are distinct from the already-agreed zero spectral edge guard bins. Large common-Doppler acquisition and each scheme's channel estimator are still undecided."
+    "note": "Pilot-specific guards are distinct from the already-agreed zero spectral edge guard bins. The initial single-path baseline assumes perfect common-Doppler knowledge and correction, so it does not require a Doppler-acquisition preamble or estimator. Each scheme's channel estimator and any later practical synchronization design remain undecided."
   },
   "pass_search": {
     "start_utc": "2026-07-29T00:00:00Z",
@@ -90,7 +90,8 @@
     "baseline": {
       "type": "single_path_los",
       "path_count_including_los": 1,
-      "purpose": "Initial controlled BER comparison with orbit-derived LOS Doppler."
+      "doppler_compensation_policy_ref": "doppler_comparison.receiver_doppler_compensation",
+      "purpose": "First validate the four transceivers and their energy/noise normalization in a single-path LOS plus complex AWGN channel with perfectly known and fully corrected common Doppler; this stage does not test Doppler robustness."
     },
     "multipath_followup": {
       "status": "planned",
@@ -100,6 +101,14 @@
       "profile_basis": "Agreed synthetic, LOS-dominant three-path comparison condition; not a measurement of the SKKU–STARLINK-5285 channel or a standardized NTN profile.",
       "same_profile_at_low_and_high_doppler_snapshots": true,
       "doppler_model": "Apply the orbit-derived LOS Doppler at each snapshot to all three paths, with zero additional per-path Doppler as a first approximation for a fixed ground station and stationary local reflectors. This does not model differential Doppler spread.",
+      "doppler_effect_followup": {
+        "status": "discuss_after_single_path_baseline",
+        "purpose": "Consider Doppler effects in multipath after validating the perfectly common-Doppler-compensated single-path baseline.",
+        "per_path_doppler_model": null,
+        "common_doppler_compensation_policy": null,
+        "residual_compensation_error_model": null,
+        "note": "The existing three-path control profile retains zero additional per-path Doppler. Any differential Doppler, compensation error, or within-frame channel evolution requires a separately discussed model and justified parameters; none is selected here."
+      },
       "path_delay_power_doppler_profile": [
         {
           "path": "los",
@@ -156,6 +165,7 @@
     "basis": "A controlled first BER comparison; interference, phase noise, and other real-link impairments are not included in this noise model."
   },
   "doppler_comparison": {
+    "status": "robustness_comparison_deferred_until_after_single_path_baseline",
     "conditions": ["low", "high"],
     "low_snapshot_selection": "selected_pass.peak_utc",
     "high_snapshot_selection": "selected_pass.visible_end_utc",
@@ -163,14 +173,26 @@
     "high_snapshot_utc": "2026-07-29T07:51:02.674Z",
     "low_doppler_hz": 509.2,
     "high_doppler_hz": -261029.1,
-    "receiver_doppler_compensation": null,
+    "receiver_doppler_compensation": {
+      "status": "agreed_for_single_path_baseline_not_implemented",
+      "scope": "single_path_los_baseline_only",
+      "mode": "perfect_known_common_doppler",
+      "receiver_knowledge": "The receiver is given exactly the same snapshot common-Doppler value used by the channel generator, without estimation error.",
+      "correction": "After channel and receiver AWGN, multiply received samples by exp(-j*2*pi*f_D*n/F_s) to remove the common snapshot frequency shift before waveform-specific demodulation.",
+      "residual_common_doppler_hz": 0.0,
+      "doppler_acquisition_preamble_or_estimator": "not_required_in_this_ideal_baseline",
+      "note": "This is an ideal frequency-compensation assumption, not a practical synchronization algorithm or a decision about other channel knowledge. Future multipath and imperfect-compensation policies remain to be discussed."
+    },
     "doppler_value_source": "Computed, not chosen: -carrier_frequency_hz * slant_range_rate / speed_of_light, with slant-range rate estimated by a 1-second centered difference; Doppler values rounded to 0.1 Hz.",
-    "basis": "Use peak elevation for low Doppler and the visible-pass exit at 10 degrees elevation for high Doppler in the current draft pass. Compare all four waveforms at the same received Eb/N0. Recompute times and shifts if the draft pass changes. Other channel assumptions must be controlled to attribute changes to Doppler."
+    "baseline_snapshot_interpretation": "Keep the original low/high snapshot shifts as orbit-derived inputs. Both have zero residual common Doppler under perfect correction; their BER statistics should coincide at equal received Eb/N0 with other conditions matched. They are not distinct Doppler-stress conditions in the initial baseline.",
+    "basis": "Retain peak elevation and the visible-pass exit at 10 degrees as the original low/high snapshot references. First run the perfectly common-Doppler-compensated single-path LOS plus AWGN baseline; discuss multipath Doppler effects afterwards. Recompute times and shifts if the draft pass changes."
   },
   "evaluation": {
     "primary_metric": "BER",
     "definition": "incorrect_received_information_bits / transmitted_information_bits",
     "comparison_axis": "received_Eb_N0_dB",
+    "initial_stage": "single_path_los_awgn_perfect_common_doppler_compensation",
+    "initial_stage_interpretation": "Check basic transmitter/receiver behavior and energy/noise normalization against the common uncoded 16-QAM AWGN reference under ideal processing. Similar BER is expected for matched ideal implementations; no Doppler-robustness ranking is inferred at this stage.",
     "eb_n0_exploratory_sweep_db": [0, 5, 10, 15, 20, 25, 30],
     "eb_n0_refinement": {
       "region_db": null,
