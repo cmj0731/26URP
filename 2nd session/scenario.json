@@ -104,7 +104,7 @@
   },
   "waveform_design": {
     "AFDM": {
-      "status": "block_layout_and_c1_design_basis_agreed_values_pending_not_implemented",
+      "status": "block_layout_and_initial_c1_agreed_c2_pending_not_implemented",
       "daft_length": 256,
       "blocks_per_frame": 64,
       "transmitter_transform": "unitary_IDAFT_per_block",
@@ -115,10 +115,10 @@
       "useful_sample_count_without_prefix": 16384,
       "useful_frame_duration_s_without_prefix": 0.000273066666666667,
       "chirp_parameters": {
-        "c1": null,
+        "c1": 0.009765625,
         "c2": null,
         "selection_rule": {
-          "status": "c1_design_basis_agreed_numeric_rule_pending",
+          "status": "initial_c1_agreed_validation_pending",
           "c1_doppler_basis": "Use the maximum absolute orbit-derived common LOS Doppler before receiver compensation over the selected visible pass as the design reference.",
           "current_pass_doppler_reference": {
             "maximum_absolute_doppler_hz": 261029.1,
@@ -132,9 +132,24 @@
             "note": "Numerical estimate for the current pinned-orbit draft pass, not a measured or universal Starlink maximum. Recompute if the pass, orbit, carrier, station, sample grid, or AFDM block length changes."
           },
           "c1_delay_basis": "Also account for the agreed three-path control profile's maximum excess delay: 5 samples at 60 MHz, approximately 83.3 ns.",
-          "c1_fractional_doppler_margin": null,
-          "c1_numeric_formula": null,
-          "c1_application": "Once selected, keep the same c1 across baseline frames, Eb/N0 points, and low/high snapshot comparisons within the adopted design envelope; do not retune it per realization or snapshot. Revisit the design explicitly if that envelope changes.",
+          "c1_fractional_doppler_margin": 1,
+          "c1_numeric_formula": {
+            "expression": "c1 = (2 * (alpha_max + xi_nu) + 1) / (2 * N_AFDM)",
+            "alpha_max": 1,
+            "xi_nu": 1,
+            "N_AFDM": 256,
+            "exact_fraction": "5/512",
+            "integer_doppler_convention": "nu = f_D / (F_s / N_AFDM) = alpha + a, with integer alpha and -0.5 < a <= 0.5. alpha_max is the maximum absolute integer component over the design envelope, not the Doppler at every snapshot.",
+            "alpha_max_basis": "The current pass has maximum absolute normalized Doppler 1.11372416, so the integer component ranges from -1 to 1.",
+            "reference_url": "https://arxiv.org/pdf/2204.12798#page=13",
+            "reference_equation": 43
+          },
+          "c1_validation": {
+            "status": "initial_choice_ber_and_margin_sensitivity_not_run",
+            "note": "xi_nu = 1 is an agreed initial engineering choice, not a validated optimum or a guarantee that fractional-Doppler leakage is confined to one bin. The channel must retain the actual fractional Doppler. Pilot and guard allocations, and any receiver channel-matrix truncation, remain separate decisions.",
+            "followup": "Assess the margin when multipath and receiver processing are introduced; explicitly review the fixed design if the adopted delay-Doppler envelope changes. The initial perfectly common-Doppler-compensated LOS AWGN baseline cannot establish this margin's Doppler robustness."
+          },
+          "c1_application": "Keep the selected c1 = 5/512 across baseline frames, Eb/N0 points, and low/high snapshot comparisons within the adopted design envelope; do not retune it per realization or snapshot. Revisit the design explicitly if that envelope changes.",
           "c2_selection": "Separate decision; value and selection rule remain pending.",
           "baseline_compensation": "The initial single-path receiver still perfectly removes the actual common Doppler, leaving 0 Hz residual. Using a pre-compensation design reference does not change this channel assumption.",
           "future_channel_scope": "No nonzero differential path Doppler or uncompensated-Doppler experiment is introduced by this design-reference decision."
