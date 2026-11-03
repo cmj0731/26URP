@@ -429,9 +429,9 @@
       "same_profile_at_low_and_high_doppler_snapshots": true,
       "doppler_model": "Apply the orbit-derived LOS Doppler at each snapshot to all three paths, with zero additional per-path Doppler as a first approximation for a fixed ground station and stationary local reflectors. This does not model differential Doppler spread.",
       "doppler_effect_followup": {
-        "status": "paired_A_B_and_doppler_scale_levels_agreed_signed_path_pattern_pending_not_implemented",
+        "status": "paired_A_B_doppler_profiles_agreed_pilot_support_validation_pending_not_implemented",
         "purpose": "After single-path baseline validation, compare the agreed three-path delay profile with zero residual Doppler (A) against the same profile with progressively larger differential path Doppler (B).",
-        "per_path_doppler_model": "Controlled synthetic differential-Doppler sweep, not measured or geometry-derived SKKU reflection Doppler. Keep the LOS residual at zero; use the agreed maximum residual magnitudes after separately agreeing the signed reflection-path pattern.",
+        "per_path_doppler_model": "Controlled synthetic differential-Doppler sweep, not measured or geometry-derived SKKU reflection Doppler. At each agreed maximum residual magnitude d, use [0, +d, -d] in the fixed path order [los, reflection_1, reflection_2]. The sign assignment is the same across levels and all four schemes.",
         "sweep_magnitude_design": {
           "status": "agreed_for_initial_exploratory_sweep_not_implemented",
           "definition": "d = max_p(abs(delta_f_p)), where delta_f_p is each path's residual Doppler after perfect common LOS correction; delta_f_LOS = 0. This is a maximum magnitude relative to LOS, not the full signed Doppler spread max(delta_f_p)-min(delta_f_p).",
@@ -442,6 +442,8 @@
           "normalized_magnitude_levels": [0.0, 0.01, 0.05, 0.1, 0.2],
           "maximum_residual_doppler_levels_hz": [0.0, 2343.75, 11718.75, 23437.5, 46875.0],
           "maximum_residual_doppler_hz": 46875.0,
+          "full_signed_doppler_spread_levels_hz": [0.0, 4687.5, 23437.5, 46875.0, 93750.0],
+          "full_signed_doppler_spread_rule": "max(delta_f_p)-min(delta_f_p) = 2*d for the agreed [0, +d, -d] pattern.",
           "interpretation": "Five exploratory conditions total: zero Doppler is A, and the four positive maximum magnitudes define B-1 through B-4. Levels are an agreed synthetic sensitivity-study choice, not measured Starlink differential Doppler or a standard-mandated grid.",
           "sampling_note": "Preserve the physical Doppler frequencies without rounding to integer DD bins. Re-evaluate the normalization explicitly if the common subcarrier spacing changes."
         },
@@ -456,15 +458,33 @@
         },
         "paired_conditions": {
           "A": {"name": "delay_only_static_multipath", "additional_path_doppler_hz": [0.0, 0.0, 0.0]},
-          "B": {"name": "same_delays_with_increasing_differential_doppler", "los_additional_doppler_hz": 0.0, "reflection_doppler_scale_levels_hz": [2343.75, 11718.75, 23437.5, 46875.0], "signed_reflection_doppler_pattern": null},
+          "B": {
+            "name": "same_delays_with_increasing_differential_doppler",
+            "los_additional_doppler_hz": 0.0,
+            "reflection_doppler_scale_levels_hz": [2343.75, 11718.75, 23437.5, 46875.0],
+            "signed_reflection_doppler_pattern": {
+              "status": "agreed_not_implemented",
+              "path_order": ["los", "reflection_1", "reflection_2"],
+              "doppler_multipliers_of_d": [0.0, 1.0, -1.0],
+              "rule": "delta_f_LOS = 0; delta_f_reflection_1 = +d; delta_f_reflection_2 = -d.",
+              "path_binding": "reflection_1 retains excess delay 2 samples and relative power -10 dB; reflection_2 retains excess delay 5 samples and relative power -15 dB. Do not swap the Doppler signs between paths or trials."
+            },
+            "condition_labels": ["B-1", "B-2", "B-3", "B-4"],
+            "additional_path_doppler_hz_by_level": [
+              [0.0, 2343.75, -2343.75],
+              [0.0, 11718.75, -11718.75],
+              [0.0, 23437.5, -23437.5],
+              [0.0, 46875.0, -46875.0]
+            ]
+          },
           "matched_conditions": ["excess_delays_0_2_5_samples", "relative_powers_0_minus10_minus15_dB_and_existing_normalization", "initial_path_phase_realization", "received_data_symbol_Eb_N0", "pilot_resource_and_energy_budgets", "per_block_CP", "measured_information_bit_count", "receiver_information_policy"],
           "comparison_control": "At each Eb/N0, reuse a trial's path magnitudes and initial phases across A, B sweep levels, and all four schemes. Only the selected differential Doppler changes. Keep a fixed finalized pilot design and receiver settings across the sweep unless an explicitly agreed common adaptation rule is introduced.",
           "snapshot_interpretation": "If the residual profile is the same, perfect common correction makes peak and exit equivalent residual-Doppler conditions. The synthetic B levels, rather than the raw orbit shifts, define the Doppler stress."
         },
         "within_frame_evolution": "Initial phases and path magnitudes stay fixed per trial; B adds deterministic exp(j*2*pi*delta_f_p*t) path phase rotation with continuous time including prefixes. No additional random phase or amplitude evolution is selected.",
         "residual_compensation_error_model": null,
-        "pending_design": ["Signed reflection-path Doppler pattern and relative magnitudes at each agreed scale", "Pilot-mask feasibility and receiver estimation search support for the agreed residual envelope"],
-        "note": "The existing explicit zero-additional-Doppler profile supplies A. B has agreed maximum magnitudes but must override its path Dopplers only after the signed reflection-path pattern is agreed; no complete nonzero generator profile or BER results are supplied here. Imperfect common correction is a separate unselected extension."
+        "pending_design": ["Pilot-mask feasibility and receiver estimation search support for the agreed residual envelope"],
+        "note": "The existing explicit zero-additional-Doppler profile supplies A. B overrides only its path Dopplers using the agreed signed vectors above; delays, powers, normalization and paired initial phases remain unchanged. These are selected settings, not an implemented channel generator or BER results. Imperfect common correction is a separate unselected extension."
       },
       "path_delay_power_doppler_profile": [
         {
@@ -562,7 +582,7 @@
     },
     "doppler_value_source": "Computed, not chosen: -carrier_frequency_hz * slant_range_rate / speed_of_light, with slant-range rate estimated by a 1-second centered difference; Doppler values rounded to 0.1 Hz.",
     "baseline_snapshot_interpretation": "Keep the original low/high snapshot shifts as orbit-derived inputs. Both have zero residual common Doppler under perfect correction; their BER statistics should coincide at equal received Eb/N0 with other conditions matched. They are not distinct Doppler-stress conditions in the initial baseline.",
-    "basis": "Retain peak elevation and the visible-pass exit at 10 degrees as the original low/high snapshot references. First validate the perfectly common-Doppler-compensated single-path baseline, then compare paired three-path A/B conditions under the separate agreed common-correction policy. Maximum residual Doppler magnitudes are agreed; the signed reflection-path pattern remains pending. Recompute times and shifts if the draft pass changes."
+    "basis": "Retain peak elevation and the visible-pass exit at 10 degrees as the original low/high snapshot references. First validate the perfectly common-Doppler-compensated single-path baseline, then compare paired three-path A/B conditions under the separate agreed common-correction policy. Maximum residual Doppler magnitudes and the signed [0,+d,-d] path pattern are agreed; pilot feasibility and receiver search settings remain pending. Recompute times and shifts if the draft pass changes."
   },
   "evaluation": {
     "primary_metric": "BER",
@@ -594,7 +614,7 @@
       "interpretation": "Index of discussed extensions and reviews, not a new execution order or selection of pending numerical parameters. The main extension_order remains the agreed staging rule; none of these BER extensions has been run.",
       "items": [
         {"id": "receiver_estimated_path_count", "status": "deferred_parameters_pending", "settings_ref": "receiver_information_policy.path_count_estimation_followup"},
-        {"id": "multipath_doppler_and_compensation_errors", "status": "A_B_and_scale_levels_agreed_signed_path_pattern_pending_imperfect_common_correction_unselected", "settings_ref": "channel_model.multipath_followup.doppler_effect_followup"},
+        {"id": "multipath_doppler_and_compensation_errors", "status": "A_B_profiles_agreed_pilot_support_validation_pending_imperfect_common_correction_unselected", "settings_ref": "channel_model.multipath_followup.doppler_effect_followup"},
         {"id": "within_frame_time_varying_fading", "status": "deferred_model_pending", "settings_ref": "channel_model.multipath_followup.path_phase_and_gain_realization"},
         {"id": "edge_guards_and_dc_null", "status": "deferred_counts_pending", "settings_ref": "radio.bandwidth_basis"},
         {"id": "channel_coding", "status": "deferred_code_pending", "settings_ref": "evaluation.channel_coding_followup"},
