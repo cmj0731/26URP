@@ -46,8 +46,20 @@
       "definition": "E[|s|^2] = 1 over equiprobable 16-QAM constellation symbols.",
       "scope": "Use the same fixed constellation scaling for data symbols in OFDM, AFDM, OTFS, and DD-a-OFDM; do not rescale each random frame to force its empirical average to one.",
       "units": "Relative simulation energy units, not a physical transmit-power assignment of 1 watt.",
-      "note": "All four schemes use the same Gray bit mapping and a data-symbol-only Eb reference. Waveform-transform scaling, pilot energy, and the mapping from symbol-reference noise variance to waveform-sample variance remain undecided."
+      "note": "All four schemes use the same Gray bit mapping, a data-symbol-only Eb reference, and unitary useful-signal transforms. Sampling, pilot energy, and the final waveform-sample noise mapping remain to be designed."
     }
+  },
+  "waveform_transform_normalization": {
+    "status": "agreed_not_implemented",
+    "method": "unitary_energy_preserving",
+    "applies_to": ["OFDM", "AFDM", "OTFS", "DD-a-OFDM"],
+    "scope": "Modulation and demodulation basis transforms on the useful frame, before prefix insertion and after prefix removal; this is not a constraint on the propagation channel or equalizer gain.",
+    "energy_invariant": "sum(|x_useful|^2) = sum(|s_grid|^2) on the same normalized discrete sample basis. Include explicitly allocated pilot energy in s_grid if pilots are later inserted.",
+    "fourier_block_rule": "Scale each length-L forward and inverse DFT block by 1/sqrt(L); apply this per transformed axis in two-dimensional Fourier mappings.",
+    "daft_rule": "Use a unitary Fourier block and unit-magnitude chirp factors for the DAFT/IDAFT pair; this does not choose AFDM chirp parameters.",
+    "frame_scaling": "Use fixed analytic transform factors; do not rescale each random frame to a forced empirical signal power or energy.",
+    "prefix_and_pilot_energy": "Preserve pilot energy through the useful-signal transforms when present. Count energy introduced by prefixes or other added samples separately; do not hide overhead by renormalizing the complete transmitted frame.",
+    "note": "This fixes transform normalization only. Sampling, pulse shaping, prefix lengths, pilot allocations, and waveform-specific channel estimation/equalization remain to be designed."
   },
   "frame_design": {
     "status": "provisional_candidate_not_final",
@@ -155,13 +167,13 @@
         "unnormalized_linear_path_power_from_relative_db": "P_p = 10^(relative_power_db_to_los/10)",
         "common_complex_gain_scale": "1/sqrt(sum_p(P_p)); apply once to all path gains so sum_p(|h_p|^2) = 1 while preserving the agreed relative powers.",
         "scope": "Channel-profile level, not a per-frame or per-frequency-bin received-power adjustment.",
-        "receiver_noise": "The data-symbol-reference AWGN variance rule is defined separately; its waveform-sample mapping and implementation are still pending."
+        "receiver_noise": "The data-symbol-reference AWGN variance and its conditional unitary-transform sample rule are defined separately; sampling details and implementation are still pending."
       },
       "waveform_prefix_or_guard_duration": null
     }
   },
   "noise_model": {
-    "status": "symbol_reference_variance_defined_not_implemented",
+    "status": "unitary_variance_rule_defined_sampling_pending_not_implemented",
     "type": "complex_awgn",
     "injection_point": "Once at the receiver, after the LOS and any reflected signal paths are combined.",
     "per_path_noise": false,
@@ -169,15 +181,22 @@
     "sample_independence": "independent_across_samples",
     "noise_variance": null,
     "received_eb_n0_to_noise_variance_rule": {
-      "status": "data_symbol_reference_defined_waveform_sample_mapping_pending",
+      "status": "data_symbol_reference_and_conditional_unitary_sample_rule_defined",
       "energy_reference_ref": "evaluation.eb_energy_reference",
       "linear_eb_n0": "gamma_b = 10^(received_Eb_N0_dB/10)",
       "reference_domain": "normalized_data_qam_symbol_domain",
       "reference_complex_variance": "sigma_s^2 = E_s/(bits_per_symbol*gamma_b) = 1/(4*gamma_b)",
       "reference_variance_per_quadrature": "sigma_s^2/2",
       "reference_noise_generation": "n_s = sqrt(sigma_s^2/2)*(u + j*v), with independent u,v drawn from N(0,1).",
-      "waveform_sample_mapping": null,
-      "note": "This is a normalized data-symbol-reference rule, not yet the receiver waveform-sample variance. Account for the final transmit/receive transform scaling and sampling before adding noise to waveform samples."
+      "waveform_sample_mapping": {
+        "status": "conditional_on_sampling_design",
+        "transform_normalization_ref": "waveform_transform_normalization",
+        "condition": "Use the agreed square unitary transmit/receive basis transforms on the same discrete sample grid, without additional resampling or filtering gain.",
+        "complex_variance": "sigma_time^2 = sigma_s^2 = 1/(4*gamma_b)",
+        "variance_per_quadrature": "sigma_time^2/2",
+        "note": "Unitary receiver basis transforms preserve white complex AWGN covariance. Re-derive the sample-domain scaling if sampling or filtering introduces additional factors. This rule does not select those sampling/filter settings."
+      },
+      "note": "Use the agreed data-symbol energy and analytic transform factors. Do not infer noise variance from each random frame's instantaneous measured power. The final waveform-sample mapping still requires the sampling/filter design."
     },
     "basis": "A controlled first BER comparison; interference, phase noise, and other real-link impairments are not included in this noise model."
   },
