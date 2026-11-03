@@ -102,6 +102,28 @@
       "acceptance_criteria": null
     }
   },
+  "waveform_design": {
+    "AFDM": {
+      "status": "block_layout_agreed_chirp_parameters_pending_not_implemented",
+      "daft_length": 256,
+      "blocks_per_frame": 64,
+      "transmitter_transform": "unitary_IDAFT_per_block",
+      "receiver_basis_transform": "unitary_DAFT_per_block",
+      "normalization_ref": "waveform_transform_normalization",
+      "useful_samples_per_block": 256,
+      "useful_block_duration_s_without_prefix": 0.000004266666666667,
+      "useful_sample_count_without_prefix": 16384,
+      "useful_frame_duration_s_without_prefix": 0.000273066666666667,
+      "chirp_parameters": {
+        "c1": null,
+        "c2": null,
+        "selection_rule": null
+      },
+      "comparison_basis": "Align each 256-sample AFDM useful block with one 256-point OFDM IFFT symbol, and use 64 consecutive blocks in the common frame at 60 MHz. The N used for AFDM chirp-parameter selection is the per-block DAFT length 256, not the full-frame sample count 16384.",
+      "prefix_pilot_and_receiver_details": "Prefix or chirp-periodic-prefix lengths, pilot allocations, channel estimation, and equalization remain undecided. This decision only fixes the useful-signal block layout and basis transforms.",
+      "note": "A single 16384-point frame-wide DAFT is not selected for the initial baseline; its different spreading interval would be a separate waveform design. Matching useful block timing alone does not settle every fairness condition."
+    }
+  },
   "pilot_comparison_policy": {
     "status": "fairness_principle_agreed_details_pending",
     "pilot_plus_pilot_guard_resource_fraction_rule": "Use the same fraction of the frame's resources for pilots and pilot-specific guard or reserved cells across all four schemes.",
