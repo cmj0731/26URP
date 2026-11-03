@@ -229,7 +229,7 @@
       "reference_note": "Use the documented ISFFT-plus-OFDM architecture with our agreed unitary normalization; do not copy the example's numerical scaling, channel, padding, or pilot parameters."
     },
     "DD-a-OFDM": {
-      "status": "shared_path_count_agreed_receiver_algorithm_proposal_pending_not_implemented",
+      "status": "shared_path_count_and_initial_receiver_algorithms_agreed_not_implemented",
       "transmit_grid_domain": "time_frequency",
       "transmitter_basis": "Conventional OFDM with the common unitary 256-point IFFT and 64 time symbols; data stay in the TF grid.",
       "pilot_policy_ref": "pilot_comparison_policy",
@@ -240,13 +240,14 @@
         "sections": ["II-B and Figure 1: transmission framework", "IV-A and Algorithm 1: DD-domain ML channel estimation", "IV-B, equations (43)-(44): TF-domain MMSE equalization"]
       },
       "reference_receiver_flow": ["OFDM FFT produces the received TF grid", "known TF pilot observations form the sampled channel response", "DD processing of the pilot observations estimates path delay, Doppler, and complex gain", "reconstruct each OFDM symbol's TF channel matrix, including ICI terms", "equalize TF data and perform QAM detection"],
-      "receiver_proposal": {
-        "status": "proposed_not_agreed",
+      "receiver_design": {
+        "status": "initial_algorithm_combination_agreed_not_implemented",
         "channel_estimator": "DD-domain ML using alternating projection with path-wise delay/Doppler searches and joint LS gain refinement, following Algorithm 1",
-        "equalizer": "TF-domain ICI-aware full-matrix MMSE, following equations (43)-(44)",
+        "equalizer": "TF-domain ICI-aware full-matrix linear MMSE, following equations (43)-(44)",
         "tf_channel_matrix_shape_per_symbol": [256, 256],
         "symbol_matrices_per_frame": 64,
-        "scope": "An algorithm proposal only; pilot spacing, prefix, noise-variance knowledge, search bounds, iterations, and corresponding receiver choices for other schemes are not selected here."
+        "processing_rule": "Estimate channel parameters from pilot observations under the shared receiver-information policy, reconstruct the TF channel matrix from those estimates, and apply linear MMSE to recover data symbols before QAM decisions. ML here is channel estimation, not exhaustive ML detection of the transmitted data vector.",
+        "scope": "The initial algorithm combination is agreed. Pilot spacing, prefix, noise-variance knowledge, search bounds, iteration settings, and corresponding receiver choices for other schemes remain pending; the full receiver has not been implemented."
       },
       "receiver_information_policy_ref": "receiver_information_policy",
       "selected_receiver_information": {
@@ -258,7 +259,7 @@
         "exact_complex_path_gains_available": false,
         "note": "Use the shared receiver_information_policy. Future multipath common-Doppler compensation remains a separate decision; the initial single-path baseline's perfect common-Doppler knowledge is preserved."
       },
-      "pending_design": ["accept or revise the receiver algorithm proposal", "pilot spacing, positions, energy, and guards", "prefix and pulse details shared with OFDM", "delay/Doppler search support and fractional refinement", "initialization, iteration count and convergence criterion", "noise-variance knowledge", "comparable OFDM, AFDM and OTFS receiver processing"],
+      "pending_design": ["pilot spacing, positions, energy, and guards", "prefix and pulse details shared with OFDM", "delay/Doppler search support and fractional refinement", "initialization, iteration count and convergence criterion", "noise-variance knowledge", "comparable OFDM, AFDM and OTFS receiver processing"],
       "comparison_interpretation": "OFDM and DD-a-OFDM use the same transmitted waveform when given the same TF symbols, pilots, and prefix/pulse configuration. BER differences then evaluate channel estimation and receiver processing as part of the transceiver comparison.",
       "channel_scope": "The shared P=3 receiver-information assumption applies to the first future three-path comparison. Keep the current single-path baseline, common-Doppler compensation policy, three-path generator profile, and zero additional path Dopplers unchanged; no additional Doppler experiment is introduced.",
       "implementation_status": "not_implemented"
@@ -279,7 +280,7 @@
     "parameter_estimation_rule": "Obtain the channel response or path parameters from the agreed pilot observations. Do not copy the actual 0/2/5-sample delays, per-path Dopplers, or complex gains from the channel generator into the receivers.",
     "purpose": "First compare channel-parameter estimation and BER without adding path-count detection errors. State this known-count assumption in reported results; equal path-count information alone does not settle other fairness conditions.",
     "baseline_scope": "This policy does not change the initial single-path LOS AWGN baseline or its perfect common-Doppler knowledge and compensation. Future multipath compensation details remain to be discussed.",
-    "remaining_receiver_design": "Algorithm choices, pilot allocation, noise-variance knowledge, delay/Doppler search support and receiver iteration settings remain pending.",
+    "remaining_receiver_design": "DD-a-OFDM's initial DD-ML estimator and TF linear-MMSE equalizer are agreed. Pilot allocation, noise-variance knowledge, delay/Doppler search support, iteration settings, and the channel estimators/equalizers of OFDM, AFDM and OTFS remain pending.",
     "path_count_estimation_followup": {
       "status": "deferred_method_and_parameters_pending_not_implemented",
       "purpose": "Replace the known count with a receiver-estimated count and compare against the known-count reference. Assess missed or spurious paths and their impact on parameter estimation and BER.",
@@ -302,7 +303,7 @@
       "OTFS": "waveform_native_delay_doppler_domain"
     },
     "pilot_locations_and_counts": null,
-    "note": "Pilot-specific guards are distinct from the already-agreed zero spectral edge guard bins. The initial single-path baseline assumes perfect common-Doppler knowledge and correction, so it does not require a Doppler-acquisition preamble or estimator. Each scheme's channel estimator and any later practical synchronization design remain undecided."
+    "note": "Pilot-specific guards are distinct from the already-agreed zero spectral edge guard bins. The initial single-path baseline assumes perfect common-Doppler knowledge and correction, so it does not require a Doppler-acquisition preamble or estimator. DD-a-OFDM's initial estimator/equalizer algorithms are agreed in waveform_design; pilot details, estimator numerical settings, other schemes' channel estimators, and later practical synchronization remain pending."
   },
   "pass_search": {
     "start_utc": "2026-07-29T00:00:00Z",
