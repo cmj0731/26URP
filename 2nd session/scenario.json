@@ -39,14 +39,14 @@
     "constellation": "16-QAM",
     "modulation_order": 16,
     "bits_per_symbol": 4,
-    "bit_mapping": null,
+    "bit_mapping": "gray",
     "constellation_normalization": {
       "method": "unit_average_symbol_energy",
       "average_symbol_energy": 1.0,
       "definition": "E[|s|^2] = 1 over equiprobable 16-QAM constellation symbols.",
       "scope": "Use the same fixed constellation scaling for data symbols in OFDM, AFDM, OTFS, and DD-a-OFDM; do not rescale each random frame to force its empirical average to one.",
       "units": "Relative simulation energy units, not a physical transmit-power assignment of 1 watt.",
-      "note": "Bit mapping, the Eb energy reference, waveform-transform scaling, pilot energy, and the Eb/N0-to-noise-variance rule remain undecided."
+      "note": "All four schemes use the same Gray bit mapping. The Eb energy reference, waveform-transform scaling, pilot energy, and the Eb/N0-to-noise-variance rule remain undecided."
     }
   },
   "frame_design": {
@@ -199,7 +199,7 @@
     "definition": "incorrect_received_information_bits / transmitted_information_bits",
     "comparison_axis": "received_Eb_N0_dB",
     "initial_stage": "single_path_los_awgn_perfect_common_doppler_compensation",
-    "initial_stage_interpretation": "Check basic transmitter/receiver behavior and energy/noise normalization against the common uncoded 16-QAM AWGN reference under ideal processing. Similar BER is expected for matched ideal implementations; no Doppler-robustness ranking is inferred at this stage.",
+    "initial_stage_interpretation": "Check basic transmitter/receiver behavior and energy/noise normalization against the common uncoded Gray-mapped 16-QAM AWGN reference under ideal processing. Similar BER is expected for matched ideal implementations; no Doppler-robustness ranking is inferred at this stage.",
     "eb_n0_exploratory_sweep_db": [0, 5, 10, 15, 20, 25, 30],
     "eb_n0_refinement": {
       "region_db": null,
