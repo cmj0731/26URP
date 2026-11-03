@@ -273,6 +273,30 @@
       "discuss_and_justify_doppler_effects_in_multipath"
     ],
     "initial_stage_interpretation": "Check basic transmitter/receiver behavior and energy/noise normalization against the common uncoded Gray-mapped 16-QAM AWGN reference under ideal processing. Similar BER is expected for matched ideal implementations; no Doppler-robustness ranking is inferred at this stage.",
+    "monte_carlo_measurement": {
+      "status": "fixed_bit_budget_agreed_not_implemented",
+      "scope": "per_waveform_per_received_Eb_N0_per_channel_condition",
+      "stopping_rule": "fixed_information_bit_count",
+      "information_bits_per_measurement": 10485760,
+      "same_bit_budget_for_all_waveforms_and_eb_n0_points": true,
+      "early_stop_on_error_count": false,
+      "counted_bits": "Count transmitted information/data bits and their recovered counterparts; exclude known pilot, prefix, guard, and padding content from the BER denominator.",
+      "bits_per_frame_if_all_grid_cells_carry_data": 65536,
+      "frames_per_measurement_if_all_grid_cells_carry_data": 160,
+      "framing_note": "The 160-frame equivalence assumes all 256*64 grid cells carry uncoded 16-QAM data. Recompute framing when pilots or reserved cells are introduced while preserving the common information-bit quota; this decision does not select their allocation.",
+      "budget_basis": "An initial approximately ten-million-bit budget gives about 100 expected errors if the true BER is 1e-5. This is a rough precision planning basis, not an error-count stopping target, a guaranteed error count, or a guarantee of precision at lower BER.",
+      "expected_errors_at_ber_1e_minus_5": 104.8576,
+      "reporting": {
+        "required": ["measured_information_bits", "bit_errors", "ber_estimate", "confidence_interval"],
+        "zero_error_label": "no_errors_observed",
+        "zero_error_interpretation": "Record zero observed errors and the measured bit count without asserting that the true BER is exactly zero; report uncertainty using the selected interval method.",
+        "confidence_interval": {
+          "status": "details_pending",
+          "level": null,
+          "method": null
+        }
+      }
+    },
     "eb_n0_exploratory_sweep_db": [0, 5, 10, 15, 20, 25, 30],
     "eb_n0_refinement": {
       "region_db": null,
