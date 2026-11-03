@@ -40,7 +40,14 @@
     "modulation_order": 16,
     "bits_per_symbol": 4,
     "bit_mapping": null,
-    "constellation_normalization": null
+    "constellation_normalization": {
+      "method": "unit_average_symbol_energy",
+      "average_symbol_energy": 1.0,
+      "definition": "E[|s|^2] = 1 over equiprobable 16-QAM constellation symbols.",
+      "scope": "Use the same fixed constellation scaling for data symbols in OFDM, AFDM, OTFS, and DD-a-OFDM; do not rescale each random frame to force its empirical average to one.",
+      "units": "Relative simulation energy units, not a physical transmit-power assignment of 1 watt.",
+      "note": "Bit mapping, the Eb energy reference, waveform-transform scaling, pilot energy, and the Eb/N0-to-noise-variance rule remain undecided."
+    }
   },
   "frame_design": {
     "status": "provisional_candidate_not_final",
