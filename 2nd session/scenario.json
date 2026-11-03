@@ -72,7 +72,7 @@
     }
   },
   "waveform_transform_normalization": {
-    "status": "agreed_not_implemented",
+    "status": "agreed_otfs_useful_transforms_implemented_full_comparison_pending",
     "method": "unitary_energy_preserving",
     "applies_to": ["OFDM", "AFDM", "OTFS", "DD-a-OFDM"],
     "scope": "Modulation and demodulation basis transforms on the useful frame, before prefix insertion and after prefix removal; this is not a constraint on the propagation channel or equalizer gain.",
@@ -81,7 +81,7 @@
     "daft_rule": "Use a unitary Fourier block and unit-magnitude chirp factors for the DAFT/IDAFT pair; this does not choose AFDM chirp parameters.",
     "frame_scaling": "Use fixed analytic transform factors; do not rescale each random frame to a forced empirical signal power or energy.",
     "prefix_and_pilot_energy": "Preserve pilot energy through the useful-signal transforms when present. Count energy introduced by prefixes or other added samples separately; do not hide overhead by renormalizing the complete transmitted frame.",
-    "note": "The initial sample grid is fixed separately in sampling_model. Pulse shaping, prefix lengths, pilot allocations, and waveform-specific channel estimation/equalization remain to be designed."
+    "note": "The initial sample grid is fixed separately in sampling_model. OTFS useful-signal transforms use the agreed rectangular transmit/receive windows in waveform_design.OTFS. Physical RF filtering, prefix lengths, pilot allocations, and waveform-specific channel estimation/equalization remain to be designed."
   },
   "frame_design": {
     "status": "64_time_symbols_agreed_for_initial_baseline_not_implemented",
@@ -182,6 +182,49 @@
       "comparison_basis": "Align each 256-sample AFDM useful block with one 256-point OFDM IFFT symbol, and use 64 consecutive blocks in the common frame at 60 MHz. The N used for AFDM chirp-parameter selection is the per-block DAFT length 256, not the full-frame sample count 16384.",
       "prefix_pilot_and_receiver_details": "Prefix or chirp-periodic-prefix lengths, pilot allocations, channel estimation, and equalization remain undecided. This decision only fixes the useful-signal block layout and basis transforms.",
       "note": "A single 16384-point frame-wide DAFT is not selected for the initial baseline; its different spreading interval would be a separate waveform design. Matching useful block timing alone does not settle every fairness condition."
+    },
+    "OTFS": {
+      "status": "ofdm_based_rectangular_pulse_structure_agreed_useful_transforms_implemented_ber_pending",
+      "architecture": "ISFFT_precoded_OFDM",
+      "delay_bin_count": 256,
+      "doppler_bin_count": 64,
+      "tf_subcarrier_count": 256,
+      "tf_time_slot_count": 64,
+      "array_convention": "DD grid X_dd[l,k]: axis 0 is delay l, axis 1 is Doppler k. TF grid X_tf[m,n]: axis 0 is subcarrier m, axis 1 is time slot n. Both arrays have shape (256,64).",
+      "normalization_ref": "waveform_transform_normalization",
+      "transmit_basis_steps": ["unitary IFFT along the 64-bin Doppler axis", "unitary FFT along the 256-bin delay axis, completing the ISFFT", "unitary 256-point IFFT along the frequency axis for each of 64 time slots", "serialize each complete time slot in order"],
+      "receive_basis_steps": ["reshape aligned useful samples into 64 consecutive 256-sample time slots", "unitary 256-point FFT along the within-slot sample axis", "unitary IFFT along the frequency axis and FFT along the time axis, completing the SFFT", "return DD observations for later channel equalization and symbol detection"],
+      "serialization": "Time slot n contains samples q=0,...,255 contiguously: serial index q + 256*n. A (256,64) time-by-slot array is flattened with order='F'. No fftshift is applied inside the transforms.",
+      "pulse_shape": {
+        "transmit": "rectangular_useful_slot_window",
+        "receive": "matched_rectangular_useful_slot_window",
+        "definition": "Use the ordinary OFDM IFFT/FFT basis over each 256-sample useful slot. Unitary transform factors set the discrete energy normalization; no additional shaping gain or frame-power normalization is applied.",
+        "physical_filter_scope": "This useful-slot window choice does not select a DAC/RF filter or an occupied-bandwidth mask."
+      },
+      "useful_samples_per_time_slot": 256,
+      "useful_sample_count_without_prefix": 16384,
+      "useful_frame_duration_s_without_prefix": 0.000273066666666667,
+      "implementation": {
+        "module": "otfs.py",
+        "scope": "Reusable ISFFT, SFFT, useful-signal modulation, and basis demodulation only; callers handle alignment and any prefix removal before demodulation. This is not the full BER transceiver.",
+        "validation_command": "python check_otfs_transform.py",
+        "validation_status": "direct_sum_and_useful_frame_checks_passed",
+        "validation": {
+          "seed": 20261103,
+          "numpy_version": "2.3.5",
+          "direct_sum_grid_shapes": [[3, 2], [4, 5]],
+          "full_grid_case_count": 12,
+          "full_grid_cases": "8 random normalized 16-QAM grids and 4 DD impulses",
+          "maximum_roundtrip_relative_error": 5.143482897445109e-16,
+          "maximum_energy_relative_error": 4.440892098500626e-16,
+          "maximum_zak_equivalence_relative_error": 1.3972588033307254e-14,
+          "relative_tolerance": 1e-12,
+          "scope": "Noiseless useful-signal transform checks only; no channel, prefix, pilot, synchronization, equalization, detection, or BER run."
+        }
+      },
+      "pending_design": ["prefix or guard placement and length", "pilot and pilot-guard placement and energy", "channel knowledge and estimation", "DD equalization and symbol detection", "complete four-waveform BER implementation"],
+      "reference_url": "https://www.mathworks.com/help/comm/ug/otfs-modulation.html",
+      "reference_note": "Use the documented ISFFT-plus-OFDM architecture with our agreed unitary normalization; do not copy the example's numerical scaling, channel, padding, or pilot parameters."
     }
   },
   "pilot_comparison_policy": {
