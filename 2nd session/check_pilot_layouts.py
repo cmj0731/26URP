@@ -1,7 +1,6 @@
-"""Check native masks, actual transform energy, and the OTFS guard diagnostic.
+"""Check selected pilots, native masks, transform energy and the OTFS guard.
 
-Uniform-energy pilots with unit-modulus phase factors here are diagnostic inputs only.
-They do not select a production pilot sequence or multi-pilot energy split.
+Use the agreed fixed QPSK sequences and uniform energy allocation.
 There is no channel estimation, equalization, AWGN or BER calculation.
 """
 
@@ -12,7 +11,7 @@ import numpy as np
 
 from cyclic_prefix import add_cyclic_prefix
 import otfs
-from pilot_layouts import build_grid, build_masks
+from pilot_layouts import build_grid, build_masks, known_pilot_symbols
 
 
 def main():
@@ -29,6 +28,15 @@ def main():
     masks = {scheme: build_masks(scheme, scenario=settings) for scheme in schemes}
     for name in masks["OFDM"]:
         np.testing.assert_array_equal(masks["OFDM"][name], masks["DD-a-OFDM"][name])
+    pilots_by_scheme = {scheme: known_pilot_symbols(scheme, scenario=settings) for scheme in schemes}
+    np.testing.assert_array_equal(pilots_by_scheme["OFDM"], pilots_by_scheme["DD-a-OFDM"])
+    np.testing.assert_array_equal(pilots_by_scheme["AFDM"] / 8, pilots_by_scheme["OFDM"][:64])
+    np.testing.assert_array_equal(pilots_by_scheme["OTFS"], [64 + 0j])
+    # Calls must be fixed across trials and independent of the data stream.
+    state_before = rng.bit_generator.state
+    for scheme in schemes:
+        np.testing.assert_array_equal(pilots_by_scheme[scheme], known_pilot_symbols(scheme, scenario=settings))
+    assert rng.bit_generator.state == state_before
     data = (rng.choice([-3, -1, 1, 3], 12288)
             + 1j * rng.choice([-3, -1, 1, 3], 12288)) / np.sqrt(10)
     n = 256
@@ -61,12 +69,10 @@ def main():
         counts = tuple(int(layout[k].sum()) for k in ("pilot", "guard", "reserved", "data"))
         assert counts == expected[scheme]
         assert np.all(np.stack(list(layout.values())).sum(axis=0) == 1)
-        pilots = np.sqrt(4096 / counts[0]) * rng.choice([1, 1j, -1, -1j], counts[0])
-        if scheme == "DD-a-OFDM":
-            pilots = ofdm_pilots.copy()
-        elif scheme == "OFDM":
-            ofdm_pilots = pilots.copy()
-        grid = build_grid(scheme, data, pilots, scenario=settings)
+        pilots = pilots_by_scheme[scheme]
+        np.testing.assert_allclose(np.abs(pilots)**2, 4096 / counts[0], rtol=0, atol=0)
+        grid = build_grid(scheme, data, scenario=settings)
+        np.testing.assert_array_equal(grid, build_grid(scheme, data, pilots, scenario=settings))
         grids[scheme] = grid
         assert np.all(grid[layout["guard"] | layout["reserved"]] == 0)
         np.testing.assert_array_equal(grid.reshape(-1, order="F")[layout["data"].reshape(-1, order="F")], data)
@@ -84,6 +90,7 @@ def main():
         prefix_only = prefixed.reshape((261, 64), order="F")[:5, :]
         report["schemes"][scheme] = {
             "pilot_guard_reserved_data_counts": counts,
+            "pilot_energy_per_active_cell": float(4096 / counts[0]),
             "pilot_useful_signal_energy": pilot_energy,
             "pilot_energy_relative_error": pilot_energy_error,
             "full_grid_energy_relative_error": energy_error,
@@ -117,7 +124,8 @@ def main():
             worst = max(worst, float(np.linalg.norm(observation[128:134, :]) / np.linalg.norm(dd_data)))
     assert worst < tolerance
     report["otfs_integer_delay_data_leakage_relative_norm"] = worst
-    report["scope"] = "Native-mask/resource and useful-signal energy checks plus an OTFS data-only guard diagnostic. CP figures depend on these diagnostic pilot values; they are not production settings or BER. AFDM fractional-Doppler estimation leakage remains to be validated."
+    report["fixed_phase_index_sha256"] = settings["pilot_comparison_policy"]["known_pilot_sequence"]["phase_index_sha256"]
+    report["scope"] = "Agreed fixed pilots: repeatability, phase reuse, uniform energy, native masks, useful-signal transform energy and roundtrip checks, plus an OTFS data-only guard diagnostic. CP figures refer to the isolated pilot component and remain separate from the common useful-signal energy budget. No channel estimation or BER; AFDM fractional-Doppler estimation leakage remains to be validated."
     print(json.dumps(report, indent=2))
 
 

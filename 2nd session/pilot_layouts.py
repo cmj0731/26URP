@@ -1,10 +1,11 @@
-"""Agreed native pilot masks; complex pilot values remain caller supplied.
+"""Agreed native masks and fixed, known pilot sequences.
 
 Arrays use frequency/DAFT/delay rows and time-block/Doppler columns.
 Symbol vectors fill their selected cells in column-major (Fortran) order.
 Energy checks refer to the useful grid before cyclic prefixes.
 """
 
+import hashlib
 import json
 from pathlib import Path
 
@@ -64,16 +65,44 @@ def build_masks(scheme, *, scenario=None):
     return {"pilot": pilot, "guard": guard, "reserved": reserved, "data": data}
 
 
-def build_grid(scheme, data_symbols, pilot_symbols, *, scenario=None):
-    """Fill a native grid without choosing values or rescaling any symbols.
+def known_pilot_symbols(scheme, *, scenario=None):
+    """Return the selected fixed pilots without using data/channel RNG state.
 
-Both symbol vectors are one-dimensional. Known nonzero pilots must already
-meet the common total energy budget; guards and reservations remain zero.
-This routine does not select a production pilot sequence or energy split.
-"""
+    OFDM/DD-a-OFDM share the full QPSK phase sequence; AFDM reuses its first
+    64 phases with amplitude eight. The single OTFS pilot is real and positive.
+    """
+    settings = _configuration(scenario)
+    policy = settings["pilot_comparison_policy"]
+    if scheme not in policy["pilot_locations_and_counts"]:
+        raise ValueError(f"Unknown comparison scheme: {scheme!r}")
+    count = policy["pilot_locations_and_counts"][scheme]["active_pilot_count"]
+    spec = policy["known_pilot_sequence"]
+    amplitude = np.sqrt(policy["total_pilot_energy"] / count)
+    if scheme == "OTFS":
+        return np.array([amplitude + 0j], dtype=np.complex128)
+    generator = np.random.Generator(np.random.PCG64(spec["seed"]))
+    codes = generator.integers(0, 4, size=spec["master_phase_count"], dtype=np.int64)
+    digest = hashlib.sha256(codes.astype(np.uint8).tobytes()).hexdigest()
+    if digest != spec["phase_index_sha256"]:
+        raise ValueError("Fixed pilot phase sequence differs from the recorded sequence.")
+    if count > codes.size:
+        raise ValueError("The selected fixed phase sequence is too short.")
+    alphabet = np.array([1, 1j, -1, -1j], dtype=np.complex128)
+    return amplitude * alphabet[codes[:count]]
+
+
+def build_grid(scheme, data_symbols, pilot_symbols=None, *, scenario=None):
+    """Fill a native grid using the agreed fixed pilots by default.
+
+    Both symbol vectors are one-dimensional. Explicit caller-supplied pilots
+    must already meet the total energy budget; they are never rescaled.
+    Guards and reservations remain zero. Symbols fill cells in Fortran order.
+    """
     settings = _configuration(scenario)
     masks = build_masks(scheme, scenario=settings)
     data = np.asarray(data_symbols, dtype=np.complex128)
+    if pilot_symbols is None:
+        pilot_symbols = known_pilot_symbols(scheme, scenario=settings)
     pilots = np.asarray(pilot_symbols, dtype=np.complex128)
     for name, symbols, mask in (("data", data, masks["data"]),
                                 ("pilot", pilots, masks["pilot"])):
