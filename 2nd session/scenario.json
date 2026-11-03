@@ -104,7 +104,7 @@
   },
   "waveform_design": {
     "AFDM": {
-      "status": "block_layout_agreed_chirp_parameters_pending_not_implemented",
+      "status": "block_layout_and_c1_design_basis_agreed_values_pending_not_implemented",
       "daft_length": 256,
       "blocks_per_frame": 64,
       "transmitter_transform": "unitary_IDAFT_per_block",
@@ -117,7 +117,28 @@
       "chirp_parameters": {
         "c1": null,
         "c2": null,
-        "selection_rule": null
+        "selection_rule": {
+          "status": "c1_design_basis_agreed_numeric_rule_pending",
+          "c1_doppler_basis": "Use the maximum absolute orbit-derived common LOS Doppler before receiver compensation over the selected visible pass as the design reference.",
+          "current_pass_doppler_reference": {
+            "maximum_absolute_doppler_hz": 261029.1,
+            "maximum_time_utc": "2026-07-29T07:51:02.674Z",
+            "afdm_native_doppler_bin_spacing_hz": 234375.0,
+            "maximum_absolute_doppler_in_afdm_bins": 1.11372416,
+            "scan_step_s": 0.25,
+            "verification_scan_step_s": 0.125,
+            "range_rate_central_difference_total_span_s": 1.0,
+            "recompute_command": "python select_pass.py --doppler-envelope",
+            "note": "Numerical estimate for the current pinned-orbit draft pass, not a measured or universal Starlink maximum. Recompute if the pass, orbit, carrier, station, sample grid, or AFDM block length changes."
+          },
+          "c1_delay_basis": "Also account for the agreed three-path control profile's maximum excess delay: 5 samples at 60 MHz, approximately 83.3 ns.",
+          "c1_fractional_doppler_margin": null,
+          "c1_numeric_formula": null,
+          "c1_application": "Once selected, keep the same c1 across baseline frames, Eb/N0 points, and low/high snapshot comparisons within the adopted design envelope; do not retune it per realization or snapshot. Revisit the design explicitly if that envelope changes.",
+          "c2_selection": "Separate decision; value and selection rule remain pending.",
+          "baseline_compensation": "The initial single-path receiver still perfectly removes the actual common Doppler, leaving 0 Hz residual. Using a pre-compensation design reference does not change this channel assumption.",
+          "future_channel_scope": "No nonzero differential path Doppler or uncompensated-Doppler experiment is introduced by this design-reference decision."
+        }
       },
       "comparison_basis": "Align each 256-sample AFDM useful block with one 256-point OFDM IFFT symbol, and use 64 consecutive blocks in the common frame at 60 MHz. The N used for AFDM chirp-parameter selection is the per-block DAFT length 256, not the full-frame sample count 16384.",
       "prefix_pilot_and_receiver_details": "Prefix or chirp-periodic-prefix lengths, pilot allocations, channel estimation, and equalization remain undecided. This decision only fixes the useful-signal block layout and basis transforms.",
