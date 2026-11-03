@@ -84,15 +84,23 @@
     "note": "The initial sample grid is fixed separately in sampling_model. Pulse shaping, prefix lengths, pilot allocations, and waveform-specific channel estimation/equalization remain to be designed."
   },
   "frame_design": {
-    "status": "provisional_candidate_not_final",
-    "time_symbol_count_candidate": 64,
+    "status": "64_time_symbols_agreed_for_initial_baseline_not_implemented",
+    "time_symbol_count": 64,
     "useful_symbol_duration_s_without_prefix": 0.000004266666666667,
     "useful_frame_duration_s_without_prefix": 0.000273066666666667,
+    "useful_sample_count_without_prefix": 16384,
     "nominal_doppler_bin_spacing_hz_without_prefix": 3662.109375,
     "prefix_or_guard_duration_s": null,
     "total_frame_duration_s": null,
     "data_and_pilot_allocation": null,
-    "basis": "A manageable first BER frame candidate using the agreed 256-bin, 234.375 kHz grid. The DD-a-OFDM reference uses 64 time symbols but a different subcarrier spacing; 64 here is not orbit-derived or physically optimal. The initial single-path baseline assumes perfect common-Doppler compensation. Frame length remains provisional pending guard/pilot and waveform-specific receiver design."
+    "basis": "Adopt 64 nominal time symbols on the agreed 256-bin, 234.375 kHz grid as the first BER baseline's initial working frame. This is a computational starting choice, not an orbit-derived or validated optimal length. The DD-a-OFDM reference also uses 64 time symbols but with a different subcarrier spacing and frame duration. Runtime and frame-length sensitivity have not been measured. Prefix/guard duration, pilot allocation, and waveform-specific receiver design remain undecided.",
+    "frame_length_review": {
+      "status": "planned_not_run",
+      "baseline_check": "Compare BER estimates and execution time at alternative frame lengths while keeping the same uncoded Gray 16-QAM, energy/noise normalization, and ideal single-path AWGN conditions. Accumulate sufficient bits and errors; matched ideal implementations should agree within Monte Carlo uncertainty.",
+      "later_channel_review": "At fixed subcarrier spacing, changing the number of time symbols changes physical frame duration and Doppler-grid spacing. Assess channel/estimator suitability and report these resource changes; do not require BER to stay unchanged in a time-varying or multipath channel. Use matched frame resources across the four schemes at each chosen length.",
+      "alternative_symbol_counts": null,
+      "acceptance_criteria": null
+    }
   },
   "pilot_comparison_policy": {
     "status": "fairness_principle_agreed_details_pending",
