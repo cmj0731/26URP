@@ -104,7 +104,7 @@
   },
   "waveform_design": {
     "AFDM": {
-      "status": "block_layout_and_initial_c1_agreed_c2_pending_not_implemented",
+      "status": "block_layout_and_initial_chirps_selected_ber_transceiver_not_implemented",
       "daft_length": 256,
       "blocks_per_frame": 64,
       "transmitter_transform": "unitary_IDAFT_per_block",
@@ -116,9 +116,9 @@
       "useful_frame_duration_s_without_prefix": 0.000273066666666667,
       "chirp_parameters": {
         "c1": 0.009765625,
-        "c2": null,
+        "c2": 0.000021579186437577746,
         "selection_rule": {
-          "status": "initial_c1_agreed_validation_pending",
+          "status": "initial_c1_and_c2_selected_partial_validation_only",
           "c1_doppler_basis": "Use the maximum absolute orbit-derived common LOS Doppler before receiver compensation over the selected visible pass as the design reference.",
           "current_pass_doppler_reference": {
             "maximum_absolute_doppler_hz": 261029.1,
@@ -150,7 +150,31 @@
             "followup": "Assess the margin when multipath and receiver processing are introduced; explicitly review the fixed design if the adopted delay-Doppler envelope changes. The initial perfectly common-Doppler-compensated LOS AWGN baseline cannot establish this margin's Doppler robustness."
           },
           "c1_application": "Keep the selected c1 = 5/512 across baseline frames, Eb/N0 points, and low/high snapshot comparisons within the adopted design envelope; do not retune it per realization or snapshot. Revisit the design explicitly if that envelope changes.",
-          "c2_selection": "Separate decision; value and selection rule remain pending.",
+          "c2_selection": {
+            "status": "selected_under_user_authorization",
+            "expression": "sqrt(2) / N_AFDM**2",
+            "exact_expression_at_current_N": "sqrt(2)/65536",
+            "N_AFDM": 256,
+            "basis": "The AFDM paper motivates irrational c2 for the signal-difference matrix rank criterion under its path-separation and channel conditions. The specific sqrt(2)/N_AFDM**2 expression is our reproducible engineering choice, not a formula prescribed by the paper or a validated BER optimum.",
+            "scaling_rationale": "The exact design expression is irrational; scaling by N_AFDM**2 keeps c2*m**2 on an order-one scale across a block. Numerical implementation uses a float64 approximation.",
+            "reference_url": "https://arxiv.org/pdf/2204.12798",
+            "reference_sections": ["IV, equations (45) and (48)", "VII, irrational c2 selection discussion", "Appendix A"],
+            "rank_criterion": "For every nonzero allowed symbol-vector difference delta, Phi(delta) = [H_1*delta, ..., H_P*delta] should have column rank P. For N_AFDM=256 and the planned three paths this is a 256-by-3 matrix with target rank 3, distinct from the rank of the unitary DAFT matrix.",
+            "path_scope": "Use the same selected c2 for the initial single-path baseline and the planned LOS plus two reflections with excess delays 0, 2, and 5 samples at 60 MHz.",
+            "application": "Keep c2 fixed across frames, Eb/N0 points, and low/high snapshots in the adopted design envelope. Revisit the design explicitly if the block length or delay-Doppler envelope changes.",
+            "numerical_validation": {
+              "status": "sampled_rank_screen_passed_not_exhaustive_proof",
+              "command": "python check_afdm_rank.py",
+              "block_model": "Ideal cyclic delays with unit-gain per-path operators and zero residual common Doppler; excludes path gain coefficients, AWGN, pilots, and prefix implementation.",
+              "seed": 20261103,
+              "case_count": 2325,
+              "case_counts": {"single_position": 256, "two_position": 1024, "dense_16qam_difference": 1024, "periodic": 9, "comb": 9, "phase_pattern": 3},
+              "relative_svd_threshold": 1e-10,
+              "minimum_observed_rank": 3,
+              "minimum_sigma_ratio": 0.5773502691896231,
+              "note": "A finite numerical screen cannot establish rank for every possible 256-symbol 16-QAM difference or guarantee BER/diversity performance. The first perfectly compensated single-path baseline cannot validate three-path diversity. The fixed-magnitude, LOS-dominant control channel also does not establish diversity order 3 merely from having three paths."
+            }
+          },
           "baseline_compensation": "The initial single-path receiver still perfectly removes the actual common Doppler, leaving 0 Hz residual. Using a pre-compensation design reference does not change this channel assumption.",
           "future_channel_scope": "No nonzero differential path Doppler or uncompensated-Doppler experiment is introduced by this design-reference decision."
         }
