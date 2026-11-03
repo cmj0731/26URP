@@ -429,12 +429,29 @@
       "same_profile_at_low_and_high_doppler_snapshots": true,
       "doppler_model": "Apply the orbit-derived LOS Doppler at each snapshot to all three paths, with zero additional per-path Doppler as a first approximation for a fixed ground station and stationary local reflectors. This does not model differential Doppler spread.",
       "doppler_effect_followup": {
-        "status": "discuss_after_single_path_baseline",
-        "purpose": "Consider Doppler effects in multipath after validating the perfectly common-Doppler-compensated single-path baseline.",
-        "per_path_doppler_model": null,
-        "common_doppler_compensation_policy": null,
+        "status": "paired_delay_only_and_differential_doppler_sweep_agreed_numeric_design_pending_not_implemented",
+        "purpose": "After single-path baseline validation, compare the agreed three-path delay profile with zero residual Doppler (A) against the same profile with progressively larger differential path Doppler (B).",
+        "per_path_doppler_model": "Controlled synthetic differential-Doppler sweep, not measured or geometry-derived SKKU reflection Doppler. Keep the LOS residual at zero; progressively scale reflection-path residual Doppler after specifying the sweep levels and signed path pattern together.",
+        "common_doppler_compensation_policy": {
+          "scope": "paired_three_path_conditions_A_and_B_only",
+          "mode": "perfect_known_common_los_doppler",
+          "common_doppler_source": "Orbit-derived LOS shift at the selected snapshot, shared by all paths before their additional offsets.",
+          "receiver_knowledge": "Provide the exact common LOS frequency for correction before waveform-specific demodulation. Do not provide the additional reflection-path Dopplers, delays, or complex gains; the agreed P=3 prior remains available to all four receivers.",
+          "residual_common_doppler_hz": 0.0,
+          "correction": "Apply exp(-j*2*pi*f_LOS*n/F_s) after channel summation and receiver AWGN, with a continuous sample time including the per-block prefixes.",
+          "per_path_residual_after_correction": "additional_doppler_hz_to_los; it is zero on LOS in both A and B."
+        },
+        "paired_conditions": {
+          "A": {"name": "delay_only_static_multipath", "additional_path_doppler_hz": [0.0, 0.0, 0.0]},
+          "B": {"name": "same_delays_with_increasing_differential_doppler", "los_additional_doppler_hz": 0.0, "reflection_doppler_scale_levels_hz": null, "signed_reflection_doppler_pattern": null},
+          "matched_conditions": ["excess_delays_0_2_5_samples", "relative_powers_0_minus10_minus15_dB_and_existing_normalization", "initial_path_phase_realization", "received_data_symbol_Eb_N0", "pilot_resource_and_energy_budgets", "per_block_CP", "measured_information_bit_count", "receiver_information_policy"],
+          "comparison_control": "At each Eb/N0, reuse a trial's path magnitudes and initial phases across A, B sweep levels, and all four schemes. Only the selected differential Doppler changes. Keep a fixed finalized pilot design and receiver settings across the sweep unless an explicitly agreed common adaptation rule is introduced.",
+          "snapshot_interpretation": "If the residual profile is the same, perfect common correction makes peak and exit equivalent residual-Doppler conditions. The synthetic B levels, rather than the raw orbit shifts, define the Doppler stress."
+        },
+        "within_frame_evolution": "Initial phases and path magnitudes stay fixed per trial; B adds deterministic exp(j*2*pi*delta_f_p*t) path phase rotation with continuous time including prefixes. No additional random phase or amplitude evolution is selected.",
         "residual_compensation_error_model": null,
-        "note": "The existing three-path control profile retains zero additional per-path Doppler. Any differential Doppler, compensation error, or within-frame channel evolution requires a separately discussed model and justified parameters; none is selected here."
+        "pending_design": ["Doppler scale definition, maximum and sweep levels", "Signed reflection-path Doppler pattern", "Pilot-mask feasibility and receiver estimation search support for the finalized residual envelope"],
+        "note": "The existing explicit zero-additional-Doppler profile supplies A. B must override only its path Dopplers after the numeric design is agreed; no nonzero generator values or BER results are supplied here. Imperfect common correction is a separate unselected extension."
       },
       "path_delay_power_doppler_profile": [
         {
@@ -461,13 +478,13 @@
       ],
       "path_phase_and_gain_realization": {
         "path_magnitudes": "Fixed at the agreed relative powers throughout each frame; no within-frame amplitude fading in the first comparison.",
-        "relative_phases": "Draw a new random reflection-path phase combination for each independent BER trial and keep it fixed within that trial's frame.",
+        "relative_phases": "Draw a new random initial reflection-path phase combination for each independent BER trial and keep these initial-phase parameters fixed within that trial; deterministic common and condition-B differential Doppler rotations are applied separately.",
         "phase_distribution": {
           "los_phase_reference_rad": 0.0,
           "reflection_phases_rad": "Independent continuous uniform draws on [0, 2*pi) for each BER trial."
         },
-        "paired_comparison": "Reuse the same initial relative-phase realization for OFDM, AFDM, OTFS, and DD-a-OFDM and for the low- and high-Doppler snapshots within a trial.",
-        "within_frame_time_variation": "Retain only the orbit-derived common Doppler phase rotation; do not add random amplitude evolution or differential phase/Doppler evolution between paths.",
+        "paired_comparison": "Reuse the same initial relative-phase realization for OFDM, AFDM, OTFS, and DD-a-OFDM, the low/high snapshots, and the paired A/B sweep levels within a trial.",
+        "within_frame_time_variation": "The explicit zero-additional-Doppler profile retains only common orbit-derived phase rotation. Condition B additionally uses deterministic differential-Doppler phase rotation as defined in doppler_effect_followup; no random amplitude or phase evolution is added.",
         "time_varying_fading_followup": "deferred"
       },
       "power_normalization": {
@@ -528,11 +545,11 @@
       "correction": "After channel and receiver AWGN, multiply received samples by exp(-j*2*pi*f_D*n/F_s) to remove the common snapshot frequency shift before waveform-specific demodulation.",
       "residual_common_doppler_hz": 0.0,
       "doppler_acquisition_preamble_or_estimator": "not_required_in_this_ideal_baseline",
-      "note": "This is an ideal frequency-compensation assumption, not a practical synchronization algorithm or a decision about other channel knowledge. Future multipath and imperfect-compensation policies remain to be discussed."
+      "note": "This entry remains scoped to the single-path baseline. The separately agreed A/B three-path policy is in channel_model.multipath_followup.doppler_effect_followup; imperfect common correction remains unselected."
     },
     "doppler_value_source": "Computed, not chosen: -carrier_frequency_hz * slant_range_rate / speed_of_light, with slant-range rate estimated by a 1-second centered difference; Doppler values rounded to 0.1 Hz.",
     "baseline_snapshot_interpretation": "Keep the original low/high snapshot shifts as orbit-derived inputs. Both have zero residual common Doppler under perfect correction; their BER statistics should coincide at equal received Eb/N0 with other conditions matched. They are not distinct Doppler-stress conditions in the initial baseline.",
-    "basis": "Retain peak elevation and the visible-pass exit at 10 degrees as the original low/high snapshot references. First run the perfectly common-Doppler-compensated single-path LOS plus AWGN baseline; discuss multipath Doppler effects afterwards. Recompute times and shifts if the draft pass changes."
+    "basis": "Retain peak elevation and the visible-pass exit at 10 degrees as the original low/high snapshot references. First validate the perfectly common-Doppler-compensated single-path baseline, then compare paired three-path A/B conditions under the separate agreed common-correction policy; B sweep numbers remain pending. Recompute times and shifts if the draft pass changes."
   },
   "evaluation": {
     "primary_metric": "BER",
@@ -564,7 +581,7 @@
       "interpretation": "Index of discussed extensions and reviews, not a new execution order or selection of pending numerical parameters. The main extension_order remains the agreed staging rule; none of these BER extensions has been run.",
       "items": [
         {"id": "receiver_estimated_path_count", "status": "deferred_parameters_pending", "settings_ref": "receiver_information_policy.path_count_estimation_followup"},
-        {"id": "multipath_doppler_and_compensation_errors", "status": "model_and_parameters_pending", "settings_ref": "channel_model.multipath_followup.doppler_effect_followup"},
+        {"id": "multipath_doppler_and_compensation_errors", "status": "A_B_controlled_differential_sweep_agreed_numbers_pending_imperfect_common_correction_unselected", "settings_ref": "channel_model.multipath_followup.doppler_effect_followup"},
         {"id": "within_frame_time_varying_fading", "status": "deferred_model_pending", "settings_ref": "channel_model.multipath_followup.path_phase_and_gain_realization"},
         {"id": "edge_guards_and_dc_null", "status": "deferred_counts_pending", "settings_ref": "radio.bandwidth_basis"},
         {"id": "channel_coding", "status": "deferred_code_pending", "settings_ref": "evaluation.channel_coding_followup"},
