@@ -7,6 +7,31 @@ This is a three-step approximation to joint nonlinear ML, not global ML.
 import numpy as np
 
 
+def refine_frequency(grid, grid_index, tolerance, score):
+    """Search between neighboring coarse points; retain evaluated endpoints."""
+    low = float(grid[max(0,grid_index-1)])
+    high = float(grid[min(grid.size-1,grid_index+1)])
+    seed = float(grid[grid_index])
+    evaluated = [(score(seed),seed),(score(low),low),(score(high),high)]
+    ratio = (np.sqrt(5)-1)/2
+    x1, x2 = high-ratio*(high-low), low+ratio*(high-low)
+    f1,f2 = score(x1),score(x2)
+    evaluated.extend([(f1,x1),(f2,x2)])
+    while high-low > tolerance:
+        if f1 < f2:
+            low,x1,f1 = x1,x2,f2
+            x2 = low+ratio*(high-low)
+            f2 = score(x2)
+            evaluated.append((f2,x2))
+        else:
+            high,x2,f2 = x2,x1,f1
+            x1 = high-ratio*(high-low)
+            f1 = score(x1)
+            evaluated.append((f1,x1))
+    best = max(evaluated,key=lambda item:item[0])
+    return float(best[1]),float(high-low)
+
+
 class SequentialEstimator:
     def __init__(self, model, initial_spacing_hz, refinement_tolerance_hz):
         if not np.isfinite([initial_spacing_hz,refinement_tolerance_hz]).all() or not 0 < refinement_tolerance_hz <= initial_spacing_hz:
@@ -34,28 +59,8 @@ class SequentialEstimator:
         return float(abs(np.vdot(atom,residual))**2/perpendicular)
 
     def _refine(self, delay, grid_index, residual, previous_q):
-        low = float(self.grid[max(0,grid_index-1)])
-        high = float(self.grid[min(self.grid.size-1,grid_index+1)])
-        seed = float(self.grid[grid_index])
         score = lambda frequency: self._score(self.model.atoms([(delay,frequency)])[:,0],residual,previous_q)
-        evaluated = [(score(seed),seed),(score(low),low),(score(high),high)]
-        ratio = (np.sqrt(5)-1)/2
-        x1, x2 = high-ratio*(high-low), low+ratio*(high-low)
-        f1,f2 = score(x1),score(x2)
-        evaluated.extend([(f1,x1),(f2,x2)])
-        while high-low > self.tolerance:
-            if f1 < f2:
-                low,x1,f1 = x1,x2,f2
-                x2 = low+ratio*(high-low)
-                f2 = score(x2)
-                evaluated.append((f2,x2))
-            else:
-                high,x2,f2 = x2,x1,f1
-                x1 = high-ratio*(high-low)
-                f1 = score(x1)
-                evaluated.append((f1,x1))
-        best = max(evaluated,key=lambda item:item[0])
-        return float(best[1]),float(high-low)
+        return refine_frequency(self.grid,grid_index,self.tolerance,score)
 
     def fit_observations(self, observations):
         values = np.asarray(observations,dtype=np.complex128)
