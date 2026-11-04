@@ -53,7 +53,7 @@
     "Noiseless pilot-only and true best-basis projection are diagnostic controls. The deployable estimate never receives true coefficients, delays, Dopplers, gains or data.",
     "Unknown-data ICI is an unmodeled residual in ordinary LS, without an independence, Gaussian or white-noise assumption. Colored-interference treatment, regularization and decision feedback are not selected.",
     "All six candidate integer taps are fit without P=3 sparsity enforcement. The known path-count prior is available but not used by this dense LS prototype.",
-    "The fixed maximum Doppler envelope defines this agreed DPSS basis. Shared use of this bound by other receiver algorithms and their detailed estimators still need to be made explicit before a fair four-way BER comparison.",
+    "The fixed maximum Doppler envelope is now recorded as common support in receiver_information_policy.residual_doppler_support. It is not a supplied actual path Doppler; other receiver implementations remain pending.",
     "No TF equalizer, QAM detector, receiver for the other three methods or four-way BER result is introduced."
   ],
   "results": [

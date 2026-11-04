@@ -1,12 +1,12 @@
 {
-  "purpose": "Structural review of an AFDM embedded-pilot approximate-ML candidate; no estimator or BER is selected or run.",
+  "purpose": "Structural validation of the AFDM pilot observation model; selected method settings are recorded separately in scenario.json. No path estimator or BER is run by this script.",
   "reference_url": "https://arxiv.org/pdf/2204.12798",
   "reference_scope": "VI, equations (67)-(76), especially fractional Doppler VI-B. Their single AFDM frame corresponds to one of our 256-sample useful blocks, not our whole 64-block frame.",
   "numpy_version": "2.3.5",
   "diagnostic_seed": 20261104,
   "diagnostic_frames_per_condition": 16,
   "diagnostic_rng": "Independent PCG64 data/phase streams from SeedSequence(20261104).spawn(4); replay the first two OFDM diagnostic streams.",
-  "receive_window_status": "Source-derived proposal only; not a selected receiver-observation policy.",
+  "receive_window_status": "Derived from the selected embedded-pilot method and fixed chirp/delay design; method and processing settings are recorded in scenario.json.",
   "source_window_indices": [
     0,
     1,
@@ -141,7 +141,7 @@
   },
   "native_sign_convention": "Channel exp(+j*2*pi*f*t); peak near (f*N/Fs-2*N*c1*l) modulo N. Unit template gain is referenced to first useful receive sample; across blocks multiply by exp(+j*2*pi*f*((N+CP)*b+CP)/Fs).",
   "limits": [
-    "Source-window indices and per-block versus joint-frame processing are proposals, not chosen estimator settings. No Doppler grid, initialization, search refinement or stopping criterion is selected.",
+    "The selected receiver now uses the derived window and joint-frame estimation; those decisions are stored in scenario.json. This script validates native per-block responses and does not run the path search.",
     "The 401-frequency grid is a structural energy-capture probe over the existing maximum residual envelope; it is not a receiver search grid or supplied true Doppler.",
     "Fractional Doppler tails remain across all DAFT bins; the source's inter-path orthogonality and guard isolation are approximations for our finite margin. No leakage cancellation or guard enlargement is added.",
     "True paths are used only by the diagnostic channel and evaluator; no true active delay, Doppler, complex gain or transmitted data is passed to an estimator.",

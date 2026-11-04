@@ -1,4 +1,4 @@
-"""Unitary block AFDM transforms and a candidate embedded-pilot response.
+"""Unitary block AFDM transforms and the embedded-pilot response.
 
 These helpers do not estimate delays/Dopplers or perform data equalization.
 The ordinary CP and analytic pilot response require the agreed even N and

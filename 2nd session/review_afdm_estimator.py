@@ -1,4 +1,4 @@
-"""Review the AFDM embedded-pilot approximate-ML candidate without selecting it.
+"""Validate the AFDM pilot observation model without changing selected settings.
 
 Check native transforms, a fractional-Doppler pilot template and a source-derived
 receive window. There is no parameter search, channel estimate, data equalizer
@@ -142,11 +142,11 @@ def main():
     assert results[0]["source_window_data_to_pilot_received_energy_ratio_mean"] < 1e-20
     assert results[0]["naive_transmit_guard_window_data_to_pilot_received_energy_ratio_mean"] > 1e-4
     report = {
-        "purpose":"Structural review of an AFDM embedded-pilot approximate-ML candidate; no estimator or BER is selected or run.",
+        "purpose":"Structural validation of the AFDM pilot observation model; selected method settings are recorded separately in scenario.json. No path estimator or BER is run by this script.",
         "reference_url":"https://arxiv.org/pdf/2204.12798", "reference_scope":"VI, equations (67)-(76), especially fractional Doppler VI-B. Their single AFDM frame corresponds to one of our 256-sample useful blocks, not our whole 64-block frame.",
         "numpy_version":np.__version__,"diagnostic_seed":seed,"diagnostic_frames_per_condition":trials,
         "diagnostic_rng":"Independent PCG64 data/phase streams from SeedSequence(20261104).spawn(4); replay the first two OFDM diagnostic streams.",
-        "receive_window_status":"Source-derived proposal only; not a selected receiver-observation policy.",
+        "receive_window_status":"Derived from the selected embedded-pilot method and fixed chirp/delay design; method and processing settings are recorded in scenario.json.",
         "source_window_indices":window.tolist(),"source_window_observations_per_block":int(window.size),
         "source_window_observations_per_64_block_frame":int(window.size*blocks),
         "source_window_rule":"R=alpha_max+xi_nu=2, S=2*N*c1=5; union of -S*l-R through -S*l+R modulo N for l=0,...,5. This is [-27,...,2] modulo 256.",
@@ -163,7 +163,7 @@ def main():
                                            "minimum_at":capture_at,"probe_frequency_count_per_delay":401},
         "native_sign_convention":"Channel exp(+j*2*pi*f*t); peak near (f*N/Fs-2*N*c1*l) modulo N. Unit template gain is referenced to first useful receive sample; across blocks multiply by exp(+j*2*pi*f*((N+CP)*b+CP)/Fs).",
         "limits":[
-            "Source-window indices and per-block versus joint-frame processing are proposals, not chosen estimator settings. No Doppler grid, initialization, search refinement or stopping criterion is selected.",
+            "The selected receiver now uses the derived window and joint-frame estimation; those decisions are stored in scenario.json. This script validates native per-block responses and does not run the path search.",
             "The 401-frequency grid is a structural energy-capture probe over the existing maximum residual envelope; it is not a receiver search grid or supplied true Doppler.",
             "Fractional Doppler tails remain across all DAFT bins; the source's inter-path orthogonality and guard isolation are approximations for our finite margin. No leakage cancellation or guard enlargement is added.",
             "True paths are used only by the diagnostic channel and evaluator; no true active delay, Doppler, complex gain or transmitted data is passed to an estimator.",
@@ -178,7 +178,7 @@ def main():
     for row in results:
         a,b = row["source_window_data_to_pilot_received_energy_ratio_mean"],row["naive_transmit_guard_window_data_to_pilot_received_energy_ratio_mean"]
         print(f"{row['condition']}: proposed window data/pilot {10*np.log10(max(a,1e-300)):.2f} dB; naive guard window {10*np.log10(b):.2f} dB")
-    print("No path estimator, equalizer or BER run; candidate selection remains pending.")
+    print("This structural check runs no path estimator, equalizer or BER; selected method settings are in scenario.json.")
 
 
 if __name__ == "__main__":
