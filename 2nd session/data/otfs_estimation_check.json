@@ -1,0 +1,536 @@
+{
+  "purpose": "Implementation diagnostic for the selected OTFS joint-frame approximate-ML/LS estimator; no equalization or BER.",
+  "numpy_version": "2.3.5",
+  "diagnostic_seed": 20261104,
+  "diagnostic_frames_per_condition": 16,
+  "receiver_input_scope": "Public settings projection excluding channel_model, evaluation and noise_model, plus received samples only. Generator truth is confined to the channel, algebraic controls and result evaluator.",
+  "processing_window_blocks": 64,
+  "pilot_observation_count": 384,
+  "coarse_dictionary_shape": [
+    384,
+    642
+  ],
+  "coarse_frequency_count": 107,
+  "observed_delay_rows": [
+    128,
+    129,
+    130,
+    131,
+    132,
+    133
+  ],
+  "initial_grid_spacing_hz": 897.9885057471265,
+  "fixed_residual_doppler_bound_hz": 46875.0,
+  "numerical_refinement_tolerance_hz": 1.0,
+  "maximum_final_refinement_interval_hz": 0.9024782221022178,
+  "maximum_joint_LS_residual_power_increase": 0.0,
+  "algebraic_controls": [
+    {
+      "true_paths": [
+        [
+          0,
+          0.0
+        ],
+        [
+          2,
+          11718.75
+        ],
+        [
+          5,
+          -11718.75
+        ]
+      ],
+      "pilot_matrix_serial_relative_error": 7.551326695546671e-15,
+      "conditional_known_hypothesis_gain_relative_error": 4.243523827242467e-15,
+      "conditional_tap_relative_error": 4.243598676515532e-15,
+      "searched_paths": [
+        [
+          0,
+          0.0
+        ],
+        [
+          2,
+          11718.819070702859
+        ],
+        [
+          5,
+          -11718.819070702859
+        ]
+      ],
+      "search_maximum_frequency_error_hz": 0.0690707028588804
+    },
+    {
+      "true_paths": [
+        [
+          1,
+          12555.55
+        ],
+        [
+          3,
+          -31415.9
+        ],
+        [
+          4,
+          7777.25
+        ]
+      ],
+      "pilot_matrix_serial_relative_error": 7.39865872928043e-15,
+      "conditional_known_hypothesis_gain_relative_error": 3.9699206441577185e-15,
+      "conditional_tap_relative_error": 3.97030790607382e-15,
+      "searched_paths": [
+        [
+          1,
+          12555.57245934293
+        ],
+        [
+          3,
+          -31415.964475994715
+        ],
+        [
+          4,
+          7777.221106828908
+        ]
+      ],
+      "search_maximum_frequency_error_hz": 0.06447599471357535
+    },
+    {
+      "true_paths": [
+        [
+          0,
+          -20000.25
+        ],
+        [
+          0,
+          15000.75
+        ],
+        [
+          4,
+          -35000.5
+        ]
+      ],
+      "pilot_matrix_serial_relative_error": 7.507180795996839e-15,
+      "conditional_known_hypothesis_gain_relative_error": 4.005730432754735e-15,
+      "conditional_tap_relative_error": 4.007715260307128e-15,
+      "searched_paths": [
+        [
+          0,
+          -20025.018479970422
+        ],
+        [
+          0,
+          14995.911583708774
+        ],
+        [
+          4,
+          -35000.4025183898
+        ]
+      ],
+      "search_maximum_frequency_error_hz": 24.76847997042205
+    },
+    {
+      "true_paths": [
+        [
+          0,
+          -46875.0
+        ],
+        [
+          2,
+          0.0
+        ],
+        [
+          5,
+          46875.0
+        ]
+      ],
+      "pilot_matrix_serial_relative_error": 8.124681304323397e-15,
+      "conditional_known_hypothesis_gain_relative_error": 3.4183064200664505e-15,
+      "conditional_tap_relative_error": 3.41884138683924e-15,
+      "searched_paths": [
+        [
+          0,
+          -46875.0
+        ],
+        [
+          2,
+          0.0
+        ],
+        [
+          5,
+          46875.0
+        ]
+      ],
+      "search_maximum_frequency_error_hz": 0.0
+    }
+  ],
+  "native_pilot_template_checks": {
+    "data_only_probe_seed": 20261105,
+    "single_path_probe_count": 78,
+    "maximum_serial_template_relative_error": 1.0160131547084928e-14,
+    "maximum_data_leakage_relative_to_pilot_L2": 9.634806390428743e-17,
+    "maximum_pilot_energy_relative_error": 4.440892098500626e-16,
+    "omitted_CP_clock_negative_control_relative_error": 0.8616550190028015,
+    "scope": "All six public delay candidates, boundary/off-grid frequencies and data-only isolation probes. Alternate profiles are algebraic controls, not new selected physical experiments."
+  },
+  "noise_rule": "Inject complex AWGN once after serial path summation, variance 1/(4*10^(Eb/N0/10)); do not give that variance to the estimator.",
+  "pairing": "Replay the independent PCG64 data/initial-phase/noise streams used by the OFDM and AFDM diagnostics; pair realizations across A/B and Eb/N0. Fixed known pilots retain their independent agreed seed.",
+  "source_scope": "The embedded-pilot reference uses threshold-based estimation; this continuous pilot-template approximate-ML/joint-LS design is our selected adaptation.",
+  "limits": [
+    "The search is a fixed three-step sequential approximation to joint nonlinear ML; global optimality is not claimed and no post-hoc tuning is performed for a test condition.",
+    "One Hz is the numerical local-search bracket tolerance, not a physical Doppler bin or an estimation-accuracy guarantee.",
+    "Known-hypothesis LS fits and the alternate/same-delay profiles are mathematical implementation controls, not extra selected physical experiments or receiver oracles.",
+    "Channel NMSE and parameter recovery are diagnostics, not BER or a four-waveform ranking. Residual estimator errors are retained for future BER evaluation rather than optimized away here.",
+    "Sixteen diagnostic frames are not a new BER stopping rule or bit quota. DD data-channel matrices, noise-variance knowledge for equalization, MMSE data recovery and BER remain pending."
+  ],
+  "results": [
+    {
+      "condition": "A",
+      "maximum_residual_doppler_hz": 0.0,
+      "points": [
+        {
+          "received_Eb_N0_dB": null,
+          "no_AWGN": true,
+          "mean_channel_NMSE": 1.802875848447782e-29,
+          "mean_channel_NMSE_db": -287.44034179095956,
+          "frames_with_correct_delay_multiset": 16,
+          "mean_maximum_frequency_error_hz_when_delays_match": 0.0
+        },
+        {
+          "received_Eb_N0_dB": 0,
+          "no_AWGN": false,
+          "mean_channel_NMSE": 0.00030336782100074555,
+          "mean_channel_NMSE_db": -35.18030487830678,
+          "frames_with_correct_delay_multiset": 16,
+          "mean_maximum_frequency_error_hz_when_delays_match": 58.24961631728492
+        },
+        {
+          "received_Eb_N0_dB": 5,
+          "no_AWGN": false,
+          "mean_channel_NMSE": 9.585969621801567e-05,
+          "mean_channel_NMSE_db": -40.18363951633074,
+          "frames_with_correct_delay_multiset": 16,
+          "mean_maximum_frequency_error_hz_when_delays_match": 32.56508912627908
+        },
+        {
+          "received_Eb_N0_dB": 10,
+          "no_AWGN": false,
+          "mean_channel_NMSE": 3.031829680586811e-05,
+          "mean_channel_NMSE_db": -45.182951997612726,
+          "frames_with_correct_delay_multiset": 16,
+          "mean_maximum_frequency_error_hz_when_delays_match": 18.26784629112455
+        },
+        {
+          "received_Eb_N0_dB": 15,
+          "no_AWGN": false,
+          "mean_channel_NMSE": 9.587712484800807e-06,
+          "mean_channel_NMSE_db": -50.182849980151765,
+          "frames_with_correct_delay_multiset": 16,
+          "mean_maximum_frequency_error_hz_when_delays_match": 10.250014445279685
+        },
+        {
+          "received_Eb_N0_dB": 20,
+          "no_AWGN": false,
+          "mean_channel_NMSE": 3.0232427901968294e-06,
+          "mean_channel_NMSE_db": -55.195269741557254,
+          "frames_with_correct_delay_multiset": 16,
+          "mean_maximum_frequency_error_hz_when_delays_match": 5.75421587916942
+        },
+        {
+          "received_Eb_N0_dB": 25,
+          "no_AWGN": false,
+          "mean_channel_NMSE": 9.555416176963895e-07,
+          "mean_channel_NMSE_db": -60.1975039291846,
+          "frames_with_correct_delay_multiset": 16,
+          "mean_maximum_frequency_error_hz_when_delays_match": 3.23171256313915
+        },
+        {
+          "received_Eb_N0_dB": 30,
+          "no_AWGN": false,
+          "mean_channel_NMSE": 2.9888363327366865e-07,
+          "mean_channel_NMSE_db": -65.24497866069933,
+          "frames_with_correct_delay_multiset": 16,
+          "mean_maximum_frequency_error_hz_when_delays_match": 1.798453246060317
+        }
+      ]
+    },
+    {
+      "condition": "B-1",
+      "maximum_residual_doppler_hz": 2343.75,
+      "points": [
+        {
+          "received_Eb_N0_dB": null,
+          "no_AWGN": true,
+          "mean_channel_NMSE": 2.2330995653446352e-10,
+          "mean_channel_NMSE_db": -96.51091912971651,
+          "frames_with_correct_delay_multiset": 16,
+          "mean_maximum_frequency_error_hz_when_delays_match": 0.08677263459776441
+        },
+        {
+          "received_Eb_N0_dB": 0,
+          "no_AWGN": false,
+          "mean_channel_NMSE": 0.0003028296619162762,
+          "mean_channel_NMSE_db": -35.18801588301259,
+          "frames_with_correct_delay_multiset": 16,
+          "mean_maximum_frequency_error_hz_when_delays_match": 48.28417662354585
+        },
+        {
+          "received_Eb_N0_dB": 5,
+          "no_AWGN": false,
+          "mean_channel_NMSE": 9.591776651226652e-05,
+          "mean_channel_NMSE_db": -40.18100942531093,
+          "frames_with_correct_delay_multiset": 16,
+          "mean_maximum_frequency_error_hz_when_delays_match": 27.32006763580867
+        },
+        {
+          "received_Eb_N0_dB": 10,
+          "no_AWGN": false,
+          "mean_channel_NMSE": 3.0369596995388935e-05,
+          "mean_channel_NMSE_db": -45.175609711321144,
+          "frames_with_correct_delay_multiset": 16,
+          "mean_maximum_frequency_error_hz_when_delays_match": 15.436187192101727
+        },
+        {
+          "received_Eb_N0_dB": 15,
+          "no_AWGN": false,
+          "mean_channel_NMSE": 9.629403762532869e-06,
+          "mean_channel_NMSE_db": -50.164006028711434,
+          "frames_with_correct_delay_multiset": 16,
+          "mean_maximum_frequency_error_hz_when_delays_match": 8.718460782943055
+        },
+        {
+          "received_Eb_N0_dB": 20,
+          "no_AWGN": false,
+          "mean_channel_NMSE": 3.039088989047766e-06,
+          "mean_channel_NMSE_db": -55.1725658294521,
+          "frames_with_correct_delay_multiset": 16,
+          "mean_maximum_frequency_error_hz_when_delays_match": 4.912444574606241
+        },
+        {
+          "received_Eb_N0_dB": 25,
+          "no_AWGN": false,
+          "mean_channel_NMSE": 9.615385096360888e-07,
+          "mean_channel_NMSE_db": -60.17033317574706,
+          "frames_with_correct_delay_multiset": 16,
+          "mean_maximum_frequency_error_hz_when_delays_match": 2.780230766804749
+        },
+        {
+          "received_Eb_N0_dB": 30,
+          "no_AWGN": false,
+          "mean_channel_NMSE": 3.0170934622774813e-07,
+          "mean_channel_NMSE_db": -65.20411236221207,
+          "frames_with_correct_delay_multiset": 16,
+          "mean_maximum_frequency_error_hz_when_delays_match": 1.5538386439245073
+        }
+      ]
+    },
+    {
+      "condition": "B-2",
+      "maximum_residual_doppler_hz": 11718.75,
+      "points": [
+        {
+          "received_Eb_N0_dB": null,
+          "no_AWGN": true,
+          "mean_channel_NMSE": 1.4149147384171054e-10,
+          "mean_channel_NMSE_db": -98.49269729574746,
+          "frames_with_correct_delay_multiset": 16,
+          "mean_maximum_frequency_error_hz_when_delays_match": 0.0690707028588804
+        },
+        {
+          "received_Eb_N0_dB": 0,
+          "no_AWGN": false,
+          "mean_channel_NMSE": 0.00029819143913942356,
+          "mean_channel_NMSE_db": -35.2550482898456,
+          "frames_with_correct_delay_multiset": 16,
+          "mean_maximum_frequency_error_hz_when_delays_match": 65.15391904419566
+        },
+        {
+          "received_Eb_N0_dB": 5,
+          "no_AWGN": false,
+          "mean_channel_NMSE": 9.444925271304543e-05,
+          "mean_channel_NMSE_db": -40.24801473887035,
+          "frames_with_correct_delay_multiset": 16,
+          "mean_maximum_frequency_error_hz_when_delays_match": 36.632554864754454
+        },
+        {
+          "received_Eb_N0_dB": 10,
+          "no_AWGN": false,
+          "mean_channel_NMSE": 2.9900403881311467e-05,
+          "mean_channel_NMSE_db": -45.24322945379909,
+          "frames_with_correct_delay_multiset": 16,
+          "mean_maximum_frequency_error_hz_when_delays_match": 20.62090412887466
+        },
+        {
+          "received_Eb_N0_dB": 15,
+          "no_AWGN": false,
+          "mean_channel_NMSE": 9.475328273611919e-06,
+          "mean_channel_NMSE_db": -50.23405734927326,
+          "frames_with_correct_delay_multiset": 16,
+          "mean_maximum_frequency_error_hz_when_delays_match": 11.579529363514757
+        },
+        {
+          "received_Eb_N0_dB": 20,
+          "no_AWGN": false,
+          "mean_channel_NMSE": 2.9806651837142386e-06,
+          "mean_channel_NMSE_db": -55.25686805259518,
+          "frames_with_correct_delay_multiset": 16,
+          "mean_maximum_frequency_error_hz_when_delays_match": 6.492834607827003
+        },
+        {
+          "received_Eb_N0_dB": 25,
+          "no_AWGN": false,
+          "mean_channel_NMSE": 9.437211173542838e-07,
+          "mean_channel_NMSE_db": -60.25156326770017,
+          "frames_with_correct_delay_multiset": 16,
+          "mean_maximum_frequency_error_hz_when_delays_match": 3.675424508727177
+        },
+        {
+          "received_Eb_N0_dB": 30,
+          "no_AWGN": false,
+          "mean_channel_NMSE": 2.969582727503611e-07,
+          "mean_channel_NMSE_db": -65.27304571515813,
+          "frames_with_correct_delay_multiset": 16,
+          "mean_maximum_frequency_error_hz_when_delays_match": 2.050730643248885
+        }
+      ]
+    },
+    {
+      "condition": "B-3",
+      "maximum_residual_doppler_hz": 23437.5,
+      "points": [
+        {
+          "received_Eb_N0_dB": null,
+          "no_AWGN": true,
+          "mean_channel_NMSE": 3.052609332142509e-10,
+          "mean_channel_NMSE_db": -95.15328772429481,
+          "frames_with_correct_delay_multiset": 16,
+          "mean_maximum_frequency_error_hz_when_delays_match": 0.1014528739178786
+        },
+        {
+          "received_Eb_N0_dB": 0,
+          "no_AWGN": false,
+          "mean_channel_NMSE": 0.00025389715898574276,
+          "mean_channel_NMSE_db": -35.953421586919255,
+          "frames_with_correct_delay_multiset": 16,
+          "mean_maximum_frequency_error_hz_when_delays_match": 49.29849388226516
+        },
+        {
+          "received_Eb_N0_dB": 5,
+          "no_AWGN": false,
+          "mean_channel_NMSE": 8.04277295134782e-05,
+          "mean_channel_NMSE_db": -40.94594191320905,
+          "frames_with_correct_delay_multiset": 16,
+          "mean_maximum_frequency_error_hz_when_delays_match": 27.83320274019711
+        },
+        {
+          "received_Eb_N0_dB": 10,
+          "no_AWGN": false,
+          "mean_channel_NMSE": 2.5480076092895128e-05,
+          "mean_channel_NMSE_db": -45.93799279371416,
+          "frames_with_correct_delay_multiset": 16,
+          "mean_maximum_frequency_error_hz_when_delays_match": 15.738460858754511
+        },
+        {
+          "received_Eb_N0_dB": 15,
+          "no_AWGN": false,
+          "mean_channel_NMSE": 8.068334954797671e-06,
+          "mean_channel_NMSE_db": -50.93216080464141,
+          "frames_with_correct_delay_multiset": 16,
+          "mean_maximum_frequency_error_hz_when_delays_match": 8.858981546919477
+        },
+        {
+          "received_Eb_N0_dB": 20,
+          "no_AWGN": false,
+          "mean_channel_NMSE": 2.5450498745523833e-06,
+          "mean_channel_NMSE_db": -55.94303702509678,
+          "frames_with_correct_delay_multiset": 16,
+          "mean_maximum_frequency_error_hz_when_delays_match": 4.992932949057417
+        },
+        {
+          "received_Eb_N0_dB": 25,
+          "no_AWGN": false,
+          "mean_channel_NMSE": 8.024619338443985e-07,
+          "mean_channel_NMSE_db": -60.95575559936709,
+          "frames_with_correct_delay_multiset": 16,
+          "mean_maximum_frequency_error_hz_when_delays_match": 2.835623562008421
+        },
+        {
+          "received_Eb_N0_dB": 30,
+          "no_AWGN": false,
+          "mean_channel_NMSE": 2.5369620155088136e-07,
+          "mean_channel_NMSE_db": -65.95686035174177,
+          "frames_with_correct_delay_multiset": 16,
+          "mean_maximum_frequency_error_hz_when_delays_match": 1.5846266603800865
+        }
+      ]
+    },
+    {
+      "condition": "B-4",
+      "maximum_residual_doppler_hz": 46875.0,
+      "points": [
+        {
+          "received_Eb_N0_dB": null,
+          "no_AWGN": true,
+          "mean_channel_NMSE": 1.8141981271128923e-29,
+          "mean_channel_NMSE_db": -287.41315285736124,
+          "frames_with_correct_delay_multiset": 16,
+          "mean_maximum_frequency_error_hz_when_delays_match": 0.0
+        },
+        {
+          "received_Eb_N0_dB": 0,
+          "no_AWGN": false,
+          "mean_channel_NMSE": 0.00027756952387989516,
+          "mean_channel_NMSE_db": -35.56628219547787,
+          "frames_with_correct_delay_multiset": 16,
+          "mean_maximum_frequency_error_hz_when_delays_match": 48.71133647230221
+        },
+        {
+          "received_Eb_N0_dB": 5,
+          "no_AWGN": false,
+          "mean_channel_NMSE": 8.763874175940154e-05,
+          "mean_channel_NMSE_db": -40.57303866287867,
+          "frames_with_correct_delay_multiset": 16,
+          "mean_maximum_frequency_error_hz_when_delays_match": 27.481403887699358
+        },
+        {
+          "received_Eb_N0_dB": 10,
+          "no_AWGN": false,
+          "mean_channel_NMSE": 2.7709460937833158e-05,
+          "mean_channel_NMSE_db": -45.57371922936702,
+          "frames_with_correct_delay_multiset": 16,
+          "mean_maximum_frequency_error_hz_when_delays_match": 15.555675943474775
+        },
+        {
+          "received_Eb_N0_dB": 15,
+          "no_AWGN": false,
+          "mean_channel_NMSE": 8.769191991139397e-06,
+          "mean_channel_NMSE_db": -50.57040421452192,
+          "frames_with_correct_delay_multiset": 16,
+          "mean_maximum_frequency_error_hz_when_delays_match": 8.734636676535002
+        },
+        {
+          "received_Eb_N0_dB": 20,
+          "no_AWGN": false,
+          "mean_channel_NMSE": 2.763852009415322e-06,
+          "mean_channel_NMSE_db": -55.58485214993563,
+          "frames_with_correct_delay_multiset": 16,
+          "mean_maximum_frequency_error_hz_when_delays_match": 4.936149141972853
+        },
+        {
+          "received_Eb_N0_dB": 25,
+          "no_AWGN": false,
+          "mean_channel_NMSE": 8.707196979475503e-07,
+          "mean_channel_NMSE_db": -60.601216305569594,
+          "frames_with_correct_delay_multiset": 16,
+          "mean_maximum_frequency_error_hz_when_delays_match": 2.726186424294842
+        },
+        {
+          "received_Eb_N0_dB": 30,
+          "no_AWGN": false,
+          "mean_channel_NMSE": 2.742795670522728e-07,
+          "mean_channel_NMSE_db": -65.61806544735893,
+          "frames_with_correct_delay_multiset": 16,
+          "mean_maximum_frequency_error_hz_when_delays_match": 1.5416168479825307
+        }
+      ]
+    }
+  ]
+}
