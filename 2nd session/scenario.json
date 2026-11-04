@@ -376,13 +376,13 @@
     }
   },
   "receiver_equalization_policy": {
-    "status": "native_data_and_plugin_MMSE_equations_implemented_statistical_model_agreed_numerical_solver_and_BER_pending",
+    "status": "estimated_channel_measured_noise_plugin_MMSE_data_solves_implemented_diagnosed_bit_decisions_and_BER_pending",
     "scope": "first_pilot_based_three_path_A_B_comparison",
     "applies_to": ["OFDM", "AFDM", "OTFS", "DD-a-OFDM"],
     "equalizer_family": "linear_MMSE",
     "processing_domain_by_scheme": {"OFDM": "TF", "AFDM": "DAFT", "OTFS": "DD", "DD-a-OFDM": "TF"},
     "channel_source": "Construct each channel operator from that receiver's pilot-based channel estimates under receiver_information_policy. Do not supply the true delays, additional path Dopplers or gains from the channel generator.",
-    "interference_modeling": "Construct full native operators from each receiver's estimated sample-level taps and retain all modeled couplings. Subtract the predicted known-pilot response and keep only data transmit columns while retaining all receive rows, as recorded in pilot_data_handling. No one-tap or Doppler-kernel truncation is selected. Use the measured silent-interval noise variance and the independent Es=1 data prior in statistical_model, without an additional channel-error covariance correction. Normal equations are implemented; numerical solving and BER remain pending. A common algorithm name alone does not establish equal receiver capability.",
+    "interference_modeling": "Construct full native operators from each receiver's estimated sample-level taps and retain all modeled couplings. Subtract the predicted known-pilot response and keep only data transmit columns while retaining all receive rows, as recorded in pilot_data_handling. No one-tap or Doppler-kernel truncation is selected. Use measured silent-interval noise and the independent Es=1 prior without an extra channel-error covariance correction. Normal equations and raw data-symbol numerical recovery are implemented under statistical_model and numerical_solver. Production output gain/decisions and BER remain pending; a common algorithm name alone does not establish equal receiver capability.",
     "channel_operator_design": {
       "status": "processing_extent_agreed_operators_implemented_diagnosed_2026_11_04_MMSE_not_implemented",
       "date_local": "2026-11-04",
@@ -393,7 +393,7 @@
         "DD-a-OFDM": {"domain": "TF", "unit": "one_slot", "native_channel_matrix_shape": [256, 256], "matrices_per_frame": 64},
         "OTFS": {"domain": "DD", "unit": "one_frame", "native_grid_shape": [256, 64], "conceptual_native_channel_matrix_shape": [16384, 16384], "implementation": "implicit full forward and conjugate-transpose operations; no dense frame matrix allocation or channel-coupling truncation"}
       },
-      "matrix_size_interpretation": "These sizes cover all native useful-grid cells before data-only reduction. The derived reduced dimensions are recorded in pilot_data_handling; statistical_model now selects the data prior and measured-noise regularization, while numerical solving remains pending.",
+      "matrix_size_interpretation": "These sizes cover all native useful-grid cells before data-only reduction. Reduced dimensions are recorded in pilot_data_handling; statistical_model selects the data prior/measured-noise regularization and numerical_solver implements the local/full-frame solves without changing these extents.",
       "common_receive_clock": "Consume reconstructed estimated taps on all 16704 CP-inclusive receive samples. Select each useful sample n=(256+5)*b+5+q at its actual receive time. Do not reset a path phase, average taps over a block, or omit CP time.",
       "time_domain_equation": "r_b[q] = sum_l h_hat[(N+CP)*b+CP+q,l] * s_b[(q-l) mod N], with every public integer tap candidate l=0..5. Sufficient per-slot CP makes the useful time channel block diagonal in this aligned integer-delay model.",
       "native_basis_rule": "For each waveform's unitary native-to-useful-time transform S, H_native = S^H * H_time * S and H_native^H = S^H * H_time^H * S. OFDM/DD-a use per-slot IFFT, AFDM per-block IDAFT and OTFS the existing full-frame ISFFT-plus-OFDM transform.",
@@ -410,7 +410,7 @@
         "OTFS_storage_note": "The production useful estimated-tap array occupies 1572864 bytes versus 4294967296 bytes for a hypothetical dense complex128 16384-by-16384 matrix. This is an array-size comparison, not a bound on total runtime memory or a performance benchmark.",
         "limits": "This earlier channel-only check validates construction and estimated-tap integration, not channel-estimation accuracy, MMSE data recovery or BER. It did not perform pilot subtraction; the later selected data preparation is recorded in pilot_data_handling. Existing errors remain, and noise/solver choices are still pending."
       },
-      "pending_design": ["numerically solve the selected statistical_model normal equations, including zero/small measured variance", "full frame/noise-measurement pipeline, data decisions, BER implementation and baseline/full comparison runs"]
+      "pending_design": ["complete the full frame/noise-measurement receiver pipeline around the implemented raw symbol solves", "output gain/data decisions, BER implementation and baseline/full comparison runs"]
     },
     "pilot_data_handling": {
       "status": "agreed_estimated_pilot_subtraction_and_data_only_unknowns_implemented_diagnosed_2026_11_04",
@@ -439,7 +439,7 @@
         "findings": "Matched-channel pilot subtraction agrees with the data-only channel to below 4.60e-16 relative error. Local data matrices and their adjoints agree below 5.88e-16; data-adjoint inner-product error is below 9.09e-18. Deliberate channel mismatch leaves the expected nonzero pilot residual, with identity error below 5.61e-15. Actual-estimate residual accounting, including AWGN and channel errors, agrees within 8.03e-15. Every case retains full receive observations and existing data order/energy.",
         "limits": "These checks validate preparation for MMSE, not actual equalization or BER. Noise statistics, covariance, regularization, solver and decisions remain pending; the common measured-bit quota is unchanged."
       },
-      "pending_design": ["numerically solve the selected statistical_model normal equations, including zero/small measured variance", "QAM output gain/decisions, bit recovery, confidence intervals and BER runs"]
+      "pending_design": ["QAM output gain/decisions, bit recovery, confidence intervals and BER runs"]
     },
     "noise_information_policy": {
       "status": "common_silent_energy_measurement_selected_implemented_diagnosed_data_MMSE_and_BER_pending",
@@ -494,9 +494,9 @@
         "receiver_rule": "Run channel estimation, pilot subtraction and data recovery independently from each branch's own observations. Do not reuse noiseless channel estimates or clean data as assistance for the noisy receiver.",
         "interpretation": "Noiseless BER can remain nonzero from estimation/recovery errors. Compare it with BER at the existing Eb/N0 points to diagnose noise sensitivity; their difference is not an independently additive noise error probability. The primary result remains the matched-Eb/N0 four-way BER comparison.",
         "measurement_budget": "Preserve the agreed common bit quota for reported BER points; label shorter preliminary diagnostics separately. No BER experiment or bit-recovery pipeline has been implemented.",
-        "zero_noise_numerics": "Numerical handling of a zero or very small variance belongs to the still-pending equalizer design; do not silently add a regularization floor or use generator truth."
+        "zero_noise_numerics": "Use the separately selected SVD/LSQR minimum-norm least-squares route at exactly zero measured variance under numerical_solver. Keep positive measured variance unchanged, without a floor or generator truth."
       },
-      "implementation_status": "silent_noise_measurement_helper_and_public_design_builder_implemented_diagnosed_connected_to_MMSE_equations_in_small_integrations_full_frame_solver_and_BER_pending",
+      "implementation_status": "silent_measurement_connected_to_MMSE_equations_and_raw_data_solves_in_diagnostics_full_BER_pipeline_pending",
       "implementation": "noise_estimation.py: build_silent_noise_measurement constructs the public once-per-frame design; SilentNoiseMeasurement.estimate accepts exactly 261 silent-interval receive samples, discards the first five and averages power over 256. Generic explicit-count measurement helpers have no default lengths.",
       "uncertainty": "For L independent CN(0,sigma^2) observations, E[sigma_hat^2]=sigma^2 and Var(sigma_hat^2)=sigma^4/L. At L=256 the relative standard deviation is 6.25 percent, not a maximum error bound, confidence interval or BER accuracy guarantee. Initial selection trades a short one-block-duration time cost against finite noise-power uncertainty; it is not a validated BER optimum.",
       "implementation_diagnostic": {
@@ -510,10 +510,10 @@
         {"url": "https://www.mathworks.com/help/5g/ref/nrequalizemmse.html", "scope": "Example of MMSE equalization receiving an estimated noise variance, not the data-interval noise realization; not our full coupled equalizer implementation."},
         {"url": "https://cris.unibo.it/retrieve/handle/11585/802184/78cc746a-e562-4d62-ba22-f30493ca800a/TWC2982880.pdf", "scope": "Mixture Detectors for Improved Spectrum Sensing (2020), equation (18): mean squared magnitude of signal-free noise samples. The estimator form has literature precedent; the added common silence interval and length are our accepted simulation choices, not actual Starlink frame measurements."}
       ],
-      "pending_design": ["complete the full-frame generator/receiver using separate independent calibration observations; small integrations already connect measured power to statistical_model normal equations", "MMSE numerical method and zero/small-variance handling", "independent paired data recovery, decisions, confidence intervals and BER", "later noise-measurement-length sensitivity with matched common overhead; retain 256 initially rather than tuning by condition"]
+      "pending_design": ["complete the full-frame generator/receiver using separate independent calibration observations; diagnostics already connect measured power to MMSE raw data recovery", "independent paired output gain/decisions, confidence intervals and BER", "later noise-measurement-length sensitivity with matched common overhead; retain 256 initially rather than tuning by condition"]
     },
     "statistical_model": {
-      "status": "agreed_plugin_MMSE_statistics_equations_implemented_numerical_solver_pending_2026_11_04",
+      "status": "agreed_plugin_MMSE_statistics_equations_and_raw_symbol_solves_implemented_diagnosed_2026_11_04",
       "date_local": "2026-11-04",
       "decision_record": "The user accepted independent 16-QAM data with the existing average energy Es=1, using each receiver's own estimated channel and measured noise power, without adding a separate channel-estimation-error covariance correction. Actual estimation errors remain in received observations and later BER.",
       "applies_to": ["OFDM", "AFDM", "OTFS", "DD-a-OFDM"],
@@ -534,9 +534,9 @@
         "regularization": "lambda = sigma_hat^2/Es; currently Es=1, so lambda=sigma_hat^2",
         "objective": "||r_data-A_hat*d||_2^2 + (sigma_hat^2/Es)*||d||_2^2"
       },
-      "zero_noise_rule": "Accept a measured variance of zero without a hidden positive floor. The normal matrix can then be singular; numerical solution and any rank/zero/small-variance strategy remain unselected. Constructing equations does not imply a unique inverse exists.",
+      "zero_noise_rule": "Accept a measured variance of zero without a hidden positive floor. A singular normal matrix uses the separate minimum-norm least-squares route in numerical_solver: local SVD or full-frame undamped LSQR. Positive measured variance retains its exact regularization; no arbitrary variance floor is added.",
       "scope_preservation": "Keep all native receive rows and 12288 data unknowns. OFDM/DD-a-OFDM remain local TF blocks, AFDM local DAFT blocks, and OTFS implicit whole-frame DD. No coupling truncation, extra pilot or measurement-resource change is introduced.",
-      "implementation": "mmse_problem.py: build_mmse_problem and PlugInMMSEProblem prepare measured-noise regularization, once-subtracted observations, the RHS, the implicit normal operator/objective, and local TF/DAFT block systems. No numerical data solve, output gain adjustment, symbol/bit decisions or BER is implemented.",
+      "implementation": "mmse_problem.py prepares measured-noise regularization, once-subtracted observations, RHS, implicit normal operator/objective and local blocks. mmse_solver.py now recovers raw data symbols under numerical_solver. Output gain adjustment, production symbol/bit decisions and BER remain pending.",
       "receiver_inputs": "Estimated-channel PilotDataModel, original native received grid, scalar output of the separate silent-interval noise measurement, and public statistical/data-energy settings. No true channel, transmitted data, generator variance, noise realization or target Eb/N0 is read.",
       "implementation_diagnostic": {
         "script": "check_mmse_problem.py",
@@ -548,8 +548,41 @@
         {"url": "https://arxiv.org/pdf/2508.04253v2", "scope": "Equations (43)-(44) give estimated-channel MMSE. Our data-column selection, estimated-pilot subtraction, measured noise and common four-waveform statistics are explicit adaptations, not copied source resources or parameters."},
         {"url": "https://nvlabs.github.io/sionna/v2.2.0/_modules/sionna/phy/mimo/equalization.html", "scope": "lmmse_matrix documents zero-mean unit-covariance data and G=H^H*(H*H^H+S)^(-1). This supports the nominal linear model; its numerical solver and lmmse_equalizer output gain scaling are not selected or imported."}
       ],
-      "pending_design": ["numerical local TF/DAFT and full-frame implicit DD solution method and stopping settings", "zero/small measured variance and rank-deficient-system handling", "complete paired noiseless/noisy pipeline, output gain handling/QAM decisions and bit recovery", "confidence intervals, full baseline and A/B BER comparisons"],
+      "pending_design": ["complete paired noiseless/noisy pipeline, output gain handling/QAM decisions and bit recovery", "confidence intervals, full baseline and A/B BER comparisons"],
       "future_extension": "A channel-uncertainty-aware linear equalizer may later estimate an error covariance from available receiver observations. Its model, estimator and parameters are deferred; do not provide the true error covariance as hidden assistance."
+    },
+    "numerical_solver": {
+      "status": "methods_and_accuracy_agreed_implemented_80_receiver_cases_and_stricter_tolerance_checks_passed_2026_11_04",
+      "date_local": "2026-11-04",
+      "decision_record": "The user accepted block direct solves for OFDM/AFDM/DD-a-OFDM, full-frame implicit CG for OTFS, relative normal residual 1e-8, a 1000-iteration cap, comparison against 1e-10, and a separate zero-noise least-squares path without increasing noise power.",
+      "positive_noise_methods": {"OFDM": "block_direct", "AFDM": "block_direct", "DD-a-OFDM": "block_direct", "OTFS": "full_frame_CG"},
+      "zero_noise_methods": {"OFDM": "block_SVD_least_squares", "AFDM": "block_SVD_least_squares", "DD-a-OFDM": "block_SVD_least_squares", "OTFS": "full_frame_LSQR"},
+      "relative_normal_residual_tolerance": 1e-8,
+      "validation_relative_normal_residual_tolerance": 1e-10,
+      "maximum_iterations": 1000,
+      "initial_iterate": "zero",
+      "preconditioner": "none",
+      "direct_method": "numpy.linalg.solve on each local data-column normal system for positive measured variance; check all block residuals and the global implicit normal residual. Do not construct an inverse.",
+      "CG_method": "Complex zero-start unpreconditioned CG using PlugInMMSEProblem.normal. Keep all full-frame DD couplings. Recompute the original normal-equation residual for stopping; recursive residual disagreement can restart from the true residual without changing the equation.",
+      "zero_noise_method": "At exactly zero measured variance, local blocks use numpy.linalg.lstsq(A_block,r_block,rcond=None), whose numerical rank cutoff is machine precision times max(rows,columns). Full DD uses zero-start undamped complex Golub-Kahan LSQR through A_hat and A_hat^H. Both seek a minimum-norm least-squares reference, with the same normal-residual tolerance and the same 1000-iteration safety cap for iterative LSQR. No channel/pilot error covariance is added.",
+      "small_positive_variance": "Any positive measured variance retains its existing sigma_hat^2/Es regularization. No threshold turns it into a zero-noise case, and no variance floor or other regularizer is added.",
+      "convergence_definition": "rho = norm(b-N*d_hat)/norm(b), where N=A_hat^H*A_hat+lambda*I and b=A_hat^H*r_data. This is numerical normal-equation accuracy, not sample-domain residual power, symbol error, channel-estimation error or BER. A zero RHS has the zero minimum-norm solution and zero relative residual. Direct blocks must also meet the same target individually.",
+      "failure_rule": "Return explicit convergence status, method, iteration count and recomputed normal residual. A nonconverged or failed factorization is a numerical failure: require_converged raises. Do not score it as a channel error, silently drop its bits, or change the equalizer/noise/receiver information to force a result.",
+      "implementation": "mmse_solver.py: solve_mmse_problem and MMSESolveResult. Output is the raw data-symbol estimate in the existing data-cell order. The solver reads only the selected public numerical settings plus the existing MMSE problem; no generator truth is consumed.",
+      "preserved_scope": "Keep the existing Es=1 plug-in statistics, native local/full-frame extents, all receive rows, pilots, calibration interval, timing, channel estimation, pairing and common BER bit quota. No output gain adjustment, QAM decision or BER accumulation is added.",
+      "implementation_diagnostic": {
+        "script": "check_mmse_solver.py",
+        "report": "data/mmse_solver_check.json",
+        "scope": "Eight small numerical controls, including dense full/rank-deficient minimum-norm references, zero RHS/channel, tiny positive variance and intentional one-iteration CG/LSQR failures. One paired diagnostic frame at each of five A/B levels and noiseless/0/20/30-dB settings for all four receivers: 80 actual cases. Iterative results are rerun at 1e-10; deterministic direct results already satisfying the stricter global/local target are reused.",
+        "findings": "All 80 actual cases satisfy the 1e-8 normal-residual target and stricter 1e-10 validation, with zero failures. Maximum nominal/strict relative residual is 9.99309575e-9/9.35222229e-11. Nominal OTFS CG uses at most 25 iterations and undamped LSQR at most 26; stricter runs at most 32. Maximum loose/strict solution relative L2 difference is 2.09476991e-8 and absolute symbol difference 6.79045283e-8. Diagnostic nearest-16QAM labels have zero disagreements.",
+        "limits": "These are numerical accuracy diagnostics on one paired frame per setting, not a BER run or the full common measured-bit quota. Nearest-constellation labels are validation probes only; production output gain and bit decisions are unselected. Relative normal residual alone is not a universal symbol-error bound. Mathematical reference controls grant no true channel or noise information to the actual receivers."
+      },
+      "references": [
+        {"url": "https://numpy.org/doc/2.3/reference/generated/numpy.linalg.solve.html", "scope": "Direct full-rank linear-system solve; use the pinned local NumPy 2.3.5 rather than creating an inverse."},
+        {"url": "https://numpy.org/doc/2.3/reference/generated/numpy.linalg.lstsq.html", "scope": "Minimum-norm least squares and the rcond=None machine-precision rank rule for zero-noise local blocks."},
+        {"url": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.linalg.cg.html", "scope": "CG requires a Hermitian positive-definite operator and supports a residual-relative stopping test. Algorithm reference only: no SciPy dependency is installed or used."},
+        {"url": "https://web.stanford.edu/group/SOL/software/lsqr/", "scope": "Golub-Kahan LSQR through forward/adjoint operations and the zero-damping minimum-norm least-squares reference. The accepted numerical tolerances/cap are our initial verification choices."}
+      ]
     },
     "channel_estimation_selection": {
       "OFDM": {
@@ -774,7 +807,7 @@
     },
     "existing_DD_a_design": "Preserve the selected DD-ML alternating-projection estimator and ICI-aware 256-by-256 TF linear-MMSE matrix for each of 64 symbols. The new common-family choice does not replace that design.",
     "development_focus": "The user clarified that the target is BER comparison, not eliminating all channel-estimation errors or repeatedly optimizing OFDM. Keep the current OFDM BEM-LS prototype as an initial candidate with documented limits, distinguish implementation errors from estimator limitations, and specify the other receivers under the agreed common conditions.",
-    "pending_design": ["retain the fixed OFDM BEM-LS initial candidate and documented limitations alongside the other implemented pilot/channel/data operators", "numerically solve the selected statistical_model equations, including zero/small measured variance and any stopping settings", "full receiver validation, output gain/QAM decisions, bit recovery, confidence intervals and BER implementation"],
+    "pending_design": ["retain the fixed OFDM BEM-LS initial candidate and documented limitations alongside the other implemented estimators and raw symbol solvers", "full receiver validation, output gain/QAM decisions, bit recovery, confidence intervals and BER implementation"],
     "baseline_scope": "The initial single-path LOS plus AWGN validation and its perfect common-frequency correction remain unchanged. This policy does not grant perfect multipath channel knowledge.",
     "reference_url": "https://arxiv.org/pdf/2508.04253v2#page=13",
     "reference_basis": "Section V-D uses ICI-aware MMSE equalizers for the OFDM/DD-a-OFDM comparison. Extending the linear-MMSE family to all four native receivers is our agreed experimental choice; it does not require copying a source paper's estimator or detector for every waveform.",
@@ -814,7 +847,7 @@
     "parameter_estimation_rule": "Obtain the channel response or path parameters from the agreed pilot observations. Do not copy the actual 0/2/5-sample delays, per-path Dopplers, or complex gains from the channel generator into the receivers.",
     "purpose": "First compare channel-parameter estimation and BER without adding path-count detection errors. State this known-count assumption in reported results; equal path-count information alone does not settle other fairness conditions.",
     "baseline_scope": "This policy does not change the initial single-path LOS AWGN baseline or its perfect common-Doppler knowledge and compensation. Future multipath compensation details remain to be discussed.",
-    "remaining_receiver_design": "All receivers share P=3, 0..5-sample excess-delay bounds and fixed +/-46875-Hz residual Doppler support; true active path parameters remain unavailable. Native pilot/channel/data operators and silent-interval noise-power estimation (5 settling plus 256 measured samples per frame) are implemented and initially diagnosed. The selected independent Es=1 data prior and basic plug-in MMSE use estimated channels/measured variance without extra channel-error covariance; statistical_model normal equations and small input integrations are implemented. Full-frame generation, numerical data recovery and complete four-way BER remain pending. Nonzero estimation error alone does not require redesign.",
+    "remaining_receiver_design": "All receivers share P=3, 0..5-sample excess-delay bounds and fixed +/-46875-Hz residual Doppler support; true active path parameters remain unavailable. Native pilot/channel/data operators, separate silent noise measurement and Es=1 plug-in MMSE raw symbol solves are implemented and initially diagnosed. Local direct/full-DD CG and zero-noise SVD/LSQR use the agreed 1e-8 target/1000 cap with stricter 1e-10 checks. Full pipeline, output gain/bit decisions and four-way BER remain pending. Nonzero estimation error alone does not require redesign.",
     "path_count_estimation_followup": {
       "status": "deferred_method_and_parameters_pending_not_implemented",
       "purpose": "Replace the known count with a receiver-estimated count and compare against the known-count reference. Assess missed or spurious paths and their impact on parameter estimation and BER.",

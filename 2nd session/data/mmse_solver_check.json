@@ -1,0 +1,2425 @@
+{
+  "scope": "Numerical direct/CG/zero-noise least-squares validation, not a BER experiment.",
+  "numpy_version": "2.3.5",
+  "diagnostic_seed": 20261104,
+  "receiver_inputs": "Own pilot-estimated channel, original native observations, separately measured calibration noise power, and public Es/numerical settings. No generator truth is read by the solver.",
+  "mathematical_controls": [
+    {
+      "name": "positive_noise_CG",
+      "converged": true,
+      "method": "full_frame_CG",
+      "iterations": 12,
+      "relative_normal_residual": 6.4966334546175754e-15,
+      "reason": "converged",
+      "maximum_local_relative_normal_residual": null,
+      "minimum_local_least_squares_rank": null,
+      "dense_reference_solution_relative_error": 2.48452411324979e-15
+    },
+    {
+      "name": "small_positive_noise_CG",
+      "converged": true,
+      "method": "full_frame_CG",
+      "iterations": 12,
+      "relative_normal_residual": 2.3114177162548056e-15,
+      "reason": "converged",
+      "maximum_local_relative_normal_residual": null,
+      "minimum_local_least_squares_rank": null,
+      "dense_reference_solution_relative_error": 9.725623148254517e-16
+    },
+    {
+      "name": "zero_noise_LSQR",
+      "converged": true,
+      "method": "full_frame_LSQR",
+      "iterations": 12,
+      "relative_normal_residual": 1.5389800887678312e-15,
+      "reason": "converged",
+      "maximum_local_relative_normal_residual": null,
+      "minimum_local_least_squares_rank": null,
+      "dense_reference_solution_relative_error": 1.0994364539992026e-15
+    },
+    {
+      "name": "rank_deficient_zero_noise_LSQR",
+      "converged": true,
+      "method": "full_frame_LSQR",
+      "iterations": 10,
+      "relative_normal_residual": 2.123582693365881e-15,
+      "reason": "converged",
+      "maximum_local_relative_normal_residual": null,
+      "minimum_local_least_squares_rank": null,
+      "dense_reference_solution_relative_error": 1.5612817236634755e-15
+    },
+    {
+      "name": "zero_channel_minimum_norm",
+      "converged": true,
+      "method": "full_frame_LSQR",
+      "iterations": 0,
+      "relative_normal_residual": 0.0,
+      "reason": "zero_rhs",
+      "maximum_local_relative_normal_residual": null,
+      "minimum_local_least_squares_rank": null
+    },
+    {
+      "name": "one_iteration_failure_guard",
+      "converged": false,
+      "method": "full_frame_CG",
+      "iterations": 1,
+      "relative_normal_residual": 0.462145002119349,
+      "reason": "maximum_iterations_reached",
+      "maximum_local_relative_normal_residual": null,
+      "minimum_local_least_squares_rank": null
+    },
+    {
+      "name": "one_iteration_failure_guard",
+      "converged": false,
+      "method": "full_frame_LSQR",
+      "iterations": 1,
+      "relative_normal_residual": 0.4659662099617251,
+      "reason": "maximum_iterations_reached",
+      "maximum_local_relative_normal_residual": null,
+      "minimum_local_least_squares_rank": null
+    },
+    {
+      "name": "local_SVD_singular_TF_bin",
+      "converged": true,
+      "method": "block_SVD_least_squares",
+      "iterations": 0,
+      "relative_normal_residual": 2.1612349771944983e-15,
+      "reason": "converged",
+      "maximum_local_relative_normal_residual": 2.7242840729870536e-15,
+      "minimum_local_least_squares_rank": 128,
+      "analytic_minimum_norm_solution_relative_error": 1.0831665887369109e-14
+    }
+  ],
+  "actual_receiver_cases": [
+    {
+      "condition": "A",
+      "scheme": "OFDM",
+      "diagnostic_Eb_N0_db_generation_only": null,
+      "noiseless": true,
+      "measured_noise_variance": 0.0,
+      "nominal": {
+        "converged": true,
+        "method": "block_SVD_least_squares",
+        "iterations": 0,
+        "relative_normal_residual": 2.5295388439548002e-15,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 2.9261655963783167e-15,
+        "minimum_local_least_squares_rank": 128
+      },
+      "strict": {
+        "converged": true,
+        "method": "block_SVD_least_squares",
+        "iterations": 0,
+        "relative_normal_residual": 2.5295388439548002e-15,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 2.9261655963783167e-15,
+        "minimum_local_least_squares_rank": 128
+      },
+      "direct_result_already_meets_stricter_target": true,
+      "stricter_solution_relative_L2_difference": 0.0,
+      "maximum_absolute_symbol_difference": 0.0,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "A",
+      "scheme": "AFDM",
+      "diagnostic_Eb_N0_db_generation_only": null,
+      "noiseless": true,
+      "measured_noise_variance": 0.0,
+      "nominal": {
+        "converged": true,
+        "method": "block_SVD_least_squares",
+        "iterations": 0,
+        "relative_normal_residual": 2.486200600864882e-15,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 3.152221594980949e-15,
+        "minimum_local_least_squares_rank": 192
+      },
+      "strict": {
+        "converged": true,
+        "method": "block_SVD_least_squares",
+        "iterations": 0,
+        "relative_normal_residual": 2.486200600864882e-15,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 3.152221594980949e-15,
+        "minimum_local_least_squares_rank": 192
+      },
+      "direct_result_already_meets_stricter_target": true,
+      "stricter_solution_relative_L2_difference": 0.0,
+      "maximum_absolute_symbol_difference": 0.0,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "A",
+      "scheme": "OTFS",
+      "diagnostic_Eb_N0_db_generation_only": null,
+      "noiseless": true,
+      "measured_noise_variance": 0.0,
+      "nominal": {
+        "converged": true,
+        "method": "full_frame_LSQR",
+        "iterations": 25,
+        "relative_normal_residual": 5.019634833496596e-09,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": null,
+        "minimum_local_least_squares_rank": null
+      },
+      "strict": {
+        "converged": true,
+        "method": "full_frame_LSQR",
+        "iterations": 31,
+        "relative_normal_residual": 5.900120843488695e-11,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": null,
+        "minimum_local_least_squares_rank": null
+      },
+      "direct_result_already_meets_stricter_target": false,
+      "stricter_solution_relative_L2_difference": 9.936237078394507e-09,
+      "maximum_absolute_symbol_difference": 3.072695701436931e-08,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "A",
+      "scheme": "DD-a-OFDM",
+      "diagnostic_Eb_N0_db_generation_only": null,
+      "noiseless": true,
+      "measured_noise_variance": 0.0,
+      "nominal": {
+        "converged": true,
+        "method": "block_SVD_least_squares",
+        "iterations": 0,
+        "relative_normal_residual": 2.3412547038126092e-15,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 2.717430292891604e-15,
+        "minimum_local_least_squares_rank": 128
+      },
+      "strict": {
+        "converged": true,
+        "method": "block_SVD_least_squares",
+        "iterations": 0,
+        "relative_normal_residual": 2.3412547038126092e-15,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 2.717430292891604e-15,
+        "minimum_local_least_squares_rank": 128
+      },
+      "direct_result_already_meets_stricter_target": true,
+      "stricter_solution_relative_L2_difference": 0.0,
+      "maximum_absolute_symbol_difference": 0.0,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "A",
+      "scheme": "OFDM",
+      "diagnostic_Eb_N0_db_generation_only": 0,
+      "noiseless": false,
+      "measured_noise_variance": 0.25149328782261876,
+      "nominal": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 6.413054502777508e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.914768030118546e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "strict": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 6.413054502777508e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.914768030118546e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "direct_result_already_meets_stricter_target": true,
+      "stricter_solution_relative_L2_difference": 0.0,
+      "maximum_absolute_symbol_difference": 0.0,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "A",
+      "scheme": "AFDM",
+      "diagnostic_Eb_N0_db_generation_only": 0,
+      "noiseless": false,
+      "measured_noise_variance": 0.25149328782261876,
+      "nominal": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 6.376088740700066e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.332453346832213e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "strict": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 6.376088740700066e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.332453346832213e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "direct_result_already_meets_stricter_target": true,
+      "stricter_solution_relative_L2_difference": 0.0,
+      "maximum_absolute_symbol_difference": 0.0,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "A",
+      "scheme": "OTFS",
+      "diagnostic_Eb_N0_db_generation_only": 0,
+      "noiseless": false,
+      "measured_noise_variance": 0.25149328782261876,
+      "nominal": {
+        "converged": true,
+        "method": "full_frame_CG",
+        "iterations": 18,
+        "relative_normal_residual": 4.052597336032786e-09,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": null,
+        "minimum_local_least_squares_rank": null
+      },
+      "strict": {
+        "converged": true,
+        "method": "full_frame_CG",
+        "iterations": 22,
+        "relative_normal_residual": 5.668789253774309e-11,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": null,
+        "minimum_local_least_squares_rank": null
+      },
+      "direct_result_already_meets_stricter_target": false,
+      "stricter_solution_relative_L2_difference": 5.875764337564283e-09,
+      "maximum_absolute_symbol_difference": 1.5920137963232557e-08,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "A",
+      "scheme": "DD-a-OFDM",
+      "diagnostic_Eb_N0_db_generation_only": 0,
+      "noiseless": false,
+      "measured_noise_variance": 0.25149328782261876,
+      "nominal": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 6.275522117884337e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.32689815624347e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "strict": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 6.275522117884337e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.32689815624347e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "direct_result_already_meets_stricter_target": true,
+      "stricter_solution_relative_L2_difference": 0.0,
+      "maximum_absolute_symbol_difference": 0.0,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "A",
+      "scheme": "OFDM",
+      "diagnostic_Eb_N0_db_generation_only": 20,
+      "noiseless": false,
+      "measured_noise_variance": 0.002514932878226188,
+      "nominal": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 7.005221204086444e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.329509452116557e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "strict": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 7.005221204086444e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.329509452116557e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "direct_result_already_meets_stricter_target": true,
+      "stricter_solution_relative_L2_difference": 0.0,
+      "maximum_absolute_symbol_difference": 0.0,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "A",
+      "scheme": "AFDM",
+      "diagnostic_Eb_N0_db_generation_only": 20,
+      "noiseless": false,
+      "measured_noise_variance": 0.002514932878226188,
+      "nominal": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 6.964042928728991e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.491791165281157e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "strict": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 6.964042928728991e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.491791165281157e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "direct_result_already_meets_stricter_target": true,
+      "stricter_solution_relative_L2_difference": 0.0,
+      "maximum_absolute_symbol_difference": 0.0,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "A",
+      "scheme": "OTFS",
+      "diagnostic_Eb_N0_db_generation_only": 20,
+      "noiseless": false,
+      "measured_noise_variance": 0.002514932878226188,
+      "nominal": {
+        "converged": true,
+        "method": "full_frame_CG",
+        "iterations": 24,
+        "relative_normal_residual": 9.185481818868368e-09,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": null,
+        "minimum_local_least_squares_rank": null
+      },
+      "strict": {
+        "converged": true,
+        "method": "full_frame_CG",
+        "iterations": 31,
+        "relative_normal_residual": 4.842357588446132e-11,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": null,
+        "minimum_local_least_squares_rank": null
+      },
+      "direct_result_already_meets_stricter_target": false,
+      "stricter_solution_relative_L2_difference": 1.832589245704605e-08,
+      "maximum_absolute_symbol_difference": 5.557171802773556e-08,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "A",
+      "scheme": "DD-a-OFDM",
+      "diagnostic_Eb_N0_db_generation_only": 20,
+      "noiseless": false,
+      "measured_noise_variance": 0.002514932878226188,
+      "nominal": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 6.851564912777797e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.093436776419528e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "strict": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 6.851564912777797e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.093436776419528e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "direct_result_already_meets_stricter_target": true,
+      "stricter_solution_relative_L2_difference": 0.0,
+      "maximum_absolute_symbol_difference": 0.0,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "A",
+      "scheme": "OFDM",
+      "diagnostic_Eb_N0_db_generation_only": 30,
+      "noiseless": false,
+      "measured_noise_variance": 0.0002514932878226187,
+      "nominal": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 6.993669799695385e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.199260529779063e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "strict": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 6.993669799695385e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.199260529779063e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "direct_result_already_meets_stricter_target": true,
+      "stricter_solution_relative_L2_difference": 0.0,
+      "maximum_absolute_symbol_difference": 0.0,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "A",
+      "scheme": "AFDM",
+      "diagnostic_Eb_N0_db_generation_only": 30,
+      "noiseless": false,
+      "measured_noise_variance": 0.0002514932878226187,
+      "nominal": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 6.996684546537921e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.500297353344689e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "strict": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 6.996684546537921e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.500297353344689e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "direct_result_already_meets_stricter_target": true,
+      "stricter_solution_relative_L2_difference": 0.0,
+      "maximum_absolute_symbol_difference": 0.0,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "A",
+      "scheme": "OTFS",
+      "diagnostic_Eb_N0_db_generation_only": 30,
+      "noiseless": false,
+      "measured_noise_variance": 0.0002514932878226187,
+      "nominal": {
+        "converged": true,
+        "method": "full_frame_CG",
+        "iterations": 25,
+        "relative_normal_residual": 4.859995143987583e-09,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": null,
+        "minimum_local_least_squares_rank": null
+      },
+      "strict": {
+        "converged": true,
+        "method": "full_frame_CG",
+        "iterations": 31,
+        "relative_normal_residual": 5.672540264009698e-11,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": null,
+        "minimum_local_least_squares_rank": null
+      },
+      "direct_result_already_meets_stricter_target": false,
+      "stricter_solution_relative_L2_difference": 9.608684399399115e-09,
+      "maximum_absolute_symbol_difference": 2.963128511835385e-08,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "A",
+      "scheme": "DD-a-OFDM",
+      "diagnostic_Eb_N0_db_generation_only": 30,
+      "noiseless": false,
+      "measured_noise_variance": 0.0002514932878226187,
+      "nominal": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 7.237026687050952e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.2009605948174405e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "strict": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 7.237026687050952e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.2009605948174405e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "direct_result_already_meets_stricter_target": true,
+      "stricter_solution_relative_L2_difference": 0.0,
+      "maximum_absolute_symbol_difference": 0.0,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "B-1",
+      "scheme": "OFDM",
+      "diagnostic_Eb_N0_db_generation_only": null,
+      "noiseless": true,
+      "measured_noise_variance": 0.0,
+      "nominal": {
+        "converged": true,
+        "method": "block_SVD_least_squares",
+        "iterations": 0,
+        "relative_normal_residual": 2.6089108512443944e-15,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 3.554180366618174e-15,
+        "minimum_local_least_squares_rank": 128
+      },
+      "strict": {
+        "converged": true,
+        "method": "block_SVD_least_squares",
+        "iterations": 0,
+        "relative_normal_residual": 2.6089108512443944e-15,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 3.554180366618174e-15,
+        "minimum_local_least_squares_rank": 128
+      },
+      "direct_result_already_meets_stricter_target": true,
+      "stricter_solution_relative_L2_difference": 0.0,
+      "maximum_absolute_symbol_difference": 0.0,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "B-1",
+      "scheme": "AFDM",
+      "diagnostic_Eb_N0_db_generation_only": null,
+      "noiseless": true,
+      "measured_noise_variance": 0.0,
+      "nominal": {
+        "converged": true,
+        "method": "block_SVD_least_squares",
+        "iterations": 0,
+        "relative_normal_residual": 2.583746845439735e-15,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 3.3689266188102722e-15,
+        "minimum_local_least_squares_rank": 192
+      },
+      "strict": {
+        "converged": true,
+        "method": "block_SVD_least_squares",
+        "iterations": 0,
+        "relative_normal_residual": 2.583746845439735e-15,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 3.3689266188102722e-15,
+        "minimum_local_least_squares_rank": 192
+      },
+      "direct_result_already_meets_stricter_target": true,
+      "stricter_solution_relative_L2_difference": 0.0,
+      "maximum_absolute_symbol_difference": 0.0,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "B-1",
+      "scheme": "OTFS",
+      "diagnostic_Eb_N0_db_generation_only": null,
+      "noiseless": true,
+      "measured_noise_variance": 0.0,
+      "nominal": {
+        "converged": true,
+        "method": "full_frame_LSQR",
+        "iterations": 26,
+        "relative_normal_residual": 4.952850941023687e-09,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": null,
+        "minimum_local_least_squares_rank": null
+      },
+      "strict": {
+        "converged": true,
+        "method": "full_frame_LSQR",
+        "iterations": 32,
+        "relative_normal_residual": 7.096289234074022e-11,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": null,
+        "minimum_local_least_squares_rank": null
+      },
+      "direct_result_already_meets_stricter_target": false,
+      "stricter_solution_relative_L2_difference": 1.0380266936918393e-08,
+      "maximum_absolute_symbol_difference": 3.485489573964091e-08,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "B-1",
+      "scheme": "DD-a-OFDM",
+      "diagnostic_Eb_N0_db_generation_only": null,
+      "noiseless": true,
+      "measured_noise_variance": 0.0,
+      "nominal": {
+        "converged": true,
+        "method": "block_SVD_least_squares",
+        "iterations": 0,
+        "relative_normal_residual": 2.587859839892911e-15,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 3.2318137955030933e-15,
+        "minimum_local_least_squares_rank": 128
+      },
+      "strict": {
+        "converged": true,
+        "method": "block_SVD_least_squares",
+        "iterations": 0,
+        "relative_normal_residual": 2.587859839892911e-15,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 3.2318137955030933e-15,
+        "minimum_local_least_squares_rank": 128
+      },
+      "direct_result_already_meets_stricter_target": true,
+      "stricter_solution_relative_L2_difference": 0.0,
+      "maximum_absolute_symbol_difference": 0.0,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "B-1",
+      "scheme": "OFDM",
+      "diagnostic_Eb_N0_db_generation_only": 0,
+      "noiseless": false,
+      "measured_noise_variance": 0.25149328782261876,
+      "nominal": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 7.04441999938444e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 5.637050161933139e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "strict": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 7.04441999938444e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 5.637050161933139e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "direct_result_already_meets_stricter_target": true,
+      "stricter_solution_relative_L2_difference": 0.0,
+      "maximum_absolute_symbol_difference": 0.0,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "B-1",
+      "scheme": "AFDM",
+      "diagnostic_Eb_N0_db_generation_only": 0,
+      "noiseless": false,
+      "measured_noise_variance": 0.25149328782261876,
+      "nominal": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 6.318935060493126e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.171940240054532e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "strict": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 6.318935060493126e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.171940240054532e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "direct_result_already_meets_stricter_target": true,
+      "stricter_solution_relative_L2_difference": 0.0,
+      "maximum_absolute_symbol_difference": 0.0,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "B-1",
+      "scheme": "OTFS",
+      "diagnostic_Eb_N0_db_generation_only": 0,
+      "noiseless": false,
+      "measured_noise_variance": 0.25149328782261876,
+      "nominal": {
+        "converged": true,
+        "method": "full_frame_CG",
+        "iterations": 18,
+        "relative_normal_residual": 9.720626831096449e-09,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": null,
+        "minimum_local_least_squares_rank": null
+      },
+      "strict": {
+        "converged": true,
+        "method": "full_frame_CG",
+        "iterations": 23,
+        "relative_normal_residual": 6.433030406504124e-11,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": null,
+        "minimum_local_least_squares_rank": null
+      },
+      "direct_result_already_meets_stricter_target": false,
+      "stricter_solution_relative_L2_difference": 1.4833514957254851e-08,
+      "maximum_absolute_symbol_difference": 4.16578138528935e-08,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "B-1",
+      "scheme": "DD-a-OFDM",
+      "diagnostic_Eb_N0_db_generation_only": 0,
+      "noiseless": false,
+      "measured_noise_variance": 0.25149328782261876,
+      "nominal": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 6.666945398079714e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.734069286313889e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "strict": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 6.666945398079714e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.734069286313889e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "direct_result_already_meets_stricter_target": true,
+      "stricter_solution_relative_L2_difference": 0.0,
+      "maximum_absolute_symbol_difference": 0.0,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "B-1",
+      "scheme": "OFDM",
+      "diagnostic_Eb_N0_db_generation_only": 20,
+      "noiseless": false,
+      "measured_noise_variance": 0.002514932878226188,
+      "nominal": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 7.425154747090044e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.613552568088658e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "strict": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 7.425154747090044e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.613552568088658e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "direct_result_already_meets_stricter_target": true,
+      "stricter_solution_relative_L2_difference": 0.0,
+      "maximum_absolute_symbol_difference": 0.0,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "B-1",
+      "scheme": "AFDM",
+      "diagnostic_Eb_N0_db_generation_only": 20,
+      "noiseless": false,
+      "measured_noise_variance": 0.002514932878226188,
+      "nominal": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 6.897074050966581e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.229790687728862e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "strict": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 6.897074050966581e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.229790687728862e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "direct_result_already_meets_stricter_target": true,
+      "stricter_solution_relative_L2_difference": 0.0,
+      "maximum_absolute_symbol_difference": 0.0,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "B-1",
+      "scheme": "OTFS",
+      "diagnostic_Eb_N0_db_generation_only": 20,
+      "noiseless": false,
+      "measured_noise_variance": 0.002514932878226188,
+      "nominal": {
+        "converged": true,
+        "method": "full_frame_CG",
+        "iterations": 25,
+        "relative_normal_residual": 9.248831024547369e-09,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": null,
+        "minimum_local_least_squares_rank": null
+      },
+      "strict": {
+        "converged": true,
+        "method": "full_frame_CG",
+        "iterations": 32,
+        "relative_normal_residual": 6.364788514819676e-11,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": null,
+        "minimum_local_least_squares_rank": null
+      },
+      "direct_result_already_meets_stricter_target": false,
+      "stricter_solution_relative_L2_difference": 1.9294433620049445e-08,
+      "maximum_absolute_symbol_difference": 6.325322646728215e-08,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "B-1",
+      "scheme": "DD-a-OFDM",
+      "diagnostic_Eb_N0_db_generation_only": 20,
+      "noiseless": false,
+      "measured_noise_variance": 0.002514932878226188,
+      "nominal": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 7.363942027210352e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.505597168091914e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "strict": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 7.363942027210352e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.505597168091914e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "direct_result_already_meets_stricter_target": true,
+      "stricter_solution_relative_L2_difference": 0.0,
+      "maximum_absolute_symbol_difference": 0.0,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "B-1",
+      "scheme": "OFDM",
+      "diagnostic_Eb_N0_db_generation_only": 30,
+      "noiseless": false,
+      "measured_noise_variance": 0.0002514932878226187,
+      "nominal": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 7.43010713592816e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.562727722043565e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "strict": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 7.43010713592816e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.562727722043565e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "direct_result_already_meets_stricter_target": true,
+      "stricter_solution_relative_L2_difference": 0.0,
+      "maximum_absolute_symbol_difference": 0.0,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "B-1",
+      "scheme": "AFDM",
+      "diagnostic_Eb_N0_db_generation_only": 30,
+      "noiseless": false,
+      "measured_noise_variance": 0.0002514932878226187,
+      "nominal": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 6.869203695120273e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.3772278482098185e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "strict": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 6.869203695120273e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.3772278482098185e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "direct_result_already_meets_stricter_target": true,
+      "stricter_solution_relative_L2_difference": 0.0,
+      "maximum_absolute_symbol_difference": 0.0,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "B-1",
+      "scheme": "OTFS",
+      "diagnostic_Eb_N0_db_generation_only": 30,
+      "noiseless": false,
+      "measured_noise_variance": 0.0002514932878226187,
+      "nominal": {
+        "converged": true,
+        "method": "full_frame_CG",
+        "iterations": 25,
+        "relative_normal_residual": 9.993095749690096e-09,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": null,
+        "minimum_local_least_squares_rank": null
+      },
+      "strict": {
+        "converged": true,
+        "method": "full_frame_CG",
+        "iterations": 32,
+        "relative_normal_residual": 7.027404096786774e-11,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": null,
+        "minimum_local_least_squares_rank": null
+      },
+      "direct_result_already_meets_stricter_target": false,
+      "stricter_solution_relative_L2_difference": 2.094769911482937e-08,
+      "maximum_absolute_symbol_difference": 6.790452832912395e-08,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "B-1",
+      "scheme": "DD-a-OFDM",
+      "diagnostic_Eb_N0_db_generation_only": 30,
+      "noiseless": false,
+      "measured_noise_variance": 0.0002514932878226187,
+      "nominal": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 7.352025136648163e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.665769304393049e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "strict": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 7.352025136648163e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.665769304393049e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "direct_result_already_meets_stricter_target": true,
+      "stricter_solution_relative_L2_difference": 0.0,
+      "maximum_absolute_symbol_difference": 0.0,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "B-2",
+      "scheme": "OFDM",
+      "diagnostic_Eb_N0_db_generation_only": null,
+      "noiseless": true,
+      "measured_noise_variance": 0.0,
+      "nominal": {
+        "converged": true,
+        "method": "block_SVD_least_squares",
+        "iterations": 0,
+        "relative_normal_residual": 2.5586049716147234e-15,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 3.4246543661752905e-15,
+        "minimum_local_least_squares_rank": 128
+      },
+      "strict": {
+        "converged": true,
+        "method": "block_SVD_least_squares",
+        "iterations": 0,
+        "relative_normal_residual": 2.5586049716147234e-15,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 3.4246543661752905e-15,
+        "minimum_local_least_squares_rank": 128
+      },
+      "direct_result_already_meets_stricter_target": true,
+      "stricter_solution_relative_L2_difference": 0.0,
+      "maximum_absolute_symbol_difference": 0.0,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "B-2",
+      "scheme": "AFDM",
+      "diagnostic_Eb_N0_db_generation_only": null,
+      "noiseless": true,
+      "measured_noise_variance": 0.0,
+      "nominal": {
+        "converged": true,
+        "method": "block_SVD_least_squares",
+        "iterations": 0,
+        "relative_normal_residual": 2.496801099650716e-15,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 3.6187189904141346e-15,
+        "minimum_local_least_squares_rank": 192
+      },
+      "strict": {
+        "converged": true,
+        "method": "block_SVD_least_squares",
+        "iterations": 0,
+        "relative_normal_residual": 2.496801099650716e-15,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 3.6187189904141346e-15,
+        "minimum_local_least_squares_rank": 192
+      },
+      "direct_result_already_meets_stricter_target": true,
+      "stricter_solution_relative_L2_difference": 0.0,
+      "maximum_absolute_symbol_difference": 0.0,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "B-2",
+      "scheme": "OTFS",
+      "diagnostic_Eb_N0_db_generation_only": null,
+      "noiseless": true,
+      "measured_noise_variance": 0.0,
+      "nominal": {
+        "converged": true,
+        "method": "full_frame_LSQR",
+        "iterations": 25,
+        "relative_normal_residual": 9.45734636328989e-09,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": null,
+        "minimum_local_least_squares_rank": null
+      },
+      "strict": {
+        "converged": true,
+        "method": "full_frame_LSQR",
+        "iterations": 32,
+        "relative_normal_residual": 6.439839010353358e-11,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": null,
+        "minimum_local_least_squares_rank": null
+      },
+      "direct_result_already_meets_stricter_target": false,
+      "stricter_solution_relative_L2_difference": 1.9895317651620807e-08,
+      "maximum_absolute_symbol_difference": 5.7636531960533636e-08,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "B-2",
+      "scheme": "DD-a-OFDM",
+      "diagnostic_Eb_N0_db_generation_only": null,
+      "noiseless": true,
+      "measured_noise_variance": 0.0,
+      "nominal": {
+        "converged": true,
+        "method": "block_SVD_least_squares",
+        "iterations": 0,
+        "relative_normal_residual": 2.5401210868822546e-15,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 3.1261514212079885e-15,
+        "minimum_local_least_squares_rank": 128
+      },
+      "strict": {
+        "converged": true,
+        "method": "block_SVD_least_squares",
+        "iterations": 0,
+        "relative_normal_residual": 2.5401210868822546e-15,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 3.1261514212079885e-15,
+        "minimum_local_least_squares_rank": 128
+      },
+      "direct_result_already_meets_stricter_target": true,
+      "stricter_solution_relative_L2_difference": 0.0,
+      "maximum_absolute_symbol_difference": 0.0,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "B-2",
+      "scheme": "OFDM",
+      "diagnostic_Eb_N0_db_generation_only": 0,
+      "noiseless": false,
+      "measured_noise_variance": 0.25149328782261876,
+      "nominal": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 6.879159630980298e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.6900566731334e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "strict": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 6.879159630980298e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.6900566731334e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "direct_result_already_meets_stricter_target": true,
+      "stricter_solution_relative_L2_difference": 0.0,
+      "maximum_absolute_symbol_difference": 0.0,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "B-2",
+      "scheme": "AFDM",
+      "diagnostic_Eb_N0_db_generation_only": 0,
+      "noiseless": false,
+      "measured_noise_variance": 0.25149328782261876,
+      "nominal": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 6.260160523699817e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.2617338883337364e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "strict": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 6.260160523699817e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.2617338883337364e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "direct_result_already_meets_stricter_target": true,
+      "stricter_solution_relative_L2_difference": 0.0,
+      "maximum_absolute_symbol_difference": 0.0,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "B-2",
+      "scheme": "OTFS",
+      "diagnostic_Eb_N0_db_generation_only": 0,
+      "noiseless": false,
+      "measured_noise_variance": 0.25149328782261876,
+      "nominal": {
+        "converged": true,
+        "method": "full_frame_CG",
+        "iterations": 19,
+        "relative_normal_residual": 5.425659713344637e-09,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": null,
+        "minimum_local_least_squares_rank": null
+      },
+      "strict": {
+        "converged": true,
+        "method": "full_frame_CG",
+        "iterations": 24,
+        "relative_normal_residual": 3.979914945752902e-11,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": null,
+        "minimum_local_least_squares_rank": null
+      },
+      "direct_result_already_meets_stricter_target": false,
+      "stricter_solution_relative_L2_difference": 8.474543362667933e-09,
+      "maximum_absolute_symbol_difference": 2.599022189980001e-08,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "B-2",
+      "scheme": "DD-a-OFDM",
+      "diagnostic_Eb_N0_db_generation_only": 0,
+      "noiseless": false,
+      "measured_noise_variance": 0.25149328782261876,
+      "nominal": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 6.49590435349305e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.582212461427144e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "strict": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 6.49590435349305e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.582212461427144e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "direct_result_already_meets_stricter_target": true,
+      "stricter_solution_relative_L2_difference": 0.0,
+      "maximum_absolute_symbol_difference": 0.0,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "B-2",
+      "scheme": "OFDM",
+      "diagnostic_Eb_N0_db_generation_only": 20,
+      "noiseless": false,
+      "measured_noise_variance": 0.002514932878226188,
+      "nominal": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 7.319220960975475e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.780040399091502e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "strict": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 7.319220960975475e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.780040399091502e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "direct_result_already_meets_stricter_target": true,
+      "stricter_solution_relative_L2_difference": 0.0,
+      "maximum_absolute_symbol_difference": 0.0,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "B-2",
+      "scheme": "AFDM",
+      "diagnostic_Eb_N0_db_generation_only": 20,
+      "noiseless": false,
+      "measured_noise_variance": 0.002514932878226188,
+      "nominal": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 6.921408895713612e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.413705504924693e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "strict": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 6.921408895713612e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.413705504924693e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "direct_result_already_meets_stricter_target": true,
+      "stricter_solution_relative_L2_difference": 0.0,
+      "maximum_absolute_symbol_difference": 0.0,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "B-2",
+      "scheme": "OTFS",
+      "diagnostic_Eb_N0_db_generation_only": 20,
+      "noiseless": false,
+      "measured_noise_variance": 0.002514932878226188,
+      "nominal": {
+        "converged": true,
+        "method": "full_frame_CG",
+        "iterations": 25,
+        "relative_normal_residual": 9.288986558838613e-09,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": null,
+        "minimum_local_least_squares_rank": null
+      },
+      "strict": {
+        "converged": true,
+        "method": "full_frame_CG",
+        "iterations": 32,
+        "relative_normal_residual": 6.29201503540861e-11,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": null,
+        "minimum_local_least_squares_rank": null
+      },
+      "direct_result_already_meets_stricter_target": false,
+      "stricter_solution_relative_L2_difference": 1.952557414236887e-08,
+      "maximum_absolute_symbol_difference": 5.621387409627949e-08,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "B-2",
+      "scheme": "DD-a-OFDM",
+      "diagnostic_Eb_N0_db_generation_only": 20,
+      "noiseless": false,
+      "measured_noise_variance": 0.002514932878226188,
+      "nominal": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 7.291919518360653e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.702271337417505e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "strict": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 7.291919518360653e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.702271337417505e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "direct_result_already_meets_stricter_target": true,
+      "stricter_solution_relative_L2_difference": 0.0,
+      "maximum_absolute_symbol_difference": 0.0,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "B-2",
+      "scheme": "OFDM",
+      "diagnostic_Eb_N0_db_generation_only": 30,
+      "noiseless": false,
+      "measured_noise_variance": 0.0002514932878226187,
+      "nominal": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 7.280162584729781e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.551854709629024e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "strict": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 7.280162584729781e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.551854709629024e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "direct_result_already_meets_stricter_target": true,
+      "stricter_solution_relative_L2_difference": 0.0,
+      "maximum_absolute_symbol_difference": 0.0,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "B-2",
+      "scheme": "AFDM",
+      "diagnostic_Eb_N0_db_generation_only": 30,
+      "noiseless": false,
+      "measured_noise_variance": 0.0002514932878226187,
+      "nominal": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 6.921746128176775e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.3090978347289133e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "strict": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 6.921746128176775e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.3090978347289133e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "direct_result_already_meets_stricter_target": true,
+      "stricter_solution_relative_L2_difference": 0.0,
+      "maximum_absolute_symbol_difference": 0.0,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "B-2",
+      "scheme": "OTFS",
+      "diagnostic_Eb_N0_db_generation_only": 30,
+      "noiseless": false,
+      "measured_noise_variance": 0.0002514932878226187,
+      "nominal": {
+        "converged": true,
+        "method": "full_frame_CG",
+        "iterations": 25,
+        "relative_normal_residual": 9.583281677912894e-09,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": null,
+        "minimum_local_least_squares_rank": null
+      },
+      "strict": {
+        "converged": true,
+        "method": "full_frame_CG",
+        "iterations": 32,
+        "relative_normal_residual": 6.552291721756664e-11,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": null,
+        "minimum_local_least_squares_rank": null
+      },
+      "direct_result_already_meets_stricter_target": false,
+      "stricter_solution_relative_L2_difference": 2.0178656066824998e-08,
+      "maximum_absolute_symbol_difference": 5.789411815313555e-08,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "B-2",
+      "scheme": "DD-a-OFDM",
+      "diagnostic_Eb_N0_db_generation_only": 30,
+      "noiseless": false,
+      "measured_noise_variance": 0.0002514932878226187,
+      "nominal": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 7.115874838131343e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.807862611453876e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "strict": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 7.115874838131343e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.807862611453876e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "direct_result_already_meets_stricter_target": true,
+      "stricter_solution_relative_L2_difference": 0.0,
+      "maximum_absolute_symbol_difference": 0.0,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "B-3",
+      "scheme": "OFDM",
+      "diagnostic_Eb_N0_db_generation_only": null,
+      "noiseless": true,
+      "measured_noise_variance": 0.0,
+      "nominal": {
+        "converged": true,
+        "method": "block_SVD_least_squares",
+        "iterations": 0,
+        "relative_normal_residual": 2.519451455657569e-15,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 2.9667316033078347e-15,
+        "minimum_local_least_squares_rank": 128
+      },
+      "strict": {
+        "converged": true,
+        "method": "block_SVD_least_squares",
+        "iterations": 0,
+        "relative_normal_residual": 2.519451455657569e-15,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 2.9667316033078347e-15,
+        "minimum_local_least_squares_rank": 128
+      },
+      "direct_result_already_meets_stricter_target": true,
+      "stricter_solution_relative_L2_difference": 0.0,
+      "maximum_absolute_symbol_difference": 0.0,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "B-3",
+      "scheme": "AFDM",
+      "diagnostic_Eb_N0_db_generation_only": null,
+      "noiseless": true,
+      "measured_noise_variance": 0.0,
+      "nominal": {
+        "converged": true,
+        "method": "block_SVD_least_squares",
+        "iterations": 0,
+        "relative_normal_residual": 2.4930716124883274e-15,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 3.1349438167646303e-15,
+        "minimum_local_least_squares_rank": 192
+      },
+      "strict": {
+        "converged": true,
+        "method": "block_SVD_least_squares",
+        "iterations": 0,
+        "relative_normal_residual": 2.4930716124883274e-15,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 3.1349438167646303e-15,
+        "minimum_local_least_squares_rank": 192
+      },
+      "direct_result_already_meets_stricter_target": true,
+      "stricter_solution_relative_L2_difference": 0.0,
+      "maximum_absolute_symbol_difference": 0.0,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "B-3",
+      "scheme": "OTFS",
+      "diagnostic_Eb_N0_db_generation_only": null,
+      "noiseless": true,
+      "measured_noise_variance": 0.0,
+      "nominal": {
+        "converged": true,
+        "method": "full_frame_LSQR",
+        "iterations": 25,
+        "relative_normal_residual": 8.964547328223792e-09,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": null,
+        "minimum_local_least_squares_rank": null
+      },
+      "strict": {
+        "converged": true,
+        "method": "full_frame_LSQR",
+        "iterations": 32,
+        "relative_normal_residual": 5.916879758828894e-11,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": null,
+        "minimum_local_least_squares_rank": null
+      },
+      "direct_result_already_meets_stricter_target": false,
+      "stricter_solution_relative_L2_difference": 1.867802724899374e-08,
+      "maximum_absolute_symbol_difference": 5.4993565860675306e-08,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "B-3",
+      "scheme": "DD-a-OFDM",
+      "diagnostic_Eb_N0_db_generation_only": null,
+      "noiseless": true,
+      "measured_noise_variance": 0.0,
+      "nominal": {
+        "converged": true,
+        "method": "block_SVD_least_squares",
+        "iterations": 0,
+        "relative_normal_residual": 2.5586163499315604e-15,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 3.213454665856294e-15,
+        "minimum_local_least_squares_rank": 128
+      },
+      "strict": {
+        "converged": true,
+        "method": "block_SVD_least_squares",
+        "iterations": 0,
+        "relative_normal_residual": 2.5586163499315604e-15,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 3.213454665856294e-15,
+        "minimum_local_least_squares_rank": 128
+      },
+      "direct_result_already_meets_stricter_target": true,
+      "stricter_solution_relative_L2_difference": 0.0,
+      "maximum_absolute_symbol_difference": 0.0,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "B-3",
+      "scheme": "OFDM",
+      "diagnostic_Eb_N0_db_generation_only": 0,
+      "noiseless": false,
+      "measured_noise_variance": 0.25149328782261876,
+      "nominal": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 6.852955365041799e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.960084666531845e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "strict": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 6.852955365041799e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.960084666531845e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "direct_result_already_meets_stricter_target": true,
+      "stricter_solution_relative_L2_difference": 0.0,
+      "maximum_absolute_symbol_difference": 0.0,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "B-3",
+      "scheme": "AFDM",
+      "diagnostic_Eb_N0_db_generation_only": 0,
+      "noiseless": false,
+      "measured_noise_variance": 0.25149328782261876,
+      "nominal": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 6.316375806775563e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.2461599680250764e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "strict": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 6.316375806775563e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.2461599680250764e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "direct_result_already_meets_stricter_target": true,
+      "stricter_solution_relative_L2_difference": 0.0,
+      "maximum_absolute_symbol_difference": 0.0,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "B-3",
+      "scheme": "OTFS",
+      "diagnostic_Eb_N0_db_generation_only": 0,
+      "noiseless": false,
+      "measured_noise_variance": 0.25149328782261876,
+      "nominal": {
+        "converged": true,
+        "method": "full_frame_CG",
+        "iterations": 18,
+        "relative_normal_residual": 8.858210862805516e-09,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": null,
+        "minimum_local_least_squares_rank": null
+      },
+      "strict": {
+        "converged": true,
+        "method": "full_frame_CG",
+        "iterations": 23,
+        "relative_normal_residual": 5.671225054445372e-11,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": null,
+        "minimum_local_least_squares_rank": null
+      },
+      "direct_result_already_meets_stricter_target": false,
+      "stricter_solution_relative_L2_difference": 1.3470038835289393e-08,
+      "maximum_absolute_symbol_difference": 4.078616687837242e-08,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "B-3",
+      "scheme": "DD-a-OFDM",
+      "diagnostic_Eb_N0_db_generation_only": 0,
+      "noiseless": false,
+      "measured_noise_variance": 0.25149328782261876,
+      "nominal": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 6.606822087389321e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.500636022898934e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "strict": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 6.606822087389321e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.500636022898934e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "direct_result_already_meets_stricter_target": true,
+      "stricter_solution_relative_L2_difference": 0.0,
+      "maximum_absolute_symbol_difference": 0.0,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "B-3",
+      "scheme": "OFDM",
+      "diagnostic_Eb_N0_db_generation_only": 20,
+      "noiseless": false,
+      "measured_noise_variance": 0.002514932878226188,
+      "nominal": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 7.420914301750805e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.38193048875745e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "strict": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 7.420914301750805e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.38193048875745e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "direct_result_already_meets_stricter_target": true,
+      "stricter_solution_relative_L2_difference": 0.0,
+      "maximum_absolute_symbol_difference": 0.0,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "B-3",
+      "scheme": "AFDM",
+      "diagnostic_Eb_N0_db_generation_only": 20,
+      "noiseless": false,
+      "measured_noise_variance": 0.002514932878226188,
+      "nominal": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 6.941161134720686e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.3526905064768034e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "strict": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 6.941161134720686e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.3526905064768034e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "direct_result_already_meets_stricter_target": true,
+      "stricter_solution_relative_L2_difference": 0.0,
+      "maximum_absolute_symbol_difference": 0.0,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "B-3",
+      "scheme": "OTFS",
+      "diagnostic_Eb_N0_db_generation_only": 20,
+      "noiseless": false,
+      "measured_noise_variance": 0.002514932878226188,
+      "nominal": {
+        "converged": true,
+        "method": "full_frame_CG",
+        "iterations": 25,
+        "relative_normal_residual": 8.185369151460875e-09,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": null,
+        "minimum_local_least_squares_rank": null
+      },
+      "strict": {
+        "converged": true,
+        "method": "full_frame_CG",
+        "iterations": 32,
+        "relative_normal_residual": 5.2581529014760913e-11,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": null,
+        "minimum_local_least_squares_rank": null
+      },
+      "direct_result_already_meets_stricter_target": false,
+      "stricter_solution_relative_L2_difference": 1.6950201452173257e-08,
+      "maximum_absolute_symbol_difference": 4.999793704536825e-08,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "B-3",
+      "scheme": "DD-a-OFDM",
+      "diagnostic_Eb_N0_db_generation_only": 20,
+      "noiseless": false,
+      "measured_noise_variance": 0.002514932878226188,
+      "nominal": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 7.248829283477957e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.5103184528886e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "strict": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 7.248829283477957e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.5103184528886e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "direct_result_already_meets_stricter_target": true,
+      "stricter_solution_relative_L2_difference": 0.0,
+      "maximum_absolute_symbol_difference": 0.0,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "B-3",
+      "scheme": "OFDM",
+      "diagnostic_Eb_N0_db_generation_only": 30,
+      "noiseless": false,
+      "measured_noise_variance": 0.0002514932878226187,
+      "nominal": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 7.370059071671859e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.624372801456757e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "strict": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 7.370059071671859e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.624372801456757e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "direct_result_already_meets_stricter_target": true,
+      "stricter_solution_relative_L2_difference": 0.0,
+      "maximum_absolute_symbol_difference": 0.0,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "B-3",
+      "scheme": "AFDM",
+      "diagnostic_Eb_N0_db_generation_only": 30,
+      "noiseless": false,
+      "measured_noise_variance": 0.0002514932878226187,
+      "nominal": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 6.900133839503682e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.3808858623557064e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "strict": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 6.900133839503682e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.3808858623557064e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "direct_result_already_meets_stricter_target": true,
+      "stricter_solution_relative_L2_difference": 0.0,
+      "maximum_absolute_symbol_difference": 0.0,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "B-3",
+      "scheme": "OTFS",
+      "diagnostic_Eb_N0_db_generation_only": 30,
+      "noiseless": false,
+      "measured_noise_variance": 0.0002514932878226187,
+      "nominal": {
+        "converged": true,
+        "method": "full_frame_CG",
+        "iterations": 25,
+        "relative_normal_residual": 8.87664680048085e-09,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": null,
+        "minimum_local_least_squares_rank": null
+      },
+      "strict": {
+        "converged": true,
+        "method": "full_frame_CG",
+        "iterations": 32,
+        "relative_normal_residual": 5.841222739304045e-11,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": null,
+        "minimum_local_least_squares_rank": null
+      },
+      "direct_result_already_meets_stricter_target": false,
+      "stricter_solution_relative_L2_difference": 1.847967356652759e-08,
+      "maximum_absolute_symbol_difference": 5.451551388345477e-08,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "B-3",
+      "scheme": "DD-a-OFDM",
+      "diagnostic_Eb_N0_db_generation_only": 30,
+      "noiseless": false,
+      "measured_noise_variance": 0.0002514932878226187,
+      "nominal": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 7.223860749874391e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.73136091295111e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "strict": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 7.223860749874391e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.73136091295111e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "direct_result_already_meets_stricter_target": true,
+      "stricter_solution_relative_L2_difference": 0.0,
+      "maximum_absolute_symbol_difference": 0.0,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "B-4",
+      "scheme": "OFDM",
+      "diagnostic_Eb_N0_db_generation_only": null,
+      "noiseless": true,
+      "measured_noise_variance": 0.0,
+      "nominal": {
+        "converged": true,
+        "method": "block_SVD_least_squares",
+        "iterations": 0,
+        "relative_normal_residual": 2.5389355026605314e-15,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 3.019230626153897e-15,
+        "minimum_local_least_squares_rank": 128
+      },
+      "strict": {
+        "converged": true,
+        "method": "block_SVD_least_squares",
+        "iterations": 0,
+        "relative_normal_residual": 2.5389355026605314e-15,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 3.019230626153897e-15,
+        "minimum_local_least_squares_rank": 128
+      },
+      "direct_result_already_meets_stricter_target": true,
+      "stricter_solution_relative_L2_difference": 0.0,
+      "maximum_absolute_symbol_difference": 0.0,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "B-4",
+      "scheme": "AFDM",
+      "diagnostic_Eb_N0_db_generation_only": null,
+      "noiseless": true,
+      "measured_noise_variance": 0.0,
+      "nominal": {
+        "converged": true,
+        "method": "block_SVD_least_squares",
+        "iterations": 0,
+        "relative_normal_residual": 2.4946495360207435e-15,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 3.097992174137946e-15,
+        "minimum_local_least_squares_rank": 192
+      },
+      "strict": {
+        "converged": true,
+        "method": "block_SVD_least_squares",
+        "iterations": 0,
+        "relative_normal_residual": 2.4946495360207435e-15,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 3.097992174137946e-15,
+        "minimum_local_least_squares_rank": 192
+      },
+      "direct_result_already_meets_stricter_target": true,
+      "stricter_solution_relative_L2_difference": 0.0,
+      "maximum_absolute_symbol_difference": 0.0,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "B-4",
+      "scheme": "OTFS",
+      "diagnostic_Eb_N0_db_generation_only": null,
+      "noiseless": true,
+      "measured_noise_variance": 0.0,
+      "nominal": {
+        "converged": true,
+        "method": "full_frame_LSQR",
+        "iterations": 25,
+        "relative_normal_residual": 8.478416141578816e-09,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": null,
+        "minimum_local_least_squares_rank": null
+      },
+      "strict": {
+        "converged": true,
+        "method": "full_frame_LSQR",
+        "iterations": 32,
+        "relative_normal_residual": 5.384336312671373e-11,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": null,
+        "minimum_local_least_squares_rank": null
+      },
+      "direct_result_already_meets_stricter_target": false,
+      "stricter_solution_relative_L2_difference": 1.7610375141003597e-08,
+      "maximum_absolute_symbol_difference": 6.499111478731818e-08,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "B-4",
+      "scheme": "DD-a-OFDM",
+      "diagnostic_Eb_N0_db_generation_only": null,
+      "noiseless": true,
+      "measured_noise_variance": 0.0,
+      "nominal": {
+        "converged": true,
+        "method": "block_SVD_least_squares",
+        "iterations": 0,
+        "relative_normal_residual": 2.5147129954100637e-15,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 3.076091896519796e-15,
+        "minimum_local_least_squares_rank": 128
+      },
+      "strict": {
+        "converged": true,
+        "method": "block_SVD_least_squares",
+        "iterations": 0,
+        "relative_normal_residual": 2.5147129954100637e-15,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 3.076091896519796e-15,
+        "minimum_local_least_squares_rank": 128
+      },
+      "direct_result_already_meets_stricter_target": true,
+      "stricter_solution_relative_L2_difference": 0.0,
+      "maximum_absolute_symbol_difference": 0.0,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "B-4",
+      "scheme": "OFDM",
+      "diagnostic_Eb_N0_db_generation_only": 0,
+      "noiseless": false,
+      "measured_noise_variance": 0.25149328782261876,
+      "nominal": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 6.7267565293035795e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.88853812877897e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "strict": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 6.7267565293035795e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.88853812877897e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "direct_result_already_meets_stricter_target": true,
+      "stricter_solution_relative_L2_difference": 0.0,
+      "maximum_absolute_symbol_difference": 0.0,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "B-4",
+      "scheme": "AFDM",
+      "diagnostic_Eb_N0_db_generation_only": 0,
+      "noiseless": false,
+      "measured_noise_variance": 0.25149328782261876,
+      "nominal": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 6.229939636082583e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.1728399091033027e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "strict": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 6.229939636082583e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.1728399091033027e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "direct_result_already_meets_stricter_target": true,
+      "stricter_solution_relative_L2_difference": 0.0,
+      "maximum_absolute_symbol_difference": 0.0,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "B-4",
+      "scheme": "OTFS",
+      "diagnostic_Eb_N0_db_generation_only": 0,
+      "noiseless": false,
+      "measured_noise_variance": 0.25149328782261876,
+      "nominal": {
+        "converged": true,
+        "method": "full_frame_CG",
+        "iterations": 18,
+        "relative_normal_residual": 6.468022961342187e-09,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": null,
+        "minimum_local_least_squares_rank": null
+      },
+      "strict": {
+        "converged": true,
+        "method": "full_frame_CG",
+        "iterations": 23,
+        "relative_normal_residual": 3.6910863661387296e-11,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": null,
+        "minimum_local_least_squares_rank": null
+      },
+      "direct_result_already_meets_stricter_target": false,
+      "stricter_solution_relative_L2_difference": 9.628483729168705e-09,
+      "maximum_absolute_symbol_difference": 3.107095463964314e-08,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "B-4",
+      "scheme": "DD-a-OFDM",
+      "diagnostic_Eb_N0_db_generation_only": 0,
+      "noiseless": false,
+      "measured_noise_variance": 0.25149328782261876,
+      "nominal": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 6.520509064774306e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.656474326248122e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "strict": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 6.520509064774306e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.656474326248122e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "direct_result_already_meets_stricter_target": true,
+      "stricter_solution_relative_L2_difference": 0.0,
+      "maximum_absolute_symbol_difference": 0.0,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "B-4",
+      "scheme": "OFDM",
+      "diagnostic_Eb_N0_db_generation_only": 20,
+      "noiseless": false,
+      "measured_noise_variance": 0.002514932878226188,
+      "nominal": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 7.358690678474822e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.643160461072463e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "strict": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 7.358690678474822e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.643160461072463e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "direct_result_already_meets_stricter_target": true,
+      "stricter_solution_relative_L2_difference": 0.0,
+      "maximum_absolute_symbol_difference": 0.0,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "B-4",
+      "scheme": "AFDM",
+      "diagnostic_Eb_N0_db_generation_only": 20,
+      "noiseless": false,
+      "measured_noise_variance": 0.002514932878226188,
+      "nominal": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 6.967614475783255e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.484010091787313e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "strict": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 6.967614475783255e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.484010091787313e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "direct_result_already_meets_stricter_target": true,
+      "stricter_solution_relative_L2_difference": 0.0,
+      "maximum_absolute_symbol_difference": 0.0,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "B-4",
+      "scheme": "OTFS",
+      "diagnostic_Eb_N0_db_generation_only": 20,
+      "noiseless": false,
+      "measured_noise_variance": 0.002514932878226188,
+      "nominal": {
+        "converged": true,
+        "method": "full_frame_CG",
+        "iterations": 25,
+        "relative_normal_residual": 7.4103428382009815e-09,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": null,
+        "minimum_local_least_squares_rank": null
+      },
+      "strict": {
+        "converged": true,
+        "method": "full_frame_CG",
+        "iterations": 31,
+        "relative_normal_residual": 9.352222293341354e-11,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": null,
+        "minimum_local_least_squares_rank": null
+      },
+      "direct_result_already_meets_stricter_target": false,
+      "stricter_solution_relative_L2_difference": 1.5260554230714156e-08,
+      "maximum_absolute_symbol_difference": 5.589311558686341e-08,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "B-4",
+      "scheme": "DD-a-OFDM",
+      "diagnostic_Eb_N0_db_generation_only": 20,
+      "noiseless": false,
+      "measured_noise_variance": 0.002514932878226188,
+      "nominal": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 7.288893131187187e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.5996774884213e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "strict": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 7.288893131187187e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.5996774884213e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "direct_result_already_meets_stricter_target": true,
+      "stricter_solution_relative_L2_difference": 0.0,
+      "maximum_absolute_symbol_difference": 0.0,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "B-4",
+      "scheme": "OFDM",
+      "diagnostic_Eb_N0_db_generation_only": 30,
+      "noiseless": false,
+      "measured_noise_variance": 0.0002514932878226187,
+      "nominal": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 7.378401722626012e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.439040096378891e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "strict": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 7.378401722626012e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.439040096378891e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "direct_result_already_meets_stricter_target": true,
+      "stricter_solution_relative_L2_difference": 0.0,
+      "maximum_absolute_symbol_difference": 0.0,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "B-4",
+      "scheme": "AFDM",
+      "diagnostic_Eb_N0_db_generation_only": 30,
+      "noiseless": false,
+      "measured_noise_variance": 0.0002514932878226187,
+      "nominal": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 6.889837096455682e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.3838446982798905e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "strict": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 6.889837096455682e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.3838446982798905e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "direct_result_already_meets_stricter_target": true,
+      "stricter_solution_relative_L2_difference": 0.0,
+      "maximum_absolute_symbol_difference": 0.0,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "B-4",
+      "scheme": "OTFS",
+      "diagnostic_Eb_N0_db_generation_only": 30,
+      "noiseless": false,
+      "measured_noise_variance": 0.0002514932878226187,
+      "nominal": {
+        "converged": true,
+        "method": "full_frame_CG",
+        "iterations": 25,
+        "relative_normal_residual": 8.27973536957208e-09,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": null,
+        "minimum_local_least_squares_rank": null
+      },
+      "strict": {
+        "converged": true,
+        "method": "full_frame_CG",
+        "iterations": 32,
+        "relative_normal_residual": 5.2206612924994334e-11,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": null,
+        "minimum_local_least_squares_rank": null
+      },
+      "direct_result_already_meets_stricter_target": false,
+      "stricter_solution_relative_L2_difference": 1.7173204985058862e-08,
+      "maximum_absolute_symbol_difference": 6.334244167082465e-08,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    },
+    {
+      "condition": "B-4",
+      "scheme": "DD-a-OFDM",
+      "diagnostic_Eb_N0_db_generation_only": 30,
+      "noiseless": false,
+      "measured_noise_variance": 0.0002514932878226187,
+      "nominal": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 7.254358422507109e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.676007358368457e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "strict": {
+        "converged": true,
+        "method": "block_direct",
+        "iterations": 0,
+        "relative_normal_residual": 7.254358422507109e-16,
+        "reason": "converged",
+        "maximum_local_relative_normal_residual": 4.676007358368457e-16,
+        "minimum_local_least_squares_rank": null
+      },
+      "direct_result_already_meets_stricter_target": true,
+      "stricter_solution_relative_L2_difference": 0.0,
+      "maximum_absolute_symbol_difference": 0.0,
+      "diagnostic_nearest_constellation_label_disagreements": 0
+    }
+  ],
+  "actual_receiver_case_count": 80,
+  "failed_case_count": 0,
+  "total_diagnostic_nearest_constellation_label_disagreements": 0,
+  "limits": [
+    "One diagnostic frame at each A/B level and noiseless/0/20/30-dB setting; not the common BER bit quota or a Monte Carlo BER comparison.",
+    "Nearest-16QAM labels compare numerical stability only. Production output gain/bit mapping/decisions remain unselected and no BER is counted.",
+    "A small normal-equation residual is not a universal bound on symbol error; dense reference controls and stricter-tolerance reruns provide complementary evidence.",
+    "Zero-start LSQR and local SVD handle zero-noise least squares without a noise floor. Rank thresholds follow NumPy rcond=None for local SVD.",
+    "No physical path, pilot, energy, calibration, estimator, waveform extent or measured-bit budget is retuned."
+  ]
+}
