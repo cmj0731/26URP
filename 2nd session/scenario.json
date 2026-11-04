@@ -109,7 +109,7 @@
   },
   "waveform_design": {
     "AFDM": {
-      "status": "block_layout_and_initial_chirps_selected_ber_transceiver_not_implemented",
+      "status": "native_transforms_implemented_embedded_pilot_estimator_candidate_reviewed_BER_pending",
       "daft_length": 256,
       "blocks_per_frame": 64,
       "transmitter_transform": "unitary_IDAFT_per_block",
@@ -188,7 +188,7 @@
       "receiver_information_policy_ref": "receiver_information_policy",
       "equalization_policy_ref": "receiver_equalization_policy",
       "prefix_policy_ref": "prefix_policy",
-      "prefix_pilot_and_receiver_details": "The first three-path stage uses five prefix samples per 256-sample block. With the current even N=256 and integer 2*N*c1=5, AFDM's CPP equals the common ordinary CP. The native pilot mask and fixed values are implemented. DAFT-domain linear MMSE is the agreed equalizer family; the channel-estimation algorithm, matrix construction, processing extent and receiver implementation remain pending.",
+      "prefix_pilot_and_receiver_details": "The first three-path stage retains CP=5 and the agreed chirps, pilot mask and values. afdm.py now implements native unitary transforms and an exact fractional-Doppler pilot template. Embedded-pilot approximate-ML delay/Doppler estimation with joint-LS gains is a reviewed proposal, not a selected or implemented estimator. DAFT-domain linear MMSE remains agreed; observation window, estimator processing extent/search settings and the complete data receiver remain pending.",
       "note": "A single 16384-point frame-wide DAFT is not selected for the initial baseline; its different spreading interval would be a separate waveform design. Matching useful block timing alone does not settle every fairness condition."
     },
     "OTFS": {
@@ -332,7 +332,7 @@
     "interference_modeling": "The agreed target is matrix-based linear MMSE accounting for interference represented by each estimated channel operator. How OFDM obtains its ICI terms, the other native matrix constructions and their processing extents remain to be designed; a common algorithm name alone does not establish equal receiver capability.",
     "channel_estimation_selection": {
       "OFDM": {
-        "status": "BEM_LS_prototype_diagnosed_interference_and_frame_end_validation_pending",
+        "status": "BEM_LS_prototype_available_as_initial_comparison_candidate_BER_pending",
         "observation_domain": "TF",
         "algorithm": null,
         "candidate_algorithm": "BEM_based_LS",
@@ -418,22 +418,59 @@
               "reason": "Among these candidates, 31 gives the smallest worst-case best-fit trajectory error over the 401 diagnostic Dopplers. Prioritizing representation fidelity at the maximum residual Doppler is a design judgment for the first implementation, not a measured BER optimum.",
               "tradeoff": "The worst relative L2 errors for 29/30/31 are approximately 9.91/3.92/1.46 percent, while ideal white-observation-noise channel-MSE gains relative to 29 are 1/1.85/3.22. More functions reduce representation error but increase this LS noise-sensitivity metric.",
               "even_count_note": "30 is a valid DPSS count and was explicitly evaluated. The original odd diagnostic counts aligned with the symmetric integer-frequency complex-exponential comparison and are not a DPSS parity requirement.",
-              "validation_pending": "An initial pilot-based channel-NMSE diagnostic now includes unknown-data ICI and AWGN for 29/30/31. Resolve the interference model and frame-end weakness, then validate full equalization and BER. The common 0..5-sample delay support is recorded in receiver_information_policy.delay_support; true active delays remain unavailable."
+              "validation_pending": "An initial pilot-based channel-NMSE diagnostic includes unknown-data ICI and AWGN for 29/30/31. Record its limitations when finalizing a fixed initial receiver and evaluate their effect through equalization and BER; eliminating all estimation error is not a prerequisite. The common delay support is in receiver_information_policy.delay_support, and true active delays remain unavailable."
             },
             "pilot_matrix_scope": "Exact native response of the known OFDM pilot component over all integer delays 0 through CP length 5, not the true three path locations. The same interval is now explicit common support in receiver_information_policy.delay_support.",
-            "limitations": "Best-fit trajectory representation and pilot-component rank/conditioning are diagnostics. The separate ordinary-LS prototype adds actual pilot-based channel-NMSE checks with data ICI and AWGN; interference treatment, frame-end accuracy and full BER remain unresolved. Full rank alone is insufficient.",
+            "limitations": "Best-fit trajectory representation and pilot-component rank/conditioning are diagnostics. The separate ordinary-LS prototype adds channel-NMSE checks with data ICI and AWGN. Residual interference and frame-end error are recorded estimator limitations to include when interpreting BER; full BER remains pending. Full rank alone does not prove estimation accuracy.",
             "sources": ["https://thomaszemen.org/papers/Zemen05-IEEETrSignalProcessing.pdf", "https://www.jstage.jst.go.jp/article/transcom/E95.B/10/E95.B_3252/_article/-char/en"]
           },
-          "pending_design": ["resolve the ordinary-LS unknown-data ICI residual before selecting the final estimator", "remaining shared receiver priors including Doppler-bound availability to all receiver algorithms", "frame-end block 63 accuracy under data ICI and AWGN", "full channel-matrix reconstruction, equalizer details, detector and BER implementation"],
-          "selection_note": "The one-frame, 64-block estimation window, initial DPSS/Slepian 31-function basis and common 0..5-sample integer-delay bounds are agreed. An ordinary-LS prototype is implemented and diagnosed; the full estimator remains provisional because data ICI and frame-end estimation errors still need review."
+          "pending_design": ["finalize the fixed initial BER receiver while recording the existing LS estimation limitations", "remaining shared receiver priors including Doppler-bound availability to all receiver algorithms", "full channel-matrix reconstruction, equalizer details, detector and BER implementation"],
+          "selection_note": "The one-frame, 64-block estimation window, initial DPSS/Slepian 31-function basis and common 0..5-sample integer-delay bounds are agreed. Keep the implemented ordinary-LS prototype as the initial comparison candidate with its recorded limitations. Nonzero channel-estimation error alone does not require redesign or block BER comparison; no new correction is selected."
         }
       },
-      "AFDM": {"status": "not_selected", "observation_domain": "DAFT", "algorithm": null},
+      "AFDM": {
+        "status": "embedded_pilot_fractional_ML_candidate_reviewed_not_selected",
+        "observation_domain": "DAFT",
+        "algorithm": null,
+        "candidate_algorithm": "embedded_pilot_fractional_Doppler_approximate_ML_with_joint_LS_gains",
+        "candidate_design": {
+          "status": "proposal_pending_user_selection",
+          "date_local": "2026-11-04",
+          "receiver_flow": ["apply the native per-block DAFT after CP removal", "extract the candidate pilot-response observation region", "estimate P=3 candidate path delays and fractional Dopplers by pilot-template fitting", "solve jointly for complex path gains by LS", "reconstruct the DAFT channel operator from estimated parameters and use the agreed linear-MMSE family before QAM decisions"],
+          "pilot_observation_equation": "For block b, y_E,b approximately equals pilot_b * sum_p(g_p,b * a_E(l_p,f_p)) + unknown_data_leakage + receiver_noise. a_E is the exact native fractional-Doppler pilot template restricted to the chosen receive region.",
+          "estimation_interpretation": "Approximate ML under the embedded-pilot working model; ML estimates channel parameters, not exhaustive ML data detection. Joint-LS gain fitting accounts for template cross-correlations. Fractional data leakage prevents an unqualified exact-likelihood claim.",
+          "known_information": "Use only the common P=3, integer delay support 0..5, fixed c1/c2, known pilot values and selected design bounds. Do not supply the actual delays 0,2,5, path Dopplers or complex gains.",
+          "fractional_doppler_rule": "Retain continuous physical Doppler when evaluating pilot templates and channel operators; do not round the agreed residual test levels to integer DAFT or DD bins.",
+          "receive_window_proposal": {
+            "status": "source_derived_proposal_not_selected",
+            "zero_based_index_ranges_inclusive": [[0, 2], [229, 255]],
+            "observations_per_256_sample_block": 30,
+            "observations_per_64_block_frame": 1920,
+            "derivation": "R=alpha_max+xi_nu=2 and S=2*N*c1=5 from the fixed AFDM design. Union the bins -S*l-R through -S*l+R modulo 256 for all l=0,...,5, giving -27,...,2 modulo 256.",
+            "resource_note": "These are received pilot-response samples, not new transmitted pilots. The selected 64 active pilots, 4032 guard cells and 4096 useful pilot-energy budget remain unchanged.",
+            "limitation": "Fractional Doppler has nonzero tails outside this finite receive region and permits residual data leakage. Taking all 64 transmitted non-data positions as received pilot observations incorrectly includes directly shifted data even in static A."
+          },
+          "processing_window": null,
+          "processing_window_options_pending": ["separate estimation for each 256-sample useful block", "joint estimation over the 64-block frame with the continuous CP-inclusive clock"],
+          "clock_and_gain_reference": "The native unit pilot template uses gain at the first useful receive sample. A frame-reference gain evolves as g_p,b=g_p,0*exp(+j*2*pi*f_p*((N+CP)*b+CP)/Fs); do not average complex block gains as if this phase evolution were absent.",
+          "doppler_search_support": null,
+          "search_grid_and_fractional_refinement": null,
+          "initialization_and_stopping": null,
+          "source_condition": "The source's fractional approximate-ML derivation uses weak inter-path template overlap and reports good performance for distinct path delays. The selected generator has distinct delays, but no extra receiver oracle or distinct-delay search constraint is adopted.",
+          "reference_url": "https://arxiv.org/pdf/2204.12798",
+          "reference_sections": ["VI, equations (67)-(71): pilot observation model and joint gain estimation", "VI-B, equation (76): fractional-Doppler approximate ML"],
+          "reference_scope": "One AFDM frame in this source is one of our 256-sample blocks; it is not our complete 64-block frame. Processing extent and numerical search settings are not copied or silently chosen.",
+          "support_implementation": "afdm.py: native transforms and full fractional-Doppler unit-pilot path response only",
+          "structural_diagnostic": {"script": "review_afdm_estimator.py", "report": "data/afdm_estimator_review.json", "scope": "Transform/pilot-template validation and received-window data-leakage probes; no path estimator, noise study, equalizer or BER run.", "findings": "Native pilot response agrees with an independent serial channel to about 1.40e-13 relative error. The proposed window is isolated from data in static A to numerical precision; B-4 retains nonzero leakage. This validates the observation construction, not estimation accuracy or BER superiority."},
+          "pending_design": ["user selection of the candidate estimator and receive window", "per-block versus joint-frame estimation extent", "common availability of maximum Doppler design bounds", "Doppler search spacing, fractional refinement, initialization and stopping", "estimated DAFT matrix construction, equalizer scope, noise-variance information and complete BER implementation"]
+        }
+      },
       "OTFS": {"status": "not_selected", "observation_domain": "DD", "algorithm": null},
       "DD-a-OFDM": {"status": "initial_algorithm_agreed_not_implemented", "algorithm_ref": "waveform_design.DD-a-OFDM.receiver_design.channel_estimator"}
     },
     "existing_DD_a_design": "Preserve the selected DD-ML alternating-projection estimator and ICI-aware 256-by-256 TF linear-MMSE matrix for each of 64 symbols. The new common-family choice does not replace that design.",
-    "pending_design": ["OFDM BEM-LS data-interference and frame-end weaknesses; AFDM/OTFS channel-estimation algorithms", "estimated-channel matrix reconstruction and equalizer processing extent for OFDM/AFDM/OTFS", "pilot contribution handling and data-domain covariance accounting", "remaining receiver priors, including common Doppler design-bound availability and noise-variance knowledge", "equalizer numerical solver and any stopping settings", "full receiver validation and BER implementation"],
+    "development_focus": "The user clarified that the target is BER comparison, not eliminating all channel-estimation errors or repeatedly optimizing OFDM. Keep the current OFDM BEM-LS prototype as an initial candidate with documented limits, distinguish implementation errors from estimator limitations, and specify the other receivers under the agreed common conditions.",
+    "pending_design": ["finalize fixed initial receiver choices: OFDM BEM-LS and AFDM embedded-pilot approximate-ML are candidates; OTFS estimator remains unspecified", "estimated-channel matrix reconstruction and equalizer processing extent for OFDM/AFDM/OTFS", "pilot contribution handling and data-domain covariance accounting", "remaining receiver priors, including common Doppler design-bound availability and noise-variance knowledge", "equalizer numerical solver and any stopping settings", "full receiver validation and BER implementation"],
     "baseline_scope": "The initial single-path LOS plus AWGN validation and its perfect common-frequency correction remain unchanged. This policy does not grant perfect multipath channel knowledge.",
     "reference_url": "https://arxiv.org/pdf/2508.04253v2#page=13",
     "reference_basis": "Section V-D uses ICI-aware MMSE equalizers for the OFDM/DD-a-OFDM comparison. Extending the linear-MMSE family to all four native receivers is our agreed experimental choice; it does not require copying a source paper's estimator or detector for every waveform.",
@@ -462,7 +499,7 @@
     "parameter_estimation_rule": "Obtain the channel response or path parameters from the agreed pilot observations. Do not copy the actual 0/2/5-sample delays, per-path Dopplers, or complex gains from the channel generator into the receivers.",
     "purpose": "First compare channel-parameter estimation and BER without adding path-count detection errors. State this known-count assumption in reported results; equal path-count information alone does not settle other fairness conditions.",
     "baseline_scope": "This policy does not change the initial single-path LOS AWGN baseline or its perfect common-Doppler knowledge and compensation. Future multipath compensation details remain to be discussed.",
-    "remaining_receiver_design": "All receivers share P=3 and 0..5-sample excess-delay bounds; true active path parameters remain unavailable. Linear MMSE remains the common equalizer family. OFDM's 64-block DPSS-31 ordinary-LS prototype now has channel-NMSE diagnostics with data ICI and AWGN, but its final interference treatment and frame-end accuracy remain unresolved. DD-a-OFDM's DD-ML/TF matrix-MMSE design is preserved. AFDM/OTFS estimators, detailed matrices/equalizers, common Doppler-bound availability, noise-variance knowledge, fractional search refinement, solver settings and complete BER implementation remain pending.",
+    "remaining_receiver_design": "All receivers share P=3 and 0..5-sample excess-delay bounds; true active path parameters remain unavailable. Linear MMSE remains the common equalizer family. Keep OFDM's 64-block DPSS-31 LS prototype as an initial candidate with recorded channel-estimation limitations, without requiring error elimination before BER comparison. AFDM's embedded-pilot approximate-ML/LS candidate is reviewed but unselected. DD-a-OFDM's selected design is preserved. OTFS estimation, final candidate choices, detailed matrices/equalizers, common Doppler-bound availability, noise knowledge, search/solver settings and full BER implementation remain pending.",
     "path_count_estimation_followup": {
       "status": "deferred_method_and_parameters_pending_not_implemented",
       "purpose": "Replace the known count with a receiver-estimated count and compare against the known-count reference. Assess missed or spurious paths and their impact on parameter estimation and BER.",
