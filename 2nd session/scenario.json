@@ -330,13 +330,56 @@
     "channel_source": "Construct each channel operator from that receiver's pilot-based channel estimates under receiver_information_policy. Do not supply the true delays, additional path Dopplers or gains from the channel generator.",
     "interference_modeling": "The agreed target is matrix-based linear MMSE accounting for interference represented by each estimated channel operator. How OFDM obtains its ICI terms, the other native matrix constructions and their processing extents remain to be designed; a common algorithm name alone does not establish equal receiver capability.",
     "channel_estimation_selection": {
-      "OFDM": {"status": "not_selected", "observation_domain": "TF", "algorithm": null},
+      "OFDM": {
+        "status": "BEM_LS_candidate_frame_window_agreed_basis_and_feasibility_pending",
+        "observation_domain": "TF",
+        "algorithm": null,
+        "candidate_algorithm": "BEM_based_LS",
+        "candidate_design": {
+          "status": "estimation_window_agreed_not_implemented",
+          "scope": "first_pilot_based_three_path_A_B_comparison",
+          "processing_window": {
+            "status": "agreed_2026_11_04",
+            "unit": "one_common_frame",
+            "ofdm_blocks_per_window": 64,
+            "useful_samples_per_block": 256,
+            "cp_samples_per_block": 5,
+            "transmitted_samples_per_block": 261,
+            "transmitted_samples_per_window": 16704,
+            "elapsed_duration_s_including_CP": 0.0002784,
+            "pilot_time_spacing_blocks": 2,
+            "pilot_time_column_count": 32,
+            "pilot_frequency_row_count": 128,
+            "active_TF_pilot_observations_per_window": 4096,
+            "joint_estimation_rule": "Fit one time-varying channel model using the frame's available pilots, then evaluate that model at each OFDM block's sample times. The modeled channel varies throughout the window; shared BEM coefficients do not mean a static channel.",
+            "clock_ref": "prefix_policy.sample_time_rule",
+            "frame_boundary_rule": "Estimate each frame independently. Do not pool observations from adjacent independently redrawn channel-phase realizations as though they belonged to the same channel model.",
+            "waveform_and_equalizer_scope": "The transmitter remains 64 separate 256-point OFDM blocks. This decision selects the channel-estimation window only; it does not select a frame-wide data equalizer or its matrix dimensions."
+          },
+          "decision_record": {
+            "date_local": "2026-11-04",
+            "alternative_single_block": "Shorter local model, but only even-numbered blocks 0,2,...,62 contain pilots in the selected TF lattice. Odd blocks have no direct pilots and need neighboring estimates, interpolation or an additional model; an isolated pilot-only per-block estimator does not cover the entire frame.",
+            "selected_frame_window": "Use all 32 pilot-bearing time positions within the already-agreed frame. This matches the channel-profile assumption that path delays, magnitudes and initial-phase parameters are fixed within the frame while differential Doppler induces deterministic phase evolution.",
+            "boundary_basis": "Independent trials redraw reflection initial phases, so the common 64-block frame is the initial natural modeling boundary. Keeping the window within a frame avoids assuming phase continuity across independent realizations.",
+            "maximum_single_path_residual_doppler_hz": 46875.0,
+            "maximum_single_path_phase_cycles_over_nominal_window": 13.05,
+            "phase_cycle_calculation": "46875 Hz * 0.0002784 s = 13.05 cycles for a path at the maximum residual magnitude; this is not the phase rotation of the composite multipath channel.",
+            "tradeoff": "The longer window provides observations across the frame but requires a basis capable of representing its faster temporal variations. It is a selected initial design, not a measured optimum or proof of stable coefficient recovery.",
+            "reference_url": "https://www.jstage.jst.go.jp/article/transcom/E95.B/10/E95.B_3252/_article/-char/en",
+            "reference_scope": "Literature precedent for multi-block BEM channel estimation and LS; our 64-block length follows this project's frame, pilot lattice and channel assumptions, not a prescribed value from the paper."
+          },
+          "basis_type": null,
+          "basis_function_count": null,
+          "pending_design": ["basis family and number of functions", "delay support and other shared receiver design priors", "pilot-observation model including unknown-data ICI", "coefficient identifiability and conditioning for the selected TF mask", "model approximation error across all residual Doppler levels", "prediction error on pilot-free blocks, including frame-end block 63", "TF channel-matrix reconstruction, equalizer details and receiver implementation"],
+          "selection_note": "Only the BEM candidate's estimation window is confirmed here. The full channel-estimation algorithm remains provisional until the basis, model order and pilot-based feasibility are reviewed."
+        }
+      },
       "AFDM": {"status": "not_selected", "observation_domain": "DAFT", "algorithm": null},
       "OTFS": {"status": "not_selected", "observation_domain": "DD", "algorithm": null},
       "DD-a-OFDM": {"status": "initial_algorithm_agreed_not_implemented", "algorithm_ref": "waveform_design.DD-a-OFDM.receiver_design.channel_estimator"}
     },
     "existing_DD_a_design": "Preserve the selected DD-ML alternating-projection estimator and ICI-aware 256-by-256 TF linear-MMSE matrix for each of 64 symbols. The new common-family choice does not replace that design.",
-    "pending_design": ["OFDM/AFDM/OTFS channel-estimation algorithms", "estimated-channel matrix construction and processing extent for OFDM/AFDM/OTFS", "pilot contribution handling and data-domain covariance accounting", "noise-variance knowledge or estimation policy", "numerical solver and any stopping settings", "receiver validation and BER implementation"],
+    "pending_design": ["OFDM BEM candidate basis/order and pilot-based feasibility; AFDM/OTFS channel-estimation algorithms", "estimated-channel matrix reconstruction and equalizer processing extent for OFDM/AFDM/OTFS", "pilot contribution handling and data-domain covariance accounting", "noise-variance knowledge or estimation policy", "numerical solver and any stopping settings", "receiver validation and BER implementation"],
     "baseline_scope": "The initial single-path LOS plus AWGN validation and its perfect common-frequency correction remain unchanged. This policy does not grant perfect multipath channel knowledge.",
     "reference_url": "https://arxiv.org/pdf/2508.04253v2#page=13",
     "reference_basis": "Section V-D uses ICI-aware MMSE equalizers for the OFDM/DD-a-OFDM comparison. Extending the linear-MMSE family to all four native receivers is our agreed experimental choice; it does not require copying a source paper's estimator or detector for every waveform.",
@@ -357,7 +400,7 @@
     "parameter_estimation_rule": "Obtain the channel response or path parameters from the agreed pilot observations. Do not copy the actual 0/2/5-sample delays, per-path Dopplers, or complex gains from the channel generator into the receivers.",
     "purpose": "First compare channel-parameter estimation and BER without adding path-count detection errors. State this known-count assumption in reported results; equal path-count information alone does not settle other fairness conditions.",
     "baseline_scope": "This policy does not change the initial single-path LOS AWGN baseline or its perfect common-Doppler knowledge and compensation. Future multipath compensation details remain to be discussed.",
-    "remaining_receiver_design": "Linear MMSE is the agreed equalizer family for all four schemes in their native receive domains. DD-a-OFDM's DD-ML estimator and TF matrix equalizer remain selected. OFDM/AFDM/OTFS channel-estimation algorithms, matrix construction and processing extents, noise-variance information, search bounds, solver settings and receiver implementation remain pending. Pilot masks, known values and energy allocation are already agreed and implemented.",
+    "remaining_receiver_design": "Linear MMSE is the agreed equalizer family for all four schemes. DD-a-OFDM's DD-ML estimator and TF matrix equalizer remain selected. OFDM's BEM-LS candidate has an agreed one-frame, 64-block estimation window; its basis/order and feasibility, AFDM/OTFS estimators, matrix reconstruction and equalizer processing extents, noise-variance information, search bounds, solver settings and receiver implementation remain pending. Pilot masks, values and energy allocation are already implemented.",
     "path_count_estimation_followup": {
       "status": "deferred_method_and_parameters_pending_not_implemented",
       "purpose": "Replace the known count with a receiver-estimated count and compare against the known-count reference. Assess missed or spurious paths and their impact on parameter estimation and BER.",
