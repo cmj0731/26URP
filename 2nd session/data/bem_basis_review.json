@@ -172,6 +172,20 @@
     },
     {
       "basis_family": "DPSS_Slepian",
+      "basis_function_count": 30,
+      "worst_trajectory_relative_L2_error": 0.039238243730288905,
+      "worst_trajectory_probe_frequency_hz": -46875.0,
+      "mean_trajectory_relative_squared_error": 3.329384228372787e-05,
+      "known_pilot_matrix_shape": [
+        4096,
+        180
+      ],
+      "known_pilot_matrix_rank": 180,
+      "known_pilot_matrix_condition_2norm": 9.614204791195366,
+      "ideal_white_noise_channel_MSE_gain": 0.11009731191184682
+    },
+    {
+      "basis_family": "DPSS_Slepian",
       "basis_function_count": 31,
       "worst_trajectory_relative_L2_error": 0.014621022487745772,
       "worst_trajectory_probe_frequency_hz": -46875.0,
@@ -191,6 +205,6 @@
     "All bases are fixed from the design envelope, without using actual per-path Dopplers.",
     "The pilot-component matrix includes the current native transforms, fixed pilots, integer delays and CP clock. It omits unknown-data ICI and observation noise.",
     "Full rank does not establish accurate noisy pilot-based channel estimation; noise gain is for an ideal white-observation-noise model only.",
-    "Diagnostic counts 3/5/27/29/31 are not adopted BEM parameters."
+    "Diagnostic counts 3/5/27/29/30/31 are not adopted BEM parameters. DPSS includes an even count; odd counts are not a DPSS requirement."
   ]
 }

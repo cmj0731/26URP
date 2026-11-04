@@ -99,12 +99,12 @@ def main():
             "All bases are fixed from the design envelope, without using actual per-path Dopplers.",
             "The pilot-component matrix includes the current native transforms, fixed pilots, integer delays and CP clock. It omits unknown-data ICI and observation noise.",
             "Full rank does not establish accurate noisy pilot-based channel estimation; noise gain is for an ideal white-observation-noise model only.",
-            "Diagnostic counts 3/5/27/29/31 are not adopted BEM parameters.",
+            "Diagnostic counts 3/5/27/29/30/31 are not adopted BEM parameters. DPSS includes an even count; odd counts are not a DPSS requirement.",
         ],
     }
     families = [("Legendre_polynomial", polynomials, [3, 5, 27, 29, 31]),
                 ("DFT_complex_exponential", ce, [27, 29, 31]),
-                ("DPSS_Slepian", dpss, [27, 29, 31])]
+                ("DPSS_Slepian", dpss, [27, 29, 30, 31])]
     for family, full_basis, counts in families:
         pilot_parts = []
         for delay in delays:
