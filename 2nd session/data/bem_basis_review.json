@@ -1,0 +1,196 @@
+{
+  "purpose": "Candidate basis review; no basis or function count is selected.",
+  "numpy_version": "2.3.5",
+  "window_blocks": 64,
+  "transmitted_sample_count": 16704,
+  "useful_sample_count": 16384,
+  "sample_rate_hz": 60000000.0,
+  "maximum_design_residual_doppler_hz": 46875.0,
+  "time_bandwidth_product_one_sided": 13.05,
+  "probe_frequency_count": 401,
+  "probe_frequency_range_hz": [
+    -46875.0,
+    46875.0
+  ],
+  "diagnostic_delay_span_samples": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "delay_span_status": "Diagnostic assumption from the current CP length; not a newly selected receiver search prior or supplied true path positions.",
+  "dpss_numerical_verification": {
+    "quadrature_points": 128,
+    "relative_eigen_residual": 2.413631146994843e-14,
+    "orthogonality_error_2norm": 2.9466517304789186e-13,
+    "smallest_retained_eigenvalue": 0.0006633373533687229
+  },
+  "known_pilot_observation_rows": 4096,
+  "rank_relative_tolerance": 1e-10,
+  "results": [
+    {
+      "basis_family": "Legendre_polynomial",
+      "basis_function_count": 3,
+      "worst_trajectory_relative_L2_error": 0.9990916977909776,
+      "worst_trajectory_probe_frequency_hz": -46640.625,
+      "mean_trajectory_relative_squared_error": 0.8880020787180974,
+      "known_pilot_matrix_shape": [
+        4096,
+        18
+      ],
+      "known_pilot_matrix_rank": 18,
+      "known_pilot_matrix_condition_2norm": 1.0685076437694445,
+      "ideal_white_noise_channel_MSE_gain": 0.004407988030594563
+    },
+    {
+      "basis_family": "Legendre_polynomial",
+      "basis_function_count": 5,
+      "worst_trajectory_relative_L2_error": 0.9969388318403593,
+      "worst_trajectory_probe_frequency_hz": -46406.25,
+      "mean_trajectory_relative_squared_error": 0.81629321792288,
+      "known_pilot_matrix_shape": [
+        4096,
+        30
+      ],
+      "known_pilot_matrix_rank": 30,
+      "known_pilot_matrix_condition_2norm": 1.2148681216067039,
+      "ideal_white_noise_channel_MSE_gain": 0.00744072362281023
+    },
+    {
+      "basis_family": "Legendre_polynomial",
+      "basis_function_count": 27,
+      "worst_trajectory_relative_L2_error": 0.8754086889878514,
+      "worst_trajectory_probe_frequency_hz": -46875.0,
+      "mean_trajectory_relative_squared_error": 0.19266071683459665,
+      "known_pilot_matrix_shape": [
+        4096,
+        162
+      ],
+      "known_pilot_matrix_rank": 162,
+      "known_pilot_matrix_condition_2norm": 282.36184509771,
+      "ideal_white_noise_channel_MSE_gain": 47.43859681932683
+    },
+    {
+      "basis_family": "Legendre_polynomial",
+      "basis_function_count": 29,
+      "worst_trajectory_relative_L2_error": 0.8321085979496173,
+      "worst_trajectory_probe_frequency_hz": -45000.0,
+      "mean_trajectory_relative_squared_error": 0.152736477019253,
+      "known_pilot_matrix_shape": [
+        4096,
+        174
+      ],
+      "known_pilot_matrix_rank": 174,
+      "known_pilot_matrix_condition_2norm": 433.3652505965349,
+      "ideal_white_noise_channel_MSE_gain": 111.80980470104242
+    },
+    {
+      "basis_family": "Legendre_polynomial",
+      "basis_function_count": 31,
+      "worst_trajectory_relative_L2_error": 0.8218252012724052,
+      "worst_trajectory_probe_frequency_hz": -46875.0,
+      "mean_trajectory_relative_squared_error": 0.11606143546471548,
+      "known_pilot_matrix_shape": [
+        4096,
+        186
+      ],
+      "known_pilot_matrix_rank": 186,
+      "known_pilot_matrix_condition_2norm": 730.698098432103,
+      "ideal_white_noise_channel_MSE_gain": 313.4122585550767
+    },
+    {
+      "basis_family": "DFT_complex_exponential",
+      "basis_function_count": 27,
+      "worst_trajectory_relative_L2_error": 0.31646531386644494,
+      "worst_trajectory_probe_frequency_hz": 45000.0,
+      "mean_trajectory_relative_squared_error": 0.014709182664290027,
+      "known_pilot_matrix_shape": [
+        4096,
+        162
+      ],
+      "known_pilot_matrix_rank": 162,
+      "known_pilot_matrix_condition_2norm": 1.0974788251123417,
+      "ideal_white_noise_channel_MSE_gain": 0.04104426423160748
+    },
+    {
+      "basis_family": "DFT_complex_exponential",
+      "basis_function_count": 29,
+      "worst_trajectory_relative_L2_error": 0.23151815037232512,
+      "worst_trajectory_probe_frequency_hz": 45000.0,
+      "mean_trajectory_relative_squared_error": 0.01112203365063292,
+      "known_pilot_matrix_shape": [
+        4096,
+        174
+      ],
+      "known_pilot_matrix_rank": 174,
+      "known_pilot_matrix_condition_2norm": 1.1103626144493657,
+      "ideal_white_noise_channel_MSE_gain": 0.044347526907247074
+    },
+    {
+      "basis_family": "DFT_complex_exponential",
+      "basis_function_count": 31,
+      "worst_trajectory_relative_L2_error": 0.19237621067490274,
+      "worst_trajectory_probe_frequency_hz": -45000.0,
+      "mean_trajectory_relative_squared_error": 0.009340651707578808,
+      "known_pilot_matrix_shape": [
+        4096,
+        186
+      ],
+      "known_pilot_matrix_rank": 186,
+      "known_pilot_matrix_condition_2norm": 1.121717078833454,
+      "ideal_white_noise_channel_MSE_gain": 0.04771146802459433
+    },
+    {
+      "basis_family": "DPSS_Slepian",
+      "basis_function_count": 27,
+      "worst_trajectory_relative_L2_error": 0.4599944787694144,
+      "worst_trajectory_probe_frequency_hz": -46875.0,
+      "mean_trajectory_relative_squared_error": 0.00617411884382897,
+      "known_pilot_matrix_shape": [
+        4096,
+        162
+      ],
+      "known_pilot_matrix_rank": 162,
+      "known_pilot_matrix_condition_2norm": 1.4888780290734391,
+      "ideal_white_noise_channel_MSE_gain": 0.041429996400471784
+    },
+    {
+      "basis_family": "DPSS_Slepian",
+      "basis_function_count": 29,
+      "worst_trajectory_relative_L2_error": 0.09906745308576703,
+      "worst_trajectory_probe_frequency_hz": 46875.0,
+      "mean_trajectory_relative_squared_error": 0.0002245649252236827,
+      "known_pilot_matrix_shape": [
+        4096,
+        174
+      ],
+      "known_pilot_matrix_rank": 174,
+      "known_pilot_matrix_condition_2norm": 4.750929263841601,
+      "ideal_white_noise_channel_MSE_gain": 0.05961349739328973
+    },
+    {
+      "basis_family": "DPSS_Slepian",
+      "basis_function_count": 31,
+      "worst_trajectory_relative_L2_error": 0.014621022487745772,
+      "worst_trajectory_probe_frequency_hz": -46875.0,
+      "mean_trajectory_relative_squared_error": 4.426956928427205e-06,
+      "known_pilot_matrix_shape": [
+        4096,
+        186
+      ],
+      "known_pilot_matrix_rank": 186,
+      "known_pilot_matrix_condition_2norm": 14.54939402099448,
+      "ideal_white_noise_channel_MSE_gain": 0.19183774229887207
+    }
+  ],
+  "limits": [
+    "Trajectory tests use unit-amplitude complex exponentials as probes, not BER or measured Starlink channels.",
+    "Representation errors are best-fit errors using the diagnostic trajectory itself, not coefficients recovered from pilot observations. The true trajectories are never supplied to a production receiver.",
+    "All bases are fixed from the design envelope, without using actual per-path Dopplers.",
+    "The pilot-component matrix includes the current native transforms, fixed pilots, integer delays and CP clock. It omits unknown-data ICI and observation noise.",
+    "Full rank does not establish accurate noisy pilot-based channel estimation; noise gain is for an ideal white-observation-noise model only.",
+    "Diagnostic counts 3/5/27/29/31 are not adopted BEM parameters."
+  ]
+}

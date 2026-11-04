@@ -370,6 +370,19 @@
           },
           "basis_type": null,
           "basis_function_count": null,
+          "basis_review": {
+            "status": "initial_literature_and_numerical_review_completed_no_basis_or_count_selected",
+            "date_local": "2026-11-04",
+            "candidate_families": ["Legendre polynomial", "DFT-grid complex exponential", "DPSS/Slepian"],
+            "recommendation_pending_user_selection": "Prioritize DPSS/Slepian for the next design step and retain DFT-grid complex exponentials as a comparison. Representation error and observation-noise sensitivity must be considered jointly when choosing the function count.",
+            "script": "review_bem_basis.py",
+            "report": "data/bem_basis_review.json",
+            "design_envelope": "Use the existing whole-frame CP-inclusive clock and fixed +/-46875-Hz maximum residual envelope, without adapting the basis to an actual path Doppler or Doppler test level.",
+            "diagnostic_counts_not_selected": [3, 5, 27, 29, 31],
+            "pilot_matrix_scope": "Exact native response of the known OFDM pilot component, with diagnostic delay indices 0 through CP length 5, not the true three path locations. This delay-span assumption is a review setting and does not finalize shared receiver search priors.",
+            "limitations": "Best-fit single-tone representation and pilot-component matrix rank/conditioning are diagnostics, not a completed pilot-based estimator. Unknown-data ICI, actual estimation bias/noise, and BER still require validation. Full rank alone is insufficient.",
+            "sources": ["https://thomaszemen.org/papers/Zemen05-IEEETrSignalProcessing.pdf", "https://www.jstage.jst.go.jp/article/transcom/E95.B/10/E95.B_3252/_article/-char/en"]
+          },
           "pending_design": ["basis family and number of functions", "delay support and other shared receiver design priors", "pilot-observation model including unknown-data ICI", "coefficient identifiability and conditioning for the selected TF mask", "model approximation error across all residual Doppler levels", "prediction error on pilot-free blocks, including frame-end block 63", "TF channel-matrix reconstruction, equalizer details and receiver implementation"],
           "selection_note": "Only the BEM candidate's estimation window is confirmed here. The full channel-estimation algorithm remains provisional until the basis, model order and pilot-based feasibility are reviewed."
         }
