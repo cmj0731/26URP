@@ -186,8 +186,9 @@
       },
       "comparison_basis": "Align each 256-sample AFDM useful block with one 256-point OFDM IFFT symbol, and use 64 consecutive blocks in the common frame at 60 MHz. The N used for AFDM chirp-parameter selection is the per-block DAFT length 256, not the full-frame sample count 16384.",
       "receiver_information_policy_ref": "receiver_information_policy",
+      "equalization_policy_ref": "receiver_equalization_policy",
       "prefix_policy_ref": "prefix_policy",
-      "prefix_pilot_and_receiver_details": "The first three-path stage uses five prefix samples per 256-sample block. With the current even N=256 and integer 2*N*c1=5, AFDM's CPP equals the common ordinary CP. The one-pilot-plus-63-guard DAFT mask and fixed known pilot values are implemented separately; channel estimation and equalization remain pending.",
+      "prefix_pilot_and_receiver_details": "The first three-path stage uses five prefix samples per 256-sample block. With the current even N=256 and integer 2*N*c1=5, AFDM's CPP equals the common ordinary CP. The native pilot mask and fixed values are implemented. DAFT-domain linear MMSE is the agreed equalizer family; the channel-estimation algorithm, matrix construction, processing extent and receiver implementation remain pending.",
       "note": "A single 16384-point frame-wide DAFT is not selected for the initial baseline; its different spreading interval would be a separate waveform design. Matching useful block timing alone does not settle every fairness condition."
     },
     "OTFS": {
@@ -232,7 +233,7 @@
       },
       "receiver_information_policy_ref": "receiver_information_policy",
       "prefix_policy_ref": "prefix_policy",
-      "pending_design": ["validate channel estimation for the agreed DD pilot mask and known pilot value", "channel estimation and remaining receiver knowledge", "DD equalization and symbol detection", "complete four-waveform BER implementation"],
+      "pending_design": ["select and validate channel estimation for the agreed DD pilot mask and known pilot value", "remaining receiver knowledge", "channel-matrix construction, processing extent and implementation of the agreed DD linear-MMSE equalizer", "symbol detection and complete four-waveform BER implementation"],
       "reference_url": "https://www.mathworks.com/help/comm/ug/otfs-modulation.html",
       "reference_note": "Use the documented ISFFT-plus-OFDM architecture with our agreed unitary normalization; do not copy the example's numerical scaling, channel, padding, or pilot parameters."
     },
@@ -320,6 +321,27 @@
       "scope": "Aligned integer-delay static three-path diagnostic without noise. The short-CP value is waveform mismatch, not BER. No receiver channel knowledge, multipath Doppler-compensation policy, estimator, equalizer or BER run is introduced."
     }
   },
+  "receiver_equalization_policy": {
+    "status": "common_linear_MMSE_family_agreed_matrix_and_implementation_details_pending",
+    "scope": "first_pilot_based_three_path_A_B_comparison",
+    "applies_to": ["OFDM", "AFDM", "OTFS", "DD-a-OFDM"],
+    "equalizer_family": "linear_MMSE",
+    "processing_domain_by_scheme": {"OFDM": "TF", "AFDM": "DAFT", "OTFS": "DD", "DD-a-OFDM": "TF"},
+    "channel_source": "Construct each channel operator from that receiver's pilot-based channel estimates under receiver_information_policy. Do not supply the true delays, additional path Dopplers or gains from the channel generator.",
+    "interference_modeling": "The agreed target is matrix-based linear MMSE accounting for interference represented by each estimated channel operator. How OFDM obtains its ICI terms, the other native matrix constructions and their processing extents remain to be designed; a common algorithm name alone does not establish equal receiver capability.",
+    "channel_estimation_selection": {
+      "OFDM": {"status": "not_selected", "observation_domain": "TF", "algorithm": null},
+      "AFDM": {"status": "not_selected", "observation_domain": "DAFT", "algorithm": null},
+      "OTFS": {"status": "not_selected", "observation_domain": "DD", "algorithm": null},
+      "DD-a-OFDM": {"status": "initial_algorithm_agreed_not_implemented", "algorithm_ref": "waveform_design.DD-a-OFDM.receiver_design.channel_estimator"}
+    },
+    "existing_DD_a_design": "Preserve the selected DD-ML alternating-projection estimator and ICI-aware 256-by-256 TF linear-MMSE matrix for each of 64 symbols. The new common-family choice does not replace that design.",
+    "pending_design": ["OFDM/AFDM/OTFS channel-estimation algorithms", "estimated-channel matrix construction and processing extent for OFDM/AFDM/OTFS", "pilot contribution handling and data-domain covariance accounting", "noise-variance knowledge or estimation policy", "numerical solver and any stopping settings", "receiver validation and BER implementation"],
+    "baseline_scope": "The initial single-path LOS plus AWGN validation and its perfect common-frequency correction remain unchanged. This policy does not grant perfect multipath channel knowledge.",
+    "reference_url": "https://arxiv.org/pdf/2508.04253v2#page=13",
+    "reference_basis": "Section V-D uses ICI-aware MMSE equalizers for the OFDM/DD-a-OFDM comparison. Extending the linear-MMSE family to all four native receivers is our agreed experimental choice; it does not require copying a source paper's estimator or detector for every waveform.",
+    "other_equalizer_families": "Not selected for the initial comparison. This status means an experimental choice is pending or excluded, not that other receiver methodologies do not exist in the literature."
+  },
   "receiver_information_policy": {
     "status": "known_path_count_agreed_for_first_three_path_comparison_not_implemented",
     "scope": "first_three_path_pilot_based_comparison_only",
@@ -335,7 +357,7 @@
     "parameter_estimation_rule": "Obtain the channel response or path parameters from the agreed pilot observations. Do not copy the actual 0/2/5-sample delays, per-path Dopplers, or complex gains from the channel generator into the receivers.",
     "purpose": "First compare channel-parameter estimation and BER without adding path-count detection errors. State this known-count assumption in reported results; equal path-count information alone does not settle other fairness conditions.",
     "baseline_scope": "This policy does not change the initial single-path LOS AWGN baseline or its perfect common-Doppler knowledge and compensation. Future multipath compensation details remain to be discussed.",
-    "remaining_receiver_design": "DD-a-OFDM's initial DD-ML estimator and TF linear-MMSE equalizer, shared pilot budgets, all four native masks, fixed known pilot values and uniform per-scheme pilot energy allocation are agreed. Noise-variance knowledge, delay/Doppler search support, iteration settings, and the channel estimators/equalizers of OFDM, AFDM and OTFS remain pending.",
+    "remaining_receiver_design": "Linear MMSE is the agreed equalizer family for all four schemes in their native receive domains. DD-a-OFDM's DD-ML estimator and TF matrix equalizer remain selected. OFDM/AFDM/OTFS channel-estimation algorithms, matrix construction and processing extents, noise-variance information, search bounds, solver settings and receiver implementation remain pending. Pilot masks, known values and energy allocation are already agreed and implemented.",
     "path_count_estimation_followup": {
       "status": "deferred_method_and_parameters_pending_not_implemented",
       "purpose": "Replace the known count with a receiver-estimated count and compare against the known-count reference. Assess missed or spurious paths and their impact on parameter estimation and BER.",
@@ -347,7 +369,7 @@
   },
   "pilot_comparison_policy": {
     "status": "native_layouts_fixed_pilot_values_and_uniform_energy_implemented_estimation_validation_pending",
-    "fairness_interpretation": "Compare four pilot-based transceiver designs under matched non-data resource and total useful-signal pilot-energy budgets. Native pilot counts, placements, channel estimators and equalizers can differ. BER differences include those design effects; do not attribute all differences to intrinsic modulation-waveform behavior alone.",
+    "fairness_interpretation": "Compare four pilot-based transceiver designs under matched non-data resource and total useful-signal pilot-energy budgets. Native pilot counts, placements and channel estimators can differ. The equalizer family is linear MMSE for all four, while channel-matrix construction and processing extents still need specification. BER differences include those design effects; do not attribute all differences to intrinsic modulation-waveform behavior alone.",
     "pilot_plus_pilot_guard_resource_fraction_rule": "Use the same fraction of the frame's resources for pilots and pilot-specific guard or reserved cells across all four schemes.",
     "pilot_plus_pilot_guard_resource_fraction": 0.25,
     "total_pilot_energy_rule": "Match the total energy allocated to pilot signals across all four schemes; do not treat a higher-power pilot as free.",
