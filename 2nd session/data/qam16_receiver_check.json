@@ -1,0 +1,281 @@
+{
+  "scope": "Standard common Gray-16QAM hard decision and MMSE gain handling validation.",
+  "mapping": "[I_MSB,I_LSB,Q_MSB,Q_LSB]; axis labels 00/01/11/10 at -3/-1/+1/+3; scale 1/sqrt(10). This is a common Cartesian Gray convention, not a claim of matching every library's label orientation.",
+  "gray_adjacent_pairs_checked": 24,
+  "small_dense_gain_controls": [
+    {
+      "scheme": "OFDM",
+      "variance": 0.025,
+      "control_profile": "full_rank",
+      "full_dense_gain_max_absolute_error": 2.220446049250313e-16
+    },
+    {
+      "scheme": "OFDM",
+      "variance": 0.0,
+      "control_profile": "full_rank",
+      "full_dense_gain_max_absolute_error": 8.881784197001252e-16
+    },
+    {
+      "scheme": "OFDM",
+      "variance": 0.025,
+      "control_profile": "zero",
+      "full_dense_gain_max_absolute_error": 0.0
+    },
+    {
+      "scheme": "OFDM",
+      "variance": 0.0,
+      "control_profile": "zero",
+      "full_dense_gain_max_absolute_error": 0.0
+    },
+    {
+      "scheme": "OFDM",
+      "variance": 0.025,
+      "control_profile": "rank_deficient",
+      "full_dense_gain_max_absolute_error": 2.498001805406602e-16
+    },
+    {
+      "scheme": "OFDM",
+      "variance": 0.0,
+      "control_profile": "rank_deficient",
+      "full_dense_gain_max_absolute_error": 2.220446049250313e-16
+    },
+    {
+      "scheme": "AFDM",
+      "variance": 0.025,
+      "control_profile": "full_rank",
+      "full_dense_gain_max_absolute_error": 2.220446049250313e-16
+    },
+    {
+      "scheme": "AFDM",
+      "variance": 0.0,
+      "control_profile": "full_rank",
+      "full_dense_gain_max_absolute_error": 3.3306690738754696e-15
+    },
+    {
+      "scheme": "AFDM",
+      "variance": 0.025,
+      "control_profile": "zero",
+      "full_dense_gain_max_absolute_error": 0.0
+    },
+    {
+      "scheme": "AFDM",
+      "variance": 0.0,
+      "control_profile": "zero",
+      "full_dense_gain_max_absolute_error": 0.0
+    },
+    {
+      "scheme": "AFDM",
+      "variance": 0.025,
+      "control_profile": "rank_deficient",
+      "full_dense_gain_max_absolute_error": 6.106226635438361e-16
+    },
+    {
+      "scheme": "AFDM",
+      "variance": 0.0,
+      "control_profile": "rank_deficient",
+      "full_dense_gain_max_absolute_error": 2.220446049250313e-16
+    },
+    {
+      "scheme": "OTFS",
+      "variance": 0.025,
+      "control_profile": "full_rank",
+      "full_dense_gain_max_absolute_error": 2.220446049250313e-16
+    },
+    {
+      "scheme": "OTFS",
+      "variance": 0.0,
+      "control_profile": "full_rank",
+      "full_dense_gain_max_absolute_error": 8.881784197001252e-16
+    },
+    {
+      "scheme": "OTFS",
+      "variance": 0.025,
+      "control_profile": "zero",
+      "full_dense_gain_max_absolute_error": 0.0
+    },
+    {
+      "scheme": "OTFS",
+      "variance": 0.0,
+      "control_profile": "zero",
+      "full_dense_gain_max_absolute_error": 0.0
+    },
+    {
+      "scheme": "OTFS",
+      "variance": 0.025,
+      "control_profile": "rank_deficient",
+      "full_dense_gain_max_absolute_error": 3.0434448503896764e-33
+    },
+    {
+      "scheme": "OTFS",
+      "variance": 0.0,
+      "control_profile": "rank_deficient",
+      "full_dense_gain_max_absolute_error": 1.1102230246251565e-16
+    },
+    {
+      "scheme": "DD-a-OFDM",
+      "variance": 0.025,
+      "control_profile": "full_rank",
+      "full_dense_gain_max_absolute_error": 2.220446049250313e-16
+    },
+    {
+      "scheme": "DD-a-OFDM",
+      "variance": 0.0,
+      "control_profile": "full_rank",
+      "full_dense_gain_max_absolute_error": 8.881784197001252e-16
+    },
+    {
+      "scheme": "DD-a-OFDM",
+      "variance": 0.025,
+      "control_profile": "zero",
+      "full_dense_gain_max_absolute_error": 0.0
+    },
+    {
+      "scheme": "DD-a-OFDM",
+      "variance": 0.0,
+      "control_profile": "zero",
+      "full_dense_gain_max_absolute_error": 0.0
+    },
+    {
+      "scheme": "DD-a-OFDM",
+      "variance": 0.025,
+      "control_profile": "rank_deficient",
+      "full_dense_gain_max_absolute_error": 2.498001805406602e-16
+    },
+    {
+      "scheme": "DD-a-OFDM",
+      "variance": 0.0,
+      "control_profile": "rank_deficient",
+      "full_dense_gain_max_absolute_error": 2.220446049250313e-16
+    }
+  ],
+  "scalar_AWGN_controls": [
+    {
+      "Eb_N0_db": 0,
+      "control_bits": 524288,
+      "measured_control_BER": 0.14149093627929688,
+      "exact_Gaussian_region_BER": 0.14098163506684172,
+      "independent_symbol_standard_error": 0.0004472075573870011
+    },
+    {
+      "Eb_N0_db": 5,
+      "control_bits": 524288,
+      "measured_control_BER": 0.04190635681152344,
+      "exact_Gaussian_region_BER": 0.04189276004646236,
+      "independent_symbol_standard_error": 0.00027071086850376176
+    },
+    {
+      "Eb_N0_db": 10,
+      "control_bits": 524288,
+      "measured_control_BER": 0.0018024444580078125,
+      "exact_Gaussian_region_BER": 0.0017541506178927108,
+      "independent_symbol_standard_error": 5.860851157704846e-05
+    }
+  ],
+  "actual_receiver_integrations": [
+    {
+      "condition": "A",
+      "scheme": "OFDM",
+      "diagnostic_Eb_N0_db_generation_only": 20,
+      "diagnostic_bits": 49152,
+      "solver_converged": true,
+      "minimum_estimated_self_gain": 0.9835214048420551,
+      "maximum_estimated_self_gain": 0.9987414798635263,
+      "gain_reference_vs_division_bit_disagreements": 0,
+      "stricter_solver_bit_disagreements": 0,
+      "diagnostic_bit_errors": 2
+    },
+    {
+      "condition": "A",
+      "scheme": "AFDM",
+      "diagnostic_Eb_N0_db_generation_only": 20,
+      "diagnostic_bits": 49152,
+      "solver_converged": true,
+      "minimum_estimated_self_gain": 0.9967133962835424,
+      "maximum_estimated_self_gain": 0.9971658343003899,
+      "gain_reference_vs_division_bit_disagreements": 0,
+      "stricter_solver_bit_disagreements": 0,
+      "diagnostic_bit_errors": 0
+    },
+    {
+      "condition": "A",
+      "scheme": "OTFS",
+      "diagnostic_Eb_N0_db_generation_only": 20,
+      "diagnostic_bits": 49152,
+      "solver_converged": true,
+      "minimum_estimated_self_gain": 0.9967146869442463,
+      "maximum_estimated_self_gain": 0.9971644291482419,
+      "gain_reference_vs_division_bit_disagreements": 0,
+      "stricter_solver_bit_disagreements": 0,
+      "diagnostic_bit_errors": 0
+    },
+    {
+      "condition": "A",
+      "scheme": "DD-a-OFDM",
+      "diagnostic_Eb_N0_db_generation_only": 20,
+      "diagnostic_bits": 49152,
+      "solver_converged": true,
+      "minimum_estimated_self_gain": 0.9898377006303776,
+      "maximum_estimated_self_gain": 0.9987138392706717,
+      "gain_reference_vs_division_bit_disagreements": 0,
+      "stricter_solver_bit_disagreements": 0,
+      "diagnostic_bit_errors": 0
+    },
+    {
+      "condition": "B-4",
+      "scheme": "OFDM",
+      "diagnostic_Eb_N0_db_generation_only": 20,
+      "diagnostic_bits": 49152,
+      "solver_converged": true,
+      "minimum_estimated_self_gain": 0.8385606963147438,
+      "maximum_estimated_self_gain": 0.9990515526428422,
+      "gain_reference_vs_division_bit_disagreements": 0,
+      "stricter_solver_bit_disagreements": 0,
+      "diagnostic_bit_errors": 70
+    },
+    {
+      "condition": "B-4",
+      "scheme": "AFDM",
+      "diagnostic_Eb_N0_db_generation_only": 20,
+      "diagnostic_bits": 49152,
+      "solver_converged": true,
+      "minimum_estimated_self_gain": 0.9966692847604651,
+      "maximum_estimated_self_gain": 0.9971988324564763,
+      "gain_reference_vs_division_bit_disagreements": 0,
+      "stricter_solver_bit_disagreements": 0,
+      "diagnostic_bit_errors": 0
+    },
+    {
+      "condition": "B-4",
+      "scheme": "OTFS",
+      "diagnostic_Eb_N0_db_generation_only": 20,
+      "diagnostic_bits": 49152,
+      "solver_converged": true,
+      "minimum_estimated_self_gain": 0.9967126137994702,
+      "maximum_estimated_self_gain": 0.9971644347097641,
+      "gain_reference_vs_division_bit_disagreements": 0,
+      "stricter_solver_bit_disagreements": 0,
+      "diagnostic_bit_errors": 0
+    },
+    {
+      "condition": "B-4",
+      "scheme": "DD-a-OFDM",
+      "diagnostic_Eb_N0_db_generation_only": 20,
+      "diagnostic_bits": 49152,
+      "solver_converged": true,
+      "minimum_estimated_self_gain": 0.990189920127618,
+      "maximum_estimated_self_gain": 0.9986686605180706,
+      "gain_reference_vs_division_bit_disagreements": 0,
+      "stricter_solver_bit_disagreements": 0,
+      "diagnostic_bit_errors": 0
+    }
+  ],
+  "receiver_inputs": "Converged raw MMSE symbols, that receiver's estimated data-channel model and measured noise regularization only. Actual data/noise/channel are generation/scoring inputs; no data-fitted gain, true-channel gain or feedback is used.",
+  "OTFS_gain_identity": "The fixed DD data mask shares delay rows across Doppler columns. Unitary inverse-Zak modulation gives diag(G_DD*A_DD)[q,k] = mean_b diag(G_time,b*A_time,b)[q]. Exact averaging of local time-data gains computes the full-DD diagonal; the raw symbol solve remains full-frame CG/LSQR.",
+  "limits": [
+    "Eight actual cases use one short frame per A/B-4 setting. Diagnostic bit error counts do not establish the project's BER curves or satisfy its full common quota.",
+    "Scalar AWGN tests validate only mapping/gain/hard decisions against theory, not the four-waveform LOS/common-Doppler baseline.",
+    "The standard per-symbol hard detector is not a claim of optimal joint ML detection under residual ICI or channel uncertainty.",
+    "The gain belongs to the estimated working channel. Actual residual gain/ICI/pilot errors remain in the recovered bits.",
+    "No waveform, pilot, energy, noise calibration, channel estimator, solver tolerance, bit quota, tail policy or confidence interval is changed."
+  ]
+}
