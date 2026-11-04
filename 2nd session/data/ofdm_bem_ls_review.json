@@ -1,0 +1,831 @@
+{
+  "purpose": "OFDM ordinary BEM-LS feasibility diagnostic; no equalization or BER.",
+  "selected_initial_basis_count": 31,
+  "diagnostic_basis_count_override": null,
+  "numpy_version": "2.3.5",
+  "diagnostic_seed": 20261104,
+  "rng": "SeedSequence(seed).spawn(4), PCG64 streams for data/phases/noise/algebraic control",
+  "diagnostic_frames_per_condition": 16,
+  "pairing": "Reuse each frame's data, initial path phases and unit-variance noise across A/B and scaled Eb/N0 diagnostics; independent frames redraw them. Fixed pilots use their separate agreed seed.",
+  "receiver_input_scope": "Public design settings and received pilot observations only; no channel_model, true transmitted data or true active path parameters are passed to the estimator.",
+  "physical_profile_scope": "Agreed three-path residual A/B channels after perfect common LOS Doppler correction, continuous CP-inclusive clock. The orbit snapshots are not distinct residual channels under this ideal correction.",
+  "delay_candidates_samples": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "basis_function_count": 31,
+  "fixed_design_maximum_residual_doppler_hz": 46875.0,
+  "observation_matrix_shape": [
+    4096,
+    186
+  ],
+  "observation_matrix_rank": 186,
+  "observation_matrix_condition_2norm": 14.549394020994477,
+  "rank_relative_tolerance": 9.094947017729282e-13,
+  "solver": "Thin SVD pseudoinverse; no regularization, true-data cancellation, path pruning or iterative refinement.",
+  "basis_numerical_check": {
+    "quadrature_points": 128,
+    "relative_eigen_residual": 2.413631146994843e-14,
+    "orthogonality_error_2norm": 2.9466517304789186e-13,
+    "smallest_retained_eigenvalue": 0.0006633373533687229
+  },
+  "algebraic_model_controls": {
+    "pilot_matrix_vs_serial_channel_relative_error": 4.412598415181592e-16,
+    "noiseless_coefficient_recovery_relative_error": 3.0802053580190946e-15,
+    "noiseless_tap_recovery_relative_error": 3.094124148967557e-15
+  },
+  "maximum_static_data_ICI_relative_amplitude": 6.03211908054951e-17,
+  "maximum_pilot_plus_data_observation_decomposition_error": 2.760148985465223e-16,
+  "noise_only_unit_observation_variance_channel_MSE_gain": {
+    "mean": 0.18844285721642828,
+    "mean_db": -7.248203195053326,
+    "minimum": 0.11915713639370587,
+    "maximum": 0.2920183294151365
+  },
+  "previous_ideal_white_noise_gain_reference": 0.19183774229887207,
+  "NMSE_definition": "Sum of squared tap errors over delays 0..5 and evaluated receive samples, divided by true squared tap norm. Frame metric uses useful samples from all 64 blocks; last-block metric uses pilot-free block 63. Linear NMSEs are averaged before conversion to dB.",
+  "limits": [
+    "Small feasibility diagnostic, not a BER run or a selected Monte Carlo stopping policy. The agreed information-bit quota and BER confidence-interval choices are unchanged.",
+    "Noiseless pilot-only and true best-basis projection are diagnostic controls. The deployable estimate never receives true coefficients, delays, Dopplers, gains or data.",
+    "Unknown-data ICI is an unmodeled residual in ordinary LS, without an independence, Gaussian or white-noise assumption. Colored-interference treatment, regularization and decision feedback are not selected.",
+    "All six candidate integer taps are fit without P=3 sparsity enforcement. The known path-count prior is available but not used by this dense LS prototype.",
+    "The fixed maximum Doppler envelope defines this agreed DPSS basis. Shared use of this bound by other receiver algorithms and their detailed estimators still need to be made explicit before a fair four-way BER comparison.",
+    "No TF equalizer, QAM detector, receiver for the other three methods or four-way BER result is introduced."
+  ],
+  "results": [
+    {
+      "condition": "A",
+      "maximum_residual_doppler_hz": 0.0,
+      "best_basis_projection_NMSE_truth_only_control": {
+        "mean": 3.4145597099105595e-07,
+        "mean_db": -64.66665288434538,
+        "minimum": 3.414559671677267e-07,
+        "maximum": 3.414559742731518e-07
+      },
+      "pilot_only_noiseless_channel_NMSE_control": {
+        "mean": 5.239936446826967e-07,
+        "mean_db": -62.806739803750006,
+        "minimum": 4.902903528725129e-07,
+        "maximum": 5.48340300055017e-07
+      },
+      "data_and_pilots_noiseless_channel_NMSE": {
+        "mean": 5.239936446271856e-07,
+        "mean_db": -62.8067398042101,
+        "minimum": 4.902903527614906e-07,
+        "maximum": 5.483402998329724e-07
+      },
+      "pilot_only_noiseless_last_block_NMSE_control": {
+        "mean": 1.3671008140619928e-05,
+        "mean_db": -48.641994580902335,
+        "minimum": 1.1863422931468438e-05,
+        "maximum": 1.5000419761435074e-05
+      },
+      "data_and_pilots_noiseless_last_block_NMSE": {
+        "mean": 1.3671008140522783e-05,
+        "mean_db": -48.641994580933186,
+        "minimum": 1.186342293157946e-05,
+        "maximum": 1.500041976121303e-05
+      },
+      "unknown_data_ICI_to_pilot_component_power_ratio": {
+        "mean": 3.496799367813868e-33,
+        "mean_db": -324.56329285034474,
+        "minimum": 3.327282402244077e-33,
+        "maximum": 3.638646060192947e-33
+      },
+      "mean_unknown_data_ICI_power_per_pilot_observation": 3.4967993678138664e-33,
+      "noiseless_pilot_observation_residual_power_ratio": {
+        "mean": 1.360880666485813e-07,
+        "mean_db": -68.66179955736355,
+        "minimum": 1.331730039959182e-07,
+        "maximum": 1.4011707412449234e-07
+      },
+      "AWGN_with_data_and_pilots": [
+        {
+          "received_Eb_N0_dB": 0,
+          "channel_NMSE": {
+            "mean": 0.04711317090454157,
+            "mean_db": -13.268576650251578,
+            "minimum": 0.029813220167063344,
+            "maximum": 0.07299161859584379
+          },
+          "last_block_NMSE": {
+            "mean": 2.1678848002575717,
+            "mean_db": 3.3603620040245445,
+            "minimum": 1.0575689429682111,
+            "maximum": 3.76101006746687
+          }
+        },
+        {
+          "received_Eb_N0_dB": 5,
+          "channel_NMSE": {
+            "mean": 0.014899326718153954,
+            "mean_db": -18.26833356366052,
+            "minimum": 0.009433882242045668,
+            "maximum": 0.023079024930946226
+          },
+          "last_block_NMSE": {
+            "mean": 0.6855934535910907,
+            "mean_db": -1.6393333793847422,
+            "minimum": 0.3348341726744446,
+            "maximum": 1.1889464627501423
+          }
+        },
+        {
+          "received_Eb_N0_dB": 10,
+          "channel_NMSE": {
+            "mean": 0.004712206567984282,
+            "mean_db": -23.267756797300052,
+            "minimum": 0.002986846436128233,
+            "maximum": 0.0072967321363557195
+          },
+          "last_block_NMSE": {
+            "mean": 0.21683481826585566,
+            "mean_db": -6.638709796677503,
+            "minimum": 0.10611343451536094,
+            "maximum": 0.3758297763416983
+          }
+        },
+        {
+          "received_Eb_N0_dB": 15,
+          "channel_NMSE": {
+            "mean": 0.0014906392591152108,
+            "mean_db": -28.266274448979495,
+            "minimum": 0.0009466957493680097,
+            "maximum": 0.002306751260236824
+          },
+          "last_block_NMSE": {
+            "mean": 0.06859078817822953,
+            "mean_db": -11.637342066255613,
+            "minimum": 0.03368889954396574,
+            "maximum": 0.11882692813438185
+          }
+        },
+        {
+          "received_Eb_N0_dB": 20,
+          "channel_NMSE": {
+            "mean": 0.0004718243973654766,
+            "mean_db": -33.26219606122632,
+            "minimum": 0.00030074551752412587,
+            "maximum": 0.0007292409287596988
+          },
+          "last_block_NMSE": {
+            "mean": 0.0217065483349336,
+            "mean_db": -16.634092303581173,
+            "minimum": 0.010731879604756724,
+            "maximum": 0.03756907751417163
+          }
+        },
+        {
+          "received_Eb_N0_dB": 25,
+          "channel_NMSE": {
+            "mean": 0.00014960983150938417,
+            "mean_db": -38.25039866164213,
+            "minimum": 9.60294053304889e-05,
+            "maximum": 0.00023064713530351847
+          },
+          "last_block_NMSE": {
+            "mean": 0.0068774349804707115,
+            "mean_db": -21.62573506755257,
+            "minimum": 0.00344165739207513,
+            "maximum": 0.01188072887015765
+          }
+        },
+        {
+          "received_Eb_N0_dB": 30,
+          "channel_NMSE": {
+            "mean": 4.7695822341535534e-05,
+            "mean_db": -43.21519658978219,
+            "minimum": 3.104015640142955e-05,
+            "maximum": 7.312345346799351e-05
+          },
+          "last_block_NMSE": {
+            "mean": 0.002186362174098293,
+            "mean_db": -26.60277894909655,
+            "minimum": 0.0011190930753554019,
+            "maximum": 0.003761656013574913
+          }
+        }
+      ]
+    },
+    {
+      "condition": "B-1",
+      "maximum_residual_doppler_hz": 2343.75,
+      "best_basis_projection_NMSE_truth_only_control": {
+        "mean": 5.254718904168512e-07,
+        "mean_db": -62.79450511154992,
+        "minimum": 5.254718900005176e-07,
+        "maximum": 5.254718908886958e-07
+      },
+      "pilot_only_noiseless_channel_NMSE_control": {
+        "mean": 3.908361842282217e-06,
+        "mean_db": -54.0800523542618,
+        "minimum": 3.6242206959968834e-06,
+        "maximum": 4.110515188449072e-06
+      },
+      "data_and_pilots_noiseless_channel_NMSE": {
+        "mean": 9.876839629927029e-06,
+        "mean_db": -50.05381997806083,
+        "minimum": 5.936412867613152e-06,
+        "maximum": 1.5358873999615778e-05
+      },
+      "pilot_only_noiseless_last_block_NMSE_control": {
+        "mean": 0.00022513193291852335,
+        "mean_db": -36.47562899905238,
+        "minimum": 0.00020627790442939693,
+        "maximum": 0.00023804691269790868
+      },
+      "data_and_pilots_noiseless_last_block_NMSE": {
+        "mean": 0.0005020025443903113,
+        "mean_db": -32.99294081636113,
+        "minimum": 0.0002414676724042938,
+        "maximum": 0.0008436003927553271
+      },
+      "unknown_data_ICI_to_pilot_component_power_ratio": {
+        "mean": 2.876155580410321e-05,
+        "mean_db": -45.411876252828314,
+        "minimum": 2.7974796648342305e-05,
+        "maximum": 2.9351572536191926e-05
+      },
+      "mean_unknown_data_ICI_power_per_pilot_observation": 2.8760670459488657e-05,
+      "noiseless_pilot_observation_residual_power_ratio": {
+        "mean": 2.7599789881452713e-05,
+        "mean_db": -45.59094224227282,
+        "minimum": 2.6926288439212144e-05,
+        "maximum": 2.8333227273751256e-05
+      },
+      "AWGN_with_data_and_pilots": [
+        {
+          "received_Eb_N0_dB": 0,
+          "channel_NMSE": {
+            "mean": 0.04707979133393693,
+            "mean_db": -13.271654706952251,
+            "minimum": 0.030048664793087005,
+            "maximum": 0.0732206612876083
+          },
+          "last_block_NMSE": {
+            "mean": 2.1653522767899878,
+            "mean_db": 3.355285609297309,
+            "minimum": 1.0719814461159007,
+            "maximum": 3.781654782700106
+          }
+        },
+        {
+          "received_Eb_N0_dB": 5,
+          "channel_NMSE": {
+            "mean": 0.014884649360365923,
+            "mean_db": -18.272613916287344,
+            "minimum": 0.009570799170170013,
+            "maximum": 0.023214308045161895
+          },
+          "last_block_NMSE": {
+            "mean": 0.6843830335212723,
+            "mean_db": -1.6470076555323905,
+            "minimum": 0.3431722426530129,
+            "maximum": 1.2007219943939875
+          }
+        },
+        {
+          "received_Eb_N0_dB": 10,
+          "channel_NMSE": {
+            "mean": 0.004708046237333884,
+            "mean_db": -23.271592806373626,
+            "minimum": 0.0030683571680428807,
+            "maximum": 0.007382912211037375
+          },
+          "last_block_NMSE": {
+            "mean": 0.2163678715727798,
+            "mean_db": -6.6480722708929765,
+            "minimum": 0.11103559969584507,
+            "maximum": 0.38255108458239284
+          }
+        },
+        {
+          "received_Eb_N0_dB": 15,
+          "channel_NMSE": {
+            "mean": 0.0014923930874442136,
+            "mean_db": -28.261167712177713,
+            "minimum": 0.0009900775173860012,
+            "maximum": 0.0023637214926757193
+          },
+          "last_block_NMSE": {
+            "mean": 0.06854192728907496,
+            "mean_db": -11.640436880701078,
+            "minimum": 0.03669016029355705,
+            "maximum": 0.12269337551098036
+          }
+        },
+        {
+          "received_Eb_N0_dB": 20,
+          "channel_NMSE": {
+            "mean": 0.00047690400169079377,
+            "mean_db": -33.215690333955756,
+            "minimum": 0.0003037523953643984,
+            "maximum": 0.0007662527181846459
+          },
+          "last_block_NMSE": {
+            "mean": 0.021892794370798968,
+            "mean_db": -16.596988020517518,
+            "minimum": 0.011837927808891244,
+            "maximum": 0.03988407249000111
+          }
+        },
+        {
+          "received_Eb_N0_dB": 25,
+          "channel_NMSE": {
+            "mean": 0.00015655965711964403,
+            "mean_db": -38.05320138494726,
+            "minimum": 9.332420580010495e-05,
+            "maximum": 0.00025750695231474557
+          },
+          "last_block_NMSE": {
+            "mean": 0.007195891356112245,
+            "mean_db": -21.429154022743923,
+            "minimum": 0.0035160303590046032,
+            "maximum": 0.013430203298196313
+          }
+        },
+        {
+          "received_Eb_N0_dB": 30,
+          "channel_NMSE": {
+            "mean": 5.569735066339457e-05,
+            "mean_db": -42.54165462270309,
+            "minimum": 3.049628583939868e-05,
+            "maximum": 9.471078195899543e-05
+          },
+          "last_block_NMSE": {
+            "mean": 0.0025791658874144037,
+            "mean_db": -25.885207239063543,
+            "minimum": 0.001105951762272904,
+            "maximum": 0.004995695581613606
+          }
+        }
+      ]
+    },
+    {
+      "condition": "B-2",
+      "maximum_residual_doppler_hz": 11718.75,
+      "best_basis_projection_NMSE_truth_only_control": {
+        "mean": 6.396191635088535e-07,
+        "mean_db": -61.940785329159965,
+        "minimum": 6.396191630786422e-07,
+        "maximum": 6.39619163744776e-07
+      },
+      "pilot_only_noiseless_channel_NMSE_control": {
+        "mean": 5.903850994748441e-06,
+        "mean_db": -52.28864612054789,
+        "minimum": 5.605422588095267e-06,
+        "maximum": 6.279708015477505e-06
+      },
+      "data_and_pilots_noiseless_channel_NMSE": {
+        "mean": 0.00014350518870200063,
+        "mean_db": -38.43132395906238,
+        "minimum": 9.164507488357292e-05,
+        "maximum": 0.0002319073214718249
+      },
+      "pilot_only_noiseless_last_block_NMSE_control": {
+        "mean": 0.00034959532015169754,
+        "mean_db": -34.56434389670064,
+        "minimum": 0.00032922298976112386,
+        "maximum": 0.0003745974819431281
+      },
+      "data_and_pilots_noiseless_last_block_NMSE": {
+        "mean": 0.006525795167539413,
+        "mean_db": -21.853665620227748,
+        "minimum": 0.0034172084835639677,
+        "maximum": 0.012015106122547956
+      },
+      "unknown_data_ICI_to_pilot_component_power_ratio": {
+        "mean": 0.0007177549005809157,
+        "mean_db": -31.440238336096048,
+        "minimum": 0.00070167015903041,
+        "maximum": 0.0007361562074340459
+      },
+      "mean_unknown_data_ICI_power_per_pilot_observation": 0.0007172872434011918,
+      "noiseless_pilot_observation_residual_power_ratio": {
+        "mean": 0.000684350139079546,
+        "mean_db": -31.647216401470835,
+        "minimum": 0.0006677380232181015,
+        "maximum": 0.0007013910195310837
+      },
+      "AWGN_with_data_and_pilots": [
+        {
+          "received_Eb_N0_dB": 0,
+          "channel_NMSE": {
+            "mean": 0.047207660965477426,
+            "mean_db": -13.25987517360564,
+            "minimum": 0.029156809751024422,
+            "maximum": 0.0733897440754028
+          },
+          "last_block_NMSE": {
+            "mean": 2.171478614757384,
+            "mean_db": 3.367555566830074,
+            "minimum": 1.0156802790301636,
+            "maximum": 3.790224145014068
+          }
+        },
+        {
+          "received_Eb_N0_dB": 5,
+          "channel_NMSE": {
+            "mean": 0.015015039344587894,
+            "mean_db": -18.234735254620013,
+            "minimum": 0.009138921676692837,
+            "maximum": 0.023393535273775978
+          },
+          "last_block_NMSE": {
+            "mean": 0.6904644916292005,
+            "mean_db": -1.6085865088118094,
+            "minimum": 0.31475900824911596,
+            "maximum": 1.2105617679286114
+          }
+        },
+        {
+          "received_Eb_N0_dB": 10,
+          "channel_NMSE": {
+            "mean": 0.004839853520024308,
+            "mean_db": -23.151677822414996,
+            "minimum": 0.0028951440587989823,
+            "maximum": 0.007564222232397281
+          },
+          "last_block_NMSE": {
+            "mean": 0.222424091881057,
+            "mean_db": -6.528181739050316,
+            "minimum": 0.09830490231305099,
+            "maximum": 0.39256572443855653
+          }
+        },
+        {
+          "received_Eb_N0_dB": 15,
+          "channel_NMSE": {
+            "mean": 0.0016249973756335906,
+            "mean_db": -27.891473360689652,
+            "minimum": 0.0009692938508507611,
+            "maximum": 0.002547799928390716
+          },
+          "last_block_NMSE": {
+            "mean": 0.0745839553396515,
+            "mean_db": -11.2735458883962,
+            "minimum": 0.03277840156157215,
+            "maximum": 0.13263573290074157
+          }
+        },
+        {
+          "received_Eb_N0_dB": 20,
+          "channel_NMSE": {
+            "mean": 0.0006099564790094175,
+            "mean_db": -32.147011512193,
+            "minimum": 0.0003666838737704794,
+            "maximum": 0.0009554204893116318
+          },
+          "last_block_NMSE": {
+            "mean": 0.027926841528373252,
+            "mean_db": -15.539781793854434,
+            "minimum": 0.012539467530557222,
+            "maximum": 0.04973182862102593
+          }
+        },
+        {
+          "received_Eb_N0_dB": 25,
+          "channel_NMSE": {
+            "mean": 0.00028986416970377276,
+            "mean_db": -35.37805464747256,
+            "minimum": 0.0001690623355365962,
+            "maximum": 0.00044910048642099487
+          },
+          "last_block_NMSE": {
+            "mean": 0.013225450527739466,
+            "mean_db": -18.78589524708389,
+            "minimum": 0.005520013827069009,
+            "maximum": 0.023117835980801502
+          }
+        },
+        {
+          "received_Eb_N0_dB": 30,
+          "channel_NMSE": {
+            "mean": 0.00018914359309569342,
+            "mean_db": -37.23208365078675,
+            "minimum": 0.00011218809094781795,
+            "maximum": 0.0003283745318825028
+          },
+          "last_block_NMSE": {
+            "mean": 0.00860620127907551,
+            "mean_db": -20.65188500994621,
+            "minimum": 0.004055944723226675,
+            "maximum": 0.017166350650330103
+          }
+        }
+      ]
+    },
+    {
+      "condition": "B-3",
+      "maximum_residual_doppler_hz": 23437.5,
+      "best_basis_projection_NMSE_truth_only_control": {
+        "mean": 3.507428270738135e-07,
+        "mean_db": -64.55011201822383,
+        "minimum": 3.507428267823799e-07,
+        "maximum": 3.5074282755953595e-07
+      },
+      "pilot_only_noiseless_channel_NMSE_control": {
+        "mean": 6.058369117142861e-07,
+        "mean_db": -62.17644270016902,
+        "minimum": 5.585182889511488e-07,
+        "maximum": 6.502959336573968e-07
+      },
+      "data_and_pilots_noiseless_channel_NMSE": {
+        "mean": 0.0005898692479941183,
+        "mean_db": -32.2924424457435,
+        "minimum": 0.0003899558056569277,
+        "maximum": 0.0007381682698855976
+      },
+      "pilot_only_noiseless_last_block_NMSE_control": {
+        "mean": 1.8455018016214055e-05,
+        "mean_db": -47.338855264998315,
+        "minimum": 1.5972157516697103e-05,
+        "maximum": 2.0884215549243888e-05
+      },
+      "data_and_pilots_noiseless_last_block_NMSE": {
+        "mean": 0.027189953121100847,
+        "mean_db": -15.65591541190167,
+        "minimum": 0.015288797439835564,
+        "maximum": 0.03590672609860941
+      },
+      "unknown_data_ICI_to_pilot_component_power_ratio": {
+        "mean": 0.0028672468107765743,
+        "mean_db": -25.42534921652453,
+        "minimum": 0.002798261039159698,
+        "maximum": 0.002916769178441842
+      },
+      "mean_unknown_data_ICI_power_per_pilot_observation": 0.002859308577942736,
+      "noiseless_pilot_observation_residual_power_ratio": {
+        "mean": 0.0027283550209573205,
+        "mean_db": -25.640991187622994,
+        "minimum": 0.002669606621378749,
+        "maximum": 0.0027838421125794418
+      },
+      "AWGN_with_data_and_pilots": [
+        {
+          "received_Eb_N0_dB": 0,
+          "channel_NMSE": {
+            "mean": 0.04760614962042037,
+            "mean_db": -13.22336942789855,
+            "minimum": 0.027723833094405195,
+            "maximum": 0.0759576878845514
+          },
+          "last_block_NMSE": {
+            "mean": 2.1900039084306795,
+            "mean_db": 3.4044488991242994,
+            "minimum": 0.9034485551763757,
+            "maximum": 3.9378858335422517
+          }
+        },
+        {
+          "received_Eb_N0_dB": 5,
+          "channel_NMSE": {
+            "mean": 0.015434481085554265,
+            "mean_db": -18.115079671192817,
+            "minimum": 0.008556733173027634,
+            "maximum": 0.02503432996539613
+          },
+          "last_block_NMSE": {
+            "mean": 0.7099258778090005,
+            "mean_db": -1.4878699288511685,
+            "minimum": 0.26174840645396846,
+            "maximum": 1.3024082578493776
+          }
+        },
+        {
+          "received_Eb_N0_dB": 10,
+          "channel_NMSE": {
+            "mean": 0.005271078047152747,
+            "mean_db": -22.781005532790996,
+            "minimum": 0.002791388892515957,
+            "maximum": 0.008683642660620276
+          },
+          "last_block_NMSE": {
+            "mean": 0.24241188156145901,
+            "mean_db": -6.154460975003156,
+            "minimum": 0.07859678477562464,
+            "maximum": 0.45302502160866037
+          }
+        },
+        {
+          "received_Eb_N0_dB": 15,
+          "channel_NMSE": {
+            "mean": 0.0020628478503465922,
+            "mean_db": -26.855328031425486,
+            "minimum": 0.0011345815215237924,
+            "maximum": 0.003374030062422874
+          },
+          "last_block_NMSE": {
+            "mean": 0.09486776346216783,
+            "mean_db": -10.228813379297904,
+            "minimum": 0.031797647153765735,
+            "maximum": 0.1754447145054339
+          }
+        },
+        {
+          "received_Eb_N0_dB": 20,
+          "channel_NMSE": {
+            "mean": 0.0010515329978683587,
+            "mean_db": -29.78177094287898,
+            "minimum": 0.0005734025224793938,
+            "maximum": 0.0016167776047577582
+          },
+          "last_block_NMSE": {
+            "mean": 0.04837711305391011,
+            "mean_db": -13.153600520999348,
+            "minimum": 0.02133908794141391,
+            "maximum": 0.08261530838063948
+          }
+        },
+        {
+          "received_Eb_N0_dB": 25,
+          "channel_NMSE": {
+            "mean": 0.0007335359971651706,
+            "mean_db": -31.345785689555324,
+            "minimum": 0.00044379378776304723,
+            "maximum": 0.0010171073858781248
+          },
+          "last_block_NMSE": {
+            "mean": 0.033769331303925815,
+            "mean_db": -14.714775391244466,
+            "minimum": 0.01755474795620103,
+            "maximum": 0.05041979587968298
+          }
+        },
+        {
+          "received_Eb_N0_dB": 30,
+          "channel_NMSE": {
+            "mean": 0.0006339936991734756,
+            "mean_db": -31.97915058250426,
+            "minimum": 0.0004320841795811828,
+            "maximum": 0.0008318563014760863
+          },
+          "last_block_NMSE": {
+            "mean": 0.029202722405322096,
+            "mean_db": -15.345766598359516,
+            "minimum": 0.01655173799339392,
+            "maximum": 0.04048843581316471
+          }
+        }
+      ]
+    },
+    {
+      "condition": "B-4",
+      "maximum_residual_doppler_hz": 46875.0,
+      "best_basis_projection_NMSE_truth_only_control": {
+        "mean": 2.5166533677192803e-05,
+        "mean_db": -45.991765980605635,
+        "minimum": 2.516653367690137e-05,
+        "maximum": 2.5166533677456478e-05
+      },
+      "pilot_only_noiseless_channel_NMSE_control": {
+        "mean": 0.0003772026106153155,
+        "mean_db": -34.23425310176749,
+        "minimum": 0.0003651724091485732,
+        "maximum": 0.000397208652971104
+      },
+      "data_and_pilots_noiseless_channel_NMSE": {
+        "mean": 0.0022810702826417126,
+        "mean_db": -26.418613333584968,
+        "minimum": 0.001250468119384563,
+        "maximum": 0.0031351665421096592
+      },
+      "pilot_only_noiseless_last_block_NMSE_control": {
+        "mean": 0.022939155855648277,
+        "mean_db": -16.39422567863663,
+        "minimum": 0.022180850655090876,
+        "maximum": 0.024156651504319865
+      },
+      "data_and_pilots_noiseless_last_block_NMSE": {
+        "mean": 0.10419216771782569,
+        "mean_db": -9.821649263798186,
+        "minimum": 0.0450203784034215,
+        "maximum": 0.15357035141292513
+      },
+      "unknown_data_ICI_to_pilot_component_power_ratio": {
+        "mean": 0.011254893553939327,
+        "mean_db": -19.486586080961917,
+        "minimum": 0.010980192460048492,
+        "maximum": 0.011411554117166437
+      },
+      "mean_unknown_data_ICI_power_per_pilot_observation": 0.011132806504018423,
+      "noiseless_pilot_observation_residual_power_ratio": {
+        "mean": 0.010622215700736314,
+        "mean_db": -19.737848837972823,
+        "minimum": 0.01038085960433388,
+        "maximum": 0.010784200568381095
+      },
+      "AWGN_with_data_and_pilots": [
+        {
+          "received_Eb_N0_dB": 0,
+          "channel_NMSE": {
+            "mean": 0.04901882680830148,
+            "mean_db": -13.0963708714306,
+            "minimum": 0.03317630954115349,
+            "maximum": 0.07927440354470675
+          },
+          "last_block_NMSE": {
+            "mean": 2.253976219660194,
+            "mean_db": 3.5294932975585707,
+            "minimum": 1.3234020728984868,
+            "maximum": 4.12373104425974
+          }
+        },
+        {
+          "received_Eb_N0_dB": 5,
+          "channel_NMSE": {
+            "mean": 0.01696905665111601,
+            "mean_db": -17.70342300440277,
+            "minimum": 0.010670714296249,
+            "maximum": 0.027443671175643513
+          },
+          "last_block_NMSE": {
+            "mean": 0.7796008392791042,
+            "mean_db": -1.0812770201453994,
+            "minimum": 0.4080344798897282,
+            "maximum": 1.4265204996842293
+          }
+        },
+        {
+          "received_Eb_N0_dB": 10,
+          "channel_NMSE": {
+            "mean": 0.006874202107955533,
+            "mean_db": -21.627777033481244,
+            "minimum": 0.003808142879782485,
+            "maximum": 0.010547404304225853
+          },
+          "last_block_NMSE": {
+            "mean": 0.3152936789249565,
+            "mean_db": -5.0128473599338665,
+            "minimum": 0.1337446529234548,
+            "maximum": 0.5429618023219426
+          }
+        },
+        {
+          "received_Eb_N0_dB": 15,
+          "channel_NMSE": {
+            "mean": 0.0037045195628026568,
+            "mean_db": -24.31268107456058,
+            "minimum": 0.0018223791278462196,
+            "maximum": 0.005696100916189553
+          },
+          "last_block_NMSE": {
+            "mean": 0.16955289717161917,
+            "mean_db": -7.706947849782125,
+            "minimum": 0.05841673341380831,
+            "maximum": 0.29235816498112677
+          }
+        },
+        {
+          "received_Eb_N0_dB": 20,
+          "channel_NMSE": {
+            "mean": 0.0027148816478372597,
+            "mean_db": -25.662490982340806,
+            "minimum": 0.001298105417940177,
+            "maximum": 0.0040803989017854665
+          },
+          "last_block_NMSE": {
+            "mean": 0.12407633731391177,
+            "mean_db": -9.063110352124642,
+            "minimum": 0.04101234679543104,
+            "maximum": 0.2067550565629268
+          }
+        },
+        {
+          "received_Eb_N0_dB": 25,
+          "channel_NMSE": {
+            "mean": 0.0024090744849023247,
+            "mean_db": -26.181497720722344,
+            "minimum": 0.0011906190204102889,
+            "maximum": 0.0034877414130608537
+          },
+          "last_block_NMSE": {
+            "mean": 0.11003882058798523,
+            "mean_db": -9.584540730885598,
+            "minimum": 0.03911679948760689,
+            "maximum": 0.16944260380469636
+          }
+        },
+        {
+          "received_Eb_N0_dB": 30,
+          "channel_NMSE": {
+            "mean": 0.002316387036433943,
+            "mean_db": -26.35188874243308,
+            "minimum": 0.0011894153081701835,
+            "maximum": 0.003310249575813164
+          },
+          "last_block_NMSE": {
+            "mean": 0.10579289527872186,
+            "mean_db": -9.755434971860117,
+            "minimum": 0.04054641644880737,
+            "maximum": 0.1575318368439212
+          }
+        }
+      ]
+    }
+  ]
+}
