@@ -251,13 +251,30 @@
       },
       "reference_receiver_flow": ["OFDM FFT produces the received TF grid", "known TF pilot observations form the sampled channel response", "DD processing of the pilot observations estimates path delay, Doppler, and complex gain", "reconstruct each OFDM symbol's TF channel matrix, including ICI terms", "equalize TF data and perform QAM detection"],
       "receiver_design": {
-        "status": "initial_algorithm_combination_agreed_not_implemented",
+        "status": "initial_algorithm_and_fixed_three_outer_sweeps_agreed_not_implemented",
         "channel_estimator": "DD-domain ML using alternating projection with path-wise delay/Doppler searches and joint LS gain refinement, following Algorithm 1",
+        "iteration_control": {
+          "status": "agreed_initial_fixed_count_2026_11_04_not_implemented",
+          "date_local": "2026-11-04",
+          "outer_sweeps_after_initialization": 3,
+          "initialization_counts_as_outer_sweep": false,
+          "one_outer_sweep": "Sequentially update the delay and Doppler of each of the P=3 path estimates, removing other paths using their current estimates as in Algorithm 1. After all three path updates, jointly refit all complex gains by LS.",
+          "derived_path_parameter_updates_after_initialization": 9,
+          "derived_joint_LS_gain_updates_after_initialization": 3,
+          "stopping_rule": "Complete exactly three full outer sweeps after initialization. No convergence-based early exit is selected for the initial comparison.",
+          "convergence_based_early_stopping": false,
+          "application_rule": "Use the same fixed count for every A/B condition, Eb/N0 point and frame/trial. Do not adapt the count using generator truth, measured BER, the current sweep level or estimator error.",
+          "decision_basis": "The user accepted three fixed outer sweeps without early termination. The reference paper also uses Numiter=3 in its simulations, providing an initial precedent rather than proof that three sweeps suffice under our different conditions.",
+          "reference_url": "https://arxiv.org/pdf/2508.04253v2#page=11",
+          "reference_scope": "Algorithm 1 defines a sweep over all path estimates followed by joint-LS gains; the simulation section specifies Numiter=3. Its Numsearch=8 is not adopted by this decision.",
+          "validation_scope": "When implementing the estimator, check whether three sweeps leave material iteration dependence and record any limitation. Any change to the fixed count requires a separate shared design decision; do not optimize away all channel-estimation error before BER.",
+          "remaining_settings": "Initial path estimates, Doppler search grid and inner fractional-Doppler refinement/termination remain unselected. This outer count does not select the inner search precision or alter the common BER bit quota."
+        },
         "equalizer": "TF-domain ICI-aware full-matrix linear MMSE, following equations (43)-(44)",
         "tf_channel_matrix_shape_per_symbol": [256, 256],
         "symbol_matrices_per_frame": 64,
         "processing_rule": "Estimate channel parameters from pilot observations under the shared receiver-information policy, reconstruct the TF channel matrix from those estimates, and apply linear MMSE to recover data symbols before QAM decisions. ML here is channel estimation, not exhaustive ML detection of the transmitted data vector.",
-        "scope": "The initial algorithm combination, pilot spacing/mask, prefix, known pilot values, common 0..5-sample delay support and fixed +/-46875-Hz residual Doppler support are agreed. Noise-variance knowledge, Doppler search grids, fractional refinement, iteration settings and the complete data receiver remain pending."
+        "scope": "The initial algorithm combination, pilot spacing/mask, prefix, known pilot values, common 0..5-sample delay support, fixed +/-46875-Hz residual Doppler support and three fixed outer sweeps after initialization are agreed. Initial path estimates, noise-variance knowledge, Doppler search grids, inner fractional refinement/termination and the complete data receiver remain pending."
       },
       "receiver_information_policy_ref": "receiver_information_policy",
       "selected_receiver_information": {
@@ -271,7 +288,7 @@
         "note": "Use the shared receiver_information_policy. Future multipath common-Doppler compensation remains a separate decision; the initial single-path baseline's perfect common-Doppler knowledge is preserved."
       },
       "prefix_policy_ref": "prefix_policy",
-      "pending_design": ["validate pilot-based estimation with the agreed TF mask and fixed known symbols", "OFDM pulse/filter details beyond the shared cyclic-prefix rule", "Doppler search grid and fractional refinement within the shared delay/Doppler bounds", "initialization, iteration count and convergence criterion", "noise-variance knowledge", "comparable OFDM, AFDM and OTFS receiver processing"],
+      "pending_design": ["validate pilot-based estimation with the agreed TF mask and fixed known symbols", "OFDM pulse/filter details beyond the shared cyclic-prefix rule", "Doppler search grid and inner fractional refinement/termination within the shared delay/Doppler bounds", "initialization of the three path estimates before the agreed fixed outer sweeps", "noise-variance knowledge", "comparable OFDM, AFDM and OTFS receiver processing"],
       "comparison_interpretation": "OFDM and DD-a-OFDM use the same transmitted waveform when given the same TF symbols, pilots, and prefix/pulse configuration. BER differences then evaluate channel estimation and receiver processing as part of the transceiver comparison.",
       "channel_scope": "The shared P=3 receiver-information assumption applies to the first future three-path comparison. Keep the current single-path baseline, common-Doppler compensation policy, three-path generator profile, and zero additional path Dopplers unchanged; no additional Doppler experiment is introduced.",
       "implementation_status": "not_implemented"
@@ -550,7 +567,7 @@
           "pending_design": ["estimated DD channel matrix/operator, data-equalizer processing extent, pilot handling, noise-variance knowledge, numerical solver, bit detection and complete BER implementation"]
         }
       },
-      "DD-a-OFDM": {"status": "initial_algorithm_agreed_not_implemented", "algorithm_ref": "waveform_design.DD-a-OFDM.receiver_design.channel_estimator"}
+      "DD-a-OFDM": {"status": "initial_algorithm_and_fixed_three_outer_sweeps_agreed_not_implemented", "algorithm_ref": "waveform_design.DD-a-OFDM.receiver_design.channel_estimator", "iteration_control_ref": "waveform_design.DD-a-OFDM.receiver_design.iteration_control"}
     },
     "existing_DD_a_design": "Preserve the selected DD-ML alternating-projection estimator and ICI-aware 256-by-256 TF linear-MMSE matrix for each of 64 symbols. The new common-family choice does not replace that design.",
     "development_focus": "The user clarified that the target is BER comparison, not eliminating all channel-estimation errors or repeatedly optimizing OFDM. Keep the current OFDM BEM-LS prototype as an initial candidate with documented limits, distinguish implementation errors from estimator limitations, and specify the other receivers under the agreed common conditions.",
