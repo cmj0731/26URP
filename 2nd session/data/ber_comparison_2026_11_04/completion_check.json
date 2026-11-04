@@ -1,0 +1,41 @@
+{
+  "scope": "Completed fixed-quota study audit; no scientific settings changed.",
+  "stages": {
+    "baseline": {
+      "complete": true,
+      "frame_count": 160,
+      "information_bits_per_point": 10485760,
+      "result_row_count": 64,
+      "checkpoint_totals_match": true,
+      "stage_relevant_numeric_source_hashes_match": true,
+      "numerical_source_files_checked": 6,
+      "numerical_failures": 0,
+      "max_iterations": 0,
+      "max_relative_normal_residual_by_waveform": {
+        "OFDM": 0.0,
+        "AFDM": 0.0,
+        "OTFS": 0.0,
+        "DD-a-OFDM": 0.0
+      },
+      "largest_absolute_theory_deviation_in_frame_standard_errors": 1.4294711366770816
+    },
+    "multipath": {
+      "complete": true,
+      "frame_count": 214,
+      "information_bits_per_point": 10485760,
+      "result_row_count": 160,
+      "checkpoint_totals_match": true,
+      "stage_relevant_numeric_source_hashes_match": true,
+      "numerical_source_files_checked": 20,
+      "numerical_failures": 0,
+      "max_iterations": 26,
+      "max_relative_normal_residual_by_waveform": {
+        "OFDM": 3.293465952343962e-10,
+        "AFDM": 7.229682842799541e-16,
+        "OTFS": 9.998317872625282e-09,
+        "DD-a-OFDM": 1.046837016223614e-15
+      }
+    }
+  },
+  "baseline_manifest_note": "The initial baseline manifest also contains older unused multipath modules and orchestration hashes. Its six baseline numerical modules match; the saved run resumed after an output-file-lock retry fix. All twenty multipath numerical modules match."
+}

@@ -1,0 +1,3119 @@
+{
+  "stage": "multipath",
+  "complete": true,
+  "diagnostic_only": false,
+  "requested_bits_per_point": 10485760,
+  "completed_frame_count": 214,
+  "requested_frame_count": 214,
+  "measured_bits_per_point": 10485760,
+  "confidence_level": 0.95,
+  "max_relative_normal_residual_by_waveform": {
+    "OFDM": 3.293465952343962e-10,
+    "AFDM": 7.229682842799541e-16,
+    "OTFS": 9.998317872625282e-09,
+    "DD-a-OFDM": 1.046837016223614e-15
+  },
+  "max_iterations": 26,
+  "results": [
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 0,
+      "ber_estimate": 0.0,
+      "frame_count": 214,
+      "error_frame_count": 0,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0,
+        0.01716957651094054
+      ],
+      "confidence_method": "conservative_complete_frame_zero_event_upper_bound",
+      "zero_error_label": "no_errors_observed",
+      "frame_standard_error": null,
+      "interval_note": "Upper bound is on the probability that a complete frame has any measured error; expected BER is no larger. Complete frames only, to exclude the partial tail. This deliberately allows arbitrary within-frame dependence and can be much wider than an iid-bit bound.",
+      "condition": "A",
+      "waveform": "OFDM",
+      "Eb_N0_db": null,
+      "noiseless": true
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 0,
+      "ber_estimate": 0.0,
+      "frame_count": 214,
+      "error_frame_count": 0,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0,
+        0.01716957651094054
+      ],
+      "confidence_method": "conservative_complete_frame_zero_event_upper_bound",
+      "zero_error_label": "no_errors_observed",
+      "frame_standard_error": null,
+      "interval_note": "Upper bound is on the probability that a complete frame has any measured error; expected BER is no larger. Complete frames only, to exclude the partial tail. This deliberately allows arbitrary within-frame dependence and can be much wider than an iid-bit bound.",
+      "condition": "A",
+      "waveform": "AFDM",
+      "Eb_N0_db": null,
+      "noiseless": true
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 0,
+      "ber_estimate": 0.0,
+      "frame_count": 214,
+      "error_frame_count": 0,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0,
+        0.01716957651094054
+      ],
+      "confidence_method": "conservative_complete_frame_zero_event_upper_bound",
+      "zero_error_label": "no_errors_observed",
+      "frame_standard_error": null,
+      "interval_note": "Upper bound is on the probability that a complete frame has any measured error; expected BER is no larger. Complete frames only, to exclude the partial tail. This deliberately allows arbitrary within-frame dependence and can be much wider than an iid-bit bound.",
+      "condition": "A",
+      "waveform": "OTFS",
+      "Eb_N0_db": null,
+      "noiseless": true
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 0,
+      "ber_estimate": 0.0,
+      "frame_count": 214,
+      "error_frame_count": 0,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0,
+        0.01716957651094054
+      ],
+      "confidence_method": "conservative_complete_frame_zero_event_upper_bound",
+      "zero_error_label": "no_errors_observed",
+      "frame_standard_error": null,
+      "interval_note": "Upper bound is on the probability that a complete frame has any measured error; expected BER is no larger. Complete frames only, to exclude the partial tail. This deliberately allows arbitrary within-frame dependence and can be much wider than an iid-bit bound.",
+      "condition": "A",
+      "waveform": "DD-a-OFDM",
+      "Eb_N0_db": null,
+      "noiseless": true
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 1718714,
+      "ber_estimate": 0.16390933990478515,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.16365269545012892,
+        0.16416598435944138
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 0.00013094345441069176,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "A",
+      "waveform": "OFDM",
+      "Eb_N0_db": 0,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 1663620,
+      "ber_estimate": 0.15865516662597656,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.15845869396042928,
+        0.15885163929152385
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 0.00010024299788007841,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "A",
+      "waveform": "AFDM",
+      "Eb_N0_db": 0,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 1676761,
+      "ber_estimate": 0.15990839004516602,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.1596691299096538,
+        0.16014765018067825
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 0.00012207374084396077,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "A",
+      "waveform": "OTFS",
+      "Eb_N0_db": 0,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 1627860,
+      "ber_estimate": 0.1552448272705078,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.1550423734348436,
+        0.15544728110617204
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 0.00010329467136190536,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "A",
+      "waveform": "DD-a-OFDM",
+      "Eb_N0_db": 0,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 662023,
+      "ber_estimate": 0.06313543319702149,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0629361332324092,
+        0.06333473316163378
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 0.00010168552390979848,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "A",
+      "waveform": "OFDM",
+      "Eb_N0_db": 5,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 607244,
+      "ber_estimate": 0.05791130065917969,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.05778015181086077,
+        0.05804244950749861
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 6.691390727248375e-05,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "A",
+      "waveform": "AFDM",
+      "Eb_N0_db": 5,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 621180,
+      "ber_estimate": 0.05924034118652344,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.059090223880342185,
+        0.05939045849270469
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 7.659186973095197e-05,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "A",
+      "waveform": "OTFS",
+      "Eb_N0_db": 5,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 589789,
+      "ber_estimate": 0.05624666213989258,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.05611424568508418,
+        0.05637907859470098
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 6.756065716150155e-05,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "A",
+      "waveform": "DD-a-OFDM",
+      "Eb_N0_db": 5,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 122392,
+      "ber_estimate": 0.011672210693359376,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.011552699754023944,
+        0.011791721632694808
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 6.0976089498643075e-05,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "A",
+      "waveform": "OFDM",
+      "Eb_N0_db": 10,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 47681,
+      "ber_estimate": 0.004547214508056641,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.004505739373225942,
+        0.00458868964288734
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 2.1161171918387098e-05,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "A",
+      "waveform": "AFDM",
+      "Eb_N0_db": 10,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 50928,
+      "ber_estimate": 0.00485687255859375,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.004814174591366341,
+        0.004899570525821159
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 2.178507746275196e-05,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "A",
+      "waveform": "OTFS",
+      "Eb_N0_db": 10,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 87246,
+      "ber_estimate": 0.008320426940917969,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.008267116248597786,
+        0.008373737633238152
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 2.7199832619726995e-05,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "A",
+      "waveform": "DD-a-OFDM",
+      "Eb_N0_db": 10,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 12990,
+      "ber_estimate": 0.0012388229370117188,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0011763310307312826,
+        0.0013013148432921549
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 3.1884211533152826e-05,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "A",
+      "waveform": "OFDM",
+      "Eb_N0_db": 15,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 34,
+      "ber_estimate": 3.24249267578125e-06,
+      "frame_count": 214,
+      "error_frame_count": 33,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        2.206509278079333e-06,
+        4.278476073483167e-06
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 5.285726706580437e-07,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "A",
+      "waveform": "AFDM",
+      "Eb_N0_db": 15,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 43,
+      "ber_estimate": 4.100799560546875e-06,
+      "frame_count": 214,
+      "error_frame_count": 35,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        2.7199057905231793e-06,
+        5.48169333057057e-06
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 7.045505840495079e-07,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "A",
+      "waveform": "OTFS",
+      "Eb_N0_db": 15,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 2635,
+      "ber_estimate": 0.0002512931823730469,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0002420082131344117,
+        0.00026057815161168206
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 4.737316252683133e-06,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "A",
+      "waveform": "DD-a-OFDM",
+      "Eb_N0_db": 15,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 1588,
+      "ber_estimate": 0.0001514434814453125,
+      "frame_count": 214,
+      "error_frame_count": 182,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.00013118919237768708,
+        0.00017169777051293794
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 1.0334010842744398e-05,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "A",
+      "waveform": "OFDM",
+      "Eb_N0_db": 20,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 0,
+      "ber_estimate": 0.0,
+      "frame_count": 214,
+      "error_frame_count": 0,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0,
+        0.01716957651094054
+      ],
+      "confidence_method": "conservative_complete_frame_zero_event_upper_bound",
+      "zero_error_label": "no_errors_observed",
+      "frame_standard_error": null,
+      "interval_note": "Upper bound is on the probability that a complete frame has any measured error; expected BER is no larger. Complete frames only, to exclude the partial tail. This deliberately allows arbitrary within-frame dependence and can be much wider than an iid-bit bound.",
+      "condition": "A",
+      "waveform": "AFDM",
+      "Eb_N0_db": 20,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 0,
+      "ber_estimate": 0.0,
+      "frame_count": 214,
+      "error_frame_count": 0,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0,
+        0.01716957651094054
+      ],
+      "confidence_method": "conservative_complete_frame_zero_event_upper_bound",
+      "zero_error_label": "no_errors_observed",
+      "frame_standard_error": null,
+      "interval_note": "Upper bound is on the probability that a complete frame has any measured error; expected BER is no larger. Complete frames only, to exclude the partial tail. This deliberately allows arbitrary within-frame dependence and can be much wider than an iid-bit bound.",
+      "condition": "A",
+      "waveform": "OTFS",
+      "Eb_N0_db": 20,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 1,
+      "ber_estimate": 9.5367431640625e-08,
+      "frame_count": 214,
+      "error_frame_count": 1,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0,
+        2.822823333017969e-07
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 9.536649812727828e-08,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "A",
+      "waveform": "DD-a-OFDM",
+      "Eb_N0_db": 20,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 74,
+      "ber_estimate": 7.05718994140625e-06,
+      "frame_count": 214,
+      "error_frame_count": 39,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        4.405573956204211e-06,
+        9.708805926608289e-06
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 1.3528901582466048e-06,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "A",
+      "waveform": "OFDM",
+      "Eb_N0_db": 25,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 0,
+      "ber_estimate": 0.0,
+      "frame_count": 214,
+      "error_frame_count": 0,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0,
+        0.01716957651094054
+      ],
+      "confidence_method": "conservative_complete_frame_zero_event_upper_bound",
+      "zero_error_label": "no_errors_observed",
+      "frame_standard_error": null,
+      "interval_note": "Upper bound is on the probability that a complete frame has any measured error; expected BER is no larger. Complete frames only, to exclude the partial tail. This deliberately allows arbitrary within-frame dependence and can be much wider than an iid-bit bound.",
+      "condition": "A",
+      "waveform": "AFDM",
+      "Eb_N0_db": 25,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 0,
+      "ber_estimate": 0.0,
+      "frame_count": 214,
+      "error_frame_count": 0,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0,
+        0.01716957651094054
+      ],
+      "confidence_method": "conservative_complete_frame_zero_event_upper_bound",
+      "zero_error_label": "no_errors_observed",
+      "frame_standard_error": null,
+      "interval_note": "Upper bound is on the probability that a complete frame has any measured error; expected BER is no larger. Complete frames only, to exclude the partial tail. This deliberately allows arbitrary within-frame dependence and can be much wider than an iid-bit bound.",
+      "condition": "A",
+      "waveform": "OTFS",
+      "Eb_N0_db": 25,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 0,
+      "ber_estimate": 0.0,
+      "frame_count": 214,
+      "error_frame_count": 0,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0,
+        0.01716957651094054
+      ],
+      "confidence_method": "conservative_complete_frame_zero_event_upper_bound",
+      "zero_error_label": "no_errors_observed",
+      "frame_standard_error": null,
+      "interval_note": "Upper bound is on the probability that a complete frame has any measured error; expected BER is no larger. Complete frames only, to exclude the partial tail. This deliberately allows arbitrary within-frame dependence and can be much wider than an iid-bit bound.",
+      "condition": "A",
+      "waveform": "DD-a-OFDM",
+      "Eb_N0_db": 25,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 1,
+      "ber_estimate": 9.5367431640625e-08,
+      "frame_count": 214,
+      "error_frame_count": 1,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0,
+        2.82282333301797e-07
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 9.536649812727831e-08,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "A",
+      "waveform": "OFDM",
+      "Eb_N0_db": 30,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 0,
+      "ber_estimate": 0.0,
+      "frame_count": 214,
+      "error_frame_count": 0,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0,
+        0.01716957651094054
+      ],
+      "confidence_method": "conservative_complete_frame_zero_event_upper_bound",
+      "zero_error_label": "no_errors_observed",
+      "frame_standard_error": null,
+      "interval_note": "Upper bound is on the probability that a complete frame has any measured error; expected BER is no larger. Complete frames only, to exclude the partial tail. This deliberately allows arbitrary within-frame dependence and can be much wider than an iid-bit bound.",
+      "condition": "A",
+      "waveform": "AFDM",
+      "Eb_N0_db": 30,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 0,
+      "ber_estimate": 0.0,
+      "frame_count": 214,
+      "error_frame_count": 0,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0,
+        0.01716957651094054
+      ],
+      "confidence_method": "conservative_complete_frame_zero_event_upper_bound",
+      "zero_error_label": "no_errors_observed",
+      "frame_standard_error": null,
+      "interval_note": "Upper bound is on the probability that a complete frame has any measured error; expected BER is no larger. Complete frames only, to exclude the partial tail. This deliberately allows arbitrary within-frame dependence and can be much wider than an iid-bit bound.",
+      "condition": "A",
+      "waveform": "OTFS",
+      "Eb_N0_db": 30,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 0,
+      "ber_estimate": 0.0,
+      "frame_count": 214,
+      "error_frame_count": 0,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0,
+        0.01716957651094054
+      ],
+      "confidence_method": "conservative_complete_frame_zero_event_upper_bound",
+      "zero_error_label": "no_errors_observed",
+      "frame_standard_error": null,
+      "interval_note": "Upper bound is on the probability that a complete frame has any measured error; expected BER is no larger. Complete frames only, to exclude the partial tail. This deliberately allows arbitrary within-frame dependence and can be much wider than an iid-bit bound.",
+      "condition": "A",
+      "waveform": "DD-a-OFDM",
+      "Eb_N0_db": 30,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 0,
+      "ber_estimate": 0.0,
+      "frame_count": 214,
+      "error_frame_count": 0,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0,
+        0.01716957651094054
+      ],
+      "confidence_method": "conservative_complete_frame_zero_event_upper_bound",
+      "zero_error_label": "no_errors_observed",
+      "frame_standard_error": null,
+      "interval_note": "Upper bound is on the probability that a complete frame has any measured error; expected BER is no larger. Complete frames only, to exclude the partial tail. This deliberately allows arbitrary within-frame dependence and can be much wider than an iid-bit bound.",
+      "condition": "B-1",
+      "waveform": "OFDM",
+      "Eb_N0_db": null,
+      "noiseless": true
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 0,
+      "ber_estimate": 0.0,
+      "frame_count": 214,
+      "error_frame_count": 0,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0,
+        0.01716957651094054
+      ],
+      "confidence_method": "conservative_complete_frame_zero_event_upper_bound",
+      "zero_error_label": "no_errors_observed",
+      "frame_standard_error": null,
+      "interval_note": "Upper bound is on the probability that a complete frame has any measured error; expected BER is no larger. Complete frames only, to exclude the partial tail. This deliberately allows arbitrary within-frame dependence and can be much wider than an iid-bit bound.",
+      "condition": "B-1",
+      "waveform": "AFDM",
+      "Eb_N0_db": null,
+      "noiseless": true
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 0,
+      "ber_estimate": 0.0,
+      "frame_count": 214,
+      "error_frame_count": 0,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0,
+        0.01716957651094054
+      ],
+      "confidence_method": "conservative_complete_frame_zero_event_upper_bound",
+      "zero_error_label": "no_errors_observed",
+      "frame_standard_error": null,
+      "interval_note": "Upper bound is on the probability that a complete frame has any measured error; expected BER is no larger. Complete frames only, to exclude the partial tail. This deliberately allows arbitrary within-frame dependence and can be much wider than an iid-bit bound.",
+      "condition": "B-1",
+      "waveform": "OTFS",
+      "Eb_N0_db": null,
+      "noiseless": true
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 0,
+      "ber_estimate": 0.0,
+      "frame_count": 214,
+      "error_frame_count": 0,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0,
+        0.01716957651094054
+      ],
+      "confidence_method": "conservative_complete_frame_zero_event_upper_bound",
+      "zero_error_label": "no_errors_observed",
+      "frame_standard_error": null,
+      "interval_note": "Upper bound is on the probability that a complete frame has any measured error; expected BER is no larger. Complete frames only, to exclude the partial tail. This deliberately allows arbitrary within-frame dependence and can be much wider than an iid-bit bound.",
+      "condition": "B-1",
+      "waveform": "DD-a-OFDM",
+      "Eb_N0_db": null,
+      "noiseless": true
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 1717842,
+      "ber_estimate": 0.16382617950439454,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.16358135045471336,
+        0.16407100855407572
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 0.00012491507579341106,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-1",
+      "waveform": "OFDM",
+      "Eb_N0_db": 0,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 1664896,
+      "ber_estimate": 0.15877685546875,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.15856054837033884,
+        0.15899316256716117
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 0.00011036279243769767,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-1",
+      "waveform": "AFDM",
+      "Eb_N0_db": 0,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 1676231,
+      "ber_estimate": 0.1598578453063965,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.15965330500211466,
+        0.16006238561067831
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 0.00010435921572805556,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-1",
+      "waveform": "OTFS",
+      "Eb_N0_db": 0,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 1627395,
+      "ber_estimate": 0.15520048141479492,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.1550103493210749,
+        0.15539061350851494
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 9.700795280921721e-05,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-1",
+      "waveform": "DD-a-OFDM",
+      "Eb_N0_db": 0,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 662751,
+      "ber_estimate": 0.06320486068725586,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.06301984678046932,
+        0.06338987459404241
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 9.439658496069679e-05,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-1",
+      "waveform": "OFDM",
+      "Eb_N0_db": 5,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 607018,
+      "ber_estimate": 0.05788974761962891,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.05775472550858263,
+        0.05802476973067519
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 6.889009803818674e-05,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-1",
+      "waveform": "AFDM",
+      "Eb_N0_db": 5,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 620619,
+      "ber_estimate": 0.05918684005737305,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.059040536635850745,
+        0.05933314347889535
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 7.464597445480084e-05,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-1",
+      "waveform": "OTFS",
+      "Eb_N0_db": 5,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 590026,
+      "ber_estimate": 0.056269264221191405,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.056146998358497964,
+        0.056391530083884846
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 6.23816884686951e-05,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-1",
+      "waveform": "DD-a-OFDM",
+      "Eb_N0_db": 5,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 121798,
+      "ber_estimate": 0.011615562438964843,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.011491342944124898,
+        0.011739781933804788
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 6.337845787972299e-05,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-1",
+      "waveform": "OFDM",
+      "Eb_N0_db": 10,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 47751,
+      "ber_estimate": 0.004553890228271485,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.004511651081244881,
+        0.004596129375298089
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 2.155098122199249e-05,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-1",
+      "waveform": "AFDM",
+      "Eb_N0_db": 10,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 50840,
+      "ber_estimate": 0.004848480224609375,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.004805888531288262,
+        0.004891071917930488
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 2.1730855085639713e-05,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-1",
+      "waveform": "OTFS",
+      "Eb_N0_db": 10,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 86968,
+      "ber_estimate": 0.008293914794921874,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.00823594527966426,
+        0.008351884310179488
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 2.957682677583407e-05,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-1",
+      "waveform": "DD-a-OFDM",
+      "Eb_N0_db": 10,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 12804,
+      "ber_estimate": 0.0012210845947265626,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0011543069161621083,
+        0.0012878622732910168
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 3.4070870225773594e-05,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-1",
+      "waveform": "OFDM",
+      "Eb_N0_db": 15,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 28,
+      "ber_estimate": 2.6702880859375e-06,
+      "frame_count": 214,
+      "error_frame_count": 27,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        1.7090789869999737e-06,
+        3.631497184875026e-06
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 4.90421817196347e-07,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-1",
+      "waveform": "AFDM",
+      "Eb_N0_db": 15,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 46,
+      "ber_estimate": 4.38690185546875e-06,
+      "frame_count": 214,
+      "error_frame_count": 43,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        3.1716780826853788e-06,
+        5.6021256282521205e-06
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 6.200235220488239e-07,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-1",
+      "waveform": "OTFS",
+      "Eb_N0_db": 15,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 2663,
+      "ber_estimate": 0.0002539634704589844,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.00024418055067676345,
+        0.0002637463902412053
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 4.991377320903531e-06,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-1",
+      "waveform": "DD-a-OFDM",
+      "Eb_N0_db": 15,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 1599,
+      "ber_estimate": 0.00015249252319335938,
+      "frame_count": 214,
+      "error_frame_count": 185,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0001317565397458532,
+        0.00017322850664086556
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 1.0579777797484539e-05,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-1",
+      "waveform": "OFDM",
+      "Eb_N0_db": 20,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 0,
+      "ber_estimate": 0.0,
+      "frame_count": 214,
+      "error_frame_count": 0,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0,
+        0.01716957651094054
+      ],
+      "confidence_method": "conservative_complete_frame_zero_event_upper_bound",
+      "zero_error_label": "no_errors_observed",
+      "frame_standard_error": null,
+      "interval_note": "Upper bound is on the probability that a complete frame has any measured error; expected BER is no larger. Complete frames only, to exclude the partial tail. This deliberately allows arbitrary within-frame dependence and can be much wider than an iid-bit bound.",
+      "condition": "B-1",
+      "waveform": "AFDM",
+      "Eb_N0_db": 20,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 0,
+      "ber_estimate": 0.0,
+      "frame_count": 214,
+      "error_frame_count": 0,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0,
+        0.01716957651094054
+      ],
+      "confidence_method": "conservative_complete_frame_zero_event_upper_bound",
+      "zero_error_label": "no_errors_observed",
+      "frame_standard_error": null,
+      "interval_note": "Upper bound is on the probability that a complete frame has any measured error; expected BER is no larger. Complete frames only, to exclude the partial tail. This deliberately allows arbitrary within-frame dependence and can be much wider than an iid-bit bound.",
+      "condition": "B-1",
+      "waveform": "OTFS",
+      "Eb_N0_db": 20,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 1,
+      "ber_estimate": 9.5367431640625e-08,
+      "frame_count": 214,
+      "error_frame_count": 1,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0,
+        2.82282333301797e-07
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 9.536649812727831e-08,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-1",
+      "waveform": "DD-a-OFDM",
+      "Eb_N0_db": 20,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 99,
+      "ber_estimate": 9.441375732421875e-06,
+      "frame_count": 214,
+      "error_frame_count": 43,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        5.9815932767289856e-06,
+        1.2901158188114765e-05
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 1.7652275669263384e-06,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-1",
+      "waveform": "OFDM",
+      "Eb_N0_db": 25,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 0,
+      "ber_estimate": 0.0,
+      "frame_count": 214,
+      "error_frame_count": 0,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0,
+        0.01716957651094054
+      ],
+      "confidence_method": "conservative_complete_frame_zero_event_upper_bound",
+      "zero_error_label": "no_errors_observed",
+      "frame_standard_error": null,
+      "interval_note": "Upper bound is on the probability that a complete frame has any measured error; expected BER is no larger. Complete frames only, to exclude the partial tail. This deliberately allows arbitrary within-frame dependence and can be much wider than an iid-bit bound.",
+      "condition": "B-1",
+      "waveform": "AFDM",
+      "Eb_N0_db": 25,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 0,
+      "ber_estimate": 0.0,
+      "frame_count": 214,
+      "error_frame_count": 0,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0,
+        0.01716957651094054
+      ],
+      "confidence_method": "conservative_complete_frame_zero_event_upper_bound",
+      "zero_error_label": "no_errors_observed",
+      "frame_standard_error": null,
+      "interval_note": "Upper bound is on the probability that a complete frame has any measured error; expected BER is no larger. Complete frames only, to exclude the partial tail. This deliberately allows arbitrary within-frame dependence and can be much wider than an iid-bit bound.",
+      "condition": "B-1",
+      "waveform": "OTFS",
+      "Eb_N0_db": 25,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 0,
+      "ber_estimate": 0.0,
+      "frame_count": 214,
+      "error_frame_count": 0,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0,
+        0.01716957651094054
+      ],
+      "confidence_method": "conservative_complete_frame_zero_event_upper_bound",
+      "zero_error_label": "no_errors_observed",
+      "frame_standard_error": null,
+      "interval_note": "Upper bound is on the probability that a complete frame has any measured error; expected BER is no larger. Complete frames only, to exclude the partial tail. This deliberately allows arbitrary within-frame dependence and can be much wider than an iid-bit bound.",
+      "condition": "B-1",
+      "waveform": "DD-a-OFDM",
+      "Eb_N0_db": 25,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 0,
+      "ber_estimate": 0.0,
+      "frame_count": 214,
+      "error_frame_count": 0,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0,
+        0.01716957651094054
+      ],
+      "confidence_method": "conservative_complete_frame_zero_event_upper_bound",
+      "zero_error_label": "no_errors_observed",
+      "frame_standard_error": null,
+      "interval_note": "Upper bound is on the probability that a complete frame has any measured error; expected BER is no larger. Complete frames only, to exclude the partial tail. This deliberately allows arbitrary within-frame dependence and can be much wider than an iid-bit bound.",
+      "condition": "B-1",
+      "waveform": "OFDM",
+      "Eb_N0_db": 30,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 0,
+      "ber_estimate": 0.0,
+      "frame_count": 214,
+      "error_frame_count": 0,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0,
+        0.01716957651094054
+      ],
+      "confidence_method": "conservative_complete_frame_zero_event_upper_bound",
+      "zero_error_label": "no_errors_observed",
+      "frame_standard_error": null,
+      "interval_note": "Upper bound is on the probability that a complete frame has any measured error; expected BER is no larger. Complete frames only, to exclude the partial tail. This deliberately allows arbitrary within-frame dependence and can be much wider than an iid-bit bound.",
+      "condition": "B-1",
+      "waveform": "AFDM",
+      "Eb_N0_db": 30,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 0,
+      "ber_estimate": 0.0,
+      "frame_count": 214,
+      "error_frame_count": 0,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0,
+        0.01716957651094054
+      ],
+      "confidence_method": "conservative_complete_frame_zero_event_upper_bound",
+      "zero_error_label": "no_errors_observed",
+      "frame_standard_error": null,
+      "interval_note": "Upper bound is on the probability that a complete frame has any measured error; expected BER is no larger. Complete frames only, to exclude the partial tail. This deliberately allows arbitrary within-frame dependence and can be much wider than an iid-bit bound.",
+      "condition": "B-1",
+      "waveform": "OTFS",
+      "Eb_N0_db": 30,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 0,
+      "ber_estimate": 0.0,
+      "frame_count": 214,
+      "error_frame_count": 0,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0,
+        0.01716957651094054
+      ],
+      "confidence_method": "conservative_complete_frame_zero_event_upper_bound",
+      "zero_error_label": "no_errors_observed",
+      "frame_standard_error": null,
+      "interval_note": "Upper bound is on the probability that a complete frame has any measured error; expected BER is no larger. Complete frames only, to exclude the partial tail. This deliberately allows arbitrary within-frame dependence and can be much wider than an iid-bit bound.",
+      "condition": "B-1",
+      "waveform": "DD-a-OFDM",
+      "Eb_N0_db": 30,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 57,
+      "ber_estimate": 5.435943603515625e-06,
+      "frame_count": 214,
+      "error_frame_count": 27,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        3.0384259387110493e-06,
+        7.8334612683202e-06
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 1.2232457757978666e-06,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-2",
+      "waveform": "OFDM",
+      "Eb_N0_db": null,
+      "noiseless": true
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 0,
+      "ber_estimate": 0.0,
+      "frame_count": 214,
+      "error_frame_count": 0,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0,
+        0.01716957651094054
+      ],
+      "confidence_method": "conservative_complete_frame_zero_event_upper_bound",
+      "zero_error_label": "no_errors_observed",
+      "frame_standard_error": null,
+      "interval_note": "Upper bound is on the probability that a complete frame has any measured error; expected BER is no larger. Complete frames only, to exclude the partial tail. This deliberately allows arbitrary within-frame dependence and can be much wider than an iid-bit bound.",
+      "condition": "B-2",
+      "waveform": "AFDM",
+      "Eb_N0_db": null,
+      "noiseless": true
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 0,
+      "ber_estimate": 0.0,
+      "frame_count": 214,
+      "error_frame_count": 0,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0,
+        0.01716957651094054
+      ],
+      "confidence_method": "conservative_complete_frame_zero_event_upper_bound",
+      "zero_error_label": "no_errors_observed",
+      "frame_standard_error": null,
+      "interval_note": "Upper bound is on the probability that a complete frame has any measured error; expected BER is no larger. Complete frames only, to exclude the partial tail. This deliberately allows arbitrary within-frame dependence and can be much wider than an iid-bit bound.",
+      "condition": "B-2",
+      "waveform": "OTFS",
+      "Eb_N0_db": null,
+      "noiseless": true
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 0,
+      "ber_estimate": 0.0,
+      "frame_count": 214,
+      "error_frame_count": 0,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0,
+        0.01716957651094054
+      ],
+      "confidence_method": "conservative_complete_frame_zero_event_upper_bound",
+      "zero_error_label": "no_errors_observed",
+      "frame_standard_error": null,
+      "interval_note": "Upper bound is on the probability that a complete frame has any measured error; expected BER is no larger. Complete frames only, to exclude the partial tail. This deliberately allows arbitrary within-frame dependence and can be much wider than an iid-bit bound.",
+      "condition": "B-2",
+      "waveform": "DD-a-OFDM",
+      "Eb_N0_db": null,
+      "noiseless": true
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 1718868,
+      "ber_estimate": 0.1639240264892578,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.16368524116594466,
+        0.16416281181257095
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 0.00012183148527047171,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-2",
+      "waveform": "OFDM",
+      "Eb_N0_db": 0,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 1663097,
+      "ber_estimate": 0.15860528945922853,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.15840655575852822,
+        0.15880402315992884
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 0.00010139660844173898,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-2",
+      "waveform": "AFDM",
+      "Eb_N0_db": 0,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 1676486,
+      "ber_estimate": 0.15988216400146485,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.1596498681741862,
+        0.1601144598287435
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 0.00011852045706501871,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-2",
+      "waveform": "OTFS",
+      "Eb_N0_db": 0,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 1627467,
+      "ber_estimate": 0.15520734786987306,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.155011846904349,
+        0.15540284883539712
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 9.974722345214518e-05,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-2",
+      "waveform": "DD-a-OFDM",
+      "Eb_N0_db": 0,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 662411,
+      "ber_estimate": 0.06317243576049805,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.06298323877517756,
+        0.06336163274581855
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 9.653084792009026e-05,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-2",
+      "waveform": "OFDM",
+      "Eb_N0_db": 5,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 605903,
+      "ber_estimate": 0.05778341293334961,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.057641105792968515,
+        0.05792572007373071
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 7.260701803890193e-05,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-2",
+      "waveform": "AFDM",
+      "Eb_N0_db": 5,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 620772,
+      "ber_estimate": 0.05920143127441406,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0590433706536693,
+        0.05935949189515882
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 8.064465571384254e-05,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-2",
+      "waveform": "OTFS",
+      "Eb_N0_db": 5,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 589358,
+      "ber_estimate": 0.05620555877685547,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.056074269606297,
+        0.05633684794741394
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 6.698550156740577e-05,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-2",
+      "waveform": "DD-a-OFDM",
+      "Eb_N0_db": 5,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 122661,
+      "ber_estimate": 0.011697864532470703,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.011578681697740645,
+        0.011817047367200762
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 6.080868611370306e-05,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-2",
+      "waveform": "OFDM",
+      "Eb_N0_db": 10,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 47765,
+      "ber_estimate": 0.004555225372314453,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.004513482500173927,
+        0.00459696824445498
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 2.129777509678196e-05,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-2",
+      "waveform": "AFDM",
+      "Eb_N0_db": 10,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 50949,
+      "ber_estimate": 0.004858875274658203,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.00481115459203911,
+        0.004906595957277295
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 2.434773444589133e-05,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-2",
+      "waveform": "OTFS",
+      "Eb_N0_db": 10,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 86886,
+      "ber_estimate": 0.008286094665527344,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.008236806737867185,
+        0.008335382593187503
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 2.5147363956141597e-05,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-2",
+      "waveform": "DD-a-OFDM",
+      "Eb_N0_db": 10,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 13715,
+      "ber_estimate": 0.0013079643249511719,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.001240048557800003,
+        0.0013758800921023408
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 3.465153833788779e-05,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-2",
+      "waveform": "OFDM",
+      "Eb_N0_db": 15,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 41,
+      "ber_estimate": 3.910064697265625e-06,
+      "frame_count": 214,
+      "error_frame_count": 36,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        2.679895426469084e-06,
+        5.140233968062165e-06
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 6.276489162555841e-07,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-2",
+      "waveform": "AFDM",
+      "Eb_N0_db": 15,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 52,
+      "ber_estimate": 4.9591064453125e-06,
+      "frame_count": 214,
+      "error_frame_count": 47,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        3.6434555162557183e-06,
+        6.274757374369282e-06
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 6.712628086201935e-07,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-2",
+      "waveform": "OTFS",
+      "Eb_N0_db": 15,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 2549,
+      "ber_estimate": 0.00024309158325195313,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.00023328037878506103,
+        0.00025290278771884523
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 5.00580854764763e-06,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-2",
+      "waveform": "DD-a-OFDM",
+      "Eb_N0_db": 15,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 2425,
+      "ber_estimate": 0.00023126602172851562,
+      "frame_count": 214,
+      "error_frame_count": 202,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0002061724409385951,
+        0.00025635960251843613
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 1.2803082601443446e-05,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-2",
+      "waveform": "OFDM",
+      "Eb_N0_db": 20,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 0,
+      "ber_estimate": 0.0,
+      "frame_count": 214,
+      "error_frame_count": 0,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0,
+        0.01716957651094054
+      ],
+      "confidence_method": "conservative_complete_frame_zero_event_upper_bound",
+      "zero_error_label": "no_errors_observed",
+      "frame_standard_error": null,
+      "interval_note": "Upper bound is on the probability that a complete frame has any measured error; expected BER is no larger. Complete frames only, to exclude the partial tail. This deliberately allows arbitrary within-frame dependence and can be much wider than an iid-bit bound.",
+      "condition": "B-2",
+      "waveform": "AFDM",
+      "Eb_N0_db": 20,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 0,
+      "ber_estimate": 0.0,
+      "frame_count": 214,
+      "error_frame_count": 0,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0,
+        0.01716957651094054
+      ],
+      "confidence_method": "conservative_complete_frame_zero_event_upper_bound",
+      "zero_error_label": "no_errors_observed",
+      "frame_standard_error": null,
+      "interval_note": "Upper bound is on the probability that a complete frame has any measured error; expected BER is no larger. Complete frames only, to exclude the partial tail. This deliberately allows arbitrary within-frame dependence and can be much wider than an iid-bit bound.",
+      "condition": "B-2",
+      "waveform": "OTFS",
+      "Eb_N0_db": 20,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 2,
+      "ber_estimate": 1.9073486328125e-07,
+      "frame_count": 214,
+      "error_frame_count": 2,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0,
+        4.544486056171533e-07
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 1.3455030011573871e-07,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-2",
+      "waveform": "DD-a-OFDM",
+      "Eb_N0_db": 20,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 520,
+      "ber_estimate": 4.9591064453125e-05,
+      "frame_count": 214,
+      "error_frame_count": 112,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        3.899071240276665e-05,
+        6.019141650348335e-05
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 5.408442264231676e-06,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-2",
+      "waveform": "OFDM",
+      "Eb_N0_db": 25,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 0,
+      "ber_estimate": 0.0,
+      "frame_count": 214,
+      "error_frame_count": 0,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0,
+        0.01716957651094054
+      ],
+      "confidence_method": "conservative_complete_frame_zero_event_upper_bound",
+      "zero_error_label": "no_errors_observed",
+      "frame_standard_error": null,
+      "interval_note": "Upper bound is on the probability that a complete frame has any measured error; expected BER is no larger. Complete frames only, to exclude the partial tail. This deliberately allows arbitrary within-frame dependence and can be much wider than an iid-bit bound.",
+      "condition": "B-2",
+      "waveform": "AFDM",
+      "Eb_N0_db": 25,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 0,
+      "ber_estimate": 0.0,
+      "frame_count": 214,
+      "error_frame_count": 0,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0,
+        0.01716957651094054
+      ],
+      "confidence_method": "conservative_complete_frame_zero_event_upper_bound",
+      "zero_error_label": "no_errors_observed",
+      "frame_standard_error": null,
+      "interval_note": "Upper bound is on the probability that a complete frame has any measured error; expected BER is no larger. Complete frames only, to exclude the partial tail. This deliberately allows arbitrary within-frame dependence and can be much wider than an iid-bit bound.",
+      "condition": "B-2",
+      "waveform": "OTFS",
+      "Eb_N0_db": 25,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 0,
+      "ber_estimate": 0.0,
+      "frame_count": 214,
+      "error_frame_count": 0,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0,
+        0.01716957651094054
+      ],
+      "confidence_method": "conservative_complete_frame_zero_event_upper_bound",
+      "zero_error_label": "no_errors_observed",
+      "frame_standard_error": null,
+      "interval_note": "Upper bound is on the probability that a complete frame has any measured error; expected BER is no larger. Complete frames only, to exclude the partial tail. This deliberately allows arbitrary within-frame dependence and can be much wider than an iid-bit bound.",
+      "condition": "B-2",
+      "waveform": "DD-a-OFDM",
+      "Eb_N0_db": 25,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 173,
+      "ber_estimate": 1.6498565673828126e-05,
+      "frame_count": 214,
+      "error_frame_count": 55,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        1.1028051272673305e-05,
+        2.1969080074982946e-05
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 2.7911300637693047e-06,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-2",
+      "waveform": "OFDM",
+      "Eb_N0_db": 30,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 0,
+      "ber_estimate": 0.0,
+      "frame_count": 214,
+      "error_frame_count": 0,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0,
+        0.01716957651094054
+      ],
+      "confidence_method": "conservative_complete_frame_zero_event_upper_bound",
+      "zero_error_label": "no_errors_observed",
+      "frame_standard_error": null,
+      "interval_note": "Upper bound is on the probability that a complete frame has any measured error; expected BER is no larger. Complete frames only, to exclude the partial tail. This deliberately allows arbitrary within-frame dependence and can be much wider than an iid-bit bound.",
+      "condition": "B-2",
+      "waveform": "AFDM",
+      "Eb_N0_db": 30,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 0,
+      "ber_estimate": 0.0,
+      "frame_count": 214,
+      "error_frame_count": 0,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0,
+        0.01716957651094054
+      ],
+      "confidence_method": "conservative_complete_frame_zero_event_upper_bound",
+      "zero_error_label": "no_errors_observed",
+      "frame_standard_error": null,
+      "interval_note": "Upper bound is on the probability that a complete frame has any measured error; expected BER is no larger. Complete frames only, to exclude the partial tail. This deliberately allows arbitrary within-frame dependence and can be much wider than an iid-bit bound.",
+      "condition": "B-2",
+      "waveform": "OTFS",
+      "Eb_N0_db": 30,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 0,
+      "ber_estimate": 0.0,
+      "frame_count": 214,
+      "error_frame_count": 0,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0,
+        0.01716957651094054
+      ],
+      "confidence_method": "conservative_complete_frame_zero_event_upper_bound",
+      "zero_error_label": "no_errors_observed",
+      "frame_standard_error": null,
+      "interval_note": "Upper bound is on the probability that a complete frame has any measured error; expected BER is no larger. Complete frames only, to exclude the partial tail. This deliberately allows arbitrary within-frame dependence and can be much wider than an iid-bit bound.",
+      "condition": "B-2",
+      "waveform": "DD-a-OFDM",
+      "Eb_N0_db": 30,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 2189,
+      "ber_estimate": 0.00020875930786132813,
+      "frame_count": 214,
+      "error_frame_count": 175,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.00011469657714648947,
+        0.0003028220385761668
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 4.799207100579067e-05,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-3",
+      "waveform": "OFDM",
+      "Eb_N0_db": null,
+      "noiseless": true
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 0,
+      "ber_estimate": 0.0,
+      "frame_count": 214,
+      "error_frame_count": 0,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0,
+        0.01716957651094054
+      ],
+      "confidence_method": "conservative_complete_frame_zero_event_upper_bound",
+      "zero_error_label": "no_errors_observed",
+      "frame_standard_error": null,
+      "interval_note": "Upper bound is on the probability that a complete frame has any measured error; expected BER is no larger. Complete frames only, to exclude the partial tail. This deliberately allows arbitrary within-frame dependence and can be much wider than an iid-bit bound.",
+      "condition": "B-3",
+      "waveform": "AFDM",
+      "Eb_N0_db": null,
+      "noiseless": true
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 0,
+      "ber_estimate": 0.0,
+      "frame_count": 214,
+      "error_frame_count": 0,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0,
+        0.01716957651094054
+      ],
+      "confidence_method": "conservative_complete_frame_zero_event_upper_bound",
+      "zero_error_label": "no_errors_observed",
+      "frame_standard_error": null,
+      "interval_note": "Upper bound is on the probability that a complete frame has any measured error; expected BER is no larger. Complete frames only, to exclude the partial tail. This deliberately allows arbitrary within-frame dependence and can be much wider than an iid-bit bound.",
+      "condition": "B-3",
+      "waveform": "OTFS",
+      "Eb_N0_db": null,
+      "noiseless": true
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 0,
+      "ber_estimate": 0.0,
+      "frame_count": 214,
+      "error_frame_count": 0,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0,
+        0.01716957651094054
+      ],
+      "confidence_method": "conservative_complete_frame_zero_event_upper_bound",
+      "zero_error_label": "no_errors_observed",
+      "frame_standard_error": null,
+      "interval_note": "Upper bound is on the probability that a complete frame has any measured error; expected BER is no larger. Complete frames only, to exclude the partial tail. This deliberately allows arbitrary within-frame dependence and can be much wider than an iid-bit bound.",
+      "condition": "B-3",
+      "waveform": "DD-a-OFDM",
+      "Eb_N0_db": null,
+      "noiseless": true
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 1718670,
+      "ber_estimate": 0.16390514373779297,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.16365949026687068,
+        0.16415079720871525
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 0.000125335706604799,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-3",
+      "waveform": "OFDM",
+      "Eb_N0_db": 0,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 1665557,
+      "ber_estimate": 0.15883989334106446,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.1586488848202868,
+        0.15903090186184213
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 9.745511768803646e-05,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-3",
+      "waveform": "AFDM",
+      "Eb_N0_db": 0,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 1674897,
+      "ber_estimate": 0.1597306251525879,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.1595161924626237,
+        0.1599450578425521
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 0.00010940644402429756,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-3",
+      "waveform": "OTFS",
+      "Eb_N0_db": 0,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 1627000,
+      "ber_estimate": 0.15516281127929688,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.15496539672832838,
+        0.15536022583026537
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 0.0001007235604968642,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-3",
+      "waveform": "DD-a-OFDM",
+      "Eb_N0_db": 0,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 662972,
+      "ber_estimate": 0.06322593688964843,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.06303858194940365,
+        0.06341329182989322
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 9.559101173420328e-05,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-3",
+      "waveform": "OFDM",
+      "Eb_N0_db": 5,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 607692,
+      "ber_estimate": 0.057954025268554685,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.05781419169388155,
+        0.05809385884322782
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 7.134497152811219e-05,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-3",
+      "waveform": "AFDM",
+      "Eb_N0_db": 5,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 619997,
+      "ber_estimate": 0.059127521514892575,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.05897991602402356,
+        0.05927512700576159
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 7.531030775734089e-05,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-3",
+      "waveform": "OTFS",
+      "Eb_N0_db": 5,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 589237,
+      "ber_estimate": 0.05619401931762695,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0560594265084892,
+        0.0563286121267647
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 6.867106242737132e-05,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-3",
+      "waveform": "DD-a-OFDM",
+      "Eb_N0_db": 5,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 123330,
+      "ber_estimate": 0.011761665344238281,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.011636670965428975,
+        0.011886659723047588
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 6.377381410844636e-05,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-3",
+      "waveform": "OFDM",
+      "Eb_N0_db": 10,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 47855,
+      "ber_estimate": 0.004563808441162109,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.004517620294741971,
+        0.0046099965875822475
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 2.3565813853960734e-05,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-3",
+      "waveform": "AFDM",
+      "Eb_N0_db": 10,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 50865,
+      "ber_estimate": 0.004850864410400391,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.004807593497525248,
+        0.004894135323275533
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 2.2077402042312073e-05,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-3",
+      "waveform": "OTFS",
+      "Eb_N0_db": 10,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 85713,
+      "ber_estimate": 0.00817422866821289,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.008121403359777726,
+        0.008227053976648054
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 2.695218322981602e-05,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-3",
+      "waveform": "DD-a-OFDM",
+      "Eb_N0_db": 10,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 16377,
+      "ber_estimate": 0.0015618324279785157,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.001483473628015431,
+        0.0016401912279416003
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 3.997971420963286e-05,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-3",
+      "waveform": "OFDM",
+      "Eb_N0_db": 15,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 31,
+      "ber_estimate": 2.956390380859375e-06,
+      "frame_count": 214,
+      "error_frame_count": 27,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        1.8246263570675656e-06,
+        4.088154404651185e-06
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 5.774412350017755e-07,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-3",
+      "waveform": "AFDM",
+      "Eb_N0_db": 15,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 40,
+      "ber_estimate": 3.814697265625e-06,
+      "frame_count": 214,
+      "error_frame_count": 35,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        2.564993316894558e-06,
+        5.064401214355442e-06
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 6.376157718141494e-07,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-3",
+      "waveform": "OTFS",
+      "Eb_N0_db": 15,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 2424,
+      "ber_estimate": 0.000231170654296875,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.00022182905921891804,
+        0.00024051224937483197
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 4.7662075179147535e-06,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-3",
+      "waveform": "DD-a-OFDM",
+      "Eb_N0_db": 15,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 5450,
+      "ber_estimate": 0.0005197525024414062,
+      "frame_count": 214,
+      "error_frame_count": 211,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0004748035065432382,
+        0.0005647014983395743
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 2.2933582582496403e-05,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-3",
+      "waveform": "OFDM",
+      "Eb_N0_db": 20,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 0,
+      "ber_estimate": 0.0,
+      "frame_count": 214,
+      "error_frame_count": 0,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0,
+        0.01716957651094054
+      ],
+      "confidence_method": "conservative_complete_frame_zero_event_upper_bound",
+      "zero_error_label": "no_errors_observed",
+      "frame_standard_error": null,
+      "interval_note": "Upper bound is on the probability that a complete frame has any measured error; expected BER is no larger. Complete frames only, to exclude the partial tail. This deliberately allows arbitrary within-frame dependence and can be much wider than an iid-bit bound.",
+      "condition": "B-3",
+      "waveform": "AFDM",
+      "Eb_N0_db": 20,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 0,
+      "ber_estimate": 0.0,
+      "frame_count": 214,
+      "error_frame_count": 0,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0,
+        0.01716957651094054
+      ],
+      "confidence_method": "conservative_complete_frame_zero_event_upper_bound",
+      "zero_error_label": "no_errors_observed",
+      "frame_standard_error": null,
+      "interval_note": "Upper bound is on the probability that a complete frame has any measured error; expected BER is no larger. Complete frames only, to exclude the partial tail. This deliberately allows arbitrary within-frame dependence and can be much wider than an iid-bit bound.",
+      "condition": "B-3",
+      "waveform": "OTFS",
+      "Eb_N0_db": 20,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 2,
+      "ber_estimate": 1.9073486328125e-07,
+      "frame_count": 214,
+      "error_frame_count": 2,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0,
+        4.544486056171533e-07
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 1.3455030011573871e-07,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-3",
+      "waveform": "DD-a-OFDM",
+      "Eb_N0_db": 20,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 2835,
+      "ber_estimate": 0.0002703666687011719,
+      "frame_count": 214,
+      "error_frame_count": 199,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.00023968889047476814,
+        0.0003010444469275756
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 1.5652215279661324e-05,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-3",
+      "waveform": "OFDM",
+      "Eb_N0_db": 25,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 0,
+      "ber_estimate": 0.0,
+      "frame_count": 214,
+      "error_frame_count": 0,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0,
+        0.01716957651094054
+      ],
+      "confidence_method": "conservative_complete_frame_zero_event_upper_bound",
+      "zero_error_label": "no_errors_observed",
+      "frame_standard_error": null,
+      "interval_note": "Upper bound is on the probability that a complete frame has any measured error; expected BER is no larger. Complete frames only, to exclude the partial tail. This deliberately allows arbitrary within-frame dependence and can be much wider than an iid-bit bound.",
+      "condition": "B-3",
+      "waveform": "AFDM",
+      "Eb_N0_db": 25,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 0,
+      "ber_estimate": 0.0,
+      "frame_count": 214,
+      "error_frame_count": 0,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0,
+        0.01716957651094054
+      ],
+      "confidence_method": "conservative_complete_frame_zero_event_upper_bound",
+      "zero_error_label": "no_errors_observed",
+      "frame_standard_error": null,
+      "interval_note": "Upper bound is on the probability that a complete frame has any measured error; expected BER is no larger. Complete frames only, to exclude the partial tail. This deliberately allows arbitrary within-frame dependence and can be much wider than an iid-bit bound.",
+      "condition": "B-3",
+      "waveform": "OTFS",
+      "Eb_N0_db": 25,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 0,
+      "ber_estimate": 0.0,
+      "frame_count": 214,
+      "error_frame_count": 0,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0,
+        0.01716957651094054
+      ],
+      "confidence_method": "conservative_complete_frame_zero_event_upper_bound",
+      "zero_error_label": "no_errors_observed",
+      "frame_standard_error": null,
+      "interval_note": "Upper bound is on the probability that a complete frame has any measured error; expected BER is no larger. Complete frames only, to exclude the partial tail. This deliberately allows arbitrary within-frame dependence and can be much wider than an iid-bit bound.",
+      "condition": "B-3",
+      "waveform": "DD-a-OFDM",
+      "Eb_N0_db": 25,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 2089,
+      "ber_estimate": 0.00019922256469726563,
+      "frame_count": 214,
+      "error_frame_count": 187,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0001732336437895922,
+        0.00022521148560493905
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 1.3259897178045482e-05,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-3",
+      "waveform": "OFDM",
+      "Eb_N0_db": 30,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 0,
+      "ber_estimate": 0.0,
+      "frame_count": 214,
+      "error_frame_count": 0,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0,
+        0.01716957651094054
+      ],
+      "confidence_method": "conservative_complete_frame_zero_event_upper_bound",
+      "zero_error_label": "no_errors_observed",
+      "frame_standard_error": null,
+      "interval_note": "Upper bound is on the probability that a complete frame has any measured error; expected BER is no larger. Complete frames only, to exclude the partial tail. This deliberately allows arbitrary within-frame dependence and can be much wider than an iid-bit bound.",
+      "condition": "B-3",
+      "waveform": "AFDM",
+      "Eb_N0_db": 30,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 0,
+      "ber_estimate": 0.0,
+      "frame_count": 214,
+      "error_frame_count": 0,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0,
+        0.01716957651094054
+      ],
+      "confidence_method": "conservative_complete_frame_zero_event_upper_bound",
+      "zero_error_label": "no_errors_observed",
+      "frame_standard_error": null,
+      "interval_note": "Upper bound is on the probability that a complete frame has any measured error; expected BER is no larger. Complete frames only, to exclude the partial tail. This deliberately allows arbitrary within-frame dependence and can be much wider than an iid-bit bound.",
+      "condition": "B-3",
+      "waveform": "OTFS",
+      "Eb_N0_db": 30,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 0,
+      "ber_estimate": 0.0,
+      "frame_count": 214,
+      "error_frame_count": 0,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0,
+        0.01716957651094054
+      ],
+      "confidence_method": "conservative_complete_frame_zero_event_upper_bound",
+      "zero_error_label": "no_errors_observed",
+      "frame_standard_error": null,
+      "interval_note": "Upper bound is on the probability that a complete frame has any measured error; expected BER is no larger. Complete frames only, to exclude the partial tail. This deliberately allows arbitrary within-frame dependence and can be much wider than an iid-bit bound.",
+      "condition": "B-3",
+      "waveform": "DD-a-OFDM",
+      "Eb_N0_db": 30,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 27706,
+      "ber_estimate": 0.002642250061035156,
+      "frame_count": 214,
+      "error_frame_count": 213,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0022543485035113955,
+        0.003030151618558917
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 0.00019791259461065543,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-4",
+      "waveform": "OFDM",
+      "Eb_N0_db": null,
+      "noiseless": true
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 0,
+      "ber_estimate": 0.0,
+      "frame_count": 214,
+      "error_frame_count": 0,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0,
+        0.01716957651094054
+      ],
+      "confidence_method": "conservative_complete_frame_zero_event_upper_bound",
+      "zero_error_label": "no_errors_observed",
+      "frame_standard_error": null,
+      "interval_note": "Upper bound is on the probability that a complete frame has any measured error; expected BER is no larger. Complete frames only, to exclude the partial tail. This deliberately allows arbitrary within-frame dependence and can be much wider than an iid-bit bound.",
+      "condition": "B-4",
+      "waveform": "AFDM",
+      "Eb_N0_db": null,
+      "noiseless": true
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 0,
+      "ber_estimate": 0.0,
+      "frame_count": 214,
+      "error_frame_count": 0,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0,
+        0.01716957651094054
+      ],
+      "confidence_method": "conservative_complete_frame_zero_event_upper_bound",
+      "zero_error_label": "no_errors_observed",
+      "frame_standard_error": null,
+      "interval_note": "Upper bound is on the probability that a complete frame has any measured error; expected BER is no larger. Complete frames only, to exclude the partial tail. This deliberately allows arbitrary within-frame dependence and can be much wider than an iid-bit bound.",
+      "condition": "B-4",
+      "waveform": "OTFS",
+      "Eb_N0_db": null,
+      "noiseless": true
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 0,
+      "ber_estimate": 0.0,
+      "frame_count": 214,
+      "error_frame_count": 0,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0,
+        0.01716957651094054
+      ],
+      "confidence_method": "conservative_complete_frame_zero_event_upper_bound",
+      "zero_error_label": "no_errors_observed",
+      "frame_standard_error": null,
+      "interval_note": "Upper bound is on the probability that a complete frame has any measured error; expected BER is no larger. Complete frames only, to exclude the partial tail. This deliberately allows arbitrary within-frame dependence and can be much wider than an iid-bit bound.",
+      "condition": "B-4",
+      "waveform": "DD-a-OFDM",
+      "Eb_N0_db": null,
+      "noiseless": true
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 1719760,
+      "ber_estimate": 0.16400909423828125,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.1637514311624225,
+        0.16426675731414
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 0.00013146316865573587,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-4",
+      "waveform": "OFDM",
+      "Eb_N0_db": 0,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 1665116,
+      "ber_estimate": 0.15879783630371094,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.15859885057766035,
+        0.15899682202976154
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 0.00010152519516692872,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-4",
+      "waveform": "AFDM",
+      "Eb_N0_db": 0,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 1676015,
+      "ber_estimate": 0.1598372459411621,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.15961669127962538,
+        0.16005780060269884
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 0.0001125299563035051,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-4",
+      "waveform": "OTFS",
+      "Eb_N0_db": 0,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 1626407,
+      "ber_estimate": 0.155106258392334,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.15490833773406043,
+        0.15530417905060756
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 0.00010098178325455803,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-4",
+      "waveform": "DD-a-OFDM",
+      "Eb_N0_db": 0,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 667143,
+      "ber_estimate": 0.06362371444702149,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.06341715476412081,
+        0.06383027412992216
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 0.00010538952987401554,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-4",
+      "waveform": "OFDM",
+      "Eb_N0_db": 5,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 607428,
+      "ber_estimate": 0.057928848266601565,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.057788866496728215,
+        0.058068830036474915
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 7.142058271351209e-05,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-4",
+      "waveform": "AFDM",
+      "Eb_N0_db": 5,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 620398,
+      "ber_estimate": 0.05916576385498047,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.05901711412252446,
+        0.059314413587436485
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 7.584309386730897e-05,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-4",
+      "waveform": "OTFS",
+      "Eb_N0_db": 5,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 587228,
+      "ber_estimate": 0.05600242614746094,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.05587842225276787,
+        0.05612643004215401
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 6.326845578347144e-05,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-4",
+      "waveform": "DD-a-OFDM",
+      "Eb_N0_db": 5,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 129234,
+      "ber_estimate": 0.012324714660644531,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.012178344532085581,
+        0.01247108478920348
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 7.468000928256769e-05,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-4",
+      "waveform": "OFDM",
+      "Eb_N0_db": 10,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 47923,
+      "ber_estimate": 0.004570293426513672,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.004528275293445185,
+        0.004612311559582159
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 2.143821692639314e-05,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-4",
+      "waveform": "AFDM",
+      "Eb_N0_db": 10,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 50689,
+      "ber_estimate": 0.00483407974243164,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.00478872819399222,
+        0.004879431290871061
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 2.3138970306162852e-05,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-4",
+      "waveform": "OTFS",
+      "Eb_N0_db": 10,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 81858,
+      "ber_estimate": 0.007806587219238281,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.007750746764824254,
+        0.00786242767365231
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 2.8490551282824864e-05,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-4",
+      "waveform": "DD-a-OFDM",
+      "Eb_N0_db": 10,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 27059,
+      "ber_estimate": 0.002580547332763672,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0024682662313739207,
+        0.0026928284341534233
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 5.7287328887372586e-05,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-4",
+      "waveform": "OFDM",
+      "Eb_N0_db": 15,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 31,
+      "ber_estimate": 2.956390380859375e-06,
+      "frame_count": 214,
+      "error_frame_count": 29,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        1.9218477506677616e-06,
+        3.990933011050989e-06
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 5.278375716859873e-07,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-4",
+      "waveform": "AFDM",
+      "Eb_N0_db": 15,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 41,
+      "ber_estimate": 3.910064697265625e-06,
+      "frame_count": 214,
+      "error_frame_count": 37,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        2.708768459505397e-06,
+        5.1113609350258525e-06
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 6.12917506258227e-07,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-4",
+      "waveform": "OTFS",
+      "Eb_N0_db": 15,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 1988,
+      "ber_estimate": 0.0001895904541015625,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.00018106306957370714,
+        0.00019811783862941788
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 4.35078633848289e-06,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-4",
+      "waveform": "DD-a-OFDM",
+      "Eb_N0_db": 15,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 18704,
+      "ber_estimate": 0.00178375244140625,
+      "frame_count": 214,
+      "error_frame_count": 213,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0016845436670139258,
+        0.0018829612157985744
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 5.061765173996588e-05,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-4",
+      "waveform": "OFDM",
+      "Eb_N0_db": 20,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 0,
+      "ber_estimate": 0.0,
+      "frame_count": 214,
+      "error_frame_count": 0,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0,
+        0.01716957651094054
+      ],
+      "confidence_method": "conservative_complete_frame_zero_event_upper_bound",
+      "zero_error_label": "no_errors_observed",
+      "frame_standard_error": null,
+      "interval_note": "Upper bound is on the probability that a complete frame has any measured error; expected BER is no larger. Complete frames only, to exclude the partial tail. This deliberately allows arbitrary within-frame dependence and can be much wider than an iid-bit bound.",
+      "condition": "B-4",
+      "waveform": "AFDM",
+      "Eb_N0_db": 20,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 0,
+      "ber_estimate": 0.0,
+      "frame_count": 214,
+      "error_frame_count": 0,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0,
+        0.01716957651094054
+      ],
+      "confidence_method": "conservative_complete_frame_zero_event_upper_bound",
+      "zero_error_label": "no_errors_observed",
+      "frame_standard_error": null,
+      "interval_note": "Upper bound is on the probability that a complete frame has any measured error; expected BER is no larger. Complete frames only, to exclude the partial tail. This deliberately allows arbitrary within-frame dependence and can be much wider than an iid-bit bound.",
+      "condition": "B-4",
+      "waveform": "OTFS",
+      "Eb_N0_db": 20,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 0,
+      "ber_estimate": 0.0,
+      "frame_count": 214,
+      "error_frame_count": 0,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0,
+        0.01716957651094054
+      ],
+      "confidence_method": "conservative_complete_frame_zero_event_upper_bound",
+      "zero_error_label": "no_errors_observed",
+      "frame_standard_error": null,
+      "interval_note": "Upper bound is on the probability that a complete frame has any measured error; expected BER is no larger. Complete frames only, to exclude the partial tail. This deliberately allows arbitrary within-frame dependence and can be much wider than an iid-bit bound.",
+      "condition": "B-4",
+      "waveform": "DD-a-OFDM",
+      "Eb_N0_db": 20,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 16938,
+      "ber_estimate": 0.0016153335571289062,
+      "frame_count": 214,
+      "error_frame_count": 213,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.001517299287389611,
+        0.0017133678268682014
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 5.001840366076985e-05,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-4",
+      "waveform": "OFDM",
+      "Eb_N0_db": 25,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 0,
+      "ber_estimate": 0.0,
+      "frame_count": 214,
+      "error_frame_count": 0,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0,
+        0.01716957651094054
+      ],
+      "confidence_method": "conservative_complete_frame_zero_event_upper_bound",
+      "zero_error_label": "no_errors_observed",
+      "frame_standard_error": null,
+      "interval_note": "Upper bound is on the probability that a complete frame has any measured error; expected BER is no larger. Complete frames only, to exclude the partial tail. This deliberately allows arbitrary within-frame dependence and can be much wider than an iid-bit bound.",
+      "condition": "B-4",
+      "waveform": "AFDM",
+      "Eb_N0_db": 25,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 0,
+      "ber_estimate": 0.0,
+      "frame_count": 214,
+      "error_frame_count": 0,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0,
+        0.01716957651094054
+      ],
+      "confidence_method": "conservative_complete_frame_zero_event_upper_bound",
+      "zero_error_label": "no_errors_observed",
+      "frame_standard_error": null,
+      "interval_note": "Upper bound is on the probability that a complete frame has any measured error; expected BER is no larger. Complete frames only, to exclude the partial tail. This deliberately allows arbitrary within-frame dependence and can be much wider than an iid-bit bound.",
+      "condition": "B-4",
+      "waveform": "OTFS",
+      "Eb_N0_db": 25,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 0,
+      "ber_estimate": 0.0,
+      "frame_count": 214,
+      "error_frame_count": 0,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0,
+        0.01716957651094054
+      ],
+      "confidence_method": "conservative_complete_frame_zero_event_upper_bound",
+      "zero_error_label": "no_errors_observed",
+      "frame_standard_error": null,
+      "interval_note": "Upper bound is on the probability that a complete frame has any measured error; expected BER is no larger. Complete frames only, to exclude the partial tail. This deliberately allows arbitrary within-frame dependence and can be much wider than an iid-bit bound.",
+      "condition": "B-4",
+      "waveform": "DD-a-OFDM",
+      "Eb_N0_db": 25,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 16586,
+      "ber_estimate": 0.0015817642211914062,
+      "frame_count": 214,
+      "error_frame_count": 213,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0014788967614206942,
+        0.001684631680962118
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 5.2484362254672725e-05,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-4",
+      "waveform": "OFDM",
+      "Eb_N0_db": 30,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 0,
+      "ber_estimate": 0.0,
+      "frame_count": 214,
+      "error_frame_count": 0,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0,
+        0.01716957651094054
+      ],
+      "confidence_method": "conservative_complete_frame_zero_event_upper_bound",
+      "zero_error_label": "no_errors_observed",
+      "frame_standard_error": null,
+      "interval_note": "Upper bound is on the probability that a complete frame has any measured error; expected BER is no larger. Complete frames only, to exclude the partial tail. This deliberately allows arbitrary within-frame dependence and can be much wider than an iid-bit bound.",
+      "condition": "B-4",
+      "waveform": "AFDM",
+      "Eb_N0_db": 30,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 0,
+      "ber_estimate": 0.0,
+      "frame_count": 214,
+      "error_frame_count": 0,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0,
+        0.01716957651094054
+      ],
+      "confidence_method": "conservative_complete_frame_zero_event_upper_bound",
+      "zero_error_label": "no_errors_observed",
+      "frame_standard_error": null,
+      "interval_note": "Upper bound is on the probability that a complete frame has any measured error; expected BER is no larger. Complete frames only, to exclude the partial tail. This deliberately allows arbitrary within-frame dependence and can be much wider than an iid-bit bound.",
+      "condition": "B-4",
+      "waveform": "OTFS",
+      "Eb_N0_db": 30,
+      "noiseless": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 0,
+      "ber_estimate": 0.0,
+      "frame_count": 214,
+      "error_frame_count": 0,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0,
+        0.01716957651094054
+      ],
+      "confidence_method": "conservative_complete_frame_zero_event_upper_bound",
+      "zero_error_label": "no_errors_observed",
+      "frame_standard_error": null,
+      "interval_note": "Upper bound is on the probability that a complete frame has any measured error; expected BER is no larger. Complete frames only, to exclude the partial tail. This deliberately allows arbitrary within-frame dependence and can be much wider than an iid-bit bound.",
+      "condition": "B-4",
+      "waveform": "DD-a-OFDM",
+      "Eb_N0_db": 30,
+      "noiseless": false
+    }
+  ],
+  "interpretation": "Same quota and paired frame inputs across waveforms/conditions/Eb/N0. No error-count early stop. Zero observed BER is not asserted to be true zero. Frame-cluster intervals allow within-frame dependence; zero-error bounds are deliberately conservative. Noiseless points are separate references, not finite Eb/N0 values."
+}
