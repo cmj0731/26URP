@@ -1,0 +1,308 @@
+{
+  "purpose": "Native estimated-channel construction and adjoint checks for the agreed processing scope; no pilot cancellation, MMSE solve, data decisions or BER.",
+  "numpy_version": "2.3.5",
+  "diagnostic_seed": 20261104,
+  "receiver_scope": "Public settings and receiver-reconstructed estimated taps only. True paths are used in mathematical controls and the simulation channel, never copied into receiver integration operators.",
+  "grid_shape": [
+    256,
+    64
+  ],
+  "block_native_matrix_shape": [
+    256,
+    256
+  ],
+  "block_native_matrix_count": 64,
+  "OTFS_conceptual_operator_shape": [
+    16384,
+    16384
+  ],
+  "OTFS_stored_useful_tap_array_bytes": 1572864,
+  "OTFS_hypothetical_dense_matrix_bytes": 4294967296,
+  "known_model_A_B_controls": [
+    {
+      "condition": "A",
+      "scheme": "OFDM",
+      "serial_channel_relative_error": 0.0,
+      "adjoint_inner_product_error": 2.523662829283156e-18,
+      "block_matrix_relative_error": 3.5981795397010646e-16,
+      "block_matrix_adjoint_relative_error": 3.5650040222593607e-16
+    },
+    {
+      "condition": "A",
+      "scheme": "AFDM",
+      "serial_channel_relative_error": 0.0,
+      "adjoint_inner_product_error": 3.1151585750993856e-18,
+      "block_matrix_relative_error": 5.048818989852021e-16,
+      "block_matrix_adjoint_relative_error": 5.505365076280431e-16
+    },
+    {
+      "condition": "A",
+      "scheme": "OTFS",
+      "serial_channel_relative_error": 0.0,
+      "adjoint_inner_product_error": 2.095492273434972e-18,
+      "block_matrix_relative_error": 0.0,
+      "block_matrix_adjoint_relative_error": 0.0
+    },
+    {
+      "condition": "A",
+      "scheme": "DD-a-OFDM",
+      "serial_channel_relative_error": 0.0,
+      "adjoint_inner_product_error": 2.523662829283156e-18,
+      "block_matrix_relative_error": 3.5981795397010646e-16,
+      "block_matrix_adjoint_relative_error": 3.5650040222593607e-16
+    },
+    {
+      "condition": "B-1",
+      "scheme": "OFDM",
+      "serial_channel_relative_error": 0.0,
+      "adjoint_inner_product_error": 2.161558482267389e-18,
+      "block_matrix_relative_error": 5.582362748362773e-16,
+      "block_matrix_adjoint_relative_error": 5.019517605674731e-16
+    },
+    {
+      "condition": "B-1",
+      "scheme": "AFDM",
+      "serial_channel_relative_error": 0.0,
+      "adjoint_inner_product_error": 5.034270899959521e-18,
+      "block_matrix_relative_error": 4.994646623697226e-16,
+      "block_matrix_adjoint_relative_error": 5.656585881712027e-16
+    },
+    {
+      "condition": "B-1",
+      "scheme": "OTFS",
+      "serial_channel_relative_error": 0.0,
+      "adjoint_inner_product_error": 3.863154175751728e-18,
+      "block_matrix_relative_error": 0.0,
+      "block_matrix_adjoint_relative_error": 0.0
+    },
+    {
+      "condition": "B-1",
+      "scheme": "DD-a-OFDM",
+      "serial_channel_relative_error": 0.0,
+      "adjoint_inner_product_error": 2.161558482267389e-18,
+      "block_matrix_relative_error": 5.582362748362773e-16,
+      "block_matrix_adjoint_relative_error": 5.019517605674731e-16
+    },
+    {
+      "condition": "B-2",
+      "scheme": "OFDM",
+      "serial_channel_relative_error": 0.0,
+      "adjoint_inner_product_error": 3.3547131870902476e-18,
+      "block_matrix_relative_error": 5.240406478397202e-16,
+      "block_matrix_adjoint_relative_error": 5.313546128524907e-16
+    },
+    {
+      "condition": "B-2",
+      "scheme": "AFDM",
+      "serial_channel_relative_error": 0.0,
+      "adjoint_inner_product_error": 2.705345941680915e-18,
+      "block_matrix_relative_error": 4.715460658541394e-16,
+      "block_matrix_adjoint_relative_error": 5.355013277992399e-16
+    },
+    {
+      "condition": "B-2",
+      "scheme": "OTFS",
+      "serial_channel_relative_error": 0.0,
+      "adjoint_inner_product_error": 3.6901892158920565e-18,
+      "block_matrix_relative_error": 0.0,
+      "block_matrix_adjoint_relative_error": 0.0
+    },
+    {
+      "condition": "B-2",
+      "scheme": "DD-a-OFDM",
+      "serial_channel_relative_error": 0.0,
+      "adjoint_inner_product_error": 3.3547131870902476e-18,
+      "block_matrix_relative_error": 5.240406478397202e-16,
+      "block_matrix_adjoint_relative_error": 5.313546128524907e-16
+    },
+    {
+      "condition": "B-3",
+      "scheme": "OFDM",
+      "serial_channel_relative_error": 0.0,
+      "adjoint_inner_product_error": 5.796293288852303e-18,
+      "block_matrix_relative_error": 5.366019620976534e-16,
+      "block_matrix_adjoint_relative_error": 5.615707433176272e-16
+    },
+    {
+      "condition": "B-3",
+      "scheme": "AFDM",
+      "serial_channel_relative_error": 0.0,
+      "adjoint_inner_product_error": 7.824603529511473e-18,
+      "block_matrix_relative_error": 5.146092965848065e-16,
+      "block_matrix_adjoint_relative_error": 5.042947153157163e-16
+    },
+    {
+      "condition": "B-3",
+      "scheme": "OTFS",
+      "serial_channel_relative_error": 0.0,
+      "adjoint_inner_product_error": 6.47111554030772e-18,
+      "block_matrix_relative_error": 0.0,
+      "block_matrix_adjoint_relative_error": 0.0
+    },
+    {
+      "condition": "B-3",
+      "scheme": "DD-a-OFDM",
+      "serial_channel_relative_error": 0.0,
+      "adjoint_inner_product_error": 5.796293288852303e-18,
+      "block_matrix_relative_error": 5.366019620976534e-16,
+      "block_matrix_adjoint_relative_error": 5.615707433176272e-16
+    },
+    {
+      "condition": "B-4",
+      "scheme": "OFDM",
+      "serial_channel_relative_error": 0.0,
+      "adjoint_inner_product_error": 8.640392259792621e-19,
+      "block_matrix_relative_error": 5.447332770573164e-16,
+      "block_matrix_adjoint_relative_error": 4.9802847687131e-16
+    },
+    {
+      "condition": "B-4",
+      "scheme": "AFDM",
+      "serial_channel_relative_error": 0.0,
+      "adjoint_inner_product_error": 3.872679231961693e-18,
+      "block_matrix_relative_error": 5.16705588850082e-16,
+      "block_matrix_adjoint_relative_error": 5.352195897632105e-16
+    },
+    {
+      "condition": "B-4",
+      "scheme": "OTFS",
+      "serial_channel_relative_error": 0.0,
+      "adjoint_inner_product_error": 7.491033674821639e-18,
+      "block_matrix_relative_error": 0.0,
+      "block_matrix_adjoint_relative_error": 0.0
+    },
+    {
+      "condition": "B-4",
+      "scheme": "DD-a-OFDM",
+      "serial_channel_relative_error": 0.0,
+      "adjoint_inner_product_error": 8.640392259792621e-19,
+      "block_matrix_relative_error": 5.447332770573164e-16,
+      "block_matrix_adjoint_relative_error": 4.9802847687131e-16
+    }
+  ],
+  "general_time_varying_six_tap_controls": [
+    {
+      "scheme": "OFDM",
+      "serial_channel_relative_error": 0.0,
+      "adjoint_inner_product_error": 2.723956774569191e-18,
+      "block_matrix_relative_error": 5.225192491178131e-16,
+      "block_matrix_adjoint_relative_error": 5.305542866733894e-16
+    },
+    {
+      "scheme": "AFDM",
+      "serial_channel_relative_error": 0.0,
+      "adjoint_inner_product_error": 6.207191261555631e-18,
+      "block_matrix_relative_error": 5.765281874586085e-16,
+      "block_matrix_adjoint_relative_error": 5.377070553806491e-16
+    },
+    {
+      "scheme": "OTFS",
+      "serial_channel_relative_error": 0.0,
+      "adjoint_inner_product_error": 4.41047748273726e-18,
+      "block_matrix_relative_error": 0.0,
+      "block_matrix_adjoint_relative_error": 0.0
+    },
+    {
+      "scheme": "DD-a-OFDM",
+      "serial_channel_relative_error": 0.0,
+      "adjoint_inner_product_error": 2.723956774569191e-18,
+      "block_matrix_relative_error": 5.225192491178131e-16,
+      "block_matrix_adjoint_relative_error": 5.305542866733894e-16
+    }
+  ],
+  "small_OTFS_dense_reference": {
+    "grid_shape": [
+      8,
+      4
+    ],
+    "matrix_shape": [
+      32,
+      32
+    ],
+    "forward_relative_error": 3.3714459140259504e-16,
+    "adjoint_relative_error": 3.3098841002509354e-16
+  },
+  "fractional_Doppler_OTFS_nonzero_Doppler_bins": 64,
+  "short_prefix_negative_control_rejected": true,
+  "estimated_tap_integration": [
+    {
+      "condition": "A",
+      "scheme": "OFDM",
+      "diagnostic_Eb_N0_db": 20,
+      "estimated_channel_prediction_relative_error": 0.0,
+      "adjoint_inner_product_error": 7.245068002347683e-18,
+      "block_matrix_relative_error": 5.472594948370879e-16,
+      "block_matrix_adjoint_relative_error": 5.032907062376716e-16
+    },
+    {
+      "condition": "A",
+      "scheme": "AFDM",
+      "diagnostic_Eb_N0_db": 20,
+      "estimated_channel_prediction_relative_error": 0.0,
+      "adjoint_inner_product_error": 3.2973180077774354e-18,
+      "block_matrix_relative_error": 6.806917368556467e-16,
+      "block_matrix_adjoint_relative_error": 5.781388486140492e-16
+    },
+    {
+      "condition": "A",
+      "scheme": "OTFS",
+      "diagnostic_Eb_N0_db": 20,
+      "estimated_channel_prediction_relative_error": 0.0,
+      "adjoint_inner_product_error": 6.2817443278067815e-18,
+      "block_matrix_relative_error": 0.0,
+      "block_matrix_adjoint_relative_error": 0.0
+    },
+    {
+      "condition": "A",
+      "scheme": "DD-a-OFDM",
+      "diagnostic_Eb_N0_db": 20,
+      "estimated_channel_prediction_relative_error": 0.0,
+      "adjoint_inner_product_error": 4.761712799360932e-18,
+      "block_matrix_relative_error": 5.533414946385095e-16,
+      "block_matrix_adjoint_relative_error": 5.452221708301134e-16
+    },
+    {
+      "condition": "B-4",
+      "scheme": "OFDM",
+      "diagnostic_Eb_N0_db": 20,
+      "estimated_channel_prediction_relative_error": 0.0,
+      "adjoint_inner_product_error": 4.634168666791167e-18,
+      "block_matrix_relative_error": 5.454310034441824e-16,
+      "block_matrix_adjoint_relative_error": 5.12399006389568e-16
+    },
+    {
+      "condition": "B-4",
+      "scheme": "AFDM",
+      "diagnostic_Eb_N0_db": 20,
+      "estimated_channel_prediction_relative_error": 0.0,
+      "adjoint_inner_product_error": 1.936200972789106e-18,
+      "block_matrix_relative_error": 5.372709704880924e-16,
+      "block_matrix_adjoint_relative_error": 5.429020787278707e-16
+    },
+    {
+      "condition": "B-4",
+      "scheme": "OTFS",
+      "diagnostic_Eb_N0_db": 20,
+      "estimated_channel_prediction_relative_error": 0.0,
+      "adjoint_inner_product_error": 2.4284089720495137e-18,
+      "block_matrix_relative_error": 0.0,
+      "block_matrix_adjoint_relative_error": 0.0
+    },
+    {
+      "condition": "B-4",
+      "scheme": "DD-a-OFDM",
+      "diagnostic_Eb_N0_db": 20,
+      "estimated_channel_prediction_relative_error": 0.0,
+      "adjoint_inner_product_error": 1.929261100530867e-18,
+      "block_matrix_relative_error": 5.598273229879781e-16,
+      "block_matrix_adjoint_relative_error": 5.029948084459192e-16
+    }
+  ],
+  "limits": [
+    "Known channel controls validate algebra only; integration uses actual pilot estimates with their errors retained. Matching an operator to its estimated serial channel does not prove channel-estimation accuracy.",
+    "Per-slot CP-covered integer delays and aligned receive windows are required. Fractional delays, timing uncertainty or filters need a separate operator review.",
+    "Native matrix sizes cover all useful grid cells before a data-only reduction. Pilot treatment, unknown-data covariance, noise-variance knowledge, MMSE solver/tolerances and complete BER remain pending.",
+    "All modeled couplings are retained; the implicit DD representation introduces no Doppler-kernel truncation or one-tap equalizer approximation.",
+    "These are small implementation controls, not the fixed BER bit quota, an MMSE performance comparison or a four-waveform ranking."
+  ]
+}
