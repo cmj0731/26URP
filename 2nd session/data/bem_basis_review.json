@@ -1,5 +1,5 @@
 {
-  "purpose": "Candidate basis review; no basis or function count is selected.",
+  "purpose": "Candidate basis diagnostic; initial receiver design decisions are recorded separately in scenario.json.",
   "numpy_version": "2.3.5",
   "window_blocks": 64,
   "transmitted_sample_count": 16704,
@@ -205,6 +205,6 @@
     "All bases are fixed from the design envelope, without using actual per-path Dopplers.",
     "The pilot-component matrix includes the current native transforms, fixed pilots, integer delays and CP clock. It omits unknown-data ICI and observation noise.",
     "Full rank does not establish accurate noisy pilot-based channel estimation; noise gain is for an ideal white-observation-noise model only.",
-    "Diagnostic counts 3/5/27/29/30/31 are not adopted BEM parameters. DPSS includes an even count; odd counts are not a DPSS requirement."
+    "Diagnostic counts 3/5/27/29/30/31 are comparison probes; the selected initial basis and count are recorded separately in scenario.json. DPSS includes an even count; odd counts are not a DPSS requirement."
   ]
 }

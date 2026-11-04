@@ -331,12 +331,12 @@
     "interference_modeling": "The agreed target is matrix-based linear MMSE accounting for interference represented by each estimated channel operator. How OFDM obtains its ICI terms, the other native matrix constructions and their processing extents remain to be designed; a common algorithm name alone does not establish equal receiver capability.",
     "channel_estimation_selection": {
       "OFDM": {
-        "status": "BEM_LS_candidate_frame_window_agreed_basis_and_feasibility_pending",
+        "status": "BEM_LS_candidate_frame_window_and_initial_basis_agreed_feasibility_pending",
         "observation_domain": "TF",
         "algorithm": null,
         "candidate_algorithm": "BEM_based_LS",
         "candidate_design": {
-          "status": "estimation_window_agreed_not_implemented",
+          "status": "estimation_window_and_initial_basis_agreed_not_implemented",
           "scope": "first_pilot_based_three_path_A_B_comparison",
           "processing_window": {
             "status": "agreed_2026_11_04",
@@ -368,23 +368,25 @@
             "reference_url": "https://www.jstage.jst.go.jp/article/transcom/E95.B/10/E95.B_3252/_article/-char/en",
             "reference_scope": "Literature precedent for multi-block BEM channel estimation and LS; our 64-block length follows this project's frame, pilot lattice and channel assumptions, not a prescribed value from the paper."
           },
-          "basis_type": null,
-          "basis_function_count": null,
+          "basis_type": "DPSS_Slepian",
+          "basis_function_count": 31,
           "basis_review": {
-            "status": "initial_literature_and_numerical_review_completed_no_basis_or_count_selected",
+            "status": "review_completed_initial_DPSS_31_agreed_validation_pending",
             "date_local": "2026-11-04",
             "candidate_families": ["Legendre polynomial", "DFT-grid complex exponential", "DPSS/Slepian"],
-            "recommendation_pending_user_selection": "Propose DPSS/Slepian with 31 functions as the initial candidate among 29, 30 and 31, prioritizing lower representation error at the maximum residual Doppler. Keep 29 and 30 as validation alternatives and retain DFT-grid complex exponentials as a comparison. This is not an optimum or a validated estimator, and basis_type and basis_function_count remain unselected pending discussion.",
+            "selection_summary": "The user agreed to DPSS/Slepian with 31 functions as the initial basis after comparing 29, 30 and 31. Prioritize lower representation error at the maximum residual Doppler; keep 29 and 30 as validation alternatives and retain DFT-grid complex exponentials as a comparison. This initial choice is not a demonstrated optimum or a validated estimator.",
             "script": "review_bem_basis.py",
             "report": "data/bem_basis_review.json",
             "design_envelope": "Use the existing whole-frame CP-inclusive clock and fixed +/-46875-Hz maximum residual envelope, without adapting the basis to an actual path Doppler or Doppler test level.",
-            "diagnostic_counts_not_selected": [3, 5, 27, 29, 30, 31],
-            "initial_count_proposal": {
-              "status": "proposal_not_selected",
+            "diagnostic_counts_evaluated": [3, 5, 27, 29, 30, 31],
+            "initial_basis_decision": {
+              "status": "agreed_initial_design_validation_pending",
               "date_local": "2026-11-04",
               "basis_family": "DPSS_Slepian",
-              "proposed_count": 31,
+              "selected_count": 31,
               "compared_counts": [29, 30, 31],
+              "validation_alternative_counts": [29, 30],
+              "user_agreement": "The user accepted 31 as the initial value after reviewing the added 30-function result and the representation/noise-sensitivity tradeoff.",
               "reason": "Among these candidates, 31 gives the smallest worst-case best-fit trajectory error over the 401 diagnostic Dopplers. Prioritizing representation fidelity at the maximum residual Doppler is a design judgment for the first implementation, not a measured BER optimum.",
               "tradeoff": "The worst relative L2 errors for 29/30/31 are approximately 9.91/3.92/1.46 percent, while ideal white-observation-noise channel-MSE gains relative to 29 are 1/1.85/3.22. More functions reduce representation error but increase this LS noise-sensitivity metric.",
               "even_count_note": "30 is a valid DPSS count and was explicitly evaluated. The original odd diagnostic counts aligned with the symmetric integer-frequency complex-exponential comparison and are not a DPSS parity requirement.",
@@ -394,8 +396,8 @@
             "limitations": "Best-fit single-tone representation and pilot-component matrix rank/conditioning are diagnostics, not a completed pilot-based estimator. Unknown-data ICI, actual estimation bias/noise, and BER still require validation. Full rank alone is insufficient.",
             "sources": ["https://thomaszemen.org/papers/Zemen05-IEEETrSignalProcessing.pdf", "https://www.jstage.jst.go.jp/article/transcom/E95.B/10/E95.B_3252/_article/-char/en"]
           },
-          "pending_design": ["basis family and number of functions", "delay support and other shared receiver design priors", "pilot-observation model including unknown-data ICI", "coefficient identifiability and conditioning for the selected TF mask", "model approximation error across all residual Doppler levels", "prediction error on pilot-free blocks, including frame-end block 63", "TF channel-matrix reconstruction, equalizer details and receiver implementation"],
-          "selection_note": "Only the BEM candidate's estimation window is confirmed here. The full channel-estimation algorithm remains provisional until the basis, model order and pilot-based feasibility are reviewed."
+          "pending_design": ["validation of the agreed initial DPSS 31-function basis under actual pilot observations", "delay support and other shared receiver design priors", "pilot-observation model including unknown-data ICI", "coefficient identifiability and conditioning for the selected TF mask", "model approximation error across all residual Doppler levels", "prediction error on pilot-free blocks, including frame-end block 63", "TF channel-matrix reconstruction, equalizer details and receiver implementation"],
+          "selection_note": "The BEM candidate's one-frame, 64-block estimation window and initial DPSS/Slepian basis with 31 functions are agreed. The full channel-estimation algorithm remains provisional until the observation model, shared receiver priors and pilot-based feasibility are resolved and validated."
         }
       },
       "AFDM": {"status": "not_selected", "observation_domain": "DAFT", "algorithm": null},
@@ -403,7 +405,7 @@
       "DD-a-OFDM": {"status": "initial_algorithm_agreed_not_implemented", "algorithm_ref": "waveform_design.DD-a-OFDM.receiver_design.channel_estimator"}
     },
     "existing_DD_a_design": "Preserve the selected DD-ML alternating-projection estimator and ICI-aware 256-by-256 TF linear-MMSE matrix for each of 64 symbols. The new common-family choice does not replace that design.",
-    "pending_design": ["OFDM BEM candidate basis/order and pilot-based feasibility; AFDM/OTFS channel-estimation algorithms", "estimated-channel matrix reconstruction and equalizer processing extent for OFDM/AFDM/OTFS", "pilot contribution handling and data-domain covariance accounting", "noise-variance knowledge or estimation policy", "numerical solver and any stopping settings", "receiver validation and BER implementation"],
+    "pending_design": ["OFDM BEM candidate observation model and pilot-based validation of the agreed initial DPSS 31-function basis; AFDM/OTFS channel-estimation algorithms", "estimated-channel matrix reconstruction and equalizer processing extent for OFDM/AFDM/OTFS", "pilot contribution handling and data-domain covariance accounting", "noise-variance knowledge or estimation policy", "numerical solver and any stopping settings", "receiver validation and BER implementation"],
     "baseline_scope": "The initial single-path LOS plus AWGN validation and its perfect common-frequency correction remain unchanged. This policy does not grant perfect multipath channel knowledge.",
     "reference_url": "https://arxiv.org/pdf/2508.04253v2#page=13",
     "reference_basis": "Section V-D uses ICI-aware MMSE equalizers for the OFDM/DD-a-OFDM comparison. Extending the linear-MMSE family to all four native receivers is our agreed experimental choice; it does not require copying a source paper's estimator or detector for every waveform.",
@@ -424,7 +426,7 @@
     "parameter_estimation_rule": "Obtain the channel response or path parameters from the agreed pilot observations. Do not copy the actual 0/2/5-sample delays, per-path Dopplers, or complex gains from the channel generator into the receivers.",
     "purpose": "First compare channel-parameter estimation and BER without adding path-count detection errors. State this known-count assumption in reported results; equal path-count information alone does not settle other fairness conditions.",
     "baseline_scope": "This policy does not change the initial single-path LOS AWGN baseline or its perfect common-Doppler knowledge and compensation. Future multipath compensation details remain to be discussed.",
-    "remaining_receiver_design": "Linear MMSE is the agreed equalizer family for all four schemes. DD-a-OFDM's DD-ML estimator and TF matrix equalizer remain selected. OFDM's BEM-LS candidate has an agreed one-frame, 64-block estimation window; its basis/order and feasibility, AFDM/OTFS estimators, matrix reconstruction and equalizer processing extents, noise-variance information, search bounds, solver settings and receiver implementation remain pending. Pilot masks, values and energy allocation are already implemented.",
+    "remaining_receiver_design": "Linear MMSE is the agreed equalizer family for all four schemes. DD-a-OFDM's DD-ML estimator and TF matrix equalizer remain selected. OFDM's BEM-LS candidate has an agreed one-frame, 64-block estimation window and initial DPSS/Slepian basis with 31 functions. Its observation model and pilot-based feasibility, AFDM/OTFS estimators, matrix reconstruction and equalizer processing extents, noise-variance information, search bounds, solver settings and receiver implementation remain pending. Pilot masks, values and energy allocation are already implemented.",
     "path_count_estimation_followup": {
       "status": "deferred_method_and_parameters_pending_not_implemented",
       "purpose": "Replace the known count with a receiver-estimated count and compare against the known-count reference. Assess missed or spurious paths and their impact on parameter estimation and BER.",

@@ -1,8 +1,9 @@
-"""Review BEM basis candidates without selecting a receiver configuration.
+"""Review BEM basis candidates without changing the receiver configuration.
 
 Compare finite-window trajectory representation and the exact TF response of
 the known pilot component. Unknown-data ICI, channel estimation and BER are
-outside this diagnostic. Function counts below are probes, not selected values.
+outside this diagnostic. Counts below are comparison probes; initial receiver
+design decisions are recorded separately in scenario.json.
 Only NumPy is required. DPSS are computed by spectral quadrature and checked
 against the exact prolate Toeplitz eigenproblem using an FFT product.
 """
@@ -77,7 +78,7 @@ def main():
     # A diagnostic span from zero through CP, not the true three path locations.
     delays = list(range(cp + 1))
     report = {
-        "purpose": "Candidate basis review; no basis or function count is selected.",
+        "purpose": "Candidate basis diagnostic; initial receiver design decisions are recorded separately in scenario.json.",
         "numpy_version": np.__version__,
         "window_blocks": blocks,
         "transmitted_sample_count": length,
@@ -99,7 +100,7 @@ def main():
             "All bases are fixed from the design envelope, without using actual per-path Dopplers.",
             "The pilot-component matrix includes the current native transforms, fixed pilots, integer delays and CP clock. It omits unknown-data ICI and observation noise.",
             "Full rank does not establish accurate noisy pilot-based channel estimation; noise gain is for an ideal white-observation-noise model only.",
-            "Diagnostic counts 3/5/27/29/30/31 are not adopted BEM parameters. DPSS includes an even count; odd counts are not a DPSS requirement.",
+            "Diagnostic counts 3/5/27/29/30/31 are comparison probes; the selected initial basis and count are recorded separately in scenario.json. DPSS includes an even count; odd counts are not a DPSS requirement.",
         ],
     }
     families = [("Legendre_polynomial", polynomials, [3, 5, 27, 29, 31]),
