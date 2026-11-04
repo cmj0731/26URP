@@ -1,0 +1,109 @@
+{
+  "exact_full_bit_quota": 10485760,
+  "baseline_frame_count": 160,
+  "pilot_frame_count": 214,
+  "pilot_tail_bits": 16384,
+  "zero_error_confidence": {
+    "measured_information_bits": 10485760,
+    "bit_errors": 0,
+    "ber_estimate": 0.0,
+    "frame_count": 214,
+    "error_frame_count": 0,
+    "confidence_level": 0.95,
+    "confidence_interval": [
+      0.0,
+      0.01716957651094054
+    ],
+    "confidence_method": "conservative_complete_frame_zero_event_upper_bound",
+    "zero_error_label": "no_errors_observed",
+    "frame_standard_error": null,
+    "interval_note": "Upper bound is on the probability that a complete frame has any measured error; expected BER is no larger. Complete frames only, to exclude the partial tail. This deliberately allows arbitrary within-frame dependence and can be much wider than an iid-bit bound."
+  },
+  "accelerated_reference_controls": [
+    {
+      "scheme": "OFDM",
+      "variance": 0.25,
+      "solution_relative_difference": 5.096637639901664e-16,
+      "gain_max_difference": 2.220446049250313e-16,
+      "backend": "exact_sparse_time_Schur_or_dense_Cholesky_with_SVD_rank_fallback"
+    },
+    {
+      "scheme": "OFDM",
+      "variance": 0.0025,
+      "solution_relative_difference": 6.262478601112566e-16,
+      "gain_max_difference": 4.440892098500626e-16,
+      "backend": "exact_sparse_time_Schur_or_dense_Cholesky_with_SVD_rank_fallback"
+    },
+    {
+      "scheme": "OFDM",
+      "variance": 0.0,
+      "solution_relative_difference": 8.479693894851449e-16,
+      "gain_max_difference": 0.0,
+      "backend": "exact_sparse_time_Schur_or_dense_Cholesky_with_SVD_rank_fallback"
+    },
+    {
+      "scheme": "AFDM",
+      "variance": 0.25,
+      "solution_relative_difference": 6.030111119352018e-16,
+      "gain_max_difference": 2.220446049250313e-16,
+      "backend": "exact_sparse_time_Schur_or_dense_Cholesky_with_SVD_rank_fallback"
+    },
+    {
+      "scheme": "AFDM",
+      "variance": 0.0025,
+      "solution_relative_difference": 6.021985121161146e-16,
+      "gain_max_difference": 2.220446049250313e-16,
+      "backend": "exact_sparse_time_Schur_or_dense_Cholesky_with_SVD_rank_fallback"
+    },
+    {
+      "scheme": "AFDM",
+      "variance": 0.0,
+      "solution_relative_difference": 1.0070992091880206e-15,
+      "gain_max_difference": 0.0,
+      "backend": "exact_sparse_time_Schur_or_dense_Cholesky_with_SVD_rank_fallback"
+    },
+    {
+      "scheme": "OTFS",
+      "variance": 0.25,
+      "solution_relative_difference": 0.0,
+      "gain_max_difference": 0.0,
+      "backend": "full_frame_CG"
+    },
+    {
+      "scheme": "OTFS",
+      "variance": 0.0025,
+      "solution_relative_difference": 0.0,
+      "gain_max_difference": 0.0,
+      "backend": "full_frame_CG"
+    },
+    {
+      "scheme": "OTFS",
+      "variance": 0.0,
+      "solution_relative_difference": 0.0,
+      "gain_max_difference": 0.0,
+      "backend": "full_frame_LSQR"
+    },
+    {
+      "scheme": "DD-a-OFDM",
+      "variance": 0.25,
+      "solution_relative_difference": 5.153761312781666e-16,
+      "gain_max_difference": 2.220446049250313e-16,
+      "backend": "exact_sparse_time_Schur_or_dense_Cholesky_with_SVD_rank_fallback"
+    },
+    {
+      "scheme": "DD-a-OFDM",
+      "variance": 0.0025,
+      "solution_relative_difference": 5.775244960496423e-16,
+      "gain_max_difference": 4.440892098500626e-16,
+      "backend": "exact_sparse_time_Schur_or_dense_Cholesky_with_SVD_rank_fallback"
+    },
+    {
+      "scheme": "DD-a-OFDM",
+      "variance": 0.0,
+      "solution_relative_difference": 8.991682581613318e-16,
+      "gain_max_difference": 0.0,
+      "backend": "exact_sparse_time_Schur_or_dense_Cholesky_with_SVD_rank_fallback"
+    }
+  ],
+  "scope": "Exact numerical rearrangements and accounting only; no physical or receiver-information changes."
+}

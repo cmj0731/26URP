@@ -52,6 +52,13 @@ def effective_symbol_gain(problem):
         raise ValueError("The selected OTFS data mask must share delay rows across Doppler columns.")
     channel = model.channel
     rows = np.flatnonzero(mask[:, 0])
+    try:
+        from fast_mmse import otfs_gain
+        accelerated = otfs_gain(problem)
+        if accelerated is not None and np.isfinite(accelerated).all() and np.all(accelerated >= 0):
+            return accelerated
+    except (ImportError, RuntimeError, np.linalg.LinAlgError):
+        pass
     length, blocks = problem.grid_shape
     grid_gain = np.zeros(rows.size)
     receive_rows = np.arange(length)
@@ -73,6 +80,8 @@ def recover_data_bits(problem, solve_result, *, return_gain=False):
     symbols = solve_result.require_converged()
     if symbols.shape != (problem.data_count,):
         raise ValueError("The solved symbol vector and data model disagree.")
-    gains = effective_symbol_gain(problem)
+    gains = solve_result.effective_gain
+    if gains is None:
+        gains = effective_symbol_gain(problem)
     bits = hard_demodulate(symbols, gains)
     return (bits, gains) if return_gain else bits

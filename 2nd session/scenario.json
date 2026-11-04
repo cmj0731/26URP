@@ -1304,7 +1304,7 @@
     },
     "initial_stage_interpretation": "Check basic transmitter/receiver behavior and energy/noise normalization against the common uncoded Gray-mapped 16-QAM AWGN reference under ideal processing. Similar BER is expected for matched ideal implementations; no Doppler-robustness ranking is inferred at this stage.",
     "monte_carlo_measurement": {
-      "status": "fixed_bit_budget_agreed_not_implemented",
+      "status": "fixed_bit_budget_runner_implemented_initial_validation_in_progress",
       "scope": "per_waveform_per_received_Eb_N0_per_channel_condition",
       "stopping_rule": "fixed_information_bit_count",
       "information_bits_per_measurement": 10485760,
@@ -1315,13 +1315,13 @@
       "frames_per_measurement_if_all_grid_cells_carry_data": 160,
       "framing_note": "The 160-frame equivalence assumes all 256*64 grid cells carry uncoded 16-QAM data. Recompute framing when pilots or reserved cells are introduced while preserving the common information-bit quota; this decision does not select their allocation.",
       "pilot_stage_framing_budget": {
-        "status": "derived_from_agreed_budget_and_masks_tail_handling_pending",
+        "status": "derived_frame_plan_and_exact_prefix_tail_accounting_implemented",
         "budget_ref": "pilot_comparison_policy.initial_budget",
         "data_bits_per_full_frame": 49152,
         "complete_frames_before_tail": 213,
         "remaining_measured_information_bits": 16384,
         "frames_if_all_full_frames_use_the_budget": 214,
-        "note": "Arithmetic for the agreed masks' 12288 data cells with 4 bits per symbol and the unchanged 10485760-bit quota. Final-frame padding/measurement handling remains to be designed; do not round the bit quota or count pilots/guards/padding as measured information bits."
+        "note": "Transmit and decode 214 ordinary full random-data frames. Count all 49152 bits in the first 213 and only the first 16384 information bits in the last frame. The uncounted suffix remains unknown random data, not zero/known padding; resource use and interference remain unchanged. Apply the same selection to all four waveforms; do not round the quota or count pilots/guards/calibration."
       },
       "budget_basis": "An initial approximately ten-million-bit budget gives about 100 expected errors if the true BER is 1e-5. This is a rough precision planning basis, not an error-count stopping target, a guaranteed error count, or a guarantee of precision at lower BER.",
       "expected_errors_at_ber_1e_minus_5": 104.8576,
@@ -1330,9 +1330,13 @@
         "zero_error_label": "no_errors_observed",
         "zero_error_interpretation": "Record zero observed errors and the measured bit count without asserting that the true BER is exactly zero; report uncertainty using the selected interval method.",
         "confidence_interval": {
-          "status": "details_pending",
-          "level": null,
-          "method": null
+          "status": "95_percent_frame_based_reporting_accepted_implementation_in_validation",
+          "level": 0.95,
+          "method": "approximate_CR1_frame_cluster_normal_with_conservative_zero_error_bound",
+          "positive_error_rule": "Treat independently generated frames as clusters. For p=sum(e_i)/sum(n_i), use SE=sqrt(G/(G-1)*sum((e_i-p*n_i)^2))/sum(n_i) and the 95-percent standard-normal critical value; clip to [0,1]. This is a large-independent-frame approximation, not an exact iid-bit interval. Report error-bearing frame count to expose sparse-error uncertainty.",
+          "zero_error_rule": "Do not return a zero-width bootstrap/normal interval. Using only M complete frames with no observed error, the two-sided 95-percent zero-event binomial upper limit on frame-error probability is 1-(0.025)^(1/M). Expected BER is no greater than frame-error probability, so [0,upper] is a conservative BER interval allowing arbitrary within-frame dependence. The partial tail is excluded from M. The resulting bound is intentionally wider than an iid-bit bound.",
+          "implementation": "ber_statistics.py: summarize_frames",
+          "references": ["https://cameron.econ.ucdavis.edu/research/Cameron_Miller_JHR_2015.pdf", "https://www.itl.nist.gov/div898/software/dataplot/refman2/auxillar/exacbici.htm"]
         }
       }
     },

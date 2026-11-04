@@ -53,14 +53,15 @@ class NativeChannelOperator:
 
     def _to_time(self, grid):
         if self.scheme == "OTFS":
-            return otfs.modulate(grid).reshape(self.grid_shape,order="F")
+            # Exact inverse-Zak identity: the frequency FFT/IFFT cancel.
+            return np.fft.ifft(grid,axis=1,norm="ortho")
         if self.scheme == "AFDM":
             return self.chirp1[:,None]*np.fft.ifft(self.chirp2[:,None]*grid,axis=0,norm="ortho")
         return np.fft.ifft(grid,axis=0,norm="ortho")
 
     def _from_time(self, grid):
         if self.scheme == "OTFS":
-            return otfs.demodulate(grid.reshape(-1,order="F"),self.length,self.blocks)
+            return np.fft.fft(grid,axis=1,norm="ortho")
         if self.scheme == "AFDM":
             return self.chirp2.conj()[:,None]*np.fft.fft(self.chirp1.conj()[:,None]*grid,axis=0,norm="ortho")
         return np.fft.fft(grid,axis=0,norm="ortho")

@@ -1,0 +1,65 @@
+<!doctype html><html lang="ko"><meta charset="utf-8"><title>네 방식 BER 비교</title><style>body{font:15px system-ui;max-width:1400px;margin:36px auto;padding:0 20px;color:#202733}img{width:100%;height:auto}table{border-collapse:collapse;width:100%;font-size:13px}th,td{padding:8px;border-bottom:1px solid #dce2eb;text-align:left}th{background:#eef2f7;position:sticky;top:0}h2{margin-top:40px}p{max-width:1100px;line-height:1.7}small{color:#576475}summary{cursor:pointer;font-weight:600;padding:16px 0}details{overflow-x:auto}</style><body><h1>OFDM · AFDM · OTFS · DD-a-OFDM BER 비교</h1><p>각 방식·조건·Eb/N0에서 <strong>10,485,760 정보 비트</strong>를 측정했다. 데이터 심볼 에너지 Es=1, 비부호화 Gray 16-QAM이며, Eb/N0는 수신 데이터 심볼 에너지 기준이다.</p><p>신뢰구간은 독립적으로 다시 생성한 프레임을 기준으로 계산한 점별 95% 구간이다. 양의 오류 수에는 근사 군집 표준오차를, 오류 0개에는 완전한 프레임의 오류 사건에 대한 보수적 상한을 쓴다. 프레임 내부 비트 독립을 가정하지 않아 오류 미관측 구간의 상한은 넓을 수 있다. 오류가 관측되지 않았다는 사실이 정확한 BER 0이나 방식 간 동등성을 증명하지는 않는다.</p><p>그래프의 빈 아래 삼각형은 오류 미관측을 1/N 위치에 표시한 것으로, BER 추정치나 신뢰 상한이 아니다. 양의 BER에는 신뢰구간 막대를 표시하며, 실제 구간과 오류 발생 프레임 수는 아래 표에 있다.</p><h2>단일 LOS 기준 검증</h2><p>최고점·이탈 시점의 공통 도플러를 완전히 보정했다. CP·파일럿 없는 단위 이득 채널에서 네 파형이 같은 16-QAM AWGN 이론 기준을 따르는지 확인하는 실행이다.</p><img src="baseline.svg" alt="단일 LOS BER 기준 검증"><details><summary>단일 LOS 전체 수치와 신뢰구간</summary><table><tr><th>조건</th><th>방식</th><th>Eb/N0</th><th>오류 수 / 측정 비트</th><th>관측 BER</th><th>95% 프레임 기준 구간</th></tr>
+<tr><td>peak</td><td>OFDM</td><td>AWGN 없음</td><td>0 / 10,485,760</td><td>오류 미관측</td><td>[0, 0.022792]<br><small>오류 발생 프레임 0/160</small></td></tr>
+<tr><td>peak</td><td>AFDM</td><td>AWGN 없음</td><td>0 / 10,485,760</td><td>오류 미관측</td><td>[0, 0.022792]<br><small>오류 발생 프레임 0/160</small></td></tr>
+<tr><td>peak</td><td>OTFS</td><td>AWGN 없음</td><td>0 / 10,485,760</td><td>오류 미관측</td><td>[0, 0.022792]<br><small>오류 발생 프레임 0/160</small></td></tr>
+<tr><td>peak</td><td>DD-a-OFDM</td><td>AWGN 없음</td><td>0 / 10,485,760</td><td>오류 미관측</td><td>[0, 0.022792]<br><small>오류 발생 프레임 0/160</small></td></tr>
+<tr><td>peak</td><td>OFDM</td><td>0 dB</td><td>1,479,679 / 10,485,760</td><td>0.141113</td><td>[0.14092, 0.14131]<br><small>오류 발생 프레임 160/160</small></td></tr>
+<tr><td>peak</td><td>AFDM</td><td>0 dB</td><td>1,477,690 / 10,485,760</td><td>0.140924</td><td>[0.14072, 0.14113]<br><small>오류 발생 프레임 160/160</small></td></tr>
+<tr><td>peak</td><td>OTFS</td><td>0 dB</td><td>1,478,736 / 10,485,760</td><td>0.141023</td><td>[0.14083, 0.14121]<br><small>오류 발생 프레임 160/160</small></td></tr>
+<tr><td>peak</td><td>DD-a-OFDM</td><td>0 dB</td><td>1,479,679 / 10,485,760</td><td>0.141113</td><td>[0.14092, 0.14131]<br><small>오류 발생 프레임 160/160</small></td></tr>
+<tr><td>peak</td><td>OFDM</td><td>5 dB</td><td>439,513 / 10,485,760</td><td>0.0419152</td><td>[0.041794, 0.042036]<br><small>오류 발생 프레임 160/160</small></td></tr>
+<tr><td>peak</td><td>AFDM</td><td>5 dB</td><td>439,577 / 10,485,760</td><td>0.0419213</td><td>[0.041803, 0.04204]<br><small>오류 발생 프레임 160/160</small></td></tr>
+<tr><td>peak</td><td>OTFS</td><td>5 dB</td><td>438,857 / 10,485,760</td><td>0.0418527</td><td>[0.041724, 0.041981]<br><small>오류 발생 프레임 160/160</small></td></tr>
+<tr><td>peak</td><td>DD-a-OFDM</td><td>5 dB</td><td>439,513 / 10,485,760</td><td>0.0419152</td><td>[0.041794, 0.042036]<br><small>오류 발생 프레임 160/160</small></td></tr>
+<tr><td>peak</td><td>OFDM</td><td>10 dB</td><td>18,476 / 10,485,760</td><td>0.00176201</td><td>[0.0017367, 0.0017873]<br><small>오류 발생 프레임 160/160</small></td></tr>
+<tr><td>peak</td><td>AFDM</td><td>10 dB</td><td>18,260 / 10,485,760</td><td>0.00174141</td><td>[0.0017167, 0.0017661]<br><small>오류 발생 프레임 160/160</small></td></tr>
+<tr><td>peak</td><td>OTFS</td><td>10 dB</td><td>18,434 / 10,485,760</td><td>0.001758</td><td>[0.0017314, 0.0017846]<br><small>오류 발생 프레임 160/160</small></td></tr>
+<tr><td>peak</td><td>DD-a-OFDM</td><td>10 dB</td><td>18,476 / 10,485,760</td><td>0.00176201</td><td>[0.0017367, 0.0017873]<br><small>오류 발생 프레임 160/160</small></td></tr>
+<tr><td>peak</td><td>OFDM</td><td>15 dB</td><td>1 / 10,485,760</td><td>9.53674e-08</td><td>[0, 2.8228e-07]<br><small>오류 발생 프레임 1/160</small></td></tr>
+<tr><td>peak</td><td>AFDM</td><td>15 dB</td><td>4 / 10,485,760</td><td>3.8147e-07</td><td>[1.118e-08, 7.5176e-07]<br><small>오류 발생 프레임 4/160</small></td></tr>
+<tr><td>peak</td><td>OTFS</td><td>15 dB</td><td>1 / 10,485,760</td><td>9.53674e-08</td><td>[0, 2.8228e-07]<br><small>오류 발생 프레임 1/160</small></td></tr>
+<tr><td>peak</td><td>DD-a-OFDM</td><td>15 dB</td><td>1 / 10,485,760</td><td>9.53674e-08</td><td>[0, 2.8228e-07]<br><small>오류 발생 프레임 1/160</small></td></tr>
+<tr><td>peak</td><td>OFDM</td><td>20 dB</td><td>0 / 10,485,760</td><td>오류 미관측</td><td>[0, 0.022792]<br><small>오류 발생 프레임 0/160</small></td></tr>
+<tr><td>peak</td><td>AFDM</td><td>20 dB</td><td>0 / 10,485,760</td><td>오류 미관측</td><td>[0, 0.022792]<br><small>오류 발생 프레임 0/160</small></td></tr>
+<tr><td>peak</td><td>OTFS</td><td>20 dB</td><td>0 / 10,485,760</td><td>오류 미관측</td><td>[0, 0.022792]<br><small>오류 발생 프레임 0/160</small></td></tr>
+<tr><td>peak</td><td>DD-a-OFDM</td><td>20 dB</td><td>0 / 10,485,760</td><td>오류 미관측</td><td>[0, 0.022792]<br><small>오류 발생 프레임 0/160</small></td></tr>
+<tr><td>peak</td><td>OFDM</td><td>25 dB</td><td>0 / 10,485,760</td><td>오류 미관측</td><td>[0, 0.022792]<br><small>오류 발생 프레임 0/160</small></td></tr>
+<tr><td>peak</td><td>AFDM</td><td>25 dB</td><td>0 / 10,485,760</td><td>오류 미관측</td><td>[0, 0.022792]<br><small>오류 발생 프레임 0/160</small></td></tr>
+<tr><td>peak</td><td>OTFS</td><td>25 dB</td><td>0 / 10,485,760</td><td>오류 미관측</td><td>[0, 0.022792]<br><small>오류 발생 프레임 0/160</small></td></tr>
+<tr><td>peak</td><td>DD-a-OFDM</td><td>25 dB</td><td>0 / 10,485,760</td><td>오류 미관측</td><td>[0, 0.022792]<br><small>오류 발생 프레임 0/160</small></td></tr>
+<tr><td>peak</td><td>OFDM</td><td>30 dB</td><td>0 / 10,485,760</td><td>오류 미관측</td><td>[0, 0.022792]<br><small>오류 발생 프레임 0/160</small></td></tr>
+<tr><td>peak</td><td>AFDM</td><td>30 dB</td><td>0 / 10,485,760</td><td>오류 미관측</td><td>[0, 0.022792]<br><small>오류 발생 프레임 0/160</small></td></tr>
+<tr><td>peak</td><td>OTFS</td><td>30 dB</td><td>0 / 10,485,760</td><td>오류 미관측</td><td>[0, 0.022792]<br><small>오류 발생 프레임 0/160</small></td></tr>
+<tr><td>peak</td><td>DD-a-OFDM</td><td>30 dB</td><td>0 / 10,485,760</td><td>오류 미관측</td><td>[0, 0.022792]<br><small>오류 발생 프레임 0/160</small></td></tr>
+<tr><td>exit</td><td>OFDM</td><td>AWGN 없음</td><td>0 / 10,485,760</td><td>오류 미관측</td><td>[0, 0.022792]<br><small>오류 발생 프레임 0/160</small></td></tr>
+<tr><td>exit</td><td>AFDM</td><td>AWGN 없음</td><td>0 / 10,485,760</td><td>오류 미관측</td><td>[0, 0.022792]<br><small>오류 발생 프레임 0/160</small></td></tr>
+<tr><td>exit</td><td>OTFS</td><td>AWGN 없음</td><td>0 / 10,485,760</td><td>오류 미관측</td><td>[0, 0.022792]<br><small>오류 발생 프레임 0/160</small></td></tr>
+<tr><td>exit</td><td>DD-a-OFDM</td><td>AWGN 없음</td><td>0 / 10,485,760</td><td>오류 미관측</td><td>[0, 0.022792]<br><small>오류 발생 프레임 0/160</small></td></tr>
+<tr><td>exit</td><td>OFDM</td><td>0 dB</td><td>1,477,910 / 10,485,760</td><td>0.140944</td><td>[0.14074, 0.14115]<br><small>오류 발생 프레임 160/160</small></td></tr>
+<tr><td>exit</td><td>AFDM</td><td>0 dB</td><td>1,476,981 / 10,485,760</td><td>0.140856</td><td>[0.14066, 0.14105]<br><small>오류 발생 프레임 160/160</small></td></tr>
+<tr><td>exit</td><td>OTFS</td><td>0 dB</td><td>1,478,692 / 10,485,760</td><td>0.141019</td><td>[0.14081, 0.14122]<br><small>오류 발생 프레임 160/160</small></td></tr>
+<tr><td>exit</td><td>DD-a-OFDM</td><td>0 dB</td><td>1,477,910 / 10,485,760</td><td>0.140944</td><td>[0.14074, 0.14115]<br><small>오류 발생 프레임 160/160</small></td></tr>
+<tr><td>exit</td><td>OFDM</td><td>5 dB</td><td>439,307 / 10,485,760</td><td>0.0418956</td><td>[0.041779, 0.042012]<br><small>오류 발생 프레임 160/160</small></td></tr>
+<tr><td>exit</td><td>AFDM</td><td>5 dB</td><td>439,181 / 10,485,760</td><td>0.0418836</td><td>[0.041765, 0.042002]<br><small>오류 발생 프레임 160/160</small></td></tr>
+<tr><td>exit</td><td>OTFS</td><td>5 dB</td><td>438,927 / 10,485,760</td><td>0.0418593</td><td>[0.041734, 0.041985]<br><small>오류 발생 프레임 160/160</small></td></tr>
+<tr><td>exit</td><td>DD-a-OFDM</td><td>5 dB</td><td>439,307 / 10,485,760</td><td>0.0418956</td><td>[0.041779, 0.042012]<br><small>오류 발생 프레임 160/160</small></td></tr>
+<tr><td>exit</td><td>OFDM</td><td>10 dB</td><td>18,432 / 10,485,760</td><td>0.00175781</td><td>[0.0017323, 0.0017833]<br><small>오류 발생 프레임 160/160</small></td></tr>
+<tr><td>exit</td><td>AFDM</td><td>10 dB</td><td>18,209 / 10,485,760</td><td>0.00173655</td><td>[0.0017124, 0.0017607]<br><small>오류 발생 프레임 160/160</small></td></tr>
+<tr><td>exit</td><td>OTFS</td><td>10 dB</td><td>18,322 / 10,485,760</td><td>0.00174732</td><td>[0.0017246, 0.0017701]<br><small>오류 발생 프레임 160/160</small></td></tr>
+<tr><td>exit</td><td>DD-a-OFDM</td><td>10 dB</td><td>18,432 / 10,485,760</td><td>0.00175781</td><td>[0.0017323, 0.0017833]<br><small>오류 발생 프레임 160/160</small></td></tr>
+<tr><td>exit</td><td>OFDM</td><td>15 dB</td><td>4 / 10,485,760</td><td>3.8147e-07</td><td>[1.118e-08, 7.5176e-07]<br><small>오류 발생 프레임 4/160</small></td></tr>
+<tr><td>exit</td><td>AFDM</td><td>15 dB</td><td>2 / 10,485,760</td><td>1.90735e-07</td><td>[0, 4.5424e-07]<br><small>오류 발생 프레임 2/160</small></td></tr>
+<tr><td>exit</td><td>OTFS</td><td>15 dB</td><td>0 / 10,485,760</td><td>오류 미관측</td><td>[0, 0.022792]<br><small>오류 발생 프레임 0/160</small></td></tr>
+<tr><td>exit</td><td>DD-a-OFDM</td><td>15 dB</td><td>4 / 10,485,760</td><td>3.8147e-07</td><td>[1.118e-08, 7.5176e-07]<br><small>오류 발생 프레임 4/160</small></td></tr>
+<tr><td>exit</td><td>OFDM</td><td>20 dB</td><td>0 / 10,485,760</td><td>오류 미관측</td><td>[0, 0.022792]<br><small>오류 발생 프레임 0/160</small></td></tr>
+<tr><td>exit</td><td>AFDM</td><td>20 dB</td><td>0 / 10,485,760</td><td>오류 미관측</td><td>[0, 0.022792]<br><small>오류 발생 프레임 0/160</small></td></tr>
+<tr><td>exit</td><td>OTFS</td><td>20 dB</td><td>0 / 10,485,760</td><td>오류 미관측</td><td>[0, 0.022792]<br><small>오류 발생 프레임 0/160</small></td></tr>
+<tr><td>exit</td><td>DD-a-OFDM</td><td>20 dB</td><td>0 / 10,485,760</td><td>오류 미관측</td><td>[0, 0.022792]<br><small>오류 발생 프레임 0/160</small></td></tr>
+<tr><td>exit</td><td>OFDM</td><td>25 dB</td><td>0 / 10,485,760</td><td>오류 미관측</td><td>[0, 0.022792]<br><small>오류 발생 프레임 0/160</small></td></tr>
+<tr><td>exit</td><td>AFDM</td><td>25 dB</td><td>0 / 10,485,760</td><td>오류 미관측</td><td>[0, 0.022792]<br><small>오류 발생 프레임 0/160</small></td></tr>
+<tr><td>exit</td><td>OTFS</td><td>25 dB</td><td>0 / 10,485,760</td><td>오류 미관측</td><td>[0, 0.022792]<br><small>오류 발생 프레임 0/160</small></td></tr>
+<tr><td>exit</td><td>DD-a-OFDM</td><td>25 dB</td><td>0 / 10,485,760</td><td>오류 미관측</td><td>[0, 0.022792]<br><small>오류 발생 프레임 0/160</small></td></tr>
+<tr><td>exit</td><td>OFDM</td><td>30 dB</td><td>0 / 10,485,760</td><td>오류 미관측</td><td>[0, 0.022792]<br><small>오류 발생 프레임 0/160</small></td></tr>
+<tr><td>exit</td><td>AFDM</td><td>30 dB</td><td>0 / 10,485,760</td><td>오류 미관측</td><td>[0, 0.022792]<br><small>오류 발생 프레임 0/160</small></td></tr>
+<tr><td>exit</td><td>OTFS</td><td>30 dB</td><td>0 / 10,485,760</td><td>오류 미관측</td><td>[0, 0.022792]<br><small>오류 발생 프레임 0/160</small></td></tr>
+<tr><td>exit</td><td>DD-a-OFDM</td><td>30 dB</td><td>0 / 10,485,760</td><td>오류 미관측</td><td>[0, 0.022792]<br><small>오류 발생 프레임 0/160</small></td></tr></table></details></body></html>

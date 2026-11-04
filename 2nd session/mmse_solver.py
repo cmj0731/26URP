@@ -21,6 +21,7 @@ class MMSESolveResult:
     rhs_norm: float
     reason: str
     diagnostics: dict = field(default_factory=dict)
+    effective_gain: np.ndarray | None = None
 
     def require_converged(self):
         """Prevent a failed numerical solve from entering later bit scoring."""
@@ -48,13 +49,59 @@ def _finish(problem, values, method, iterations, tolerance, reason, diagnostics=
                            rhs_norm, reason, diagnostics or {})
 
 
-def _direct_blocks(problem, tolerance):
+def _direct_blocks(problem, tolerance, include_gain=False):
+    if include_gain:
+        try:
+            from fast_mmse import solve_local
+            fast_values, fast_gains = solve_local(problem)
+            residual = problem.rhs-problem.normal(fast_values)
+            blocks = []
+            for block in range(problem.grid_shape[1]):
+                selected = problem.model.block_data_slice(block)
+                relative = _relative(float(np.linalg.norm(residual[selected])), float(np.linalg.norm(problem.rhs[selected])))
+                blocks.append({"block": block, "data_unknowns": selected.stop-selected.start,
+                               "relative_normal_residual": relative, "least_squares_rank": None})
+            maximum = max(row["relative_normal_residual"] for row in blocks)
+            method = "block_direct" if problem.regularization > 0 else "block_minimum_norm_least_squares"
+            result = _finish(problem, fast_values, method, 0, tolerance,
+                "converged" if maximum <= tolerance else "block_residual_above_tolerance",
+                {"backend": "exact_sparse_time_Schur_or_dense_Cholesky_with_SVD_rank_fallback",
+                 "max_block_relative_normal_residual": maximum, "blocks": blocks})
+            if result.converged and np.isfinite(fast_gains).all() and np.all(fast_gains >= 0):
+                result.effective_gain = fast_gains
+                return result
+        except (ImportError, RuntimeError, np.linalg.LinAlgError):
+            pass
+        # Same original system and tolerance: dense re-solve after a missing
+        # optional dependency or failed accelerated accuracy check, never a
+        # change of channel, regularizer or receiver knowledge.
     values = np.zeros(problem.data_count, dtype=complex)
+    gains = np.empty(problem.data_count) if include_gain else None
     blocks = []
     for block in range(problem.grid_shape[1]):
         selected = problem.model.block_data_slice(block)
         try:
-            if problem.regularization > 0:
+            if include_gain and problem.regularization > 0:
+                matrix = problem.model.block_matrix(block)
+                gram = matrix.conj().T@matrix
+                normal = gram.copy()
+                normal.flat[::normal.shape[0]+1] += problem.regularization
+                rhs = matrix.conj().T@problem.observations[:, block]
+                combined = np.linalg.solve(normal, np.column_stack([rhs, gram]))
+                estimate = combined[:, 0]
+                gains[selected] = np.diag(combined[:, 1:]).real
+                rank = None
+            elif include_gain:
+                matrix = problem.model.block_matrix(block)
+                u, singular, vh = np.linalg.svd(matrix, full_matrices=False)
+                retained = singular > np.finfo(float).eps*max(matrix.shape)*singular[0]
+                rank = int(np.count_nonzero(retained))
+                estimate = vh[retained].conj().T@((u[:, retained].conj().T@problem.observations[:, block])/singular[retained])
+                gains[selected] = (np.ones(matrix.shape[1]) if rank == matrix.shape[1]
+                                   else np.sum(abs(vh[retained])**2, axis=0))
+                normal = matrix.conj().T@matrix
+                rhs = matrix.conj().T@problem.observations[:, block]
+            elif problem.regularization > 0:
                 normal, rhs = problem.block_system(block)
                 estimate = np.linalg.solve(normal, rhs)
                 rank = None
@@ -73,9 +120,11 @@ def _direct_blocks(problem, tolerance):
     maximum = max(row["relative_normal_residual"] for row in blocks)
     reason = "converged" if maximum <= tolerance else "block_residual_above_tolerance"
     method = "block_direct" if problem.regularization > 0 else "block_SVD_least_squares"
-    return _finish(problem, values, method, 0, tolerance, reason,
+    result = _finish(problem, values, method, 0, tolerance, reason,
                    {"block_count": len(blocks), "max_block_relative_normal_residual": maximum,
                     "blocks": blocks})
+    result.effective_gain = gains
+    return result
 
 
 def _cg(problem, tolerance, maximum_iterations):
@@ -165,7 +214,7 @@ def _lsqr(problem, tolerance, maximum_iterations):
                    "maximum_iterations_reached")
 
 
-def solve_mmse_problem(problem, settings):
+def solve_mmse_problem(problem, settings, *, include_effective_gain=False):
     """Solve with the agreed fixed public policy; return explicit status/accuracy.
 
     Output is the raw linear estimate in data-cell order. No output gain
@@ -191,4 +240,4 @@ def solve_mmse_problem(problem, settings):
     if (policy["positive_noise_methods"][problem.scheme] != "block_direct"
             or policy["zero_noise_methods"][problem.scheme] != "block_SVD_least_squares"):
         raise ValueError("The selected local direct/least-squares methods are required.")
-    return _direct_blocks(problem, tolerance)
+    return _direct_blocks(problem, tolerance, include_effective_gain)
