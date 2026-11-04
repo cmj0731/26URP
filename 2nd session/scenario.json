@@ -234,7 +234,7 @@
       "receiver_information_policy_ref": "receiver_information_policy",
       "prefix_policy_ref": "prefix_policy",
       "channel_estimation_ref": "receiver_equalization_policy.channel_estimation_selection.OTFS",
-      "pending_design": ["remaining receiver knowledge", "pilot/data covariance and noise handling, numerical DD linear-MMSE solving within the selected full-frame operator", "symbol detection and complete four-waveform BER implementation"],
+      "pending_design": ["remaining receiver knowledge", "data covariance, residual/noise statistics and numerical DD linear-MMSE solving within the selected full-frame data operator", "symbol detection and complete four-waveform BER implementation"],
       "reference_url": "https://www.mathworks.com/help/comm/ug/otfs-modulation.html",
       "reference_note": "Use the documented ISFFT-plus-OFDM architecture with our agreed unitary normalization; do not copy the example's numerical scaling, channel, padding, or pilot parameters."
     },
@@ -285,7 +285,7 @@
             "iteration_limit": "The selected profile has distinct integer delays, whose desired DD templates occupy orthogonal delay rows. In these diagnostics the last-sweep objective change is zero to stored precision. This does not prove universal convergence; a separate same-delay clean-model control exercises coupled path refinement. Three sweeps remain fixed, without post-hoc tuning.",
             "preserved_limits": "Self-term-plus-interference working model, not exact full pilot-channel matching. Gaussian/independence assumptions are not asserted for the fixed pilot/data configuration. Residual errors remain part of future BER; no data equalizer, bits or four-way ranking has been computed."
           },
-          "pending_design": ["pilot handling, noise-variance knowledge, MMSE solver, decisions and BER; full TF block operators are implemented under receiver_equalization_policy.channel_operator_design"]
+          "pending_design": ["data covariance, residual/noise policy, MMSE solver, decisions and BER; channel and pilot-conditioned data operators are implemented under receiver_equalization_policy"]
         },
         "iteration_control": {
           "status": "agreed_fixed_count_implemented_diagnosed_2026_11_04",
@@ -308,7 +308,7 @@
         "tf_channel_matrix_shape_per_symbol": [256, 256],
         "symbol_matrices_per_frame": 64,
         "processing_rule": "Estimate channel parameters from pilot observations under the shared receiver-information policy, reconstruct the TF channel matrix from those estimates, and apply linear MMSE to recover data symbols before QAM decisions. ML here is channel estimation, not exhaustive ML detection of the transmitted data vector.",
-        "scope": "The agreed pilot estimator and full 256-by-256 TF block operators are implemented and initially diagnosed. Pilot handling, noise-variance knowledge, MMSE solving and complete BER remain pending."
+        "scope": "The agreed pilot estimator, full 256-by-256 TF block operators and estimated-pilot/data-only preparation are implemented and initially diagnosed. Data covariance, residual/noise policy, MMSE solving and complete BER remain pending."
       },
       "receiver_information_policy_ref": "receiver_information_policy",
       "selected_receiver_information": {
@@ -322,7 +322,7 @@
         "note": "Use the shared receiver_information_policy and existing perfect common LOS correction for A/B. Only public support and P=3 enter the estimator; actual active delays, Dopplers and gains remain unavailable."
       },
       "prefix_policy_ref": "prefix_policy",
-      "pending_design": ["OFDM pulse/filter details beyond the shared cyclic-prefix rule", "noise-variance knowledge", "pilot handling, numerical MMSE data recovery, decisions and BER"],
+      "pending_design": ["OFDM pulse/filter details beyond the shared cyclic-prefix rule", "data covariance and residual/noise policy", "numerical MMSE data recovery, decisions and BER"],
       "comparison_interpretation": "OFDM and DD-a-OFDM use the same transmitted waveform when given the same TF symbols, pilots, and prefix/pulse configuration. BER differences then evaluate channel estimation and receiver processing as part of the transceiver comparison.",
       "channel_scope": "Use the existing three-path A/B channel: perfect common LOS correction, A residuals [0,0,0], B residuals [0,+d,-d] at the agreed fixed levels. Implementing the estimator does not change the generator profile or the single-path baseline.",
       "implementation_status": "pilot_estimator_tap_reconstruction_and_full_TF_block_operators_implemented_no_data_MMSE_or_BER"
@@ -375,13 +375,13 @@
     }
   },
   "receiver_equalization_policy": {
-    "status": "linear_MMSE_family_and_native_processing_extent_agreed_channel_operators_implemented_solver_pending",
+    "status": "native_channel_and_pilot_conditioned_data_operators_implemented_MMSE_statistics_and_solver_pending",
     "scope": "first_pilot_based_three_path_A_B_comparison",
     "applies_to": ["OFDM", "AFDM", "OTFS", "DD-a-OFDM"],
     "equalizer_family": "linear_MMSE",
     "processing_domain_by_scheme": {"OFDM": "TF", "AFDM": "DAFT", "OTFS": "DD", "DD-a-OFDM": "TF"},
     "channel_source": "Construct each channel operator from that receiver's pilot-based channel estimates under receiver_information_policy. Do not supply the true delays, additional path Dopplers or gains from the channel generator.",
-    "interference_modeling": "Construct full native operators from each receiver's estimated sample-level taps. Retain all modeled TF/DAFT/DD couplings, including ICI; no one-tap or Doppler-kernel truncation is selected. The processing extent is agreed below. Pilot treatment, data covariance, noise policy and MMSE solving remain pending; a common algorithm name alone does not establish equal receiver capability.",
+    "interference_modeling": "Construct full native operators from each receiver's estimated sample-level taps and retain all modeled couplings. Subtract the predicted known-pilot response and keep only data transmit columns while retaining all receive rows, as recorded in pilot_data_handling. No one-tap or Doppler-kernel truncation is selected. Data covariance, noise policy and MMSE solving remain pending; a common algorithm name alone does not establish equal receiver capability.",
     "channel_operator_design": {
       "status": "processing_extent_agreed_operators_implemented_diagnosed_2026_11_04_MMSE_not_implemented",
       "date_local": "2026-11-04",
@@ -392,7 +392,7 @@
         "DD-a-OFDM": {"domain": "TF", "unit": "one_slot", "native_channel_matrix_shape": [256, 256], "matrices_per_frame": 64},
         "OTFS": {"domain": "DD", "unit": "one_frame", "native_grid_shape": [256, 64], "conceptual_native_channel_matrix_shape": [16384, 16384], "implementation": "implicit full forward and conjugate-transpose operations; no dense frame matrix allocation or channel-coupling truncation"}
       },
-      "matrix_size_interpretation": "These sizes cover all native useful-grid cells before pilot/guard handling or data-only reduction. They do not yet select the dimensions of the final unknown-data MMSE problem, its covariance or regularizer.",
+      "matrix_size_interpretation": "These sizes cover all native useful-grid cells before data-only reduction. The derived reduced dimensions are now recorded in pilot_data_handling; data covariance, observation-noise policy and MMSE regularization/solving remain pending.",
       "common_receive_clock": "Consume reconstructed estimated taps on all 16704 CP-inclusive receive samples. Select each useful sample n=(256+5)*b+5+q at its actual receive time. Do not reset a path phase, average taps over a block, or omit CP time.",
       "time_domain_equation": "r_b[q] = sum_l h_hat[(N+CP)*b+CP+q,l] * s_b[(q-l) mod N], with every public integer tap candidate l=0..5. Sufficient per-slot CP makes the useful time channel block diagonal in this aligned integer-delay model.",
       "native_basis_rule": "For each waveform's unitary native-to-useful-time transform S, H_native = S^H * H_time * S and H_native^H = S^H * H_time^H * S. OFDM/DD-a use per-slot IFFT, AFDM per-block IDAFT and OTFS the existing full-frame ISFFT-plus-OFDM transform.",
@@ -407,9 +407,38 @@
         "scope": "20 known-model A/B mathematical controls, four arbitrary time-varying six-tap controls, a small dense OTFS reference and eight integrations from actual pilot-estimated taps (A and B-4 at diagnostic Eb/N0=20 dB for each scheme). Mathematical controls do not grant true CSI to the receiver integrations.",
         "findings": "Serial forward predictions and dense TF/DAFT actions agree below 1e-11 relative tolerance; maximum dense block forward/adjoint differences are about 6.81e-16/5.79e-16. The adjoint inner-product discrepancy is below 7.83e-18. The small full DD reference agrees to about 3.38e-16 forward and 3.31e-16 adjoint. The selected fractional-Doppler impulse occupies all 64 Doppler bins. Too-short CP is rejected.",
         "OTFS_storage_note": "The production useful estimated-tap array occupies 1572864 bytes versus 4294967296 bytes for a hypothetical dense complex128 16384-by-16384 matrix. This is an array-size comparison, not a bound on total runtime memory or a performance benchmark.",
-        "limits": "This validates construction and estimated-tap integration, not channel-estimation accuracy, MMSE data recovery or BER. Existing estimation errors are retained; no pilot subtraction, noise policy, solver or new stopping rule is selected."
+        "limits": "This earlier channel-only check validates construction and estimated-tap integration, not channel-estimation accuracy, MMSE data recovery or BER. It did not perform pilot subtraction; the later selected data preparation is recorded in pilot_data_handling. Existing errors remain, and noise/solver choices are still pending."
       },
-      "pending_design": ["known pilot contribution handling and unknown-data covariance", "noise-variance knowledge or estimation policy", "MMSE numerical solver and any tolerances/stopping", "data decisions, BER implementation and baseline/full comparison runs"]
+      "pending_design": ["unknown-data covariance and residual-error statistical modeling", "noise-variance knowledge or estimation policy", "MMSE numerical solver and any tolerances/stopping", "data decisions, BER implementation and baseline/full comparison runs"]
+    },
+    "pilot_data_handling": {
+      "status": "agreed_estimated_pilot_subtraction_and_data_only_unknowns_implemented_diagnosed_2026_11_04",
+      "date_local": "2026-11-04",
+      "decision_record": "The user accepted applying the same rule to all four waveforms: predict the received known-pilot component with that receiver's estimated channel, subtract it, and recover only transmitted data cells as unknowns.",
+      "applies_to": ["OFDM", "AFDM", "OTFS", "DD-a-OFDM"],
+      "known_transmit_component": "Use the existing native pilot mask and exact fixed known pilot values. Data positions are zero in p; guards and reservations remain known zero. No new pilot, phase, gain, energy scaling or resource change is introduced.",
+      "data_embedding": "P_data maps the 12288-element unknown data vector into the agreed native data cells in column-major order, with zeros elsewhere. Preserve the existing data-symbol scale; no per-frame normalization or decisions are performed.",
+      "equations": {"transmit_grid": "x = P_data*d + p", "prepared_observations": "r_data = r - H_hat*p", "data_operator": "A_hat = H_hat*P_data", "data_adjoint": "A_hat^H = P_data^H*H_hat^H"},
+      "receive_observation_rule": "Keep every native receive cell, including coordinates labeled as pilot/guard/reserved on transmit. Reduce unknown transmit columns only: interference can carry data into non-data receive coordinates. All local block observation rows remain 256; the OTFS full-frame observation count remains 16384.",
+      "derived_data_problem_sizes": {
+        "OFDM": {"pilot_bearing_slot_shape": [256, 128], "pilot_bearing_slots_per_frame": 32, "other_slot_shape": [256, 256], "other_slots_per_frame": 32, "data_unknowns_per_frame": 12288},
+        "AFDM": {"block_shape": [256, 192], "blocks_per_frame": 64, "data_unknowns_per_frame": 12288},
+        "DD-a-OFDM": {"pilot_bearing_slot_shape": [256, 128], "pilot_bearing_slots_per_frame": 32, "other_slot_shape": [256, 256], "other_slots_per_frame": 32, "data_unknowns_per_frame": 12288},
+        "OTFS": {"implicit_full_frame_shape": [16384, 12288], "data_unknowns_per_frame": 12288}
+      },
+      "pipeline_rule": "Run each selected channel estimator on the original received samples first. Construct H_hat from its output, demodulate the full native data-receive grid, then subtract H_hat*p. Preserve original observations; do not feed cancelled observations or true transmitted data back into channel estimation.",
+      "residual_pilot_error": "For actual channel H, residual pilot contribution is (H-H_hat)*p. Relative to the fitted data model, r_data-A_hat*d = (H-H_hat)*(P_data*d+p)+w. Preserve these errors and AWGN; subtraction is not perfect CSI or perfect pilot cancellation.",
+      "statistical_scope": "This selects deterministic pilot handling and data coordinates only. It does not assert independent/white/Gaussian residual pilot error, choose unknown-data covariance, estimate or reveal noise variance, set an MMSE regularizer or solve/detect data.",
+      "implementation": "pilot_data_model.py: build_pilot_data_model and PilotDataModel.subtract_pilots, embed_data, apply, adjoint, block_data_slice, block_matrix. OTFS remains full-frame and implicit.",
+      "receiver_inputs": "Already estimated native channel operator, public native mask and fixed known pilots, and received native observations for subtraction. No true path parameters, data symbols, noise variance or decoder output is passed into data preparation.",
+      "implementation_diagnostic": {
+        "script": "check_pilot_data_model.py",
+        "report": "data/pilot_data_model_check.json",
+        "scope": "20 matched-channel A/B mathematical controls, four deliberately mismatched-channel pilot-error controls and eight integrations from actual pilot estimates (A/B-4 at the existing diagnostic Eb/N0=20 dB). Mathematical controls do not grant true CSI to receiver integrations.",
+        "findings": "Matched-channel pilot subtraction agrees with the data-only channel to below 4.60e-16 relative error. Local data matrices and their adjoints agree below 5.88e-16; data-adjoint inner-product error is below 9.09e-18. Deliberate channel mismatch leaves the expected nonzero pilot residual, with identity error below 5.61e-15. Actual-estimate residual accounting, including AWGN and channel errors, agrees within 8.03e-15. Every case retains full receive observations and existing data order/energy.",
+        "limits": "These checks validate preparation for MMSE, not actual equalization or BER. Noise statistics, covariance, regularization, solver and decisions remain pending; the common measured-bit quota is unchanged."
+      },
+      "pending_design": ["unknown-data covariance and residual-error statistical modeling", "noise-variance knowledge or estimation policy", "MMSE numerical solution and stopping settings", "QAM decisions, bit recovery, confidence intervals and BER runs"]
     },
     "channel_estimation_selection": {
       "OFDM": {
@@ -505,7 +534,7 @@
             "limitations": "Best-fit trajectory representation and pilot-component rank/conditioning are diagnostics. The separate ordinary-LS prototype adds channel-NMSE checks with data ICI and AWGN. Residual interference and frame-end error are recorded estimator limitations to include when interpreting BER; full BER remains pending. Full rank alone does not prove estimation accuracy.",
             "sources": ["https://thomaszemen.org/papers/Zemen05-IEEETrSignalProcessing.pdf", "https://www.jstage.jst.go.jp/article/transcom/E95.B/10/E95.B_3252/_article/-char/en"]
           },
-          "pending_design": ["finalize the fixed initial BER receiver while recording the existing LS estimation limitations", "noise-variance knowledge, pilot handling and equalizer numerical settings", "MMSE data recovery, detector and BER implementation; channel reconstruction is implemented under receiver_equalization_policy.channel_operator_design"],
+          "pending_design": ["finalize the fixed initial BER receiver while recording the existing LS estimation limitations", "data covariance, residual/noise policy and equalizer numerical settings", "MMSE data recovery, detector and BER implementation; channel/data operators are implemented under receiver_equalization_policy"],
           "selection_note": "The one-frame, 64-block estimation window, initial DPSS/Slepian 31-function basis and common 0..5-sample integer-delay bounds are agreed. Keep the implemented ordinary-LS prototype as the initial comparison candidate with its recorded limitations. Nonzero channel-estimation error alone does not require redesign or block BER comparison; no new correction is selected."
         }
       },
@@ -569,7 +598,7 @@
             "preserved_limits": "No condition-specific tuning, perfect path information, data-feedback cancellation or renormalization is added. Residual estimator errors remain part of the future receiver comparison."
           },
           "structural_diagnostic": {"script": "review_afdm_estimator.py", "report": "data/afdm_estimator_review.json", "scope": "Transform/pilot-template validation and received-window data-leakage probes; no path estimator, noise study, equalizer or BER run.", "findings": "Native pilot response agrees with an independent serial channel to about 1.40e-13 relative error. The proposed window is isolated from data in static A to numerical precision; B-4 retains nonzero leakage. This validates the observation construction, not estimation accuracy or BER superiority."},
-          "pending_design": ["pilot handling, noise-variance information, MMSE solving and complete BER implementation; the selected block scope and estimated DAFT operators are implemented under receiver_equalization_policy.channel_operator_design"]
+          "pending_design": ["data covariance, residual/noise policy, MMSE solving and complete BER implementation; the selected block scope and estimated DAFT/data operators are implemented under receiver_equalization_policy"]
         }
       },
       "OTFS": {
@@ -627,14 +656,14 @@
             "findings": "Across 78 single-path probes, native templates match the independent serial channel to below 1.02e-14 relative error and data-only leakage in the receive region is below 9.64e-17 relative to the pilot L2 norm. All 640 actual-profile estimates are finite, in bounds and rank 3, with nonincreasing joint-LS residuals and final local intervals below 1 Hz. The true delay multisets were recovered in this small diagnostic, not proven universally recoverable.",
             "preserved_limits": "No global-ML or BER superiority claim, condition-specific tuning, true-data cancellation, oracle path parameters or gain renormalization. Remaining estimator errors are retained for later equalization and BER. Data-channel matrices and the full DD-MMSE receiver remain pending."
           },
-          "pending_design": ["pilot handling, noise-variance knowledge, numerical MMSE solver, bit detection and complete BER implementation; the selected full-frame DD operator is implemented under receiver_equalization_policy.channel_operator_design"]
+          "pending_design": ["data covariance, residual/noise policy, numerical MMSE solver, bit detection and complete BER implementation; the selected full-frame DD/data operator is implemented under receiver_equalization_policy"]
         }
       },
       "DD-a-OFDM": {"status": "pilot_DD_AP_estimator_implemented_diagnosed_BER_pending", "algorithm_ref": "waveform_design.DD-a-OFDM.receiver_design.channel_estimator", "iteration_control_ref": "waveform_design.DD-a-OFDM.receiver_design.iteration_control", "estimation_design_ref": "waveform_design.DD-a-OFDM.receiver_design.pilot_estimation_design"}
     },
     "existing_DD_a_design": "Preserve the selected DD-ML alternating-projection estimator and ICI-aware 256-by-256 TF linear-MMSE matrix for each of 64 symbols. The new common-family choice does not replace that design.",
     "development_focus": "The user clarified that the target is BER comparison, not eliminating all channel-estimation errors or repeatedly optimizing OFDM. Keep the current OFDM BEM-LS prototype as an initial candidate with documented limits, distinguish implementation errors from estimator limitations, and specify the other receivers under the agreed common conditions.",
-    "pending_design": ["finalize the fixed OFDM BEM-LS initial candidate with its documented limitations; retain the implemented native pilot estimators and channel operators", "pilot contribution handling and data-domain covariance accounting", "noise-variance knowledge or estimation policy", "equalizer numerical solver and any stopping settings", "full receiver validation and BER implementation"],
+    "pending_design": ["finalize the fixed OFDM BEM-LS initial candidate with its documented limitations; retain the implemented native pilot/channel/data operators", "data-domain covariance and residual-error statistical modeling", "noise-variance knowledge or estimation policy", "equalizer numerical solver and any stopping settings", "full receiver validation and BER implementation"],
     "baseline_scope": "The initial single-path LOS plus AWGN validation and its perfect common-frequency correction remain unchanged. This policy does not grant perfect multipath channel knowledge.",
     "reference_url": "https://arxiv.org/pdf/2508.04253v2#page=13",
     "reference_basis": "Section V-D uses ICI-aware MMSE equalizers for the OFDM/DD-a-OFDM comparison. Extending the linear-MMSE family to all four native receivers is our agreed experimental choice; it does not require copying a source paper's estimator or detector for every waveform.",
@@ -672,7 +701,7 @@
     "parameter_estimation_rule": "Obtain the channel response or path parameters from the agreed pilot observations. Do not copy the actual 0/2/5-sample delays, per-path Dopplers, or complex gains from the channel generator into the receivers.",
     "purpose": "First compare channel-parameter estimation and BER without adding path-count detection errors. State this known-count assumption in reported results; equal path-count information alone does not settle other fairness conditions.",
     "baseline_scope": "This policy does not change the initial single-path LOS AWGN baseline or its perfect common-Doppler knowledge and compensation. Future multipath compensation details remain to be discussed.",
-    "remaining_receiver_design": "All receivers share P=3, 0..5-sample excess-delay bounds and fixed +/-46875-Hz residual Doppler support; true active path parameters remain unavailable. The native pilot estimators and estimated-channel operators are implemented and initially diagnosed, with OFDM BEM-LS kept as the initial candidate. Local 256-cell TF/DAFT and full-frame OTFS DD extents are selected. Pilot/data covariance and noise policy, numerical MMSE solving and complete four-way BER remain pending. Nonzero estimation error alone does not require redesign.",
+    "remaining_receiver_design": "All receivers share P=3, 0..5-sample excess-delay bounds and fixed +/-46875-Hz residual Doppler support; true active path parameters remain unavailable. Native pilot estimation, channel operators, estimated-pilot subtraction and data-only unknowns are implemented and initially diagnosed. Local TF/DAFT and full-frame OTFS DD extents remain selected. Data covariance, residual-error/noise policy, numerical MMSE solving and complete four-way BER remain pending. Nonzero estimation error alone does not require redesign.",
     "path_count_estimation_followup": {
       "status": "deferred_method_and_parameters_pending_not_implemented",
       "purpose": "Replace the known count with a receiver-estimated count and compare against the known-count reference. Assess missed or spurious paths and their impact on parameter estimation and BER.",
@@ -684,7 +713,7 @@
   },
   "pilot_comparison_policy": {
     "status": "native_layouts_fixed_pilot_values_and_uniform_energy_implemented_estimation_validation_pending",
-    "fairness_interpretation": "Compare four pilot-based transceiver designs under matched non-data resource and total useful-signal pilot-energy budgets. Native pilot counts, placements and channel estimators can differ. The equalizer family is linear MMSE for all four, with full local TF/DAFT and frame-wide OTFS DD operators selected and implemented. Pilot/data handling, noise policy and numerical MMSE solving remain pending. BER differences include those design effects; do not attribute all differences to intrinsic modulation-waveform behavior alone.",
+    "fairness_interpretation": "Compare four pilot-based transceiver designs under matched non-data resource and total useful-signal pilot-energy budgets. Native pilots and channel estimators can differ. All four use estimated-channel pilot subtraction and data-only unknowns with full native receive observations, within the selected local TF/DAFT or frame-wide OTFS DD scope. Data covariance, noise policy and numerical MMSE solving remain pending. BER differences include those design effects; do not attribute all differences to intrinsic modulation-waveform behavior alone.",
     "pilot_plus_pilot_guard_resource_fraction_rule": "Use the same fraction of the frame's resources for pilots and pilot-specific guard or reserved cells across all four schemes.",
     "pilot_plus_pilot_guard_resource_fraction": 0.25,
     "total_pilot_energy_rule": "Match the total energy allocated to pilot signals across all four schemes; do not treat a higher-power pilot as free.",
