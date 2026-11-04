@@ -1,0 +1,66 @@
+{
+  "scope": "Shared scheduled-silence noise-power measurement diagnostic, not MMSE or BER.",
+  "decision_status": "The user selected 256 measured samples after 5 settling samples, once per frame for all four receivers; 512/1024 remain unselected sensitivity alternatives.",
+  "implementation": "noise_estimation.py",
+  "receiver_inputs": "The builder reads only the public noise measurement design, sample rate and delay bound. Estimation receives exactly the separate scheduled silent-interval observations. No target Eb/N0, generator variance, channel truth, true data or data-interval noise samples.",
+  "selected_design": {
+    "measurement_sample_count": 256,
+    "settling_sample_count": 5,
+    "interval_sample_count": 261,
+    "interval_duration_s": 4.35e-06,
+    "update_interval": "once_per_frame"
+  },
+  "estimator": "mean(abs(z)**2), with known zero-mean complex receiver noise; no L-1 correction or regularization floor.",
+  "theory": "For L independent CN(0,sigma^2) samples, E[sigma_hat^2]=sigma^2 and Var(sigma_hat^2)=sigma^4/L. Relative standard deviation is 1/sqrt(L). This is not a bound on each estimate or on BER.",
+  "settling_control": "An independent prior arbitrary waveform and all allowed 0..5 time-varying integer taps leave no signal after the five-sample silent settling prefix. This is a mathematical support control, not a new physical path profile.",
+  "maximum_awgn_grid_scaling_relative_error": 5.530455881913196e-16,
+  "invalid_input_checks": 10,
+  "zero_measurement_result": 0.0,
+  "candidate_lengths": [
+    {
+      "measurement_sample_count": 256,
+      "selected": true,
+      "diagnostic_trials": 8192,
+      "mean_estimate_over_true_variance": 1.000455525961196,
+      "empirical_std_over_true_variance": 0.0623141216033345,
+      "theoretical_std_over_true_variance": 0.0625,
+      "measurement_duration_s": 4.266666666666667e-06,
+      "settling_sample_count_derived_from_public_delay_support": 5,
+      "total_added_samples_if_measured_once_per_frame": 261,
+      "total_added_duration_s_if_measured_once_per_frame": 4.35e-06,
+      "added_time_over_existing_frame_percent": 1.5625,
+      "added_time_fraction_of_extended_interval_percent": 1.5384615384615385
+    },
+    {
+      "measurement_sample_count": 512,
+      "selected": false,
+      "diagnostic_trials": 8192,
+      "mean_estimate_over_true_variance": 1.0001305242873388,
+      "empirical_std_over_true_variance": 0.04406106888480336,
+      "theoretical_std_over_true_variance": 0.044194173824159216,
+      "measurement_duration_s": 8.533333333333334e-06,
+      "settling_sample_count_derived_from_public_delay_support": 5,
+      "total_added_samples_if_measured_once_per_frame": 517,
+      "total_added_duration_s_if_measured_once_per_frame": 8.616666666666667e-06,
+      "added_time_over_existing_frame_percent": 3.095067049808429,
+      "added_time_fraction_of_extended_interval_percent": 3.0021485395737764
+    },
+    {
+      "measurement_sample_count": 1024,
+      "selected": false,
+      "diagnostic_trials": 8192,
+      "mean_estimate_over_true_variance": 0.9999716038473191,
+      "empirical_std_over_true_variance": 0.03148445948287594,
+      "theoretical_std_over_true_variance": 0.03125,
+      "measurement_duration_s": 1.7066666666666667e-05,
+      "settling_sample_count_derived_from_public_delay_support": 5,
+      "total_added_samples_if_measured_once_per_frame": 1029,
+      "total_added_duration_s_if_measured_once_per_frame": 1.715e-05,
+      "added_time_over_existing_frame_percent": 6.160201149425287,
+      "added_time_fraction_of_extended_interval_percent": 5.802740653019794
+    }
+  ],
+  "limits": "Signal absence and stationary noise power over calibration/data are assumptions. Extra settling is needed if delay support, filtering or timing uncertainty changes. The selected calibration adds 261 samples before the existing 16704-sample frame; no original pilot budget, channel estimator or BER bit quota is changed. Generator and MMSE integration is pending. Zero/small-variance handling in the eventual equalizer is still pending; measurement uncertainty is not a BER accuracy guarantee.",
+  "reference_url": "https://cris.unibo.it/retrieve/handle/11585/802184/78cc746a-e562-4d62-ba22-f30493ca800a/TWC2982880.pdf",
+  "reference_scope": "Equation (18) gives the squared-magnitude sample-mean estimator for noise-only measurements in spectrum sensing, not an actual Starlink silence schedule. Variance and resource calculations here follow our zero-mean independent complex AWGN model."
+}

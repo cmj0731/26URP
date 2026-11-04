@@ -95,6 +95,7 @@
     "total_frame_sample_count_with_prefix": 16704,
     "nominal_doppler_bin_spacing_hz_with_prefix": 3591.9540229885056,
     "prefixed_timing_scope": "First pilot-based three-path comparison only. The without_prefix values remain the useful-grid and initial baseline references; no prefix is added to the initial single-path baseline by this decision.",
+    "separate_noise_measurement_ref": "receiver_equalization_policy.noise_information_policy.observation_resource; this external silent calibration interval is additional to, not included in, the 16704 samples and 278.4 microseconds above",
     "prefix_policy_ref": "prefix_policy",
     "data_and_pilot_allocation": {"status": "four_native_layouts_and_fixed_pilot_values_agreed_implemented", "layout_ref": "pilot_comparison_policy.pilot_locations_and_counts", "data_cells_per_frame": 12288, "pilot_guard_reserved_cells_per_frame": 4096},
     "pilot_stage_budget_ref": "pilot_comparison_policy.initial_budget",
@@ -381,7 +382,7 @@
     "equalizer_family": "linear_MMSE",
     "processing_domain_by_scheme": {"OFDM": "TF", "AFDM": "DAFT", "OTFS": "DD", "DD-a-OFDM": "TF"},
     "channel_source": "Construct each channel operator from that receiver's pilot-based channel estimates under receiver_information_policy. Do not supply the true delays, additional path Dopplers or gains from the channel generator.",
-    "interference_modeling": "Construct full native operators from each receiver's estimated sample-level taps and retain all modeled couplings. Subtract the predicted known-pilot response and keep only data transmit columns while retaining all receive rows, as recorded in pilot_data_handling. No one-tap or Doppler-kernel truncation is selected. Data covariance, noise policy and MMSE solving remain pending; a common algorithm name alone does not establish equal receiver capability.",
+    "interference_modeling": "Construct full native operators from each receiver's estimated sample-level taps and retain all modeled couplings. Subtract the predicted known-pilot response and keep only data transmit columns while retaining all receive rows, as recorded in pilot_data_handling. No one-tap or Doppler-kernel truncation is selected. The common once-per-frame silent noise-power measurement is selected and implemented under noise_information_policy. Its data-receiver integration, data/residual covariance and MMSE solving remain pending. A common algorithm name alone does not establish equal receiver capability.",
     "channel_operator_design": {
       "status": "processing_extent_agreed_operators_implemented_diagnosed_2026_11_04_MMSE_not_implemented",
       "date_local": "2026-11-04",
@@ -409,7 +410,7 @@
         "OTFS_storage_note": "The production useful estimated-tap array occupies 1572864 bytes versus 4294967296 bytes for a hypothetical dense complex128 16384-by-16384 matrix. This is an array-size comparison, not a bound on total runtime memory or a performance benchmark.",
         "limits": "This earlier channel-only check validates construction and estimated-tap integration, not channel-estimation accuracy, MMSE data recovery or BER. It did not perform pilot subtraction; the later selected data preparation is recorded in pilot_data_handling. Existing errors remain, and noise/solver choices are still pending."
       },
-      "pending_design": ["unknown-data covariance and residual-error statistical modeling", "noise-variance knowledge or estimation policy", "MMSE numerical solver and any tolerances/stopping", "data decisions, BER implementation and baseline/full comparison runs"]
+      "pending_design": ["unknown-data covariance and residual-error statistical modeling", "connect selected silent noise-power measurement under noise_information_policy to the data receiver", "MMSE numerical solver and any tolerances/stopping", "data decisions, BER implementation and baseline/full comparison runs"]
     },
     "pilot_data_handling": {
       "status": "agreed_estimated_pilot_subtraction_and_data_only_unknowns_implemented_diagnosed_2026_11_04",
@@ -438,7 +439,78 @@
         "findings": "Matched-channel pilot subtraction agrees with the data-only channel to below 4.60e-16 relative error. Local data matrices and their adjoints agree below 5.88e-16; data-adjoint inner-product error is below 9.09e-18. Deliberate channel mismatch leaves the expected nonzero pilot residual, with identity error below 5.61e-15. Actual-estimate residual accounting, including AWGN and channel errors, agrees within 8.03e-15. Every case retains full receive observations and existing data order/energy.",
         "limits": "These checks validate preparation for MMSE, not actual equalization or BER. Noise statistics, covariance, regularization, solver and decisions remain pending; the common measured-bit quota is unchanged."
       },
-      "pending_design": ["unknown-data covariance and residual-error statistical modeling", "noise-variance knowledge or estimation policy", "MMSE numerical solution and stopping settings", "QAM decisions, bit recovery, confidence intervals and BER runs"]
+      "pending_design": ["unknown-data covariance and residual-error statistical modeling", "connect selected silent noise-power measurement under noise_information_policy to the data receiver", "MMSE numerical solution and stopping settings", "QAM decisions, bit recovery, confidence intervals and BER runs"]
+    },
+    "noise_information_policy": {
+      "status": "common_silent_energy_measurement_selected_implemented_diagnosed_data_MMSE_and_BER_pending",
+      "date_local": "2026-11-04",
+      "scope": "first_pilot_based_three_path_A_B_comparison",
+      "applies_to": ["OFDM", "AFDM", "OTFS", "DD-a-OFDM"],
+      "decision_record": "The user accepted estimating noise power from receiver observations and independently reconstructing paired noiseless/noisy inputs. The user then selected a common signal-free measurement interval, followed by 256 measured samples after five settling samples once per frame. Use the mean squared magnitude for the already agreed zero-mean complex AWGN model. Data covariance, MMSE numerical solving and full paired BER remain pending.",
+      "receiver_noise_power_source": "estimate_from_receiver_observations",
+      "true_injected_noise_variance_available": false,
+      "actual_data_interval_noise_samples_available": false,
+      "clean_received_signal_available_to_noisy_receiver": false,
+      "true_transmitted_data_available_to_receiver": false,
+      "input_boundary": "Do not pass the target Eb/N0, generator variance, generated data-interval noise vector, clean received waveform or true transmitted data to noise estimation or equalization. Known data-symbol energy, public design information, fixed pilots and actual received observations remain available. Generator/evaluator truth is permitted only for injection, paired controls and scoring.",
+      "generation_rule": "Keep noise_model and the existing data-symbol Eb/N0 reference. The simulator uses the true variance to generate receiver AWGN once after summing paths; do not use the receiver estimate to adjust injected noise or renormalize random frames.",
+      "method": "zero_mean_sample_energy",
+      "estimator_equation": "sigma_hat^2 = (1/L) * sum_m abs(z[m])^2, using only the L=256 measured silent-interval receive samples; both I and Q contribute to complex variance",
+      "noise_mean_assumption": 0.0,
+      "mean_and_floor_rule": "The noise mean is already modeled as zero, so do not subtract a sample mean or divide by L-1. Return zero for all-zero observations; the eventual equalizer's zero/small-variance handling remains pending and no positive floor is silently inserted.",
+      "observation_resource": {
+        "status": "agreed_additional_common_transmit_silence_2026_11_04",
+        "type": "common_transmit_silence_before_each_frame",
+        "settling_sample_count": 5,
+        "settling_rule": "Use the public maximum integer excess-delay support, not true active delays. After Tx becomes zero at calibration index 0, prior signal can persist only through index 4 under support 0..5. Discard these five receive samples; measure indices 5..260. Review this bound if timing, delay support or physical filtering changes. This is not another CP.",
+        "measurement_sample_count": 256,
+        "interval_sample_count": 261,
+        "sample_rate_hz": 60000000.0,
+        "settling_duration_s": 0.00000008333333333333334,
+        "measurement_duration_s": 0.000004266666666666667,
+        "interval_duration_s": 0.00000435,
+        "existing_frame_sample_count_including_CP": 16704,
+        "extended_interval_sample_count": 16965,
+        "extended_interval_duration_s": 0.00028275,
+        "added_time_over_existing_frame_percent": 1.5625,
+        "added_time_fraction_of_extended_interval_percent": 1.5384615384615385,
+        "transmit_rule": "All transmit samples are zero throughout the 261-sample calibration interval. Ensure no other signal or previous delayed tail remains in the 256 measured receive samples; this is a controlled simulation resource, not a claim about actual Starlink scheduling.",
+        "clock_and_energy_rule": "Record calibration as additional elapsed time with zero transmitted signal energy, separately from the existing pilot/guard budget and CP energy. Preserve the 16704-sample data-frame clock referenced to its first CP sample; calibration precedes that reference and must not silently shift estimated channel phases or renormalize data/pilots. Do not count calibration observations as data bits."
+      },
+      "sample_count": 256,
+      "update_interval": "once_per_frame",
+      "noise_stationarity_assumption": "The complex zero-mean AWGN has the same variance in calibration and the following frame. Calibration noise samples are independent of data-interval noise; equal-variance calibration does not reveal the actual data-interval noise realization.",
+      "pairing_rule": "Use a separate calibration-noise RNG stream, independent of data, channel and data-interval noise. Within each paired trial, reuse the same unit calibration observation realization across the four receivers, A/B conditions and Eb/N0 scales, consistent with the existing pairing policy. Scale only in the generator; the receiver gets actual calibration observations, not the scale or target Eb/N0. Do not reuse calibration samples as data-interval noise.",
+      "method_review": {
+        "status": "user_selected_common_signal_free_interval_then_256_samples_once_per_frame",
+        "common_signal_free_measurement_interval": "A possible common measurement uses genuinely signal-free received samples, with any preceding delayed signal tail excluded, and averages squared magnitudes under the zero-mean noise assumption. It requires an explicit common time/resource cost, sample count, update schedule and stationary noise statistics across measurement/data intervals. It is not a claim that actual Starlink transmissions provide such an interval or a license to give the data-interval noise vector to receivers.",
+        "existing_pilot_observations": "Potentially avoid extra measurement time, but account for unknown-data interference, channel-model mismatch and noise absorbed by fitting. Different native pilot observations require method-specific bias checks; raw residual energy is not automatically pure AWGN power.",
+        "native_mask_warning": "Transmit guard/reserved coordinates are not automatically signal-free receive observations under delay and fractional Doppler. Do not use every waveform's blank transmit cells as interchangeable noise samples.",
+        "selection_rule": "The common signal-free measurement and 256-sample once-per-frame setting were accepted in separate user replies. Existing-pilot-only noise estimation is not selected. Other noise measurement lengths remain sensitivity alternatives, not condition-specific tuning."
+      },
+      "paired_noiseless_reference": {
+        "status": "agreed_comparison_design_not_run",
+        "pairing": "Use the same transmitted data, fixed pilots and channel realization for the noiseless and noisy generator branches. Keep existing cross-waveform/channel-condition pairing and physical/resource/energy policies.",
+        "receiver_rule": "Run channel estimation, pilot subtraction and data recovery independently from each branch's own observations. Do not reuse noiseless channel estimates or clean data as assistance for the noisy receiver.",
+        "interpretation": "Noiseless BER can remain nonzero from estimation/recovery errors. Compare it with BER at the existing Eb/N0 points to diagnose noise sensitivity; their difference is not an independently additive noise error probability. The primary result remains the matched-Eb/N0 four-way BER comparison.",
+        "measurement_budget": "Preserve the agreed common bit quota for reported BER points; label shorter preliminary diagnostics separately. No BER experiment or bit-recovery pipeline has been implemented.",
+        "zero_noise_numerics": "Numerical handling of a zero or very small variance belongs to the still-pending equalizer design; do not silently add a regularization floor or use generator truth."
+      },
+      "implementation_status": "silent_noise_measurement_helper_and_public_design_builder_implemented_diagnosed_no_frame_generator_MMSE_or_BER_integration",
+      "implementation": "noise_estimation.py: build_silent_noise_measurement constructs the public once-per-frame design; SilentNoiseMeasurement.estimate accepts exactly 261 silent-interval receive samples, discards the first five and averages power over 256. Generic explicit-count measurement helpers have no default lengths.",
+      "uncertainty": "For L independent CN(0,sigma^2) observations, E[sigma_hat^2]=sigma^2 and Var(sigma_hat^2)=sigma^4/L. At L=256 the relative standard deviation is 6.25 percent, not a maximum error bound, confidence interval or BER accuracy guarantee. Initial selection trades a short one-block-duration time cost against finite noise-power uncertainty; it is not a validated BER optimum.",
+      "implementation_diagnostic": {
+        "script": "check_noise_estimation.py",
+        "report": "data/noise_estimation_check.json",
+        "scope": "Known-energy and invalid-input controls, independent serial prior-signal tail test under all allowed 0..5 time-varying taps, public-design/exact-interval integration, zero observations, analytic scaling across the existing Eb/N0 grid, and 8192 noise-only trials per length 256/512/1024. Generator truth is used for scoring only.",
+        "findings": "At 256 samples mean estimated/true variance is about 1.000456 and relative standard deviation about 6.231 percent, close to the 6.25-percent analytic prediction. The five discarded samples remove the independent serial control's entire prior signal tail; omitted/extra interval sizes are rejected. All-zero measurements return zero. No data recovery or BER is run."
+      },
+      "references": [
+        {"url": "https://www.mathworks.com/help/5g/ref/nrchannelestimate.html", "scope": "Example of channel and noise-variance estimation from received reference symbols; not adoption of its specific estimator or resource grid."},
+        {"url": "https://www.mathworks.com/help/5g/ref/nrequalizemmse.html", "scope": "Example of MMSE equalization receiving an estimated noise variance, not the data-interval noise realization; not our full coupled equalizer implementation."},
+        {"url": "https://cris.unibo.it/retrieve/handle/11585/802184/78cc746a-e562-4d62-ba22-f30493ca800a/TWC2982880.pdf", "scope": "Mixture Detectors for Improved Spectrum Sensing (2020), equation (18): mean squared magnitude of signal-free noise samples. The estimator form has literature precedent; the added common silence interval and length are our accepted simulation choices, not actual Starlink frame measurements."}
+      ],
+      "pending_design": ["connect separate independent calibration observations and the selected measurement helper to the future frame generator and data receiver", "data and residual-error covariance, MMSE numerical method and zero/small-variance handling", "independent paired data recovery, decisions, confidence intervals and BER", "later noise-measurement-length sensitivity with matched common overhead; retain 256 initially rather than tuning by condition"]
     },
     "channel_estimation_selection": {
       "OFDM": {
@@ -663,7 +735,7 @@
     },
     "existing_DD_a_design": "Preserve the selected DD-ML alternating-projection estimator and ICI-aware 256-by-256 TF linear-MMSE matrix for each of 64 symbols. The new common-family choice does not replace that design.",
     "development_focus": "The user clarified that the target is BER comparison, not eliminating all channel-estimation errors or repeatedly optimizing OFDM. Keep the current OFDM BEM-LS prototype as an initial candidate with documented limits, distinguish implementation errors from estimator limitations, and specify the other receivers under the agreed common conditions.",
-    "pending_design": ["finalize the fixed OFDM BEM-LS initial candidate with its documented limitations; retain the implemented native pilot/channel/data operators", "data-domain covariance and residual-error statistical modeling", "noise-variance knowledge or estimation policy", "equalizer numerical solver and any stopping settings", "full receiver validation and BER implementation"],
+    "pending_design": ["finalize the fixed OFDM BEM-LS initial candidate with its documented limitations; retain the implemented native pilot/channel/data operators", "data-domain covariance and residual-error statistical modeling", "connect selected silent noise-power measurement under noise_information_policy to the data receiver", "equalizer numerical solver and any stopping settings", "full receiver validation and BER implementation"],
     "baseline_scope": "The initial single-path LOS plus AWGN validation and its perfect common-frequency correction remain unchanged. This policy does not grant perfect multipath channel knowledge.",
     "reference_url": "https://arxiv.org/pdf/2508.04253v2#page=13",
     "reference_basis": "Section V-D uses ICI-aware MMSE equalizers for the OFDM/DD-a-OFDM comparison. Extending the linear-MMSE family to all four native receivers is our agreed experimental choice; it does not require copying a source paper's estimator or detector for every waveform.",
@@ -696,12 +768,14 @@
       "path_count": true,
       "path_delays": false,
       "path_dopplers": false,
-      "complex_path_gains": false
+      "complex_path_gains": false,
+      "injected_noise_variance": false,
+      "data_interval_noise_realization": false
     },
     "parameter_estimation_rule": "Obtain the channel response or path parameters from the agreed pilot observations. Do not copy the actual 0/2/5-sample delays, per-path Dopplers, or complex gains from the channel generator into the receivers.",
     "purpose": "First compare channel-parameter estimation and BER without adding path-count detection errors. State this known-count assumption in reported results; equal path-count information alone does not settle other fairness conditions.",
     "baseline_scope": "This policy does not change the initial single-path LOS AWGN baseline or its perfect common-Doppler knowledge and compensation. Future multipath compensation details remain to be discussed.",
-    "remaining_receiver_design": "All receivers share P=3, 0..5-sample excess-delay bounds and fixed +/-46875-Hz residual Doppler support; true active path parameters remain unavailable. Native pilot estimation, channel operators, estimated-pilot subtraction and data-only unknowns are implemented and initially diagnosed. Local TF/DAFT and full-frame OTFS DD extents remain selected. Data covariance, residual-error/noise policy, numerical MMSE solving and complete four-way BER remain pending. Nonzero estimation error alone does not require redesign.",
+    "remaining_receiver_design": "All receivers share P=3, 0..5-sample excess-delay bounds and fixed +/-46875-Hz residual Doppler support; true active path parameters remain unavailable. Native pilot estimation, channel operators, estimated-pilot subtraction and data-only unknowns are implemented and initially diagnosed. Local TF/DAFT and full-frame OTFS DD extents remain selected. Common silent-interval noise-power estimation (5 settling plus 256 measured samples per frame) is selected, implemented and initially diagnosed under receiver_equalization_policy.noise_information_policy. Frame/data integration, data covariance, residual-error modeling, numerical MMSE solving and complete four-way BER remain pending. Nonzero estimation error alone does not require redesign.",
     "path_count_estimation_followup": {
       "status": "deferred_method_and_parameters_pending_not_implemented",
       "purpose": "Replace the known count with a receiver-estimated count and compare against the known-count reference. Assess missed or spurious paths and their impact on parameter estimation and BER.",
