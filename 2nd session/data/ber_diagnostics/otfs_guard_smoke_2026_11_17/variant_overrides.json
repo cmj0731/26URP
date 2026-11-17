@@ -1,0 +1,212 @@
+{
+  "scope": "OTFS-only local-zero-region redistribution",
+  "variants": [
+    {
+      "label": "W64",
+      "local_zero_delay_row_count": 64,
+      "local_zero_delay_range_inclusive": [
+        96,
+        159
+      ],
+      "local_zero_cells_excluding_pilot": 4095,
+      "distant_reserved_delay_range_inclusive": null,
+      "distant_reserved_cells": 0,
+      "pilot_count": 1,
+      "all_zero_cells": 4095,
+      "data_count": 12288,
+      "Doppler_columns_per_zero_row": 64,
+      "pilot_observation_data_isolated_by_public_support": true,
+      "pilot_observation_receive_delay_rows": [
+        128,
+        129,
+        130,
+        131,
+        132,
+        133
+      ],
+      "possible_input_delay_rows_for_pilot_observation": [
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133
+      ],
+      "symbol_order_sha256_int64_little_endian": "f194e1a1a294a19b5d354f5b872645b86a54214995010c9148466295b32cb30c",
+      "symbol_order_rule": "Keep common data cells' original symbol IDs. Move original data from newly reserved distant cells to released local cells, pairing removed and added cells in column-major order. Decode back to the original information-bit order."
+    },
+    {
+      "label": "W11",
+      "local_zero_delay_row_count": 11,
+      "local_zero_delay_range_inclusive": [
+        123,
+        133
+      ],
+      "local_zero_cells_excluding_pilot": 703,
+      "distant_reserved_delay_range_inclusive": [
+        0,
+        52
+      ],
+      "distant_reserved_cells": 3392,
+      "pilot_count": 1,
+      "all_zero_cells": 4095,
+      "data_count": 12288,
+      "Doppler_columns_per_zero_row": 64,
+      "pilot_observation_data_isolated_by_public_support": true,
+      "pilot_observation_receive_delay_rows": [
+        128,
+        129,
+        130,
+        131,
+        132,
+        133
+      ],
+      "possible_input_delay_rows_for_pilot_observation": [
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133
+      ],
+      "symbol_order_sha256_int64_little_endian": "0c357f1969b41b859f7ea5758dded4eae0e50f9752f3f515655cf84ffea2eeee",
+      "symbol_order_rule": "Keep common data cells' original symbol IDs. Move original data from newly reserved distant cells to released local cells, pairing removed and added cells in column-major order. Decode back to the original information-bit order."
+    },
+    {
+      "label": "W9",
+      "local_zero_delay_row_count": 9,
+      "local_zero_delay_range_inclusive": [
+        124,
+        132
+      ],
+      "local_zero_cells_excluding_pilot": 575,
+      "distant_reserved_delay_range_inclusive": [
+        0,
+        54
+      ],
+      "distant_reserved_cells": 3520,
+      "pilot_count": 1,
+      "all_zero_cells": 4095,
+      "data_count": 12288,
+      "Doppler_columns_per_zero_row": 64,
+      "pilot_observation_data_isolated_by_public_support": false,
+      "pilot_observation_receive_delay_rows": [
+        128,
+        129,
+        130,
+        131,
+        132,
+        133
+      ],
+      "possible_input_delay_rows_for_pilot_observation": [
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133
+      ],
+      "symbol_order_sha256_int64_little_endian": "3fbcea20120df760d97ab7557f8df8f5d27ca536dddecd46520b4f051de5121c",
+      "symbol_order_rule": "Keep common data cells' original symbol IDs. Move original data from newly reserved distant cells to released local cells, pairing removed and added cells in column-major order. Decode back to the original information-bit order."
+    },
+    {
+      "label": "W5",
+      "local_zero_delay_row_count": 5,
+      "local_zero_delay_range_inclusive": [
+        126,
+        130
+      ],
+      "local_zero_cells_excluding_pilot": 319,
+      "distant_reserved_delay_range_inclusive": [
+        0,
+        58
+      ],
+      "distant_reserved_cells": 3776,
+      "pilot_count": 1,
+      "all_zero_cells": 4095,
+      "data_count": 12288,
+      "Doppler_columns_per_zero_row": 64,
+      "pilot_observation_data_isolated_by_public_support": false,
+      "pilot_observation_receive_delay_rows": [
+        128,
+        129,
+        130,
+        131,
+        132,
+        133
+      ],
+      "possible_input_delay_rows_for_pilot_observation": [
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133
+      ],
+      "symbol_order_sha256_int64_little_endian": "e49195e3df88e9fe6686debae63a1525a3ac6ee96253d222b30e994e92eb8f2d",
+      "symbol_order_rule": "Keep common data cells' original symbol IDs. Move original data from newly reserved distant cells to released local cells, pairing removed and added cells in column-major order. Decode back to the original information-bit order."
+    },
+    {
+      "label": "W1",
+      "local_zero_delay_row_count": 1,
+      "local_zero_delay_range_inclusive": [
+        128,
+        128
+      ],
+      "local_zero_cells_excluding_pilot": 63,
+      "distant_reserved_delay_range_inclusive": [
+        0,
+        62
+      ],
+      "distant_reserved_cells": 4032,
+      "pilot_count": 1,
+      "all_zero_cells": 4095,
+      "data_count": 12288,
+      "Doppler_columns_per_zero_row": 64,
+      "pilot_observation_data_isolated_by_public_support": false,
+      "pilot_observation_receive_delay_rows": [
+        128,
+        129,
+        130,
+        131,
+        132,
+        133
+      ],
+      "possible_input_delay_rows_for_pilot_observation": [
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133
+      ],
+      "symbol_order_sha256_int64_little_endian": "ed29365ae9f63ed9f909fdf2da95bb0f25541d0d39b3a5e03de8e68d96f4c812",
+      "symbol_order_rule": "Keep common data cells' original symbol IDs. Move original data from newly reserved distant cells to released local cells, pairing removed and added cells in column-major order. Decode back to the original information-bit order."
+    }
+  ]
+}

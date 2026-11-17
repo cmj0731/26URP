@@ -1,0 +1,26 @@
+{
+  "complete": true,
+  "result_rows": 10,
+  "frames": 214,
+  "information_bits_per_point": 10485760,
+  "reference_reproduced_every_frame": true,
+  "reference_aggregate_errors": {
+    "A": 43,
+    "B-4": 41
+  },
+  "reference_confidence_intervals_reproduced": true,
+  "checkpoint_totals_match": true,
+  "numeric_source_hashes_match": true,
+  "numeric_source_files_checked": 22,
+  "data_isolation_W64_W11": true,
+  "nonzero_data_interference_W9_W5_W1": true,
+  "largest_W11_relative_pilot_observation_change": 2.933833983821837e-16,
+  "largest_W11_relative_estimated_tap_change": 2.522220158117765e-16,
+  "largest_useful_energy_difference": 1.4551915228366852e-11,
+  "largest_CP_energy_difference": 1.1368683772161603e-13,
+  "largest_sampled_peak_difference": 2.842170943040401e-14,
+  "largest_known_pilot_template_relative_error": 7.836114136105976e-15,
+  "max_iterations": 28,
+  "max_relative_normal_residual": 9.99372317639227e-09,
+  "scope": "Fixed original estimator on received samples. Actual transmit masks enter data embedding and pilot subtraction. True channel/data decomposition is used only by the evaluator. Data identities at common cells and CP tails are preserved by the public layout permutation."
+}

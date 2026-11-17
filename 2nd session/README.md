@@ -1545,7 +1545,84 @@ B-4의 4,096→1 Es에서는 오류 수가 41→864,467개, NMSE가 −51.116→
 
 [전체 결과표와 95% 구간](results/otfs_pilot_energy_2026_11_17/index.html),
 [BER·채널 NMSE 그래프](results/otfs_pilot_energy_2026_11_17/pilot_energy_sensitivity.png),
-수치 원본과 프레임 기록을 저장했다. 후속 파일럿 보호영역·채널 가정 검증은 아직 실행하지 않았다.
+수치 원본과 프레임 기록을 저장했다. 후속 guard region sensitivity는 아래처럼 완료했다. Channel-assumption sensitivity는 아직 실행하지 않았다.
+
+### OTFS guard region sensitivity — 2026-11-17
+
+사용자는 pilot energy를 고정하고 OTFS guard region의 영향을 확인하는 다음 실험에 동의했다.
+제안한 local zero region width **64·11·9·5·1 delay rows**의 5단계를 실행했다.
+여기서 local zero region은 pilot 주변의 guard와 local reserved cells를 합친 영역이며,
+W64가 모두 필수 guard cells라는 뜻은 아니다. Pilot energy는 원래 **4,096 Es**,
+data Eb/N0는 **15 dB**, channel conditions는 기존 **A·B-4**로 고정했다.
+
+| Layout | Local zero delay rows | Distant reserved delay rows | Local zero cells excluding pilot | Distant reserved cells |
+| --- | --- | --- | ---: | ---: |
+| W64 | 96..159 (original) | 없음 | 4,095 | 0 |
+| W11 | 123..133 | 0..52 | 703 | 3,392 |
+| W9 | 124..132 | 0..54 | 575 | 3,520 |
+| W5 | 126..130 | 0..58 | 319 | 3,776 |
+| W1 | 128 | 0..62 | 63 | 4,032 |
+
+Doppler 방향은 항상 64 bins 전체다. 모든 layout은 pilot 1개, total zero cells 4,095개,
+data cells 12,288개를 유지한다. Distant reserved rows는 public delay support로 계산한
+pilot-observation input rows 123..133 밖에 있으며 CP가 복사하는 rows 251..255도 건드리지 않는다.
+이 위치 규칙은 BER 결과를 보기 전에 고정했다. W1은 같은 pilot row의 63 zero cells를 유지하므로
+완전한 no-guard layout이 아니다.
+
+단순히 data count만 맞추지 않고, common data cells의 symbol 값을 유지했다. 새 reserved cells에서
+밀려난 data를 새로 열린 local cells로 옮기고, receiver 출력은 공개된 permutation을 역으로 적용해
+원래 information-bit 순서로 집계한다. 모든 frame에서 useful energy·CP energy·sampled peak 불변도 확인했다.
+전체 data/noise/channel realization과 measured noise power는 이전 실험과 동일하다.
+
+**Receiver는 기존 original pilot-only approximate-ML/joint-LS model, observation region, bounds와
+search를 고정했다.** W9·W5·W1에서는 실제 mask가 data isolation 조건을 만족하지 않는다는 점을
+명시적으로 기록하고 unknown-data interference를 남겼다. 기존 `otfs_estimation.py`의 isolation
+검사를 전역으로 제거하지 않았으며, original receiver를 그대로 구성해 이 controlled ablation에 사용했다.
+Actual transmit mask는 기존 MMSE equations의 data embedding·known-pilot subtraction에 반영했다.
+좁은 guard에 맞춰 receiver를 새로 최적화한 결과로 해석하지 않는다.
+
+Data interference는 evaluator가 data-only/pilot-only channel 출력을 분리해 원래 pilot observation
+영역의 energy ratio로 측정했다. 이 성분이나 true taps를 receiver에 제공하거나 data 정답으로
+interference를 제거하지 않는다. NMSE는 원래처럼 whole useful frame의 true taps와 비교한다.
+
+각 점에서 **10,485,760 bits, 214 frames**를 측정했다. W64는 A 43개·B-4 41개 errors로,
+기존 214개 frame의 error counts 및 집계 confidence intervals까지 재현했다. 22개 numerical source
+hash와 원시 기록 재집계, energy·leakage·known-pilot template·MMSE convergence 검사를 통과했다.
+최대 MMSE iterations는 28회, 최대 relative normal residual은 약 `9.99373e-9`였다.
+
+| Local width (delay rows) | A BER | B-4 BER | A channel NMSE (dB) | B-4 channel NMSE (dB) | B-4 data/pilot observation energy (%) |
+| ---: | ---: | ---: | ---: | ---: | ---: |
+| 64 | 4.1008e-06 | 3.91006e-06 | -50.510 | -51.116 | Numerical zero |
+| 11 | 4.19617e-06 | 2.86102e-06 | -50.510 | -51.116 | Numerical zero |
+| 9 | 8.21114e-05 | 6.30379e-05 | -34.373 | -35.569 | 1.4172 |
+| 5 | 7.72476e-05 | 6.91414e-05 | -34.184 | -34.739 | 4.4326 |
+| 1 | 0.000161839 | 0.000133991 | -31.266 | -31.964 | 7.8093 |
+
+W64→W11에서 pilot observations와 estimated taps가 numerical precision 수준에서 같았다.
+이 둘의 최대 relative difference는 각각 약 `2.94e-16`과 `2.53e-16`이었다. 따라서 현재
+integer-delay model에서 extra reserved cells를 pilot 주변에 두는 것이 channel estimation을
+더 정확하게 만드는 근거는 없었다. B-4의 errors 41→30개 차이는 channel estimation 개선으로
+설명하지 않는다. Data placement·detection 구조와 finite sampling의 영향이 남는다.
+
+W11→W9에서 pilot observation의 data interference가 numerical zero에서 약 1.417%로 증가했고,
+B-4 channel NMSE는 −51.116→−35.569 dB, BER은 약 2.861e-6→6.304e-5로 악화됐다.
+이는 고정한 receiver에서 pilot observation의 data isolation이 channel estimation에 기여한다는 근거다.
+W9보다 더 좁히면 interference energy는 더 커지지만 BER·NMSE가 엄격히 단조로워야 하는 것은 아니다.
+Interference가 어느 delay/Doppler response에 들어오는지와 data placement도 영향을 준다.
+모든 layout에서 delay-set match는 두 conditions 모두 214/214였다.
+
+[DD layouts](results/otfs_guard_region_2026_11_17/guard_region_layouts.png),
+[BER·NMSE·data interference 그래프](results/otfs_guard_region_2026_11_17/guard_region_sensitivity.png),
+[전체 결과표·95% frame intervals](results/otfs_guard_region_2026_11_17/index.html)를 저장했다.
+원시 결과·manifest·layout overrides·frame 기록과 completion check는
+`data/otfs_guard_region_2026_11_17`에 있다. 이 결과만으로 physical edge guard band,
+다른 pilot energy, fractional-delay model 또는 OFDM과의 전체 격차를 설명하지 않는다.
+
+```powershell
+python -B run_otfs_guard_region.py --output data/otfs_guard_region_2026_11_17 --workers 8
+# 같은 실행을 이어갈 때 --resume 추가
+python -B plot_otfs_guard_region.py --run data/otfs_guard_region_2026_11_17 --output results/otfs_guard_region_2026_11_17
+```
 
 ### OFDM BEM 추정 구간의 결정 과정 — 2026-11-04
 

@@ -1353,6 +1353,46 @@
       "truth_scope": "Generator truth is used for NMSE/parameter-recovery evaluation only, never as receiver input.",
       "later_stages": "Pilot guard effects, estimator differences and channel-assumption sensitivity require separately discussed designs; do not combine them with this energy intervention."
     },
+    "otfs_guard_region_sensitivity": {
+      "status": "user_accepted_OTFS_only_five_layout_guard_region_sensitivity_completed_validated",
+      "decision_date_local": "2026-11-17",
+      "purpose": "Quantify the role of pilot observation data isolation under the fixed original receiver, holding non-data/data budgets, pilot energy, useful/CP energy and sampled peak constant.",
+      "local_zero_delay_row_counts": [
+        64,
+        11,
+        9,
+        5,
+        1
+      ],
+      "fixed_pilot_energy_Es": 4096,
+      "fixed_pilot_count": 1,
+      "fixed_zero_cell_count": 4095,
+      "fixed_data_count": 12288,
+      "fixed_data_Es": 1,
+      "fixed_data_Eb_N0_db": 15,
+      "conditions": [
+        "A",
+        "B-4"
+      ],
+      "layout_rule": "W64 is original local rows 96..159. For odd W, local zero rows are 128-(W-1)/2 .. 128+(W-1)/2 across all 64 Doppler bins. Distant reserved rows are 0..(63-W). These lie outside pilot-observation input rows 123..133 and do not touch CP-tail rows 251..255.",
+      "data_mapping_rule": "Keep original symbols at every common data cell. Data displaced by distant reservations move to released local cells in column-major order. Decode back to original bit order; keep the original exact quota/tail.",
+      "receiver_rule": "Original pilot-only channel estimator, observations and search are frozen. W9/W5/W1 deliberately admit unknown-data interference; no truth-based receiver cancellation. Data embedding and estimated pilot subtraction use each actual transmit mask. This is a fixed-receiver ablation, not an optimized reduced-guard receiver.",
+      "true_data_channel_scope": "Data-only/pilot-only channel outputs and true channel taps are evaluator-only for interference and NMSE; never supplied as receiver inputs.",
+      "run_directory": "data/otfs_guard_region_2026_11_17",
+      "report": "results/otfs_guard_region_2026_11_17/index.html",
+      "reference_configuration": "data/ber_comparison_2026_11_04/multipath/scenario_used.json",
+      "completed_execution": {
+        "complete": true,
+        "information_bits_per_point": 10485760,
+        "frame_count": 214,
+        "result_rows": 10,
+        "original_reference_reproduced_every_frame": true,
+        "max_iterations": 28,
+        "max_relative_normal_residual": 9.99372317639227e-09,
+        "completion_check": "data/otfs_guard_region_2026_11_17/completion_check.json"
+      },
+      "findings": "W64/W11 retain data-isolated pilot observations and numerically identical estimates. W9 and narrower introduce measurable data interference and larger channel NMSE; BER also worsens. BER differences can additionally reflect data placement/detection. W1 retains 63 local zero cells; this is not a zero-guard or physical edge-guard-band study."
+    },
     "full_ber_execution": {
       "status": "initial_baseline_and_pilot_based_three_path_comparison_completed",
       "numerical_source_commit": "df32e74",
