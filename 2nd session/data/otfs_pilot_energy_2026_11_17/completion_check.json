@@ -1,0 +1,20 @@
+{
+  "complete": true,
+  "result_rows": 14,
+  "frames": 214,
+  "information_bits_per_point": 10485760,
+  "reference_reproduced_every_frame": true,
+  "reference_aggregate_errors": {
+    "A": 43,
+    "B-4": 41
+  },
+  "reference_BER_confidence_intervals_reproduced": true,
+  "all_checkpoint_totals_match": true,
+  "all_numeric_source_hashes_match": true,
+  "numeric_source_files_checked": 21,
+  "fixed_true_noise_variance": 0.007905694150420948,
+  "largest_data_energy_difference_between_variants": 2.000888343900442e-11,
+  "max_iterations": 92,
+  "max_relative_normal_residual": 9.999496373909394e-09,
+  "scope": "Same original frames and receiver. Only the known OTFS pilot amplitude and matching receiver template change. True channels are evaluator-only. Full frame data stay random including the uncounted tail."
+}

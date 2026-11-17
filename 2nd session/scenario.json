@@ -1303,6 +1303,56 @@
       ]
     },
     "initial_stage_interpretation": "Check basic transmitter/receiver behavior and energy/noise normalization against the common uncoded Gray-mapped 16-QAM AWGN reference under ideal processing. Similar BER is expected for matched ideal implementations; no Doppler-robustness ranking is inferred at this stage.",
+    "otfs_pilot_energy_sensitivity": {
+      "status": "user_selected_OTFS_only_seven_energy_levels_full_run_completed_validated",
+      "decision_date_local": "2026-11-17",
+      "purpose": "Explain the low BER of the selected single-pilot OTFS design through controlled within-OTFS changes, beginning with pilot energy. This stage does not rank waveforms at unequal total energy.",
+      "first_variable": "total_useful_transmit_pilot_energy",
+      "selected_pilot_energies_Es": [
+        4096,
+        1024,
+        256,
+        64,
+        16,
+        4,
+        1
+      ],
+      "fixed_pilot_count": 1,
+      "fixed_data_Es": 1,
+      "fixed_data_Eb_N0_db": 15,
+      "selected_conditions": [
+        "A",
+        "B-4"
+      ],
+      "same_inputs_rule": "Replay all original frame-index/role random streams for data, path phases, receiver noise and calibration; same receiver settings and original exact information-bit quota.",
+      "energy_rule": "Change only the one pilot amplitude and the matching known receiver pilot/template. Keep data/noise/masks unchanged and do not normalize the complete frame. Total transmit energy varies intentionally.",
+      "reference_configuration": "data/ber_comparison_2026_11_04/multipath/scenario_used.json",
+      "run_directory": "data/otfs_pilot_energy_2026_11_17",
+      "completed_execution": {
+        "complete": true,
+        "information_bits_per_point": 10485760,
+        "frame_count": 214,
+        "result_rows": 14,
+        "original_reference_reproduced_every_frame": true,
+        "max_iterations": 92,
+        "max_relative_normal_residual": 9.999496373909394e-09,
+        "results": "data/otfs_pilot_energy_2026_11_17/results.json",
+        "completion_check": "data/otfs_pilot_energy_2026_11_17/completion_check.json",
+        "report": "results/otfs_pilot_energy_2026_11_17/index.html",
+        "finding": "Reducing pilot energy worsens channel NMSE and eventually BER in both selected conditions. At 256 Es the observed BER remains near the 4096-Es reference, so the maximum energy alone does not explain the low BER. No equivalence, optimal-energy or waveform-ranking claim is made."
+      },
+      "reference_control": "At Ep=4096 Es the original OTFS BER error counts must be reproduced separately in every frame for A and B-4.",
+      "metrics": [
+        "information_bits",
+        "bit_errors",
+        "BER",
+        "95_percent_frame_interval",
+        "mean_channel_NMSE",
+        "delay_recovery_success_count"
+      ],
+      "truth_scope": "Generator truth is used for NMSE/parameter-recovery evaluation only, never as receiver input.",
+      "later_stages": "Pilot guard effects, estimator differences and channel-assumption sensitivity require separately discussed designs; do not combine them with this energy intervention."
+    },
     "full_ber_execution": {
       "status": "initial_baseline_and_pilot_based_three_path_comparison_completed",
       "numerical_source_commit": "df32e74",

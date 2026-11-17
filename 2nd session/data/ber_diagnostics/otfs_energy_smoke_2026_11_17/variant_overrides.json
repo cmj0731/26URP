@@ -1,0 +1,83 @@
+{
+  "scope": "OTFS only",
+  "varying": "pilot energy and matching known receiver pilot/template amplitude",
+  "variants": [
+    {
+      "pilot_energy_Es": 4096.0,
+      "known_pilot_real": 64.0,
+      "pilot_count": 1,
+      "guard_reserved_count": 4095,
+      "data_count": 12288,
+      "data_Es": 1.0,
+      "data_Eb_N0_db": 15.0,
+      "noise_variance": 0.007905694150420948,
+      "expected_useful_energy": 16384.0
+    },
+    {
+      "pilot_energy_Es": 1024.0,
+      "known_pilot_real": 32.0,
+      "pilot_count": 1,
+      "guard_reserved_count": 4095,
+      "data_count": 12288,
+      "data_Es": 1.0,
+      "data_Eb_N0_db": 15.0,
+      "noise_variance": 0.007905694150420948,
+      "expected_useful_energy": 13312.0
+    },
+    {
+      "pilot_energy_Es": 256.0,
+      "known_pilot_real": 16.0,
+      "pilot_count": 1,
+      "guard_reserved_count": 4095,
+      "data_count": 12288,
+      "data_Es": 1.0,
+      "data_Eb_N0_db": 15.0,
+      "noise_variance": 0.007905694150420948,
+      "expected_useful_energy": 12544.0
+    },
+    {
+      "pilot_energy_Es": 64.0,
+      "known_pilot_real": 8.0,
+      "pilot_count": 1,
+      "guard_reserved_count": 4095,
+      "data_count": 12288,
+      "data_Es": 1.0,
+      "data_Eb_N0_db": 15.0,
+      "noise_variance": 0.007905694150420948,
+      "expected_useful_energy": 12352.0
+    },
+    {
+      "pilot_energy_Es": 16.0,
+      "known_pilot_real": 4.0,
+      "pilot_count": 1,
+      "guard_reserved_count": 4095,
+      "data_count": 12288,
+      "data_Es": 1.0,
+      "data_Eb_N0_db": 15.0,
+      "noise_variance": 0.007905694150420948,
+      "expected_useful_energy": 12304.0
+    },
+    {
+      "pilot_energy_Es": 4.0,
+      "known_pilot_real": 2.0,
+      "pilot_count": 1,
+      "guard_reserved_count": 4095,
+      "data_count": 12288,
+      "data_Es": 1.0,
+      "data_Eb_N0_db": 15.0,
+      "noise_variance": 0.007905694150420948,
+      "expected_useful_energy": 12292.0
+    },
+    {
+      "pilot_energy_Es": 1.0,
+      "known_pilot_real": 1.0,
+      "pilot_count": 1,
+      "guard_reserved_count": 4095,
+      "data_count": 12288,
+      "data_Es": 1.0,
+      "data_Eb_N0_db": 15.0,
+      "noise_variance": 0.007905694150420948,
+      "expected_useful_energy": 12289.0
+    }
+  ]
+}
