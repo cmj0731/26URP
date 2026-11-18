@@ -1,0 +1,122 @@
+{
+  "complete": true,
+  "completed_frame_count": 214,
+  "measured_bits_per_point": 10485760,
+  "BEM_LS_reference_reproduced_for_all_frames": true,
+  "pilot_template_check": {
+    "probes": 30,
+    "max_relative_error": 3.831695476775695e-15
+  },
+  "results": [
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 12990,
+      "ber_estimate": 0.0012388229370117188,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0011763310307312826,
+        0.0013013148432921549
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 3.1884211533152826e-05,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "A",
+      "method": "BEM-LS",
+      "Eb_N0_db": 15.0,
+      "mean_channel_nmse": 0.0014768948469375083,
+      "mean_channel_nmse_db": -28.30650424810249,
+      "mean_data_to_pilot_observation_energy_ratio": 1.7734713009356652e-32,
+      "max_normal_residual": 6.695359611328123e-16
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 2634,
+      "ber_estimate": 0.00025119781494140623,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.00024191723134221,
+        0.00026047839854060245
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 4.735078640424155e-06,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "A",
+      "method": "3-path",
+      "Eb_N0_db": 15.0,
+      "mean_channel_nmse": 8.931750577923309e-06,
+      "mean_channel_nmse_db": -50.49063413247715,
+      "mean_data_to_pilot_observation_energy_ratio": 1.7734713009356652e-32,
+      "max_normal_residual": 7.717180567631296e-16,
+      "frames_with_correct_delay_set": 214,
+      "doppler_rmse_hz_when_delay_set_correct": 7.5797073958541725
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 27059,
+      "ber_estimate": 0.002580547332763672,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.0024682662313739207,
+        0.0026928284341534233
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 5.7287328887372586e-05,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-4",
+      "method": "BEM-LS",
+      "Eb_N0_db": 15.0,
+      "mean_channel_nmse": 0.003972995044142196,
+      "mean_channel_nmse_db": -24.008819766770912,
+      "mean_data_to_pilot_observation_energy_ratio": 0.011222525727595252,
+      "max_normal_residual": 6.633991429956253e-16
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 1980,
+      "ber_estimate": 0.0001888275146484375,
+      "frame_count": 214,
+      "error_frame_count": 214,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        0.00018035659818976674,
+        0.00019729843110710826
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 4.321975569698358e-06,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-4",
+      "method": "3-path",
+      "Eb_N0_db": 15.0,
+      "mean_channel_nmse": 2.081988080027823e-05,
+      "mean_channel_nmse_db": -46.81521761277433,
+      "mean_data_to_pilot_observation_energy_ratio": 0.011222525727595252,
+      "max_normal_residual": 6.73434898891e-16,
+      "frames_with_correct_delay_set": 214,
+      "doppler_rmse_hz_when_delay_set_correct": 9.750802642716511
+    }
+  ],
+  "paired_BER_differences": [
+    {
+      "condition": "A",
+      "paired_BER_difference_3_path_minus_BEM_LS": -0.0009876251220703124,
+      "paired_95pct_frame_cluster_interval": [
+        -0.0010497213561149854,
+        -0.0009255288880256396
+      ]
+    },
+    {
+      "condition": "B-4",
+      "paired_BER_difference_3_path_minus_BEM_LS": -0.0023917198181152345,
+      "paired_95pct_frame_cluster_interval": [
+        -0.002503824467099997,
+        -0.002279615169130472
+      ]
+    }
+  ]
+}

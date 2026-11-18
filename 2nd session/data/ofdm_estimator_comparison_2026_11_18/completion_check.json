@@ -1,0 +1,40 @@
+{
+  "complete": true,
+  "frames": 214,
+  "information_bits_per_point": 10485760,
+  "result_rows": 4,
+  "baseline_BEM_LS_reproduced_every_frame": true,
+  "bit_counts_NMSE_and_intervals_recomputed_from_frames": true,
+  "numerical_source_hashes_verified": 22,
+  "pilot_template_check": {
+    "probes": 30,
+    "max_relative_error": 3.831695476775695e-15
+  },
+  "max_normal_residual": 7.717180567631296e-16,
+  "error_counts": {
+    "A": {
+      "BEM-LS": 12990,
+      "3-path": 2634
+    },
+    "B-4": {
+      "BEM-LS": 27059,
+      "3-path": 1980
+    }
+  },
+  "original_OTFS_reference": {
+    "A": {
+      "original_OTFS_bit_errors": 43,
+      "original_OTFS_BER": 4.100799560546875e-06,
+      "BEM_to_OTFS_BER_ratio": 302.09302325581393,
+      "three_path_to_OTFS_BER_ratio": 61.25581395348837,
+      "BEM_to_three_path_BER_ratio": 4.931662870159453
+    },
+    "B-4": {
+      "original_OTFS_bit_errors": 41,
+      "original_OTFS_BER": 3.910064697265625e-06,
+      "BEM_to_OTFS_BER_ratio": 659.9756097560976,
+      "three_path_to_OTFS_BER_ratio": 48.292682926829265,
+      "BEM_to_three_path_BER_ratio": 13.666161616161617
+    }
+  }
+}

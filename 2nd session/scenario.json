@@ -1493,6 +1493,30 @@
       "report": "results/otfs_reflection_spacing_2026_11_18/index.html",
       "completion_check": "data/otfs_reflection_spacing_2026_11_18/completion_check.json"
     },
+    "ofdm_estimator_comparison": {
+      "status": "completed_validated_OFDM_paired_estimator_comparison",
+      "decision_date_local": "2026-11-18",
+      "waveform": "OFDM",
+      "conditions": [
+        "A",
+        "B-4"
+      ],
+      "data_Eb_N0_db": 15,
+      "CP_samples": 5,
+      "pilot_count": 4096,
+      "pilot_energy_Es": 4096,
+      "data_cells": 12288,
+      "estimators": [
+        "original 31-term DPSS BEM-LS",
+        "exact known-pilot TF response 3-path approximate-ML/joint-LS"
+      ],
+      "receiver_controls": "Paired Tx and rx samples, original pilot grid and known values, same pilot observation samples and full-ICI MMSE/Gray detector. Three-path branch gets public P=3, delay 0..5 and Doppler +/-46875 Hz; true delays, Dopplers and gains are evaluation-only.",
+      "completed_frames": 214,
+      "bits_per_point": 10485760,
+      "result_rows": 4,
+      "run_directory": "data/ofdm_estimator_comparison_2026_11_18",
+      "completion_check": "data/ofdm_estimator_comparison_2026_11_18/completion_check.json"
+    },
     "full_ber_execution": {
       "status": "initial_baseline_and_pilot_based_three_path_comparison_completed",
       "numerical_source_commit": "df32e74",

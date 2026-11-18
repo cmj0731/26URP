@@ -1788,6 +1788,54 @@ python -B run_otfs_reflection_spacing.py --output data/otfs_reflection_spacing_2
 python -B plot_otfs_reflection_spacing.py --run data/otfs_reflection_spacing_2026_11_18 --output results/otfs_reflection_spacing_2026_11_18
 ```
 
+### OFDM BEM-LS vs. 3-path estimator — 2026-11-18
+
+OFDM의 channel estimator가 원래 OFDM–OTFS BER 차이에 얼마나 기여했는지 확인하기 위해
+같은 OFDM receive samples를 두 번 처리했다. Original pilot lattice는 32개 OFDM blocks에서
+128개 pilot subcarriers를 사용하는 배치다. Fixed QPSK pilots 4,096개와 total pilot energy
+4,096 Es, data cells 12,288개, CP=5 samples, Eb/N0=15 dB를 두 receiver에 공통 적용했다.
+A와 B-4에서 각 점은 214 frames와 10,485,760 information bits를 사용했다. Original comparison의
+data, path phases, noise 및 noise calibration을 frame별로 재현했다.
+
+- **BEM-LS**는 원래의 31-term DPSS basis와 6개 delay candidates를 사용해 pilot observations에
+  186개 complex coefficients를 fit한다.
+- **3-path estimator**는 같은 pilot observations에서 public path count P=3, integer delay candidates
+  0–5 samples와 residual Doppler bound ±46.875 kHz를 사용한다. Original OTFS receiver와 같은
+  sequential approximate-ML search, quarter-frame Doppler bin의 coarse grid, 1 Hz 이내로 좁히는
+  local Doppler search와 joint LS gain fit을 적용했다. Actual delays·Dopplers·gains는 평가에만 썼다.
+
+각 OFDM pilot template은 단일 candidate path가 known pilot grid 전체에 적용됐을 때 원래 pilot cells에
+들어오는 response다. 따라서 known pilots에서 오는 ICI를 포함한다. Unknown data에서 오는 ICI는
+실제 수신 pilot observations에 남아 있다. 두 estimator가 재구성한 channel에 같은 full-ICI MMSE,
+measured noise regularization, known-pilot subtraction과 Gray 16-QAM detector를 사용했다. Channel
+NMSE는 모든 useful samples의 estimated-to-true tap squared error를 true tap energy로 정규화하고,
+frame 평균을 linear scale에서 계산한 후 dB로 변환했다.
+
+| Condition | Estimator | Channel NMSE (dB) | Bit errors | BER | 95% frame-cluster CI |
+| --- | --- | ---: | ---: | ---: | --- |
+| A | BEM-LS | −28.31 | 12,990 | 1.23882e-3 | [1.17633e-3, 1.30131e-3] |
+| A | 3-path | −50.49 | 2,634 | 2.51198e-4 | [2.41917e-4, 2.60478e-4] |
+| B-4 | BEM-LS | −24.01 | 27,059 | 2.58055e-3 | [2.46827e-3, 2.69283e-3] |
+| B-4 | 3-path | −46.82 | 1,980 | 1.88828e-4 | [1.80357e-4, 1.97298e-4] |
+
+같은 OFDM receive samples에서 3-path estimator의 BER은 BEM-LS의 1/4.93(A), 1/13.67(B-4)이었다.
+B-4의 channel NMSE는 약 22.81 dB 낮아졌다. Original OTFS BER을 기준으로 보면 OFDM/OTFS BER
+비율은 A에서 약 302→61배, B-4에서 약 660→48배로 줄었다. 이 paired OFDM 비교로 기존 격차에
+channel estimator 선택이 기여했음을 확인했다. 남은 격차에는 각각의 pilot observation 구조와
+data detection 방식이 함께 반영돼 있다.
+
+3-path estimator는 A와 B-4에서 각각 214/214 frames의 active delay set을 맞혔다. Evaluator가
+분리해 측정한 B-4 data ICI는 pilot observation에서 pilot 성분 energy의 약 1.12%였다.
+30개 known-pilot template을 기존 serial channel과 대조했고 최대 relative error는 약 `3.83e-15`였다.
+BEM-LS의 per-frame errors와 BER CI는 original comparison을 재현했다. 두 receiver는 모든 frame에서
+MMSE convergence를 통과했다. [Results](data/ofdm_estimator_comparison_2026_11_18/results.json),
+[frame records](data/ofdm_estimator_comparison_2026_11_18/frames.jsonl),
+[completion check](data/ofdm_estimator_comparison_2026_11_18/completion_check.json)에 수치를 저장했다.
+
+```powershell
+python -B run_ofdm_estimator_comparison.py --output data/ofdm_estimator_comparison_2026_11_18 --workers 8
+```
+
 ### OFDM BEM 추정 구간의 결정 과정 — 2026-11-04
 
 **검토 중인 BEM 기반 LS의 채널 추정 구간을 한 프레임의 64개 OFDM 블록으로
