@@ -1517,6 +1517,31 @@
       "run_directory": "data/ofdm_estimator_comparison_2026_11_18",
       "completion_check": "data/ofdm_estimator_comparison_2026_11_18/completion_check.json"
     },
+    "perfect_csi_comparison": {
+      "status": "completed_validated_four_method_perfect_CSI_comparison",
+      "decision_date_local": "2026-11-18",
+      "waveforms": [
+        "OFDM",
+        "AFDM",
+        "OTFS",
+        "DD-a-OFDM"
+      ],
+      "conditions": [
+        "A",
+        "B-4"
+      ],
+      "data_Eb_N0_db": 15,
+      "CP_samples": 5,
+      "pilot_energy_Es": 4096,
+      "data_cells": 12288,
+      "controls": "Original pilot/data layouts, data/channel/noise/calibration streams and measured-noise full-channel MMSE/Gray recovery. Perfect CSI supplies true sample-clock channel taps to pilot cancellation and MMSE. Estimated CSI reference errors come from the same frames.",
+      "completed_frames": 214,
+      "bits_per_point": 10485760,
+      "result_rows": 8,
+      "ofdm_dd_a_ofdm_transmit_and_decisions_equal_every_frame": true,
+      "run_directory": "data/perfect_csi_comparison_2026_11_18",
+      "completion_check": "data/perfect_csi_comparison_2026_11_18/completion_check.json"
+    },
     "full_ber_execution": {
       "status": "initial_baseline_and_pilot_based_three_path_comparison_completed",
       "numerical_source_commit": "df32e74",

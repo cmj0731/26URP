@@ -1,0 +1,37 @@
+{
+  "complete": true,
+  "frames": 214,
+  "bits_per_point": 10485760,
+  "result_rows": 8,
+  "reference_hashes_verified": 3,
+  "source_hashes_verified": 21,
+  "estimated_controls_match_original_frames": true,
+  "OFDM_DD_a_OFDM_transmit_and_full_decoded_bit_equality_all_frames": true,
+  "max_operator_error_vs_serial_channel": 4.527045312572769e-16,
+  "max_relative_normal_residual": 9.990819018454903e-09,
+  "BER_and_intervals_recomputed_from_records": true,
+  "OFDM_OTFS_gap": {
+    "A": {
+      "estimated_BER_ratio_3_path_OFDM_over_OTFS": 61.25581395348837,
+      "perfect_BER_ratio_OFDM_over_OTFS": 60.23255813953488,
+      "estimated_absolute_BER_gap": 0.0002470970153808594,
+      "perfect_absolute_BER_gap": 0.00024290084838867186,
+      "paired_change_in_BER_gap": -4.1961669921875e-06,
+      "paired_change_95pct_frame_cluster_CI": [
+        -6.6455463143219795e-06,
+        -1.7467876700530212e-06
+      ]
+    },
+    "B-4": {
+      "estimated_BER_ratio_3_path_OFDM_over_OTFS": 48.292682926829265,
+      "perfect_BER_ratio_OFDM_over_OTFS": 46.785714285714285,
+      "estimated_absolute_BER_gap": 0.00018491744995117188,
+      "perfect_absolute_BER_gap": 0.00018339157104492189,
+      "paired_change_in_BER_gap": -1.52587890625e-06,
+      "paired_change_95pct_frame_cluster_CI": [
+        -4.5975795241839684e-06,
+        1.5458217116839683e-06
+      ]
+    }
+  }
+}

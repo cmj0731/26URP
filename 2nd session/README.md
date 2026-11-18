@@ -1836,6 +1836,47 @@ MMSE convergence를 통과했다. [Results](data/ofdm_estimator_comparison_2026_
 python -B run_ofdm_estimator_comparison.py --output data/ofdm_estimator_comparison_2026_11_18 --workers 8
 ```
 
+### Four-method BER with Perfect CSI — 2026-11-18
+
+Original Estimated CSI BER과 짝지어 **OFDM, AFDM, OTFS, DD-a-OFDM**의 Perfect CSI BER을 비교했다.
+A와 B-4에서 data Eb/N0=15 dB, CP=5 samples, 각 방식의 original pilot/data layout, total pilot energy
+4,096 Es와 12,288 data cells를 사용했다. 각 점에서 214 frames와 10,485,760 data bits를 집계했다.
+Frame별 data, channel phases, AWGN, silent noise calibration은 이전 실험의 RNG streams로 재생성했다.
+
+Perfect CSI는 receiver가 실제 receive-clock channel taps를 알고 있다고 가정하는 control이다.
+True taps를 known-pilot subtraction, full-channel MMSE operator와 nominal self-gain에 적용했다.
+기존 measured noise variance, MMSE 해법과 gain-aware Gray detection을 사용했다. 각 frame과 waveform에서
+true operator output을 serial channel의 clean signal과 대조했다. OFDM과 DD-a-OFDM은 각자의 경로로
+송신 및 복원한 뒤 transmit samples와 decoded bits가 frame마다 일치하는지 확인했다.
+
+Estimated CSI 열은 동일한 frame의 원래 네 방식 결과를 사용했다. OFDM 3-path 결과는 48배 격차를
+추적할 수 있도록 별도로 짝지었다. 각 BER과 Perfect CSI minus Estimated CSI 차이의 pointwise
+95% frame-cluster intervals는 원시 기록에서 계산했다.
+
+| Waveform | A Estimated CSI BER | A Perfect CSI BER | B-4 Estimated CSI BER | B-4 Perfect CSI BER |
+| --- | ---: | ---: | ---: | ---: |
+| OFDM | 1.23882e-3 | 2.47002e-4 | 2.58055e-3 | 1.87397e-4 |
+| AFDM | 3.24249e-6 | 2.76566e-6 | 2.95639e-6 | 2.76566e-6 |
+| OTFS | 4.10080e-6 | 4.10080e-6 | 3.91006e-6 | 4.00543e-6 |
+| DD-a-OFDM | 2.51293e-4 | 2.47002e-4 | 1.89590e-4 | 1.87397e-4 |
+
+OFDM 3-path Estimated CSI의 BER은 A `2.51198e-4`, B-4 `1.88828e-4`였다. OFDM/OTFS BER 비율은
+Estimated CSI에서 A 약 61.3배, B-4 약 48.3배였고 Perfect CSI에서도 각각 약 60.2배, 46.8배였다.
+B-4에서 OFDM minus OTFS의 absolute BER gap은 `1.84917e-4`에서 `1.83392e-4`로 줄었다.
+같은 frame을 짝지은 gap 변화의 pointwise 95% CI는 `[−4.60e-6, +1.55e-6]`였다. 따라서 이
+조건에서 channel estimation error를 제거한 뒤에도 큰 격차가 남았다. Perfect CSI 열은 각 방식의
+original symbol/data layout과 shared MMSE rule을 조합한 detection 성능을 보여준다.
+
+Perfect CSI에서 OFDM과 DD-a-OFDM의 transmit samples와 full decoded bits는 A와 B-4의 모든 frame에서
+일치했다. 이 비교에서 두 방식의 Estimated CSI BER 차이는 서로 다른 channel estimation에서 발생했다.
+True channel operator와 serial channel 간의 최대 relative error는 `1e-11` 미만이었다. Estimated
+CSI reference, BER, CI와 MMSE convergence를 원시 기록에서 검증했다. [Results](data/perfect_csi_comparison_2026_11_18/results.json)와
+[completion check](data/perfect_csi_comparison_2026_11_18/completion_check.json)에 수치를 저장했다.
+
+```powershell
+python -B run_perfect_csi_comparison.py --output data/perfect_csi_comparison_2026_11_18 --workers 8
+```
+
 ### OFDM BEM 추정 구간의 결정 과정 — 2026-11-04
 
 **검토 중인 BEM 기반 LS의 채널 추정 구간을 한 프레임의 64개 OFDM 블록으로
