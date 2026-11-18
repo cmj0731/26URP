@@ -1736,6 +1736,58 @@ python -B audit_otfs_fractional_delay.py --run data/otfs_fractional_delay_2026_1
 python -B plot_otfs_fractional_delay.py --run data/otfs_fractional_delay_2026_11_18 --output results/otfs_fractional_delay_2026_11_18
 ```
 
+### OTFS reflection delay spacing — 2026-11-18
+
+One reflection의 fractional delay를 추정할 수 있다는 점을 확인한 뒤, 두 reflection을
+가깝게 배치했을 때도 delay를 잘 추정하는지 측정했다. Physical delays는
+`[0, 2, 5]`, `[0, 4, 5]`, `[0, 4.5, 5]`, `[0, 4.75, 5]` samples다.
+−10 dB reflection만 이동하고 −15 dB reflection은 5 samples에 둔다. A는 세 path의
+residual Doppler가 0 Hz이고, B-4는 `[0, +46875, −46875]` Hz다.
+
+이전 실험의 continuous-delay receiver, three-path prior, CP=5, W64, single pilot energy
+4,096 Es, data Eb/N0=15 dB를 사용했다. 모든 점은 214 frames에서 10,485,760 bits를
+측정했으며 data, relative phases, AWGN과 noise calibration은 frame별로 짝지었다.
+3-sample 기준점은 같은 설정으로 실행한 이전 결과의 원시 frame 기록을 가져왔다.
+첫 frame은 A와 B-4 모두 다시 계산해 delay/Doppler estimates, channel NMSE와 errors까지 확인했다.
+
+각 frame에서 delay estimates를 오름차순으로 정렬하고 true delays에 순서대로 매칭했다.
+이 매칭은 delay에 대한 제곱 오차의 합이 가장 작은 일대일 매칭이다. Reflection delay RMSE는
+두 reflection의 squared errors를 모든 frame에서 평균한 뒤 제곱근을 구한다. Gap RMSE는 두
+reflection 사이의 estimated spacing을 true spacing과 비교한다. 두 지표는 delay set 복원을 평가한다.
+Channel NMSE는 full useful-channel operator의 Frobenius NMSE를 linear scale에서 평균한 뒤 dB로
+변환했다. BER은 기존 방식으로 각 점의 95% frame-cluster CI를 계산했다.
+
+| Gap (samples) | A delay RMSE (samples) | B-4 delay RMSE (samples) | A NMSE (dB) | B-4 NMSE (dB) | A BER | B-4 BER |
+| ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 3 | 0.00333 | 0.00286 | −48.64 | −49.45 | 4.29e-6 | 3.72e-6 |
+| 1 | 0.01530 | 0.00296 | −46.41 | −49.38 | 5.25e-6 | 3.34e-6 |
+| 0.5 | 0.04502 | 0.00311 | −44.58 | −49.08 | 6.68e-6 | 3.34e-6 |
+| 0.25 | 0.16061 | 0.00305 | −41.31 | −49.20 | 7.15e-6 | 2.48e-6 |
+
+A에서 gap 3→0.25 samples에 따른 delay RMSE는 약 48배, BER은 약 1.67배가 됐다.
+Raw bit errors는 45→75개였다. 짝지은 frame 기준 BER 차이는 약 `+2.86e-6`, pointwise
+95% CI는 `[+0.97e-6, +4.75e-6]`였다. B-4에서는 delay RMSE가 약 0.003 samples에
+머물렀고, BER은 모든 gap에서 `2.48e-6`에서 `3.72e-6` 사이였다. BER에는 channel estimate
+오차와 실제 delay 변경에 따른 channel response 변화가 함께 반영된다.
+
+Gap 0.25에서 두 true pilot templates의 normalized inner-product magnitude는 A 약 0.934,
+B-4 약 0.0047이었다. 같은 delay 간격에서 B-4의 서로 다른 residual Dopplers가 pilot responses를
+구분할 단서를 준다는 해석과 맞는다. 이 값은 원인 해석을 위한 평가 수치이며 actual delays와
+Dopplers는 receiver에 제공하지 않았다.
+
+A의 gap 0.25에서 한 frame의 optimizer가 abnormal status로 종료됐다. 기존 receiver가
+반환한 추정값을 사용해 그 frame도 집계했다. 그 frame의 bit errors는 0개이고 MMSE solver는
+수렴했다. 모든 frame의 집계와 baseline 기록을 대조했고, 1,712개의 delay pairing을 전체
+permutation으로 확인했다. 최대 relative normal residual은 `9.99749e-9`였다.
+
+표와 그래프는 [결과 보고서](results/otfs_reflection_spacing_2026_11_18/index.html)에 있다.
+원시 frame records, manifest, results, completion check는 `data/otfs_reflection_spacing_2026_11_18`에 있다.
+
+```powershell
+python -B run_otfs_reflection_spacing.py --output data/otfs_reflection_spacing_2026_11_18 --workers 8
+python -B plot_otfs_reflection_spacing.py --run data/otfs_reflection_spacing_2026_11_18 --output results/otfs_reflection_spacing_2026_11_18
+```
+
 ### OFDM BEM 추정 구간의 결정 과정 — 2026-11-04
 
 **검토 중인 BEM 기반 LS의 채널 추정 구간을 한 프레임의 64개 OFDM 블록으로

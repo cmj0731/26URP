@@ -1,0 +1,296 @@
+{
+  "complete": true,
+  "completed_frame_count": 214,
+  "measured_bits_per_point": 10485760,
+  "reference_frame_replayed": true,
+  "results": [
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 45,
+      "ber_estimate": 4.291534423828125e-06,
+      "frame_count": 214,
+      "error_frame_count": 36,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        2.8708705137386415e-06,
+        5.7121983339176085e-06
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 7.248418446948513e-07,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "A",
+      "physical_delays_samples": [
+        0.0,
+        2.0,
+        5.0
+      ],
+      "reflection_spacing_samples": 3.0,
+      "reflection_delay_rmse_samples": 0.0033328162164421096,
+      "per_reflection_delay_rmse_samples": [
+        0.0021164096568511005,
+        0.00421142945204433
+      ],
+      "worst_reflection_delay_error_p95_samples": 0.008847733085701703,
+      "reflection_spacing_rmse_samples": 0.0049184322862112235,
+      "los_delay_rmse_samples": 0.0008400115334833884,
+      "mean_operator_nmse": 1.3676874807707432e-05,
+      "mean_operator_nmse_db": -48.64013128407079,
+      "max_normal_residual": 9.97526646282466e-09,
+      "max_mmse_iterations": 25,
+      "optimizer_non_success_frames": 0,
+      "baseline_reused": true
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 55,
+      "ber_estimate": 5.245208740234375e-06,
+      "frame_count": 214,
+      "error_frame_count": 46,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        3.7604214320299785e-06,
+        6.7299960484387715e-06
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 7.57558465316817e-07,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "A",
+      "physical_delays_samples": [
+        0.0,
+        4.0,
+        5.0
+      ],
+      "reflection_spacing_samples": 1.0,
+      "reflection_delay_rmse_samples": 0.015296224998620774,
+      "per_reflection_delay_rmse_samples": [
+        0.006949811086315253,
+        0.02048533925228947
+      ],
+      "worst_reflection_delay_error_p95_samples": 0.029567888318024097,
+      "reflection_spacing_rmse_samples": 0.020880327883091673,
+      "los_delay_rmse_samples": 0.0008445346751349105,
+      "mean_operator_nmse": 2.287945317159739e-05,
+      "mean_operator_nmse_db": -46.405543595728844,
+      "max_normal_residual": 9.94014857280478e-09,
+      "max_mmse_iterations": 26,
+      "optimizer_non_success_frames": 0,
+      "baseline_reused": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 70,
+      "ber_estimate": 6.67572021484375e-06,
+      "frame_count": 214,
+      "error_frame_count": 56,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        5.031608668685412e-06,
+        8.319831761002087e-06
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 8.388478355351835e-07,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "A",
+      "physical_delays_samples": [
+        0.0,
+        4.5,
+        5.0
+      ],
+      "reflection_spacing_samples": 0.5,
+      "reflection_delay_rmse_samples": 0.04501981847285049,
+      "per_reflection_delay_rmse_samples": [
+        0.032267042485002756,
+        0.05488539040516929
+      ],
+      "worst_reflection_delay_error_p95_samples": 0.10646738284541361,
+      "reflection_spacing_rmse_samples": 0.06298694060235578,
+      "los_delay_rmse_samples": 0.000954320674751461,
+      "mean_operator_nmse": 3.4800664566717675e-05,
+      "mean_operator_nmse_db": -44.58412462521736,
+      "max_normal_residual": 9.944718534676862e-09,
+      "max_mmse_iterations": 26,
+      "optimizer_non_success_frames": 0,
+      "baseline_reused": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 75,
+      "ber_estimate": 7.152557373046875e-06,
+      "frame_count": 214,
+      "error_frame_count": 60,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        5.470475278745888e-06,
+        8.834639467347862e-06
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 8.582209201643686e-07,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "A",
+      "physical_delays_samples": [
+        0.0,
+        4.75,
+        5.0
+      ],
+      "reflection_spacing_samples": 0.25,
+      "reflection_delay_rmse_samples": 0.16060921577566906,
+      "per_reflection_delay_rmse_samples": [
+        0.14314595411610984,
+        0.17635156989474013
+      ],
+      "worst_reflection_delay_error_p95_samples": 0.6631195680636389,
+      "reflection_spacing_rmse_samples": 0.11878890018498353,
+      "los_delay_rmse_samples": 0.001112433737901462,
+      "mean_operator_nmse": 7.395335024311092e-05,
+      "mean_operator_nmse_db": -41.31042146763255,
+      "max_normal_residual": 9.99748712681346e-09,
+      "max_mmse_iterations": 26,
+      "optimizer_non_success_frames": 1,
+      "baseline_reused": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 39,
+      "ber_estimate": 3.719329833984375e-06,
+      "frame_count": 214,
+      "error_frame_count": 36,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        2.5664816543515314e-06,
+        4.872178013617219e-06
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 5.881986550397676e-07,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-4",
+      "physical_delays_samples": [
+        0.0,
+        2.0,
+        5.0
+      ],
+      "reflection_spacing_samples": 3.0,
+      "reflection_delay_rmse_samples": 0.002860917320329216,
+      "per_reflection_delay_rmse_samples": [
+        0.002181313872187363,
+        0.0034075747414432996
+      ],
+      "worst_reflection_delay_error_p95_samples": 0.007775158057005969,
+      "reflection_spacing_rmse_samples": 0.003950010022748977,
+      "los_delay_rmse_samples": 0.0006328890705624547,
+      "mean_operator_nmse": 1.1345748370597152e-05,
+      "mean_operator_nmse_db": -49.45166852577501,
+      "max_normal_residual": 8.039262073559053e-09,
+      "max_mmse_iterations": 25,
+      "optimizer_non_success_frames": 0,
+      "baseline_reused": true
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 35,
+      "ber_estimate": 3.337860107421875e-06,
+      "frame_count": 214,
+      "error_frame_count": 33,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        2.2574887908185068e-06,
+        4.418231424025243e-06
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 5.512199842064445e-07,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-4",
+      "physical_delays_samples": [
+        0.0,
+        4.0,
+        5.0
+      ],
+      "reflection_spacing_samples": 1.0,
+      "reflection_delay_rmse_samples": 0.0029588778217079646,
+      "per_reflection_delay_rmse_samples": [
+        0.0024261591496626995,
+        0.0034093500418845963
+      ],
+      "worst_reflection_delay_error_p95_samples": 0.0077781617509156565,
+      "reflection_spacing_rmse_samples": 0.004339666129432195,
+      "los_delay_rmse_samples": 0.0006325896841219974,
+      "mean_operator_nmse": 1.1542348828166148e-05,
+      "mean_operator_nmse_db": -49.377058047580384,
+      "max_normal_residual": 9.977693037701655e-09,
+      "max_mmse_iterations": 25,
+      "optimizer_non_success_frames": 0,
+      "baseline_reused": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 35,
+      "ber_estimate": 3.337860107421875e-06,
+      "frame_count": 214,
+      "error_frame_count": 32,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        2.225472600437681e-06,
+        4.450247614406069e-06
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 5.675550753782034e-07,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-4",
+      "physical_delays_samples": [
+        0.0,
+        4.5,
+        5.0
+      ],
+      "reflection_spacing_samples": 0.5,
+      "reflection_delay_rmse_samples": 0.0031127235072669086,
+      "per_reflection_delay_rmse_samples": [
+        0.0018546835346572154,
+        0.003992273068272688
+      ],
+      "worst_reflection_delay_error_p95_samples": 0.008711129344289904,
+      "reflection_spacing_rmse_samples": 0.004444652554202326,
+      "los_delay_rmse_samples": 0.0006289409980740917,
+      "mean_operator_nmse": 1.2369043981971158e-05,
+      "mean_operator_nmse_db": -49.07663866207541,
+      "max_normal_residual": 9.957397911132649e-09,
+      "max_mmse_iterations": 25,
+      "optimizer_non_success_frames": 0,
+      "baseline_reused": false
+    },
+    {
+      "measured_information_bits": 10485760,
+      "bit_errors": 26,
+      "ber_estimate": 2.47955322265625e-06,
+      "frame_count": 214,
+      "error_frame_count": 23,
+      "confidence_level": 0.95,
+      "confidence_interval": [
+        1.473613085564327e-06,
+        3.4854933597481733e-06
+      ],
+      "confidence_method": "approximate_CR1_frame_cluster_normal",
+      "frame_standard_error": 5.132441948049306e-07,
+      "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval.",
+      "condition": "B-4",
+      "physical_delays_samples": [
+        0.0,
+        4.75,
+        5.0
+      ],
+      "reflection_spacing_samples": 0.25,
+      "reflection_delay_rmse_samples": 0.0030484475885018303,
+      "per_reflection_delay_rmse_samples": [
+        0.002112302401717204,
+        0.003758223511632188
+      ],
+      "worst_reflection_delay_error_p95_samples": 0.008346251061080156,
+      "reflection_spacing_rmse_samples": 0.004261671498233329,
+      "los_delay_rmse_samples": 0.0006173105085454879,
+      "mean_operator_nmse": 1.2027276861596171e-05,
+      "mean_operator_nmse_db": -49.19832691683883,
+      "max_normal_residual": 9.983089987144094e-09,
+      "max_mmse_iterations": 25,
+      "optimizer_non_success_frames": 0,
+      "baseline_reused": false
+    }
+  ]
+}

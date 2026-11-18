@@ -1438,6 +1438,61 @@
       },
       "findings": "At B-4 delta0.5, original integer-only receiver BER=0.026703262329101564, continuous-delay receiver BER=4.9591064453125e-6. CP5 useful-slot coverage passed. Off-grid delay makes the old model mismatched, but low BER persists with a continuous-delay estimator in this sparse ideal model. Other channel assumptions and the full OFDM/OTFS gap remain unisolated."
     },
+    "otfs_reflection_spacing_sensitivity": {
+      "status": "completed_validated_OTFS_reflection_delay_spacing_sensitivity",
+      "decision_date_local": "2026-11-18",
+      "physical_delays_samples": [
+        [
+          0,
+          2,
+          5
+        ],
+        [
+          0,
+          4,
+          5
+        ],
+        [
+          0,
+          4.5,
+          5
+        ],
+        [
+          0,
+          4.75,
+          5
+        ]
+      ],
+      "reflection_spacing_samples": [
+        3,
+        1,
+        0.5,
+        0.25
+      ],
+      "conditions_hz": {
+        "A": [
+          0,
+          0,
+          0
+        ],
+        "B-4": [
+          0,
+          46875,
+          -46875
+        ]
+      },
+      "controls": "Same continuous-delay receiver, known P=3, CP=5, W64, single pilot 4096 Es, data Eb/N0=15 dB, paired frame draws and bit quota.",
+      "delay_error": "Match sorted delay estimates to sorted true delays. Reflection RMSE pools the two reflection errors over frames.",
+      "channel_error": "Mean full useful-channel operator Frobenius NMSE, then convert to dB.",
+      "baseline_rule": "Reuse original continuous-delay frame records for [0,2,5]. Recompute frame 0 independently in both conditions.",
+      "completed_frames": 214,
+      "measured_bits_per_point": 10485760,
+      "result_rows": 8,
+      "optimizer_non_success_frames": 1,
+      "run_directory": "data/otfs_reflection_spacing_2026_11_18",
+      "report": "results/otfs_reflection_spacing_2026_11_18/index.html",
+      "completion_check": "data/otfs_reflection_spacing_2026_11_18/completion_check.json"
+    },
     "full_ber_execution": {
       "status": "initial_baseline_and_pilot_based_three_path_comparison_completed",
       "numerical_source_commit": "df32e74",
