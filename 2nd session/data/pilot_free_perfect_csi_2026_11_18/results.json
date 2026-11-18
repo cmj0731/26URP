@@ -1,0 +1,234 @@
+{
+  "complete": true,
+  "frame_count": 160,
+  "measured_bits_per_point": 10485760,
+  "reference_matched_bits_per_point": 7864320,
+  "mean_useful_transmit_energy_Es": 16382.755,
+  "OFDM_DD_a_OFDM_identical_every_frame": true,
+  "results": [
+    {
+      "waveform": "OFDM",
+      "pilot_free": {
+        "measured_information_bits": 10485760,
+        "bit_errors": 2004,
+        "ber_estimate": 0.0001911163330078125,
+        "frame_count": 160,
+        "error_frame_count": 160,
+        "confidence_level": 0.95,
+        "confidence_interval": [
+          0.0001827858116833335,
+          0.0001994468543322915
+        ],
+        "confidence_method": "approximate_CR1_frame_cluster_normal",
+        "frame_standard_error": 4.250344082946973e-06,
+        "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval."
+      },
+      "original_layout_full_run": {
+        "measured_information_bits": 10485760,
+        "bit_errors": 1965,
+        "ber_estimate": 0.00018739700317382812,
+        "frame_count": 214,
+        "error_frame_count": 214,
+        "confidence_level": 0.95,
+        "confidence_interval": [
+          0.00017850930097462598,
+          0.00019628470537303027
+        ],
+        "confidence_method": "approximate_CR1_frame_cluster_normal",
+        "frame_standard_error": 4.534625263171773e-06,
+        "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval."
+      },
+      "original_layout_same_frames": {
+        "measured_information_bits": 7864320,
+        "bit_errors": 1471,
+        "ber_estimate": 0.00018704732259114583,
+        "frame_count": 160,
+        "error_frame_count": 160,
+        "confidence_level": 0.95,
+        "confidence_interval": [
+          0.00017636713122825252,
+          0.00019772751395403913
+        ],
+        "confidence_method": "approximate_CR1_frame_cluster_normal",
+        "frame_standard_error": 5.449177355878624e-06,
+        "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval."
+      },
+      "paired_pilot_free_minus_original_BER": 4.069010416666667e-06,
+      "paired_95pct_frame_CI": [
+        -4.461338666698991e-06,
+        1.2599359500032325e-05
+      ],
+      "mean_CP_transmit_energy_Es": 319.2863545156084,
+      "max_relative_normal_residual": 6.422228283679521e-16,
+      "max_operator_relative_error": 0.0
+    },
+    {
+      "waveform": "AFDM",
+      "pilot_free": {
+        "measured_information_bits": 10485760,
+        "bit_errors": 54,
+        "ber_estimate": 5.14984130859375e-06,
+        "frame_count": 160,
+        "error_frame_count": 49,
+        "confidence_level": 0.95,
+        "confidence_interval": [
+          3.8812440066751394e-06,
+          6.418438610512361e-06
+        ],
+        "confidence_method": "approximate_CR1_frame_cluster_normal",
+        "frame_standard_error": 6.472554148571838e-07,
+        "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval."
+      },
+      "original_layout_full_run": {
+        "measured_information_bits": 10485760,
+        "bit_errors": 29,
+        "ber_estimate": 2.765655517578125e-06,
+        "frame_count": 214,
+        "error_frame_count": 27,
+        "confidence_level": 0.95,
+        "confidence_interval": [
+          1.7557842131631504e-06,
+          3.7755268219930994e-06
+        ],
+        "confidence_method": "approximate_CR1_frame_cluster_normal",
+        "frame_standard_error": 5.152499292745738e-07,
+        "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval."
+      },
+      "original_layout_same_frames": {
+        "measured_information_bits": 7864320,
+        "bit_errors": 25,
+        "ber_estimate": 3.1789143880208335e-06,
+        "frame_count": 160,
+        "error_frame_count": 23,
+        "confidence_level": 0.95,
+        "confidence_interval": [
+          1.9265487963962476e-06,
+          4.431279979645419e-06
+        ],
+        "confidence_method": "approximate_CR1_frame_cluster_normal",
+        "frame_standard_error": 6.389737778362696e-07,
+        "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval."
+      },
+      "paired_pilot_free_minus_original_BER": 1.9709269205729173e-06,
+      "paired_95pct_frame_CI": [
+        6.599279454788632e-07,
+        3.2819258956669714e-06
+      ],
+      "mean_CP_transmit_energy_Es": 320.23974295598344,
+      "max_relative_normal_residual": 7.0907211071752995e-16,
+      "max_operator_relative_error": 0.0
+    },
+    {
+      "waveform": "OTFS",
+      "pilot_free": {
+        "measured_information_bits": 10485760,
+        "bit_errors": 46,
+        "ber_estimate": 4.38690185546875e-06,
+        "frame_count": 160,
+        "error_frame_count": 38,
+        "confidence_level": 0.95,
+        "confidence_interval": [
+          3.0773935841089564e-06,
+          5.696410126828543e-06
+        ],
+        "confidence_method": "approximate_CR1_frame_cluster_normal",
+        "frame_standard_error": 6.681287420019081e-07,
+        "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval."
+      },
+      "original_layout_full_run": {
+        "measured_information_bits": 10485760,
+        "bit_errors": 42,
+        "ber_estimate": 4.00543212890625e-06,
+        "frame_count": 214,
+        "error_frame_count": 37,
+        "confidence_level": 0.95,
+        "confidence_interval": [
+          2.7665829568607836e-06,
+          5.244281300951717e-06
+        ],
+        "confidence_method": "approximate_CR1_frame_cluster_normal",
+        "frame_standard_error": 6.320775186775631e-07,
+        "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval."
+      },
+      "original_layout_same_frames": {
+        "measured_information_bits": 7864320,
+        "bit_errors": 32,
+        "ber_estimate": 4.069010416666667e-06,
+        "frame_count": 160,
+        "error_frame_count": 27,
+        "confidence_level": 0.95,
+        "confidence_interval": [
+          2.5773384002187236e-06,
+          5.56068243311461e-06
+        ],
+        "confidence_method": "approximate_CR1_frame_cluster_normal",
+        "frame_standard_error": 7.610711361096744e-07,
+        "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval."
+      },
+      "paired_pilot_free_minus_original_BER": 3.1789143880208363e-07,
+      "paired_95pct_frame_CI": [
+        -7.955687896324647e-07,
+        1.431351667236632e-06
+      ],
+      "mean_CP_transmit_energy_Es": 320.755,
+      "max_relative_normal_residual": 7.3839520523497105e-09,
+      "max_operator_relative_error": 5.039974527239859e-16
+    },
+    {
+      "waveform": "DD-a-OFDM",
+      "pilot_free": {
+        "measured_information_bits": 10485760,
+        "bit_errors": 2004,
+        "ber_estimate": 0.0001911163330078125,
+        "frame_count": 160,
+        "error_frame_count": 160,
+        "confidence_level": 0.95,
+        "confidence_interval": [
+          0.0001827858116833335,
+          0.0001994468543322915
+        ],
+        "confidence_method": "approximate_CR1_frame_cluster_normal",
+        "frame_standard_error": 4.250344082946973e-06,
+        "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval."
+      },
+      "original_layout_full_run": {
+        "measured_information_bits": 10485760,
+        "bit_errors": 1965,
+        "ber_estimate": 0.00018739700317382812,
+        "frame_count": 214,
+        "error_frame_count": 214,
+        "confidence_level": 0.95,
+        "confidence_interval": [
+          0.00017850930097462598,
+          0.00019628470537303027
+        ],
+        "confidence_method": "approximate_CR1_frame_cluster_normal",
+        "frame_standard_error": 4.534625263171773e-06,
+        "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval."
+      },
+      "original_layout_same_frames": {
+        "measured_information_bits": 7864320,
+        "bit_errors": 1471,
+        "ber_estimate": 0.00018704732259114583,
+        "frame_count": 160,
+        "error_frame_count": 160,
+        "confidence_level": 0.95,
+        "confidence_interval": [
+          0.00017636713122825252,
+          0.00019772751395403913
+        ],
+        "confidence_method": "approximate_CR1_frame_cluster_normal",
+        "frame_standard_error": 5.449177355878624e-06,
+        "interval_note": "Large-independent-frame approximation; arbitrary dependence is allowed within each frame. Sparse error-bearing frames can limit accuracy. Not an exact independent-bit binomial interval."
+      },
+      "paired_pilot_free_minus_original_BER": 4.069010416666667e-06,
+      "paired_95pct_frame_CI": [
+        -4.461338666698991e-06,
+        1.2599359500032325e-05
+      ],
+      "mean_CP_transmit_energy_Es": 319.2863545156084,
+      "max_relative_normal_residual": 6.422228283679521e-16,
+      "max_operator_relative_error": 0.0
+    }
+  ]
+}

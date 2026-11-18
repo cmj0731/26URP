@@ -1542,6 +1542,33 @@
       "run_directory": "data/perfect_csi_comparison_2026_11_18",
       "completion_check": "data/perfect_csi_comparison_2026_11_18/completion_check.json"
     },
+    "pilot_free_perfect_csi_comparison": {
+      "status": "completed_validated_all_data_perfect_CSI_control",
+      "decision_date_local": "2026-11-18",
+      "waveforms": [
+        "OFDM",
+        "AFDM",
+        "OTFS",
+        "DD-a-OFDM"
+      ],
+      "condition": "B-4",
+      "data_Eb_N0_db": 15,
+      "CP_samples": 5,
+      "grid_shape": [
+        256,
+        64
+      ],
+      "data_cells": 16384,
+      "pilot_cells": 0,
+      "guard_or_reserved_cells": 0,
+      "controls": "Common uncoded Gray 16-QAM data vector and PCG64 channel, noise and calibration streams. True sample-clock channel taps, original measured-noise full-channel MMSE and gain-aware hard decisions.",
+      "completed_frames": 160,
+      "bits_per_point": 10485760,
+      "original_layout_matched_bits": 7864320,
+      "ofdm_dd_a_ofdm_transmit_and_decisions_equal_every_frame": true,
+      "run_directory": "data/pilot_free_perfect_csi_2026_11_18",
+      "completion_check": "data/pilot_free_perfect_csi_2026_11_18/completion_check.json"
+    },
     "full_ber_execution": {
       "status": "initial_baseline_and_pilot_based_three_path_comparison_completed",
       "numerical_source_commit": "df32e74",

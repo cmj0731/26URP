@@ -1,0 +1,23 @@
+{
+  "complete": true,
+  "frames": 160,
+  "bits_per_point": 10485760,
+  "original_layout_matched_bits": 7864320,
+  "source_and_reference_hashes_verified": 26,
+  "reference_records_match_all_frames": true,
+  "original_and_new_BER_and_CIs_recomputed": true,
+  "OFDM_DD_a_OFDM_equality_all_frames": true,
+  "max_operator_relative_error": 5.039974527239859e-16,
+  "max_relative_normal_residual": 7.3839520523497105e-09,
+  "OFDM_OTFS_gap": {
+    "original_layout_same_160_frames_OFDM_OTFS_ratio": 45.968749999999986,
+    "pilot_free_OFDM_OTFS_ratio": 43.56521739130435,
+    "original_layout_same_160_frames_absolute_OFDM_OTFS_gap": 0.00018297831217447915,
+    "pilot_free_absolute_OFDM_OTFS_gap": 0.00018672943115234376,
+    "paired_change_in_gap": 3.7511189778645836e-06,
+    "paired_change_95pct_frame_CI": [
+      -4.828402941841221e-06,
+      1.2330640897570388e-05
+    ]
+  }
+}

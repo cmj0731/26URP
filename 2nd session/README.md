@@ -1877,6 +1877,48 @@ CSI reference, BER, CI와 MMSE convergence를 원시 기록에서 검증했다. 
 python -B run_perfect_csi_comparison.py --output data/perfect_csi_comparison_2026_11_18 --workers 8
 ```
 
+### Pilot-free four-method BER with Perfect CSI — 2026-11-18
+
+Original pilot/data layout을 사용한 Perfect CSI 비교에 이어, B-4에서 **256×64 native grid의
+16,384 cells를 모두 uncoded Gray 16-QAM data로 채웠다**. 네 방식은 같은 data vector, channel,
+AWGN 및 measured noise variance를 사용한다. CP=5 samples, data Es=1, data Eb/N0=15 dB이며,
+sample-clock true channel taps로 기존 full-channel MMSE 및 gain-aware hard decisions를 적용했다.
+Full-data model에는 pilot이나 guard·reserved cells가 없다. Original channel과 detector 소스는
+그대로 사용했다.
+
+Frame당 65,536 bits이므로 160 full frames가 기존과 같은 10,485,760 bits를 제공한다.
+Original layout은 12,288 data cells와 4,096 Es의 pilot이 있었고 all-data layout은 16,384 data
+cells를 사용한다. Expected useful transmit energy는 두 layout 모두 16,384 Es다. Data Eb/N0는
+data symbol energy 기준이고 실제 CP energy는 따로 기록했다.
+
+원래 214-frame Perfect CSI BER과 동일 bit quota로 나란히 제시했다. Frame draw에 따른 변동을
+확인하기 위해 원래 기록의 처음 160개 frame도 따로 집계했다. 이 paired 비교는 양쪽에서 같은
+channel phases·AWGN·noise calibration을 재현하고 layout별 모든 data bits로 각각 BER을 구한다.
+따라서 paired reference는 7,864,320 bits, all-data는 10,485,760 bits를 집계한다.
+
+| Waveform | Original layout BER · full quota | Pilot-free BER | Pilot-free bit errors | Pilot-free 95% frame-cluster CI |
+| --- | ---: | ---: | ---: | --- |
+| OFDM | 1.87397e-4 | 1.91116e-4 | 2,004 | [1.82786e-4, 1.99447e-4] |
+| AFDM | 2.76566e-6 | 5.14984e-6 | 54 | [3.88124e-6, 6.41844e-6] |
+| OTFS | 4.00543e-6 | 4.38690e-6 | 46 | [3.07739e-6, 5.69641e-6] |
+| DD-a-OFDM | 1.87397e-4 | 1.91116e-4 | 2,004 | [1.82786e-4, 1.99447e-4] |
+
+OFDM/OTFS BER 비율은 original full run에서 약 46.8배였고 pilot-free에서 약 43.6배였다.
+같은 160 frames의 paired comparison에서도 original ratio는 약 46.0배였다. Absolute BER gap의
+paired 변화는 `+3.75e-6`이고 pointwise 95% CI는 `[−4.83e-6, +1.23e-5]`였다. 따라서 공통
+all-data allocation에서도 B-4의 큰 OFDM–OTFS BER 차이가 유지됐다. 이 값은 현재 channel에서의
+waveform transform과 공통 MMSE·Gray detection 조합의 결과다.
+
+OFDM과 DD-a-OFDM의 transmit samples 및 decoded bits는 160 frames 모두 일치했다. Useful energy는
+각 frame의 네 방식에서 같았고 그 평균은 16,382.755 Es였다. True channel operator와 serial channel의
+일치, measured noise reference, exact bit quota와 BER interval을 검증했다.
+[Results](data/pilot_free_perfect_csi_2026_11_18/results.json)와
+[completion check](data/pilot_free_perfect_csi_2026_11_18/completion_check.json)에 수치를 저장했다.
+
+```powershell
+python -B run_pilot_free_perfect_csi.py --output data/pilot_free_perfect_csi_2026_11_18 --workers 8
+```
+
 ### OFDM BEM 추정 구간의 결정 과정 — 2026-11-04
 
 **검토 중인 BEM 기반 LS의 채널 추정 구간을 한 프레임의 64개 OFDM 블록으로
