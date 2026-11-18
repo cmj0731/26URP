@@ -1393,6 +1393,51 @@
       },
       "findings": "W64/W11 retain data-isolated pilot observations and numerically identical estimates. W9 and narrower introduce measurable data interference and larger channel NMSE; BER also worsens. BER differences can additionally reflect data placement/detection. W1 retains 63 local zero cells; this is not a zero-guard or physical edge-guard-band study."
     },
+    "otfs_fractional_delay_sensitivity": {
+      "status": "user_accepted_CP5_fractional_delay_OTFS_only_comparison_completed_validated",
+      "decision_date_local": "2026-11-18",
+      "purpose": "Test integer-grid alignment while retaining CP5; separate original integer-only receiver mismatch from a continuous-delay-aware receiver on the same received samples.",
+      "fixed_CP_samples": 5,
+      "fixed_layout": "original_W64",
+      "fixed_pilot_count": 1,
+      "fixed_pilot_energy_Es": 4096,
+      "fixed_data_Es": 1,
+      "fixed_data_Eb_N0_db": 15,
+      "fixed_zero_cell_count": 4095,
+      "fixed_data_count": 12288,
+      "conditions": [
+        "A",
+        "B-4"
+      ],
+      "delta_samples": [
+        0,
+        0.1,
+        0.25,
+        0.5
+      ],
+      "physical_delay_rule": "[0,2+delta,5] samples. Maximum physical excess delay stays at 5 samples.",
+      "channel_rule": "Piecewise rectangular-window per-slot Fourier waveform with signed FFT frequencies. Serial evaluation selects the source slot at t-delay, zero outside finite frame. No extra FIR/filter tails, whole-frame periodic extension, CP extension or RF/matched filtering.",
+      "receiver_rule": "Original integer-only receiver versus continuous-delay approximate-ML/joint-LS receiver; same original CE region, public P=3, delay bounds 0..5 and Doppler bound +/-46875 Hz. Neither receives actual active delays, delta, Dopplers or gains. Same nominal full-DD MMSE and exact estimated-channel self-gain decisions.",
+      "continuous_search": "0.25-sample fixed initial lattice; original quarter-frame frequency grid and <=1 Hz scalar refinement; bounded joint variable-projection L-BFGS-B with analytic gradient, maxiter150/maxfun3000/ftol1e-14/gtol1e-9.",
+      "nmse_rule": "Full useful-channel operator Frobenius NMSE; no fractional-response truncation to six integer taps. Truth/decompositions are evaluator-only; separate labeled noiseless unit controls do not feed the BER receiver.",
+      "controls": "Original data/gain/noise/calibration RNG draws, exact bit quota/tail, CP5, W64, pilot/data energies and Es-based noise. Delta0 original errors reproduce every reference frame.",
+      "run_directory": "data/otfs_fractional_delay_2026_11_18",
+      "report": "results/otfs_fractional_delay_2026_11_18/index.html",
+      "completed_execution": {
+        "complete": true,
+        "information_bits_per_point": 10485760,
+        "frame_count": 214,
+        "result_rows": 16,
+        "numeric_source_files_checked": 23,
+        "original_reference_reproduced_every_frame": true,
+        "max_iterations": 26,
+        "max_relative_normal_residual": 9.99795261075392e-09,
+        "continuous_optimizer_successes": 1712,
+        "continuous_optimizer_total": 1712,
+        "completion_check": "data/otfs_fractional_delay_2026_11_18/completion_check.json"
+      },
+      "findings": "At B-4 delta0.5, original integer-only receiver BER=0.026703262329101564, continuous-delay receiver BER=4.9591064453125e-6. CP5 useful-slot coverage passed. Off-grid delay makes the old model mismatched, but low BER persists with a continuous-delay estimator in this sparse ideal model. Other channel assumptions and the full OFDM/OTFS gap remain unisolated."
+    },
     "full_ber_execution": {
       "status": "initial_baseline_and_pilot_based_three_path_comparison_completed",
       "numerical_source_commit": "df32e74",

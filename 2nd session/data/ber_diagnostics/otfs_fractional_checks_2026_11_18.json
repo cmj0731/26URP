@@ -1,0 +1,233 @@
+{
+  "cp_samples": 5,
+  "sample_rate_hz": 60000000.0,
+  "integer_serial_relative_error": 1.6538905440021206e-15,
+  "serial_vs_useful_operator_relative_error": 1.7118222089465732e-15,
+  "adjoint_relative_error": 5.707052240572565e-15,
+  "pilot_template_relative_error": 7.92947714634503e-15,
+  "noiseless_recovery_errors": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "clean_parameter_fit": [
+    {
+      "delta_samples": 0.0,
+      "maximum_doppler_hz": 0.0,
+      "paths": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          2.0,
+          0.0
+        ],
+        [
+          5.0,
+          0.0
+        ]
+      ],
+      "operator_nmse": 0.0,
+      "optimizer": {
+        "success": true,
+        "status": 0,
+        "message": "CONVERGENCE: NORM OF PROJECTED GRADIENT <= PGTOL",
+        "iterations": 0,
+        "evaluations": 1
+      }
+    },
+    {
+      "delta_samples": 0.1,
+      "maximum_doppler_hz": 0.0,
+      "paths": [
+        [
+          0.0,
+          -1.755857986386777e-08
+        ],
+        [
+          2.100000000516418,
+          -2.1148567548314653e-10
+        ],
+        [
+          5.0,
+          4.012301089735735e-12
+        ]
+      ],
+      "operator_nmse": 0.0,
+      "optimizer": {
+        "success": true,
+        "status": 0,
+        "message": "CONVERGENCE: NORM OF PROJECTED GRADIENT <= PGTOL",
+        "iterations": 6,
+        "evaluations": 8
+      }
+    },
+    {
+      "delta_samples": 0.25,
+      "maximum_doppler_hz": 0.0,
+      "paths": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          2.25,
+          0.0
+        ],
+        [
+          5.0,
+          0.0
+        ]
+      ],
+      "operator_nmse": 4.2519086656952466e-16,
+      "optimizer": {
+        "success": true,
+        "status": 0,
+        "message": "CONVERGENCE: NORM OF PROJECTED GRADIENT <= PGTOL",
+        "iterations": 0,
+        "evaluations": 1
+      }
+    },
+    {
+      "delta_samples": 0.5,
+      "maximum_doppler_hz": 0.0,
+      "paths": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          2.5,
+          0.0
+        ],
+        [
+          5.0,
+          0.0
+        ]
+      ],
+      "operator_nmse": 8.401034418158557e-16,
+      "optimizer": {
+        "success": true,
+        "status": 0,
+        "message": "CONVERGENCE: NORM OF PROJECTED GRADIENT <= PGTOL",
+        "iterations": 0,
+        "evaluations": 1
+      }
+    },
+    {
+      "delta_samples": 0.0,
+      "maximum_doppler_hz": 46875.0,
+      "paths": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          2.0,
+          46875.0
+        ],
+        [
+          5.0,
+          -46875.0
+        ]
+      ],
+      "operator_nmse": 0.0,
+      "optimizer": {
+        "success": true,
+        "status": 0,
+        "message": "CONVERGENCE: NORM OF PROJECTED GRADIENT <= PGTOL",
+        "iterations": 0,
+        "evaluations": 1
+      }
+    },
+    {
+      "delta_samples": 0.1,
+      "maximum_doppler_hz": 46875.0,
+      "paths": [
+        [
+          0.0,
+          1.7573334705474563e-08
+        ],
+        [
+          2.100000000077719,
+          46874.999999870575
+        ],
+        [
+          4.999999977087714,
+          -46874.99999999984
+        ]
+      ],
+      "operator_nmse": 0.0,
+      "optimizer": {
+        "success": true,
+        "status": 0,
+        "message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+        "iterations": 7,
+        "evaluations": 9
+      }
+    },
+    {
+      "delta_samples": 0.25,
+      "maximum_doppler_hz": 46875.0,
+      "paths": [
+        [
+          0.0,
+          5.828304491461693e-07
+        ],
+        [
+          2.2499999999324296,
+          46875.0
+        ],
+        [
+          5.0,
+          -46875.0
+        ]
+      ],
+      "operator_nmse": 0.0,
+      "optimizer": {
+        "success": true,
+        "status": 0,
+        "message": "CONVERGENCE: NORM OF PROJECTED GRADIENT <= PGTOL",
+        "iterations": 3,
+        "evaluations": 6
+      }
+    },
+    {
+      "delta_samples": 0.5,
+      "maximum_doppler_hz": 46875.0,
+      "paths": [
+        [
+          0.0,
+          -1.3693659812187775e-07
+        ],
+        [
+          2.5000001408936203,
+          46875.0
+        ],
+        [
+          4.999999999989098,
+          -46874.99999858348
+        ]
+      ],
+      "operator_nmse": 5.3280054874579584e-15,
+      "optimizer": {
+        "success": true,
+        "status": 0,
+        "message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+        "iterations": 2,
+        "evaluations": 4
+      }
+    }
+  ],
+  "dense_full_DD_self_gain_max_absolute_error": 3.3306690738754696e-16,
+  "analytic_atom_derivative_relative_error": 4.309743398784993e-10,
+  "direct_Fourier_sum_max_absolute_error": 3.5386703080215792e-12,
+  "preceding_slot_change_next_useful_max_absolute_error": 0.0,
+  "complete": true
+}

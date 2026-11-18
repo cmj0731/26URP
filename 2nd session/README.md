@@ -1545,7 +1545,7 @@ B-4의 4,096→1 Es에서는 오류 수가 41→864,467개, NMSE가 −51.116→
 
 [전체 결과표와 95% 구간](results/otfs_pilot_energy_2026_11_17/index.html),
 [BER·채널 NMSE 그래프](results/otfs_pilot_energy_2026_11_17/pilot_energy_sensitivity.png),
-수치 원본과 프레임 기록을 저장했다. 후속 guard region sensitivity는 아래처럼 완료했다. Channel-assumption sensitivity는 아직 실행하지 않았다.
+수치 원본과 프레임 기록을 저장했다. 후속 guard region sensitivity와 CP=5 fractional-delay sensitivity는 아래처럼 완료했다. 다른 channel assumptions 검증은 남아 있다.
 
 ### OTFS guard region sensitivity — 2026-11-17
 
@@ -1622,6 +1622,118 @@ Interference가 어느 delay/Doppler response에 들어오는지와 data placeme
 python -B run_otfs_guard_region.py --output data/otfs_guard_region_2026_11_17 --workers 8
 # 같은 실행을 이어갈 때 --resume 추가
 python -B plot_otfs_guard_region.py --run data/otfs_guard_region_2026_11_17 --output results/otfs_guard_region_2026_11_17
+```
+
+### OTFS fractional-delay sensitivity · CP=5 — 2026-11-18
+
+사용자는 CP를 **5 samples로 유지**하고 fractional delay를 먼저 검증하는 데 동의했다.
+Original W64 layout, one pilot의 energy **4,096 Es**, data **Es=1**, data **Eb/N0=15 dB**,
+기존 A·B-4 Doppler profiles와 path powers를 유지한다. Reflection 1만 다음처럼 바꾼다.
+
+| Delta (samples) | Physical path delays (samples) | Maximum excess delay (samples) | CP (samples) |
+| ---: | --- | ---: | ---: |
+| 0 | [0, 2, 5] | 5 | 5 |
+| 0.1 | [0, 2.1, 5] | 5 | 5 |
+| 0.25 | [0, 2.25, 5] | 5 | 5 |
+| 0.5 | [0, 2.5, 5] | 5 | 5 |
+
+**Continuous-time waveform choice:** 각 CP+useful slot을 기존 useful samples의 finite Fourier
+series로 정의한다. Signed FFT bins는 FFT 순서의 `[0..127, -128..-1]`이며 CP 구간에도 같은
+series를 연장하고 slot 밖에서는 해당 slot의 rectangular window를 적용한다. Serial generator는
+각 receive time에서 `t-delay`의 실제 source slot과 그 내부 위치를 선택한다. Finite frame 밖의
+waveform은 zero다. 추가 interpolation FIR·RF/matched filter나 whole-frame periodic extension은
+넣지 않았다. 이는 기존 ideal sampled-waveform model의 명시적 continuous-delay extension이다.
+
+Physical delays가 `[0, CP]`에 있으므로 모든 useful receive samples의 source time은 자기 slot의
+CP+useful 구간 안에 있다. 이 조건에서만 별도 useful-grid fractional operator의 circular interpolation
+identity를 사용한다. DD delay bins에 response가 퍼지는 현상과 CP가 부족해서 다른 slot이 들어오는
+현상을 구분한다. 이전 slot의 CP+useful signal 전체를 바꿔도 다음 useful slot의 출력이 변하지 않는지
+serial generator에서 직접 검사한다. 이 model에서 CP를 5보다 늘리지 않는다.
+
+**두 receiver를 같은 received samples에서 비교한다.** Original integer-delay receiver는 원래
+six candidate delays 0..5와 approximate-ML/joint-LS search를 유지한다. Continuous-delay receiver는
+같은 receive rows 128..133와 모든 64 Doppler bins, known path count P=3, public physical-delay
+bounds 0..5와 Doppler bounds ±46.875 kHz를 사용한다. Active delays·delta·Dopplers·gains는 알려주지 않는다.
+
+Continuous receiver의 초기 delay lattice는 모든 조건에서 0.25 sample 간격이다. Frequency 초기
+grid는 기존 quarter-frame-bin spacing과 ±46.875 kHz endpoints를 그대로 사용한다. Three-step
+sequential search와 ≤1 Hz scalar refinement 후 세 paths의 delays/frequencies를 bounded joint
+variable-projection L-BFGS-B로 추정하고 complex gains를 joint LS로 구한다. Normalized frequency
+coordinates는 `frequency * CP-inclusive frame duration`이며 analytic gradient를 사용한다.
+`maxiter=150, maxfun=3000, ftol=1e-14, gtol=1e-9`를 BER을 보기 전에 고정했다. 이는 local
+approximate ML이며 global optimum을 보장하지 않는다. Initial lattice가 actual delay를 포함하지 않는
+delta=0.1도 동일한 공개 search로 처리한다. Optimizer status는 모두 기록하고 실패 frame을 버리지 않는다.
+
+두 receiver 모두 기존 full-frame DD MMSE/Gray 16-QAM flow와 measured noise regularization을
+사용한다. Continuous estimated channel은 모든 fractional-delay coupling을 보존한 FFT operator로
+적용하며, exact nominal MMSE self-gain은 full dense local time matrix에서 계산한다. 같은 full DD
+normal equation의 CG solve와 original delay-row-mask unitary identity를 유지한다. Fractional response를
+six integer taps로 truncate하지 않는다.
+
+평가는 **full useful-channel operator의 Frobenius NMSE**를 사용한다. Integer delay일 때는 기존
+whole useful-tap NMSE와 같고, fractional delay에서도 모든 response spreading을 포함한다. True
+channel과 data/pilot decomposition은 evaluator 전용이다. 독립 labeled noiseless operator/solver
+unit control을 제외하고 BER receiver에 true channel이나 separated data를 주지 않는다. Data/noise/
+channel-gain/calibration draws와 exact bit quota/tail은 원래 실행과 동일하다. Delta=0의 original receiver는
+기존 frame별 error counts와 집계 confidence intervals를 재현해야 한다.
+
+**완료 결과:** 각 점 **10,485,760 bits, 214 frames**, 총 **16 result rows**를 측정했다.
+Delta=0의 original receiver는 기존 A 43개·B-4 41개 errors를 모든 frame별로 재현했으며,
+집계 confidence intervals도 같았다. 23개 numerical source hashes와 checkpoint 재집계,
+공개 support bounds, pilot-data leakage, MMSE convergence 검사를 통과했다.
+
+| Condition | Delta (samples) | Original receiver BER | Continuous-delay receiver BER | Original operator NMSE (dB) | Continuous operator NMSE (dB) |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| A | 0 | 4.10080e-6 | 4.29153e-6 | -50.510 | -48.640 |
+| A | 0.1 | 4.57764e-5 | 4.10080e-6 | -25.873 | -48.689 |
+| A | 0.25 | 0.00290880 | 4.95911e-6 | -18.144 | -48.607 |
+| A | 0.5 | 0.0251107 | 5.72205e-6 | -13.749 | -48.486 |
+| B-4 | 0 | 3.91006e-6 | 3.71933e-6 | -51.116 | -49.452 |
+| B-4 | 0.1 | 5.71251e-5 | 4.38690e-6 | -25.411 | -49.419 |
+| B-4 | 0.25 | 0.00376244 | 4.38690e-6 | -17.761 | -49.269 |
+| B-4 | 0.5 | 0.0267033 | 4.95911e-6 | -13.498 | -49.112 |
+
+B-4에서 delta=0.5의 original errors는 280,004개였고 continuous receiver는 52개였다.
+같은 received samples이므로 이 큰 차이는 receiver model을 함께 명시해야 해석할 수 있다.
+Fractional delay가 있다고 낮은 BER이 불가능한 것은 아니다. 현재 sparse three-path model에서는
+continuous-delay receiver가 `10^-6` 수준 BER을 유지했다. 따라서 integer-grid alignment만으로
+기존 OTFS/OFDM 전체 격차의 원인을 확정할 수 없다. Known P=3, fixed path gains/Dopplers,
+ideal waveform, original wide guard와 high pilot energy 등 나머지 조건의 영향은 계속 남아 있다.
+
+Delta=0에서도 continuous receiver는 delay를 추정할 수 있는 더 큰 parameter space를 쓰므로
+기존 receiver와 algorithm이 같지 않다. 작은 BER 차이만으로 우열·동등성이나 유의한 degradation을
+주장하지 않는다. BER interval은 기존 approximate CR1 frame-cluster 95% 방식으로 계산했다.
+이 실험은 CP-coverage model을 유지한 OTFS 내부 검증이며 실제 Starlink channel 측정이나 다른
+waveform과의 새 순위 비교가 아니다.
+
+기존 six receive rows의 data/pilot observation energy ratio는 B-4 delta=0.5에서 약 **0.005079%**,
+pilot energy capture는 약 **99.4087%**였다. Fractional spreading과 nonzero data interference는
+생겼지만 현재 W64/high-energy pilot 조건에서는 그 자체가 continuous receiver BER을 크게
+악화시키지 않았다. Interference를 정답 data로 제거한 결과가 아니다.
+
+독립 serial/Fourier/adjoint/pilot-template checks의 relative errors는 모두 `1e-10` 미만이었다.
+앞 slot을 바꿨을 때 다음 useful slot output의 최대 변화는 **0**으로 CP=5 coverage를 확인했다.
+Dense full-DD reference 대비 exact nominal self-gain 최대 차이는 약 `3.34e-16`, analytic atom
+derivative의 centered-difference relative error는 약 `4.31e-10`이었다. 전체 실행의 최대 CG iterations는
+26회, 최대 relative normal residual은 약 `9.99796e-9`였으며 continuous optimizer **1,712/1,712**개가
+success status로 끝났다. Noiseless unit controls에서는 8개 경우 모두 errors=0이었고, 해당 labeled
+operator/solver controls의 true-channel 입력을 실제 BER receiver에 사용하지 않았다.
+
+[BER·operator NMSE 그래프](results/otfs_fractional_delay_2026_11_18/fractional_delay_sensitivity.png),
+[pilot observations의 interference·energy capture](results/otfs_fractional_delay_2026_11_18/pilot_observation_sensitivity.png),
+[전체 결과표·95% frame intervals](results/otfs_fractional_delay_2026_11_18/index.html)를 저장했다.
+실행의 base snapshot은 이전 integer scenario를 그대로 보존하며 실제 fractional runtime interventions는
+`manifest.json`과 `variant_overrides.json`에 명시했다. 원시 frame 기록·결과·completion check는
+`data/otfs_fractional_delay_2026_11_18`에 있다.
+
+실행·검사·보고서 재생성:
+
+```powershell
+python -B check_otfs_fractional_delay.py --output data/ber_diagnostics/otfs_fractional_checks_2026_11_18.json
+python -B run_otfs_fractional_delay.py --output data/otfs_fractional_delay_2026_11_18 --workers 8
+# 같은 numerical source로 이어갈 때 --resume 추가
+python -B audit_otfs_fractional_delay.py --run data/otfs_fractional_delay_2026_11_18
+python -B plot_otfs_fractional_delay.py --run data/otfs_fractional_delay_2026_11_18 --output results/otfs_fractional_delay_2026_11_18
 ```
 
 ### OFDM BEM 추정 구간의 결정 과정 — 2026-11-04

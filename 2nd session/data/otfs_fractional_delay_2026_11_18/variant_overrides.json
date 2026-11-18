@@ -1,0 +1,70 @@
+{
+  "scope": "OTFS only; input snapshot is the original base, apply these explicit runtime interventions",
+  "CP_samples": 5,
+  "original_layout": "W64",
+  "pilot_count": 1,
+  "pilot_energy_Es": 4096,
+  "zero_cells": 4095,
+  "data_cells": 12288,
+  "data_Es": 1,
+  "data_Eb_N0_db": 15,
+  "physical_delay_variants": [
+    {
+      "delta_samples": 0.0,
+      "delays_samples": [
+        0,
+        2.0,
+        5
+      ]
+    },
+    {
+      "delta_samples": 0.1,
+      "delays_samples": [
+        0,
+        2.1,
+        5
+      ]
+    },
+    {
+      "delta_samples": 0.25,
+      "delays_samples": [
+        0,
+        2.25,
+        5
+      ]
+    },
+    {
+      "delta_samples": 0.5,
+      "delays_samples": [
+        0,
+        2.5,
+        5
+      ]
+    }
+  ],
+  "conditions": {
+    "A": {
+      "frequencies_hz": [
+        0,
+        0,
+        0
+      ]
+    },
+    "B-4": {
+      "frequencies_hz": [
+        0,
+        46875,
+        -46875
+      ]
+    }
+  },
+  "channel_model": "Delay only reflection 1 from 2 to 2+delta samples; retain LOS 0 and reflection 2 at 5, fixed path powers and continuous Dopplers. Source waveform: each CP+useful slot is a rectangular-window Fourier series with signed FFT bins [-128..127] in FFT order. Explicit source-slot evaluation at t-delay, zero outside finite frame. No interpolation FIR, added filter, global periodic frame or CP extension.",
+  "receivers": [
+    "original_integer_delay",
+    "continuous_delay"
+  ],
+  "public_receiver_information": "Same original six receive rows 128..133, all 64 Doppler bins, P=3, physical delay bound 0..5, fixed Doppler bound +/-46875 Hz. Original receiver uses six integer delay hypotheses. Continuous receiver uses 0.25-sample initialization lattice, same quarter-frame-bin frequency initialization and <=1-Hz scalar refinement, followed by bounded joint variable-projection L-BFGS-B over all 3 delays/frequencies with analytic gradient and joint complex-LS gains. Actual delta/delays/frequencies/gains are never receiver inputs.",
+  "unchanged_base_snapshot": "scenario_used.json",
+  "authoritative_runtime_manifest": "manifest.json",
+  "provenance": "Describes constants declared before execution in the hashed runner/model sources; no input is changed by this descriptive output."
+}
