@@ -1,0 +1,119 @@
+{
+  "complete": true,
+  "frames": 160,
+  "bits_per_point": 10485760,
+  "symbols_per_point": 2621440,
+  "verified_source_and_reference_hashes": 27,
+  "reference_BER_errors_match_every_frame": true,
+  "all_histograms_and_quantile_brackets_recounted": true,
+  "OFDM_DD_a_OFDM_identical_every_frame": true,
+  "dense_reference_max_relative_sinr_error": 1.3322676295501878e-15,
+  "max_detector_gain_error": 7.771561172376096e-16,
+  "max_mean_MSE_difference_within_frame": 3.469446951953614e-18,
+  "SINR_thresholds_db_exclusive": {
+    "OFDM": {
+      "16": {
+        "symbols": 98861,
+        "bit_errors": 1158,
+        "symbol_share": 0.037712478637695314,
+        "error_share": 0.5778443113772455
+      },
+      "17": {
+        "symbols": 232730,
+        "bit_errors": 1725,
+        "symbol_share": 0.08877944946289062,
+        "error_share": 0.8607784431137725
+      },
+      "18": {
+        "symbols": 407512,
+        "bit_errors": 1935,
+        "symbol_share": 0.1554534912109375,
+        "error_share": 0.9655688622754491
+      },
+      "19": {
+        "symbols": 655499,
+        "bit_errors": 1990,
+        "symbol_share": 0.25005302429199217,
+        "error_share": 0.9930139720558883
+      }
+    },
+    "AFDM": {
+      "16": {
+        "symbols": 0,
+        "bit_errors": 0,
+        "symbol_share": 0.0,
+        "error_share": 0.0
+      },
+      "17": {
+        "symbols": 0,
+        "bit_errors": 0,
+        "symbol_share": 0.0,
+        "error_share": 0.0
+      },
+      "18": {
+        "symbols": 0,
+        "bit_errors": 0,
+        "symbol_share": 0.0,
+        "error_share": 0.0
+      },
+      "19": {
+        "symbols": 0,
+        "bit_errors": 0,
+        "symbol_share": 0.0,
+        "error_share": 0.0
+      }
+    },
+    "OTFS": {
+      "16": {
+        "symbols": 0,
+        "bit_errors": 0,
+        "symbol_share": 0.0,
+        "error_share": 0.0
+      },
+      "17": {
+        "symbols": 0,
+        "bit_errors": 0,
+        "symbol_share": 0.0,
+        "error_share": 0.0
+      },
+      "18": {
+        "symbols": 0,
+        "bit_errors": 0,
+        "symbol_share": 0.0,
+        "error_share": 0.0
+      },
+      "19": {
+        "symbols": 0,
+        "bit_errors": 0,
+        "symbol_share": 0.0,
+        "error_share": 0.0
+      }
+    },
+    "DD-a-OFDM": {
+      "16": {
+        "symbols": 98861,
+        "bit_errors": 1158,
+        "symbol_share": 0.037712478637695314,
+        "error_share": 0.5778443113772455
+      },
+      "17": {
+        "symbols": 232730,
+        "bit_errors": 1725,
+        "symbol_share": 0.08877944946289062,
+        "error_share": 0.8607784431137725
+      },
+      "18": {
+        "symbols": 407512,
+        "bit_errors": 1935,
+        "symbol_share": 0.1554534912109375,
+        "error_share": 0.9655688622754491
+      },
+      "19": {
+        "symbols": 655499,
+        "bit_errors": 1990,
+        "symbol_share": 0.25005302429199217,
+        "error_share": 0.9930139720558883
+      }
+    }
+  }
+}

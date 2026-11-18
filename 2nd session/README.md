@@ -1919,6 +1919,54 @@ OFDM과 DD-a-OFDM의 transmit samples 및 decoded bits는 160 frames 모두 일�
 python -B run_pilot_free_perfect_csi.py --output data/pilot_free_perfect_csi_2026_11_18 --workers 8
 ```
 
+### Post-MMSE SINR and observed bit errors — 2026-11-18
+
+B-4, data Eb/N0=15 dB, CP=5 samples의 pilot-free Perfect CSI **160 frames**를 재현했다.
+각 방식의 **2,621,440 symbols, 10,485,760 bits**를 집계했다. Original measured-noise MMSE와
+gain-aware Gray detector로 복원한 뒤 16-QAM symbol당 4 bits의 실제 errors를 계산했다.
+
+`H`를 native useful-grid channel, `W`를 original MMSE filter, `B = W H`로 두었다.
+Symbol `i`의 post-MMSE SINR은 `Es |B_ii|² / (Es Σ_{j≠i}|B_ij|² + σ² (W Wᴴ)_ii)`다.
+Filter는 이전 실행과 같은 measured variance로 구성하고, SINR 평가에서는 실제 simulation
+AWGN variance를 `σ²`로 사용했다. Sparse time-domain inverse의 `K`와 `K²` 양을 각 native
+basis로 변환해 위 식을 계산했다. 작은 time-varying frame에서 직접 구성한 dense `W`와 비교한
+최대 relative SINR error는 `1.34e-15` 미만이었다. Full frame에서도 계산한 self-gain은
+실제 detector의 self-gain과 일치했다. 원래 bit errors를 모든 frame에서 재현했다.
+
+| Waveform | Linear-mean SINR (dB) | 1st percentile (dB) | 5th percentile (dB) | Total bit errors |
+| --- | ---: | ---: | ---: | ---: |
+| OFDM | 20.89 | 15.35 | 16.27 | 2,004 |
+| AFDM | 19.85 | 19.79 | 19.79 | 54 |
+| OTFS | 19.85 | 19.85 | 19.85 | 46 |
+| DD-a-OFDM | 20.89 | 15.35 | 16.27 | 2,004 |
+
+Mean은 linear SINR의 평균을 dB로 변환한 값이다. Percentiles는 0.02-dB histogram bin의
+중앙값으로 표시했다. 전체 raw MMSE symbol MSE 평균은 세 transform 모두 약 0.01024로 같았다.
+
+| SINR band (dB) | OFDM / DD-a-OFDM symbols per scheme | OFDM / DD-a-OFDM errors per scheme | AFDM errors | OTFS errors |
+| --- | ---: | ---: | ---: | ---: |
+| [15, 16) | 98,861 | 1,158 | 0 | 0 |
+| [16, 17) | 133,869 | 567 | 0 | 0 |
+| [17, 18) | 174,782 | 210 | 0 | 0 |
+| [18, 19) | 247,987 | 55 | 0 | 0 |
+| [19, 20) | 392,012 | 11 | 54 | 46 |
+| [20, 21) | 363,141 | 3 | 0 | 0 |
+| [21, 24) | 1,210,788 | 0 | 0 | 0 |
+
+AFDM과 OTFS는 각각 2,621,440 symbols 전부가 [19, 20) dB에 있었다. OFDM은 SINR이
+17 dB 미만인 232,730 symbols가 전체의 **8.88%**였고, 그 구간에서 **1,725/2,004 errors
+(86.08%)**가 발생했다. OFDM/OTFS BER 차이는 이 조건에서 OFDM의 낮은 SINR tail에 오류가
+집중된 결과와 일치한다. DD-a-OFDM은 같은 송신과 detection으로 OFDM과 전 frame에서 일치했다.
+
+[SINR CDF와 구간별 errors 그래프](results/post_mmse_sinr_2026_11_18/post_mmse_sinr.png),
+[각 SINR band의 symbols, errors, conditional BER](data/post_mmse_sinr_2026_11_18/results.json),
+[completion check](data/post_mmse_sinr_2026_11_18/completion_check.json)를 저장했다.
+
+```powershell
+python -B run_post_mmse_sinr.py --output data/post_mmse_sinr_2026_11_18 --workers 8
+python -B plot_post_mmse_sinr.py --run data/post_mmse_sinr_2026_11_18 --output results/post_mmse_sinr_2026_11_18/post_mmse_sinr.png
+```
+
 ### OFDM BEM 추정 구간의 결정 과정 — 2026-11-04
 
 **검토 중인 BEM 기반 LS의 채널 추정 구간을 한 프레임의 64개 OFDM 블록으로

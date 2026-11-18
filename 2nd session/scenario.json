@@ -1569,6 +1569,28 @@
       "run_directory": "data/pilot_free_perfect_csi_2026_11_18",
       "completion_check": "data/pilot_free_perfect_csi_2026_11_18/completion_check.json"
     },
+    "post_mmse_sinr_diagnostics": {
+      "status": "completed_validated_post_MMSE_SINR_diagnostics",
+      "decision_date_local": "2026-11-18",
+      "waveforms": [
+        "OFDM",
+        "AFDM",
+        "OTFS",
+        "DD-a-OFDM"
+      ],
+      "condition": "B-4",
+      "data_Eb_N0_db": 15,
+      "CP_samples": 5,
+      "reference_run": "data/pilot_free_perfect_csi_2026_11_18",
+      "completed_frames": 160,
+      "bits_per_point": 10485760,
+      "symbols_per_point": 2621440,
+      "SINR_rule": "Evaluate desired signal, residual symbol interference and filtered true AWGN variance. Reuse original measured-noise MMSE filter and reproduce all bit decisions for OFDM and DD-a-OFDM and all per-frame error counts for every waveform.",
+      "histogram_bin_size_db": 0.02,
+      "error_band_width_db": 1,
+      "run_directory": "data/post_mmse_sinr_2026_11_18",
+      "report_figure": "results/post_mmse_sinr_2026_11_18/post_mmse_sinr.png"
+    },
     "full_ber_execution": {
       "status": "initial_baseline_and_pilot_based_three_path_comparison_completed",
       "numerical_source_commit": "df32e74",
