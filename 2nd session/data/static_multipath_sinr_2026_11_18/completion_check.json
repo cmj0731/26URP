@@ -1,0 +1,14 @@
+{
+  "complete": true,
+  "A_B4_matched_frames": 160,
+  "bits_per_condition_waveform": 10485760,
+  "verified_source_hashes": 24,
+  "verified_reference_hashes": 6,
+  "frame_draw_reference_noise_equal": true,
+  "OFDM_DD_a_OFDM_equal_all_frames": true,
+  "all_histograms_quantiles_and_paired_BER_CIs_recounted": true,
+  "OFDM_max_relative_SINR_error_vs_static_closed_form": 7.993605777301127e-15,
+  "max_relative_SINR_error_vs_dense_reference": 1.3322676295501878e-15,
+  "max_operator_relative_error": 5.040068725165402e-16,
+  "max_relative_normal_residual": 9.995336386195268e-09
+}

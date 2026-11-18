@@ -1967,6 +1967,43 @@ python -B run_post_mmse_sinr.py --output data/post_mmse_sinr_2026_11_18 --worker
 python -B plot_post_mmse_sinr.py --run data/post_mmse_sinr_2026_11_18 --output results/post_mmse_sinr_2026_11_18/post_mmse_sinr.png
 ```
 
+### Effect of residual Doppler on pilot-free SINR and BER — 2026-11-18
+
+위 B-4 분석과 같은 160 frames에서 residual Doppler만 `[0, 0, 0]` Hz인 A로 바꿨다.
+두 조건에서 같은 data, path delays `[0, 2, 5]` samples, relative powers `[0, −10, −15]` dB,
+frame별 path phases, AWGN과 measured noise를 사용했다. A의 complex path gains는 frame 내에서
+고정된다. CP=5 samples, Eb/N0=15 dB, 256×64 all-data 16-QAM, true channel과 기존 MMSE/Gray
+detector를 두 조건에 적용했다. 각 조건·방식은 **2,621,440 symbols, 10,485,760 bits**다.
+
+| Waveform | A BER (errors) | B-4 BER (errors) | A P1 / P5 (dB) | B-4 P1 / P5 (dB) |
+| --- | ---: | ---: | ---: | ---: |
+| OFDM | 2.47574e-4 (2,596) | 1.91116e-4 (2,004) | 14.95 / 16.05 | 15.35 / 16.27 |
+| AFDM | 4.48227e-6 (47) | 5.14984e-6 (54) | 19.85 / 19.85 | 19.79 / 19.79 |
+| OTFS | 3.43323e-6 (36) | 4.38690e-6 (46) | 19.85 / 19.85 | 19.85 / 19.85 |
+| DD-a-OFDM | 2.47574e-4 (2,596) | 1.91116e-4 (2,004) | 14.95 / 16.05 | 15.35 / 16.27 |
+
+Percentiles는 0.02-dB histogram bin 중앙값이다. 17 dB 미만 OFDM symbols는 A에서
+**252,992개 (9.65%)**, B-4에서 **232,730개 (8.88%)**였고, 각각 전체 OFDM bit errors의
+**2,334/2,596 (89.9%)**, **1,725/2,004 (86.1%)**에 해당했다. AFDM과 OTFS는 두 조건
+모두 17 dB 미만 symbols가 없었다. DD-a-OFDM은 모든 frame의 송신 및 복원 bit가 OFDM과 일치했다.
+
+A에서 static multipath의 OFDM subcarrier 응답은 `H[k] = Σ_l h[l] exp(−j2πkl/N)`이다.
+OFDM MMSE SINR을 `Es |H[k]|² / σ²`로 별도 계산했고, 전체 symbol의 최대 relative error는
+약 `7.99e-15`였다. Delay가 다른 static multipath의 frequency-selective response만으로도
+낮은 SINR tail과 높은 BER이 나타났다. 이번 paired B-4에서 OFDM BER은 A보다 약 22.8% 낮았고,
+absolute difference `B-4 − A`의 95% frame-cluster CI는 `[−6.78e-5, −4.51e-5]`였다.
+AFDM과 OTFS의 paired BER difference intervals에는 0이 포함됐다. 이 비교는 선택한 relative Dopplers와
+channel profile에서의 결과다.
+
+[A와 B-4의 SINR CDF](results/static_multipath_sinr_2026_11_18/A_vs_B4.png),
+[paired BER과 SINR 비교](data/static_multipath_sinr_2026_11_18/comparison.json),
+[completion check](data/static_multipath_sinr_2026_11_18/completion_check.json)를 저장했다.
+
+```powershell
+python -B run_static_multipath_sinr.py --output data/static_multipath_sinr_2026_11_18 --workers 8
+python -B plot_static_multipath_sinr.py --static data/static_multipath_sinr_2026_11_18/results.json --b4 data/post_mmse_sinr_2026_11_18/results.json --output results/static_multipath_sinr_2026_11_18/A_vs_B4.png
+```
+
 ### OFDM BEM 추정 구간의 결정 과정 — 2026-11-04
 
 **검토 중인 BEM 기반 LS의 채널 추정 구간을 한 프레임의 64개 OFDM 블록으로

@@ -1591,6 +1591,30 @@
       "run_directory": "data/post_mmse_sinr_2026_11_18",
       "report_figure": "results/post_mmse_sinr_2026_11_18/post_mmse_sinr.png"
     },
+    "static_multipath_sinr_comparison": {
+      "status": "completed_validated_static_multipath_vs_B4_SINR_diagnostics",
+      "decision_date_local": "2026-11-18",
+      "waveforms": [
+        "OFDM",
+        "AFDM",
+        "OTFS",
+        "DD-a-OFDM"
+      ],
+      "conditions": [
+        "A",
+        "B-4"
+      ],
+      "data_Eb_N0_db": 15,
+      "CP_samples": 5,
+      "matched_frames": 160,
+      "bits_per_condition_waveform": 10485760,
+      "pilot_free_perfect_CSI": true,
+      "controls": "Pair the same data symbols, relative path phases and gains, path delays and powers, time-domain AWGN and measured noise. Replace only path Doppler from [0,+46875,-46875] Hz in B-4 to [0,0,0] Hz in A.",
+      "SINR_low_tail_threshold_db_exclusive": 17,
+      "comparison_reference": "data/post_mmse_sinr_2026_11_18",
+      "run_directory": "data/static_multipath_sinr_2026_11_18",
+      "report_figure": "results/static_multipath_sinr_2026_11_18/A_vs_B4.png"
+    },
     "full_ber_execution": {
       "status": "initial_baseline_and_pilot_based_three_path_comparison_completed",
       "numerical_source_commit": "df32e74",
